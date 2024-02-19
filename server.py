@@ -14,10 +14,12 @@ def home(path):
     return send_from_directory('client/public', path)
 
 
+@app.route("/start_recording")
+def start_recording():
 
-@app.route("/rand")
-def hello():
-    return str(random.randint(0, 100))
+
+
+    return "Recording started"
 
 if __name__ == "__main__":
     app.run(debug=True)
