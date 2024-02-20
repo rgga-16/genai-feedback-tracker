@@ -7,12 +7,15 @@
     let videoStream;
     let micStream;
     let settings;
-    let videoE1;
-    let micE1;
+
     let micBlobs=[];
+    let videoChunks = [];
 
     let videoRecorder;
     let micRecorder;
+
+    let videoPath;
+    let micPath; 
 
 
     async function startRecording() {
@@ -26,9 +29,14 @@
         videoRecorder = new MediaRecorder(videoStream, {mimeType: 'video/webm;codecs=vp9'});
         videoRecorder.addEventListener('dataavailable', event => {
             if (event.data.size > 0) {
-                videoE1.src = URL.createObjectURL(event.data);
-                console.log(URL.createObjectURL(event.data));
+                videoChunks.push(event.data);
+                // videoE1.src = URL.createObjectURL(event.data);
+                // console.log(URL.createObjectURL(event.data));
             }
+        });
+        videoRecorder.addEventListener('stop', () => {
+            // sendVideoToServer(videoChunks);
+            // videoChunks = [];
         });
 
         micStream = await navigator.mediaDevices.getUserMedia({audio: true});
@@ -36,29 +44,76 @@
         micRecorder.audioBlobs = [];
         micRecorder.addEventListener('dataavailable', event => {
             if (event.data.size > 0) {
-                micRecorder.audioBlobs.push(event.data);
                 micBlobs.push(event.data);
-                micE1.src = URL.createObjectURL(event.data);
-                console.log(URL.createObjectURL(event.data));
-                
+                // micE1.src = URL.createObjectURL(event.data);
             }
         });
         micRecorder.addEventListener('stop', () => {
-            downloadAudioRecording(micRecorder.audioBlobs);
-            micBlobs = [];
+            // sendAudioToServer(micBlobs);
+            // micBlobs = [];
         });
 
         videoRecorder.start();
         micRecorder.start();
     }
 
-    function downloadAudioRecording(micBlobs) {
-        const blob = new Blob(micBlobs, {type: 'audio/webm'});
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = 'audio.webm';
-        a.click();
+    async function sendAudioToServer(audioBlobs) {
+        const blob = new Blob(audioBlobs, {type: 'audio/webm'});
+        let data = new FormData();
+        data.append('audio', blob, 'audio.webm');
+        const response = await fetch('/download_mic', {
+            method: 'POST',
+            body: data,
+        });
+        if(!response.ok) {
+            micPath = null;
+            videoPath = null;
+            throw new Error('Failed to send audio to server');
+        } else {
+            const json = await response.json();
+            micPath = json["filepath"]
+        }
+        return micPath;
     }
+
+    async function sendVideoToServer(videoBlobs) {
+        const blob = new Blob(videoBlobs, {type: 'video/webm'});
+        let data = new FormData();
+        data.append('video', blob, 'video.webm');
+        const response = await fetch('/download_screen', {
+            method: 'POST',
+            body: data,
+        });
+        if(!response.ok) {
+            micPath = null;
+            videoPath = null;
+            throw new Error('Failed to send video to server');
+        } else {
+            const json = await response.json();
+            videoPath = json["filepath"]
+        }
+        return videoPath;
+    }
+
+    async function transcribeMic() {
+        const response = await fetch('/transcribe_mic', {
+            method: 'POST',
+            body: JSON.stringify({"audio": micPath}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if(!response.ok) {
+            throw new Error('Failed to transcribe audio');
+        } else {
+            const json = await response.json();
+            let transcript_path = json["transcript_path"];
+            let transcript_with_timestamps_path = json["transcript_with_timestamps_path"];
+            let transcript = json["transcript_with_timestamps"]
+            return transcript, transcript_path, transcript_with_timestamps_path;
+        }
+    }
+
 
     async function stopRecording() {
         is_recording=false;
@@ -67,7 +122,26 @@
         videoStream.getTracks().forEach(track => track.stop());
         micStream.getTracks().forEach(track => track.stop());
 
+        micRecorder.stop();
+        videoRecorder.stop();
+
         
+
+        videoPath = await sendVideoToServer(videoChunks);
+        videoChunks = [];
+
+        micPath = await sendAudioToServer(micBlobs);
+        micBlobs = [];
+        console.log('videoPath', videoPath);
+        console.log('micPath', micPath);
+        let newRecording = {video: videoPath, audio: micPath, transcription: null };
+        if(micPath && videoPath) {
+            let transcript, transcript_path, transcript_with_timestamps_path = await transcribeMic();
+            newRecording.transcription = transcript;
+        }
+        
+        recordings_list = [...recordings_list, newRecording];
+        console.log(recordings_list);
     }
 
     function pauseRecording() {
@@ -90,20 +164,26 @@
 <div class="container mx-auto relative py-4">
 
     <div id='captures-panel' class="container mx-auto">
-        <!-- {#if recordings_list.length > 0}
-
+        {#if recordings_list.length > 0}
+            {#each recordings_list as recording, i}
+                <div class="container mx-auto block">
+                    <p class="dark:text-gray-400">Recording {i+1}</p>
+                    <div class="container mx-auto">
+                        <!-- BUG: micPath and videoPath are incorrect.  -->
+                        {#if recording.video}
+                            <video src={recording.video} controls></video>
+                        {/if}
+                        {#if recording.audio}
+                            <audio src={recording.audio} controls></audio>
+                        {/if}
+                    </div>
+                </div>
+                
+            {/each}
         {:else}
             <p class="text-sm dark:text-gray-400">No captures made yet.</p>
             
-        {/if} -->
-    </div>
-
-    <div class="container mx-auto">
-        <video bind:this={videoE1} controls autoplay ></video>
-    </div>
-
-    <div class = "container mx-auto">
-        <audio bind:this={micE1} controls autoplay></audio>
+        {/if}
     </div>
 
     <div id='action-panel' class="container  block mx-auto">
@@ -116,10 +196,41 @@
         {/if} -->
         <button class="dark:text-gray-400" on:click={() => stopRecording()} disabled={!is_recording && !is_paused}>Stop</button>
     </div>
-    {#if settings}
-        <pre>{JSON.stringify(settings,null,2)}</pre>
-    {/if}
 
-
-    
 </div>
+
+<style>
+    #captures-panel {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    #action-panel {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    video {
+        height: 15%;
+        max-height: 200px;
+        width: auto;
+    }
+    audio {
+        width: 100%;
+        height: auto;
+    }
+    .container {
+        max-width: 100%;
+    }
+    .block {
+        display: block;
+    }
+    .dark\:text-gray-400 {
+        --text-opacity: 1;
+        color: #cbd5e0;
+        color: rgba(203,213,224,var(--text-opacity));
+    }
+
+</style>
