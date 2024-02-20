@@ -1,5 +1,14 @@
-from flask import Flask, send_from_directory
+from flask import Flask, send_from_directory, request
 import random
+import os, base64, shutil
+
+from datetime import datetime
+
+from utils import makedir, emptydir
+from transcribe import transcription_procedure, read_transcript
+
+CWD = os.getcwd()
+RECORD_I = 0
 
 app = Flask(__name__)
 
@@ -13,13 +22,57 @@ def base():
 def home(path):
     return send_from_directory('client/public', path)
 
+@app.route("/download_screen",methods=["POST"])
+def download_screen_recording():
+    global RECORD_I
+    video = request.files["video"]
+    if video:
+        filename = "screen.webm"
+        recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}"); makedir(recording_dir)
+        filepath = os.path.join(recording_dir, filename); video.save(filepath) 
+        return {"message": "Screen recording saved", "filepath": filepath}
+    return {"message": "Screen recording not saved"}
 
-@app.route("/start_recording")
-def start_recording():
+@app.route("/transcribe_mic", methods=["POST"])
+def transcribe_mic_recording():
+    form_data = request.get_json(); mic_path = form_data["audio"]
+    if not mic_path:
+        return {"message": "No audio file found"}
+    
+    transcript_path, transcript_with_timestamps_path = transcription_procedure(mic_path)
+    transcript_with_timestamps = read_transcript(transcript_with_timestamps_path)
+    
+    return {"message": "Transcription complete", 
+            "transcript_path": transcript_path, 
+            "transcript_with_timestamps_path": transcript_with_timestamps_path,
+            "transcript_with_timestamps": transcript_with_timestamps }
 
-
-
-    return "Recording started"
+@app.route("/download_mic", methods=["POST"])
+def download_mic_recording():
+    global RECORD_I 
+    files = request.files
+    if "audio" not in files:
+        return "No audio part", 400
+    audio = request.files["audio"]  
+    if audio:
+        filename = "mic.webm"
+        recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}"); makedir(recording_dir)
+        filepath = os.path.join(recording_dir, filename); audio.save(filepath)
+        return {"message": "Mic recording saved", "filepath": filepath}
+    return {"message": "Mic recording not saved"}
 
 if __name__ == "__main__":
+    
+    
+    HISTORY_DIR = os.path.join(CWD, "data_history"); makedir(HISTORY_DIR)
+    DATA_DIR = os.path.join(CWD, "data"); makedir(DATA_DIR)
+
+    if os.path.exists(DATA_DIR) and os.listdir(DATA_DIR):
+        src_dir = DATA_DIR
+        current_date = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+        dest_dir = os.path.join(HISTORY_DIR, f"[{current_date}] data")
+        shutil.copytree(src_dir, dest_dir)
+        emptydir(src_dir, delete_dirs=True)
+
+    
     app.run(debug=True)
