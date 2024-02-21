@@ -114,7 +114,9 @@
     }
 
     async function sendVideoToServer(videoBlobs) {
+
         const vidblob = new Blob(videoBlobs, {type: 'video/webm'});
+        // BUG: videoBlobs is empty.
         console.log("video blobs", {videoBlobs, vidblob});
         let data = new FormData();
         data.append('file', vidblob, 'video.webm');
