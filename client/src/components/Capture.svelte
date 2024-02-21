@@ -17,21 +17,52 @@
     let videoPath;
     let micPath; 
 
+    async function fetchAudio(audio_path) {
+        try {   
+            const response = await fetch("/fetch_audio", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    "audio_path": audio_path,
+                }),
+            });
+            const blob = await response.blob();
+            let audio_source = URL.createObjectURL(blob);
+            return audio_source;
+        } catch (error) {
+            console.error(error);
+        } 
+    }
+
+    async function fetchVideo(video_path) {
+        try {   
+            const response = await fetch("/fetch_video", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    "path": video_path,
+                }),
+            });
+            const blob = await response.blob();
+            let video_source = URL.createObjectURL(blob);
+            return video_source;
+        } catch (error) {
+            console.error(error);
+        } 
+    }
 
     async function startRecording() {
         is_recording = true;
-
         videoStream = await navigator.mediaDevices.getDisplayMedia({
             video: {frameRate:60},
             //@ts-ignore
             selfBrowserSurface:'include',
         })
-        videoRecorder = new MediaRecorder(videoStream, {mimeType: 'video/webm;codecs=vp9'});
+        videoRecorder = new MediaRecorder(videoStream, {mimeType: 'video/webm'});
+        videoRecorder.videoChunks = [];
         videoRecorder.addEventListener('dataavailable', event => {
             if (event.data.size > 0) {
                 videoChunks.push(event.data);
-                // videoE1.src = URL.createObjectURL(event.data);
-                // console.log(URL.createObjectURL(event.data));
             }
         });
         videoRecorder.addEventListener('stop', () => {
@@ -45,20 +76,19 @@
         micRecorder.addEventListener('dataavailable', event => {
             if (event.data.size > 0) {
                 micBlobs.push(event.data);
-                // micE1.src = URL.createObjectURL(event.data);
             }
         });
         micRecorder.addEventListener('stop', () => {
             // sendAudioToServer(micBlobs);
             // micBlobs = [];
         });
-
         videoRecorder.start();
         micRecorder.start();
     }
 
     async function sendAudioToServer(audioBlobs) {
         const blob = new Blob(audioBlobs, {type: 'audio/webm'});
+        console.log("audio blobs", {audioBlobs, blob})
         let data = new FormData();
         data.append('audio', blob, 'audio.webm');
         const response = await fetch('/download_mic', {
@@ -71,15 +101,23 @@
             throw new Error('Failed to send audio to server');
         } else {
             const json = await response.json();
-            micPath = json["filepath"]
+            micPath = json["filepath"];
         }
         return micPath;
     }
 
-    async function sendVideoToServer(videoBlobs) {
-        const blob = new Blob(videoBlobs, {type: 'video/webm'});
+    async function downloadVideo(vidChunks) {
+        const blob = new Blob(vidChunks, {type: 'video/webm'});
+        console.log("video blobs", {vidChunks, blob});
         let data = new FormData();
-        data.append('video', blob, 'video.webm');
+        data.append('file', blob, 'video.webm');
+    }
+
+    async function sendVideoToServer(videoBlobs) {
+        const vidblob = new Blob(videoBlobs, {type: 'video/webm'});
+        console.log("video blobs", {videoBlobs, vidblob});
+        let data = new FormData();
+        data.append('file', vidblob, 'video.webm');
         const response = await fetch('/download_screen', {
             method: 'POST',
             body: data,
@@ -90,12 +128,12 @@
             throw new Error('Failed to send video to server');
         } else {
             const json = await response.json();
-            videoPath = json["filepath"]
+            videoPath = json["filepath"];
         }
         return videoPath;
     }
 
-    async function transcribeMic() {
+    async function transcribeMic(micPath) {
         const response = await fetch('/transcribe_mic', {
             method: 'POST',
             body: JSON.stringify({"audio": micPath}),
@@ -107,10 +145,11 @@
             throw new Error('Failed to transcribe audio');
         } else {
             const json = await response.json();
-            let transcript_path = json["transcript_path"];
-            let transcript_with_timestamps_path = json["transcript_with_timestamps_path"];
-            let transcript = json["transcript_with_timestamps"]
-            return transcript, transcript_path, transcript_with_timestamps_path;
+            let transcript = json["transcript"]
+            // let transcript_path = json["transcript_path"];
+            // let transcript_with_timestamps_path = json["transcript_with_timestamps_path"];
+            
+            return transcript
         }
     }
 
@@ -125,23 +164,23 @@
         micRecorder.stop();
         videoRecorder.stop();
 
+        console.log("videoChunks", videoChunks);
         
-
-        videoPath = await sendVideoToServer(videoChunks);
+        videoPath = await sendVideoToServer(videoChunks); 
         videoChunks = [];
-
-        micPath = await sendAudioToServer(micBlobs);
-        micBlobs = [];
-        console.log('videoPath', videoPath);
-        console.log('micPath', micPath);
-        let newRecording = {video: videoPath, audio: micPath, transcription: null };
-        if(micPath && videoPath) {
-            let transcript, transcript_path, transcript_with_timestamps_path = await transcribeMic();
-            newRecording.transcription = transcript;
-        }
+        let videoSrc = await fetchVideo(videoPath);
         
+        micPath = await sendAudioToServer(micBlobs); 
+        micBlobs = [];
+        let micSrc = await fetchAudio(micPath);
+
+        let transcript = await transcribeMic(micPath);
+
+        
+        
+        let newRecording = {video: videoSrc, audio: micSrc, transcription: transcript};
+
         recordings_list = [...recordings_list, newRecording];
-        console.log(recordings_list);
     }
 
     function pauseRecording() {
@@ -156,18 +195,15 @@
         is_paused=false;
     }
 
-
-
 </script>
 
 
 <div class="container mx-auto relative py-4">
-
     <div id='captures-panel' class="container mx-auto">
         {#if recordings_list.length > 0}
             {#each recordings_list as recording, i}
                 <div class="container mx-auto block">
-                    <p class="dark:text-gray-400">Recording {i+1}</p>
+                    <span class="dark:text-gray-400">Recording {i+1}</span>
                     <div class="container mx-auto">
                         <!-- BUG: micPath and videoPath are incorrect.  -->
                         {#if recording.video}
@@ -177,12 +213,13 @@
                             <audio src={recording.audio} controls></audio>
                         {/if}
                     </div>
+                    {#if recording.transcription}
+                        <p class="dark:text-gray-400">{recording.transcription}</p>
+                    {/if}
                 </div>
-                
             {/each}
         {:else}
             <p class="text-sm dark:text-gray-400">No captures made yet.</p>
-            
         {/if}
     </div>
 
@@ -217,10 +254,6 @@
         max-height: 200px;
         width: auto;
     }
-    audio {
-        width: 100%;
-        height: auto;
-    }
     .container {
         max-width: 100%;
     }
@@ -232,5 +265,4 @@
         color: #cbd5e0;
         color: rgba(203,213,224,var(--text-opacity));
     }
-
 </style>
