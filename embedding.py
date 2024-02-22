@@ -1,0 +1,99 @@
+import openai
+import re, codecs
+import pandas as pd
+
+
+EMBEDDING_MODEL = "text-embedding-3-small"
+
+def extract_lines_from_srt(file_path, diarized=True):
+    with codecs.open(file_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+    pattern = re.compile(r'(\d+)\n(\d{2}:\d{2}:\d{2},\d{3}) --> (\d{2}:\d{2}:\d{2},\d{3})\n(.+?): (.+?)(?=\n\n\d+|\Z)', re.DOTALL)
+    matches = pattern.findall(content)
+    result = []
+    for match in matches:
+        result.append({
+            'start_timestamp': match[1],
+            'end_timestamp': match[2],
+            'speaker': match[3],
+            'dialogue': match[4].replace('\n', ' ')
+        })
+    return result
+
+def simplify_dialogues(dialogues):
+    simplified = []
+    for dialogue in dialogues:
+        if simplified and simplified[-1]['speaker'] == dialogue['speaker']:
+            # If the speaker is the same as the previous one, update the end timestamp and append the dialogue
+            simplified[-1]['end_timestamp'] = dialogue['end_timestamp']
+            simplified[-1]['dialogue'] += ' ' + dialogue['dialogue']
+        else:
+            # If the speaker is different, append the current dialogue to the result list
+            simplified.append(dialogue)
+    return simplified
+
+def convert_to_srt_string(dialogues):
+    srt_format = ''
+    for i, dialogue in enumerate(dialogues, start=1):
+        if "speaker" in dialogue:
+            srt_format += f"{i}\n{dialogue['start_timestamp']} --> {dialogue['end_timestamp']}\n{dialogue['speaker']}: {dialogue['dialogue']}\n\n"
+        else:
+            srt_format += f"{i}\n{dialogue['start_timestamp']} --> {dialogue['end_timestamp']}\n{dialogue['dialogue']}\n\n"
+    return srt_format[:-2] # Remove the last two newlines
+
+def divide_into_chunks(transcript_title, dialogues, max_chunk_size=512):
+    chunks = []
+    chunk = ''
+    for dialogue in dialogues:
+        # Add the dialogue to the chunk
+        if "speaker" in dialogue:
+            string = f"{transcript_title} - {dialogue['start_timestamp']} --> {dialogue['end_timestamp']}\n{dialogue['speaker']}: {dialogue['dialogue']}\n"
+        else:
+            string = f"{transcript_title} - {dialogue['start_timestamp']} --> {dialogue['end_timestamp']}\n{dialogue['dialogue']}\n"
+        
+        new_chunk = chunk + string if chunk else string 
+
+        #if the new chunk exceeds max chunk size, add the current chunk to the chunks list and start a new chunk
+        if len(new_chunk) > max_chunk_size:
+            chunks.append(chunk)
+            chunk = string
+        else:
+            chunk = new_chunk
+    # Add the last chunk if it's not empty
+    if chunk:
+        chunks.append(chunk)
+    return chunks
+
+def convert_to_embedding(text, model_name=EMBEDDING_MODEL):
+
+    response = openai.embeddings.create(
+        input=text,
+        model=model_name
+    )
+    for i, be in enumerate(response.data):
+        assert i == be.index # double check embeddings are in same order as input
+    embedding = [be.embedding for be in response.data]
+    return embedding
+
+
+if __name__ == '__main__':
+    dialogues = extract_lines_from_srt('sample_recording/whisper_diarization/audio1751904076.srt')
+    simplified_dialogues = dialogues
+    if "speaker" in dialogues[0]:
+        simplified_dialogues = simplify_dialogues(dialogues)
+    srt = convert_to_srt_string(simplified_dialogues)
+
+    text_chunks = divide_into_chunks("Transcript 1",simplified_dialogues)
+
+    embeddings = []
+    for chunk in text_chunks:
+        embeddings.extend(convert_to_embedding(chunk))
+    
+    df = pd.DataFrame({
+        'text': text_chunks,
+        'embedding': embeddings
+    })
+
+    print(df.head())
+
+    pass
