@@ -1,0 +1,6128 @@
+1
+00:00:00,000 --> 00:00:22,000
+So first of all, thank you for giving your time to be consulted.
+
+2
+00:00:22,000 --> 00:00:27,000
+Oh, by the way po, can you disregard the dual setup here?
+
+3
+00:00:27,000 --> 00:00:30,000
+Yung computer po dito, wala po siyang webcam.
+
+4
+00:00:30,000 --> 00:00:33,000
+So I have a separate profile here.
+
+5
+00:00:33,000 --> 00:00:44,000
+So the purpose of this session is for me to present to you a prototype that uses AI to help designers with their design.
+
+6
+00:00:44,000 --> 00:00:47,000
+I'll explain the prototype in detail po.
+
+7
+00:00:47,000 --> 00:01:07,000
+But also, not only I'll be presenting this prototype, you'll have the opportunity to try this out for yourself and for you to give feedback on the prototype in order to improve it and make it more useful for you as a designer.
+
+8
+00:01:07,000 --> 00:01:11,000
+So with that said, I encourage you to be honest and constructive.
+
+9
+00:01:11,000 --> 00:01:14,000
+You could say anything that comes into mind.
+
+10
+00:01:14,000 --> 00:01:28,000
+Please also feel free to ask questions about the prototype and feel free to make any suggestions that would improve it and make it more useful for you as an industrial or interior designer.
+
+11
+00:01:28,000 --> 00:01:32,000
+Okay, so I'll be sharing my screen po.
+
+12
+00:01:32,000 --> 00:01:35,000
+Okay, so can you see my screen here?
+
+13
+00:01:35,000 --> 00:01:37,000
+Yeah, I can see it.
+
+14
+00:01:37,000 --> 00:01:56,000
+So let's say you're in a design session and you're designing let's say a residential space like a bedroom or furniture for a bedroom and you're showing a 3D rendering in the center here to let's say to your other co-designers or to your client.
+
+15
+00:01:56,000 --> 00:02:04,000
+And one of their suggestions is to change the material or color of a part of furniture or part of the bedroom here.
+
+16
+00:02:04,000 --> 00:02:12,000
+So this is a prototype that allows you to change materials in a 3D rendering.
+
+17
+00:02:12,000 --> 00:02:18,000
+It could suggest materials and it could also provide feedback on the materials used.
+
+18
+00:02:18,000 --> 00:02:23,000
+So here in the center is the current 3D rendering of the room.
+
+19
+00:02:23,000 --> 00:02:27,000
+Below here po, you could see the list of saved renderings.
+
+20
+00:02:27,000 --> 00:02:30,000
+So you could save this and add it to the list.
+
+21
+00:02:30,000 --> 00:02:33,000
+You can also load it here.
+
+22
+00:02:33,000 --> 00:02:38,000
+On the right, you'll see here's the rendering information.
+
+23
+00:02:38,000 --> 00:02:43,000
+It shows all the materials used for each part of an object.
+
+24
+00:02:43,000 --> 00:02:51,000
+For example, let's say for a bed, it shows what each part is made of like the bed frame or the blanket.
+
+25
+00:02:51,000 --> 00:02:58,000
+And you could switch with the different objects in the room so you can see what materials they're currently made of.
+
+26
+00:02:58,000 --> 00:03:04,000
+So I'll explain to you three different functions that this prototype can do.
+
+27
+00:03:04,000 --> 00:03:10,000
+First, if you look at the left, so here at the left, I'm showing you the generate tab.
+
+28
+00:03:10,000 --> 00:03:15,000
+So this system first could create image textures on the spot.
+
+29
+00:03:15,000 --> 00:03:21,000
+So you can type a name of material like let's say oak wood.
+
+30
+00:03:22,000 --> 00:03:34,000
+And if I press the generate button, it uses artificial intelligence to create the image of the material that you typed in here.
+
+31
+00:03:34,000 --> 00:03:38,000
+So it takes some time po first.
+
+32
+00:03:39,000 --> 00:03:51,000
+So after that, it will show four candidates of the image of oak wood that is a texture map po.
+
+33
+00:03:51,000 --> 00:03:59,000
+And you could continue regenerating the material by pressing this again and it'll keep on refreshing po.
+
+34
+00:04:00,000 --> 00:04:13,000
+So kapag pinipindot siya kahit ito, for example, itong oak wood, different contents pa rin yung makikita ko kahit pinipindot lang ako na pinipindot ng generate material?
+
+35
+00:04:15,000 --> 00:04:17,000
+Or mag-iato, mag-iiba siya?
+
+36
+00:04:17,000 --> 00:04:19,000
+Mag-iiba po yung images po.
+
+37
+00:04:19,000 --> 00:04:29,000
+So for, do you have any comments po or any questions in mind regarding this?
+
+38
+00:04:30,000 --> 00:04:40,000
+Siguro in terms of, ako kasi, pag nag-render ako ng wood, very particular ako sa parang sa graining, sa itsura ng graining.
+
+39
+00:04:40,000 --> 00:04:51,000
+Kasi parang ako personally as a designer, mas prefer ko na parang mas accurate or mas, I'm curious lang din kung pag pinipindot ko ba to, yung scaling?
+
+40
+00:04:52,000 --> 00:04:55,000
+Or baka mamaya mo pa ba ipapakita?
+
+41
+00:04:55,000 --> 00:05:06,000
+So kapag pinipindot, for example, yung isang texture na ito, mag-automatic scaling ba siya dun sa parang specific model sa tree?
+
+42
+00:05:06,000 --> 00:05:10,000
+For example, yung back of the bed frame, parang ganyan?
+
+43
+00:05:10,000 --> 00:05:13,000
+As of now, hindi po siya automatic.
+
+44
+00:05:13,000 --> 00:05:19,000
+There's a later stage po where you're the designer, may setting po siya where you could adjust the scaling po.
+
+45
+00:05:19,000 --> 00:05:21,000
+Makikita po yung mamaya.
+
+46
+00:05:21,000 --> 00:05:23,000
+Okay.
+
+47
+00:05:23,000 --> 00:05:27,000
+Okay, so let's say you found something that you're looking for po.
+
+48
+00:05:27,000 --> 00:05:38,000
+And you can click up to four and then when you proceed, you could select which parts of the bedroom you want to apply the material onto.
+
+49
+00:05:38,000 --> 00:05:50,000
+So let's say, for example, if you want to change the bed frame to oak or make the floor oak, you have to click on the tabs here.
+
+50
+00:05:50,000 --> 00:06:05,000
+And then when you apply the textures, malalabas po yung rendering, parang temporary rendering with the material applied po.
+
+51
+00:06:05,000 --> 00:06:08,000
+Hindi po halata yung difference, but if you look up the bed frame.
+
+52
+00:06:08,000 --> 00:06:10,000
+Sa baba o yung framing ng bed.
+
+53
+00:06:10,000 --> 00:06:15,000
+Pati yung floor po na iba po since I chose also the floor.
+
+54
+00:06:15,000 --> 00:06:20,000
+And at the same time, you could also view the texture.
+
+55
+00:06:20,000 --> 00:06:26,000
+But you could go back and you could, I'm just showing you if you want to apply different textures po.
+
+56
+00:06:26,000 --> 00:06:30,000
+So let's say you want to apply these three, you could do it again.
+
+57
+00:06:30,000 --> 00:06:36,000
+Tapos malalabas po yung three renderings, each with those textures applied.
+
+58
+00:06:36,000 --> 00:06:45,000
+So you could see what each rendering looks like with the textures na pinili niyo po.
+
+59
+00:06:45,000 --> 00:06:48,000
+So for example, here.
+
+60
+00:06:48,000 --> 00:06:53,000
+And it's applied on the parts that you selected here.
+
+61
+00:06:53,000 --> 00:06:55,000
+So you could also add more.
+
+62
+00:06:55,000 --> 00:06:58,000
+You could also choose to add different parts here.
+
+63
+00:06:58,000 --> 00:07:00,000
+And maiiba po siya.
+
+64
+00:07:00,000 --> 00:07:03,000
+Yung wall panels, yan po yun.
+
+65
+00:07:03,000 --> 00:07:10,000
+So you can apply it again.
+
+66
+00:07:10,000 --> 00:07:19,000
+So parang pwede kung lumabas na four textures ng wood, pwede ko siyang iselec ng sabay-sabay.
+
+67
+00:07:20,000 --> 00:07:28,000
+And then makikita ko na dito sa view yung anong itsura na kapag na render siya on each of the wood.
+
+68
+00:07:28,000 --> 00:07:30,000
+Yes po, currently.
+
+69
+00:07:30,000 --> 00:07:39,000
+Tapos regarding your question about scaling, after this, you can only choose one to refine.
+
+70
+00:07:39,000 --> 00:07:41,000
+Tapos sa susunod na stage po, you could.
+
+71
+00:07:41,000 --> 00:07:44,000
+So here, ito po yung refinement stage.
+
+72
+00:07:45,000 --> 00:07:49,000
+So here, in the last step, you could add a finish.
+
+73
+00:07:49,000 --> 00:07:54,000
+You could add a color finish to the texture.
+
+74
+00:07:54,000 --> 00:07:56,000
+And you could also adjust the texture map.
+
+75
+00:07:56,000 --> 00:08:02,000
+So here po, you could change the scaling and also the rotation po.
+
+76
+00:08:02,000 --> 00:08:08,000
+And also the location based on x, y, and the rotation po here.
+
+77
+00:08:08,000 --> 00:08:14,000
+So for example, let's say with the floor.
+
+78
+00:08:14,000 --> 00:08:17,000
+What are your thoughts upon the scaling?
+
+79
+00:08:17,000 --> 00:08:20,000
+Would it be better kung mas maliliit po yung grain?
+
+80
+00:08:20,000 --> 00:08:22,000
+Or dapat mas malikip po?
+
+81
+00:08:22,000 --> 00:08:26,000
+Siguro I think, based na na kita ka dito sa zoom screen na,
+
+82
+00:08:26,000 --> 00:08:33,000
+siguro mas abit, mas maliit, mas small pa siguro ng kaunti yung scaling na.
+
+83
+00:08:33,000 --> 00:08:34,000
+Okay.
+
+84
+00:08:34,000 --> 00:08:41,000
+So in order to do that, my drop down here, it shows the objects po with the material applied.
+
+85
+00:08:41,000 --> 00:08:44,000
+And then you could select the different part.
+
+86
+00:08:44,000 --> 00:08:46,000
+Yung sa floor, roll lang po siya.
+
+87
+00:08:46,000 --> 00:08:51,000
+But let's say for a bed, you have to choose between bed frame or bed board.
+
+88
+00:08:51,000 --> 00:08:53,000
+But for now, yung bed frame lang po yung napili.
+
+89
+00:08:53,000 --> 00:08:56,000
+Kaya isang option lang po yung lumabas.
+
+90
+00:08:56,000 --> 00:09:02,000
+So with the scale, with this, if you want to make it smaller,
+
+91
+00:09:02,000 --> 00:09:06,000
+ilangan nyo po i-increase yung scale.
+
+92
+00:09:06,000 --> 00:09:11,000
+Pero yeah, it's still medyo bagi po siya.
+
+93
+00:09:11,000 --> 00:09:15,000
+Kasi if you want the scale to be smaller, dapat i-decrease nyo po yung scale.
+
+94
+00:09:15,000 --> 00:09:17,000
+So that will be fixed later.
+
+95
+00:09:17,000 --> 00:09:23,000
+Pero for now, this is what you do to make the grain smaller in scale.
+
+96
+00:09:23,000 --> 00:09:29,000
+So you can do it by X and Y or X if you want to make it like thinner or Y.
+
+97
+00:09:29,000 --> 00:09:31,000
+Parang ganun po.
+
+98
+00:09:31,000 --> 00:09:39,000
+So yung the larger the number, parang kapag nag-increase yung unit,
+
+99
+00:09:39,000 --> 00:09:42,000
+like for example kanina nasa 1.0 siya.
+
+100
+00:09:42,000 --> 00:09:46,000
+Pag nanito na sa 3.0, mas lumiliit siya? Tama po?
+
+101
+00:09:46,000 --> 00:09:49,000
+No, no, no. Tama po.
+
+102
+00:09:49,000 --> 00:09:54,000
+Pero currently, parang hindi siya intuitive.
+
+103
+00:09:54,000 --> 00:09:59,000
+Siguro po as a user, kung iniisip nyo po na mas maliit yung number,
+
+104
+00:09:59,000 --> 00:10:02,000
+dapat lumitin po yung grain.
+
+105
+00:10:02,000 --> 00:10:05,000
+So this is just on my end po.
+
+106
+00:10:05,000 --> 00:10:09,000
+So currently, that's how you make the grain smaller.
+
+107
+00:10:09,000 --> 00:10:13,000
+So ito po yung adjusting the texture here.
+
+108
+00:10:13,000 --> 00:10:16,000
+Tapos you could adjust the rotation.
+
+109
+00:10:16,000 --> 00:10:19,000
+I'm not sure kung halata po dito sa floor.
+
+110
+00:10:19,000 --> 00:10:25,000
+So let's say you want to adjust the wall panel dito sa may shelf here.
+
+111
+00:10:25,000 --> 00:10:31,000
+You could rotate it from 0 until 360 the degrees.
+
+112
+00:10:31,000 --> 00:10:34,000
+Oh, natin ay kita ko naman siya.
+
+113
+00:10:34,000 --> 00:10:38,000
+Pero pwedeng iano?
+
+114
+00:10:38,000 --> 00:10:42,000
+For example, parang kailangan ba siya, pano mo siya kiniklik?
+
+115
+00:10:42,000 --> 00:10:45,000
+Parang ini-scroll ba siya? Or pwedeng mag-input ng number?
+
+116
+00:10:45,000 --> 00:10:47,000
+You can input a number.
+
+117
+00:10:47,000 --> 00:10:52,000
+Yung ginagawa ko po ngayon, I just drag the value, but you can click here.
+
+118
+00:10:52,000 --> 00:10:56,000
+So let's say if you want the specific value like 319.
+
+119
+00:10:56,000 --> 00:10:59,000
+Ay, wait. Ay mali po yun.
+
+120
+00:10:59,000 --> 00:11:01,000
+Pero yes, you could type the number.
+
+121
+00:11:01,000 --> 00:11:04,000
+Pero right now, I think it rounds to the nearest value.
+
+122
+00:11:04,000 --> 00:11:07,000
+And then when you apply it.
+
+123
+00:11:07,000 --> 00:11:10,000
+Hindi ko po siya kung halata.
+
+124
+00:11:10,000 --> 00:11:14,000
+What are your thoughts po on the previous screen?
+
+125
+00:11:14,000 --> 00:11:16,000
+Is this the right size?
+
+126
+00:11:16,000 --> 00:11:21,000
+Or would you prefer to make it as big as like the current rendering here?
+
+127
+00:11:21,000 --> 00:11:26,000
+Siguro sa akin, in terms of rendering,
+
+128
+00:11:26,000 --> 00:11:30,000
+I'm okay with kahit sa maliit lang siya.
+
+129
+00:11:30,000 --> 00:11:32,000
+Parang maliit na preview screen lang.
+
+130
+00:11:32,000 --> 00:11:36,000
+Kasi iba pa rin yung rendering screen.
+
+131
+00:11:36,000 --> 00:11:39,000
+Ako I'm fine with the sizing.
+
+132
+00:11:39,000 --> 00:11:43,000
+But siguro I don't know lang kung sa ibang designers,
+
+133
+00:11:43,000 --> 00:11:51,000
+mas prefer nila na parang ayikita na rin nila yung actual edit
+
+134
+00:11:51,000 --> 00:11:56,000
+or parang actual adjustment sa mismong current rendering screen mo.
+
+135
+00:11:56,000 --> 00:12:00,000
+Parang at the same. Parang siyang real-time edit na rin siguro.
+
+136
+00:12:00,000 --> 00:12:04,000
+Pero ako ang feedback ko dito yun.
+
+137
+00:12:04,000 --> 00:12:06,000
+Okay naman siya.
+
+138
+00:12:06,000 --> 00:12:08,000
+Pero siguro in terms of rotation.
+
+139
+00:12:08,000 --> 00:12:10,000
+Kasi parang mas...
+
+140
+00:12:10,000 --> 00:12:13,000
+Ako mas sanay kasi ako na kapag nag-rotate.
+
+141
+00:12:13,000 --> 00:12:14,000
+Ano ba anong...
+
+142
+00:12:14,000 --> 00:12:16,000
+Nung texture or bagay-bagay.
+
+143
+00:12:16,000 --> 00:12:18,000
+Sa SketchUp kasi.
+
+144
+00:12:18,000 --> 00:12:21,000
+Parang pag nirrotate mo yung texture.
+
+145
+00:12:21,000 --> 00:12:23,000
+Parang meron siyang...
+
+146
+00:12:23,000 --> 00:12:24,000
+Ano ba yun?
+
+147
+00:12:24,000 --> 00:12:26,000
+Nakamutan ko yung tawag sa kanya.
+
+148
+00:12:26,000 --> 00:12:27,000
+But may...
+
+149
+00:12:27,000 --> 00:12:31,000
+Let me open yung application.
+
+150
+00:12:31,000 --> 00:12:33,000
+Pero kasi parang...
+
+151
+00:12:33,000 --> 00:12:35,000
+Pag nirrotate mo yung isang bagay,
+
+152
+00:12:35,000 --> 00:12:37,000
+may lalabas na ruler.
+
+153
+00:12:37,000 --> 00:12:39,000
+Tapos parang naka-lock.
+
+154
+00:12:39,000 --> 00:12:41,000
+I forgot yung technical term for that.
+
+155
+00:12:41,000 --> 00:12:44,000
+Pero i-move mo siya ng...
+
+156
+00:12:44,000 --> 00:12:45,000
+Pa konti-konti.
+
+157
+00:12:45,000 --> 00:12:47,000
+So parang...
+
+158
+00:12:47,000 --> 00:12:49,000
+Divisible by 5 yung movement niya.
+
+159
+00:12:49,000 --> 00:12:51,000
+So 5, 10, 15.
+
+160
+00:12:51,000 --> 00:12:52,000
+Parang at least...
+
+161
+00:12:52,000 --> 00:12:54,000
+I forgot yung...
+
+162
+00:12:54,000 --> 00:12:56,000
+Para makita po yung...
+
+163
+00:12:56,000 --> 00:12:58,000
+Kasi parang...
+
+164
+00:12:58,000 --> 00:13:00,000
+May lumalabas na parang protractor?
+
+165
+00:13:00,000 --> 00:13:02,000
+Parang ganun, yeah.
+
+166
+00:13:02,000 --> 00:13:03,000
+Parang ganun siya.
+
+167
+00:13:03,000 --> 00:13:04,000
+Kasi parang...
+
+168
+00:13:04,000 --> 00:13:10,000
+Mas accurate or parang mas aligned yung movement ng rotation.
+
+169
+00:13:10,000 --> 00:13:12,000
+Okay.
+
+170
+00:13:12,000 --> 00:13:13,000
+Subjection lang naman.
+
+171
+00:13:13,000 --> 00:13:15,000
+Okay po.
+
+172
+00:13:15,000 --> 00:13:16,000
+Okay.
+
+173
+00:13:16,000 --> 00:13:20,000
+Actually, so nagawa na po yung rotation pero I think it's...
+
+174
+00:13:20,000 --> 00:13:21,000
+It also...
+
+175
+00:13:21,000 --> 00:13:23,000
+Hindi lang siya masyadong...
+
+176
+00:13:23,000 --> 00:13:26,000
+Hindi ko lang siya masyadong kita dito sa zoom screen.
+
+177
+00:13:26,000 --> 00:13:27,000
+Okay, sige pa.
+
+178
+00:13:27,000 --> 00:13:31,000
+Pero yung in terms of scaling, I can see...
+
+179
+00:13:31,000 --> 00:13:37,000
+Nakita ko naman na parang mas lunit yung scaling ng texture.
+
+180
+00:13:37,000 --> 00:13:39,000
+Okay, okay.
+
+181
+00:13:39,000 --> 00:13:40,000
+So yun po.
+
+182
+00:13:40,000 --> 00:13:43,000
+I think it rotated accordingly.
+
+183
+00:13:43,000 --> 00:13:47,000
+Let's say if I make it 90.
+
+184
+00:13:47,000 --> 00:13:52,000
+Okay.
+
+185
+00:13:52,000 --> 00:13:54,000
+Na iba po pa?
+
+186
+00:13:54,000 --> 00:13:55,000
+Wait lang.
+
+187
+00:13:55,000 --> 00:13:57,000
+Nakita ko yung greening niya.
+
+188
+00:13:57,000 --> 00:13:58,000
+Parang nag...
+
+189
+00:13:58,000 --> 00:13:59,000
+Ano ba siya?
+
+190
+00:13:59,000 --> 00:14:00,000
+Horizontal?
+
+191
+00:14:00,000 --> 00:14:01,000
+Parang horizontal po.
+
+192
+00:14:01,000 --> 00:14:03,000
+Okay.
+
+193
+00:14:03,000 --> 00:14:10,000
+As of now po, yung texture na ito, it's applied altogether to all three panels.
+
+194
+00:14:10,000 --> 00:14:17,000
+I mean, would you prefer to have it that way or would it be better na yung wall panels?
+
+195
+00:14:17,000 --> 00:14:20,000
+You can select each one individually.
+
+196
+00:14:20,000 --> 00:14:23,000
+Siguro, depende kasi sa texture yun.
+
+197
+00:14:23,000 --> 00:14:29,000
+Kung halimbawang metal siya or wood, I prefer na sabay-sabay siyang na-adjust.
+
+198
+00:14:29,000 --> 00:14:32,000
+Pero kung, for example, paint finish.
+
+199
+00:14:32,000 --> 00:14:38,000
+Kasi pwede mong explore yung application.
+
+200
+00:14:38,000 --> 00:14:41,000
+Pwede nilimbawa, sa first panel, iba yung kulay mo.
+
+201
+00:14:41,000 --> 00:14:42,000
+Sa second panel, iba.
+
+202
+00:14:42,000 --> 00:14:44,000
+So I think it depends on the texture.
+
+203
+00:14:44,000 --> 00:14:50,000
+Pero kung halimbawa, like wood or natural materials,
+
+204
+00:14:50,000 --> 00:14:54,000
+parang mas okay na sabay-sabay siyang na-adjust for me.
+
+205
+00:14:54,000 --> 00:14:55,000
+Okay.
+
+206
+00:14:55,000 --> 00:14:57,000
+Okay po.
+
+207
+00:14:57,000 --> 00:15:03,000
+So do you have any questions regarding the adjustment here or any suggestions about this part?
+
+208
+00:15:03,000 --> 00:15:06,000
+Regarding sa adjustment ng texture, yun lang.
+
+209
+00:15:06,000 --> 00:15:10,000
+Yung locking feature lang nung pag nag-rotate ka.
+
+210
+00:15:10,000 --> 00:15:11,000
+Okay.
+
+211
+00:15:11,000 --> 00:15:15,000
+Pag naisip ko yung tamang terms.
+
+212
+00:15:15,000 --> 00:15:18,000
+But ayun, yung parang ruler guide, something like that.
+
+213
+00:15:18,000 --> 00:15:19,000
+Yes po.
+
+214
+00:15:19,000 --> 00:15:20,000
+Sige po.
+
+215
+00:15:21,000 --> 00:15:25,000
+I'm curious lang din sa finish.
+
+216
+00:15:25,000 --> 00:15:28,000
+Kasi syempre yung...
+
+217
+00:15:28,000 --> 00:15:33,000
+When it comes to rendering, parang particular din ako sa parang ano yung sheen ng material.
+
+218
+00:15:33,000 --> 00:15:35,000
+Like matte ba siya?
+
+219
+00:15:35,000 --> 00:15:37,000
+Glossy or satin?
+
+220
+00:15:37,000 --> 00:15:41,000
+Kaya din ba siyang ma-adjust dito sa add finish na category?
+
+221
+00:15:41,000 --> 00:15:43,000
+Or iba ba yung...
+
+222
+00:15:43,000 --> 00:15:45,000
+Or wala pa siya?
+
+223
+00:15:45,000 --> 00:15:46,000
+Meron po.
+
+224
+00:15:46,000 --> 00:15:49,000
+Would you like to proceed with the add finish function?
+
+225
+00:15:49,000 --> 00:15:52,000
+So ito po sa add finish.
+
+226
+00:15:52,000 --> 00:15:56,000
+Actually, constant lang po yung options na pwede nung piliin.
+
+227
+00:15:56,000 --> 00:16:00,000
+So as of now, it's glossy or matte.
+
+228
+00:16:00,000 --> 00:16:03,000
+But this applies to all of the materials.
+
+229
+00:16:03,000 --> 00:16:11,000
+So regardless kung anong material na generate nyo po, for let's say, if you generate fabric or steel or concrete,
+
+230
+00:16:11,000 --> 00:16:15,000
+the finish will always be constant here.
+
+231
+00:16:15,000 --> 00:16:16,000
+Okay.
+
+232
+00:16:16,000 --> 00:16:19,000
+So what are your thoughts on that po?
+
+233
+00:16:19,000 --> 00:16:25,000
+Would the finish depend on the material you want to create?
+
+234
+00:16:25,000 --> 00:16:33,000
+Actually ako, I would suggest na sana mas flexible yung material finishes na choices.
+
+235
+00:16:33,000 --> 00:16:37,000
+Since may instances kasi na hindi rin...
+
+236
+00:16:37,000 --> 00:16:42,000
+Parang very limiting lang na dalawa lang yung type of finishes na mapipili ko.
+
+237
+00:16:42,000 --> 00:16:49,000
+Kasi sometimes may instances na gusto ko parang in the middle siya ng glossy and matte.
+
+238
+00:16:49,000 --> 00:16:52,000
+So parang satin finish siya.
+
+239
+00:16:52,000 --> 00:16:56,000
+Parang hindi siya super glossy, hindi siya super matte.
+
+240
+00:16:56,000 --> 00:16:59,000
+So I think that mas maganda siguro kung...
+
+241
+00:16:59,000 --> 00:17:04,000
+I don't know if it's possible if maging ma-apply din parang...
+
+242
+00:17:04,000 --> 00:17:07,000
+Parang katulad kung paano mo na adjust yung texture.
+
+243
+00:17:07,000 --> 00:17:11,000
+Parang by digits, would that be possible?
+
+244
+00:17:11,000 --> 00:17:12,000
+By digits?
+
+245
+00:17:12,000 --> 00:17:20,000
+Oo, or parang kapag pinindut mo siguro na from 1 to 5 glossy siya.
+
+246
+00:17:20,000 --> 00:17:25,000
+From 1 below, nagiging papunta na siya sa matte.
+
+247
+00:17:25,000 --> 00:17:32,000
+So parang sana mas flexible yung magiging adjustment for the material finish siya para sa akin.
+
+248
+00:17:32,000 --> 00:17:35,000
+Okay, okay.
+
+249
+00:17:35,000 --> 00:17:39,000
+Okay, so parang gusto niyo po na parang slider?
+
+250
+00:17:39,000 --> 00:17:40,000
+Oo, parang ganun.
+
+251
+00:17:40,000 --> 00:17:49,000
+Kasi at least bahala na si user kung parang may freedom si user na mas ma-adjust siya yung sheen na gusto niya sa material.
+
+252
+00:17:49,000 --> 00:17:56,000
+Although I understand na parang mas madali yung parang ganito na point and click.
+
+253
+00:17:56,000 --> 00:17:59,000
+But if yun yung pwede ding...
+
+254
+00:17:59,000 --> 00:18:04,000
+If ever yun yung isa sa mga goal na parang maging point and click na lang siya,
+
+255
+00:18:04,000 --> 00:18:09,000
+baka much better if meron ding somewhere in the middle ng glossy and matte.
+
+256
+00:18:09,000 --> 00:18:11,000
+Okay, okay.
+
+257
+00:18:11,000 --> 00:18:19,000
+Yung mga finishes po, is it just limited to satin, matte, and glossy?
+
+258
+00:18:19,000 --> 00:18:27,000
+Or the finishes, parang depends po siya sa material na inaagawa niyo po?
+
+259
+00:18:27,000 --> 00:18:29,000
+I think it depends.
+
+260
+00:18:29,000 --> 00:18:32,000
+Pero kasi kung...
+
+261
+00:18:32,000 --> 00:18:39,000
+Kasi may aside sa finish, meron ding parang bump.
+
+262
+00:18:39,000 --> 00:18:45,000
+Kasi di ba sa pag-wood material, aside sa kung gano siyang glossy or matte,
+
+263
+00:18:45,000 --> 00:18:49,000
+may din siyang parang texture na parang...
+
+264
+00:18:49,000 --> 00:18:53,000
+I forgot, parang may bark. Parang yung rough texture.
+
+265
+00:18:53,000 --> 00:18:57,000
+Pero parang may option kasi sa loom yun.
+
+266
+00:18:57,000 --> 00:19:04,000
+Sa mga nagamit ko na application before na pwede mong imanipulate din yung bump ng isang bagay.
+
+267
+00:19:04,000 --> 00:19:08,000
+So kung gusto mo yung wood, mas rougher siya tignan.
+
+268
+00:19:08,000 --> 00:19:14,000
+But yung gloss niya is na sa middle ng matte and glossy.
+
+269
+00:19:14,000 --> 00:19:18,000
+Parang pwede mong manipulate sa ganang sense.
+
+270
+00:19:18,000 --> 00:19:20,000
+Okay, okay.
+
+271
+00:19:20,000 --> 00:19:24,000
+So apart from Shane, yung height map?
+
+272
+00:19:24,000 --> 00:19:26,000
+Parang ganun.
+
+273
+00:19:26,000 --> 00:19:28,000
+Parang ganun.
+
+274
+00:19:28,000 --> 00:19:31,000
+Parang may mukhang 3D po yung material.
+
+275
+00:19:31,000 --> 00:19:33,000
+Parang may depth siya.
+
+276
+00:19:33,000 --> 00:19:35,000
+Ah, depth. Okay.
+
+277
+00:19:35,000 --> 00:19:41,000
+In terms of metal naman, may iba maraming types of finishes din sa metal.
+
+278
+00:19:41,000 --> 00:19:43,000
+Kasi hindi naman lahat ng metal glossy.
+
+279
+00:19:43,000 --> 00:19:45,000
+Meron din parang in the middle ng glossy and matte.
+
+280
+00:19:45,000 --> 00:19:51,000
+And then meron ding parang aluminum steel or parang may texture din like brush steel.
+
+281
+00:19:51,000 --> 00:19:53,000
+Parang ganun.
+
+282
+00:19:53,000 --> 00:19:55,000
+Okay po.
+
+283
+00:19:55,000 --> 00:19:57,000
+Okay.
+
+284
+00:19:57,000 --> 00:20:02,000
+Yung matte sa tining glossy, is that also the same for fabric?
+
+285
+00:20:02,000 --> 00:20:05,000
+Or are there more finishes you can apply sa fabric?
+
+286
+00:20:05,000 --> 00:20:07,000
+Sa fabric marami din siyang types.
+
+287
+00:20:07,000 --> 00:20:09,000
+Kasi for example, is leather.
+
+288
+00:20:09,000 --> 00:20:12,000
+Di ba, glossy siya.
+
+289
+00:20:12,000 --> 00:20:17,000
+And then meron siyang parang yung texture na parang fingerprint texture.
+
+290
+00:20:17,000 --> 00:20:19,000
+Parang ganun.
+
+291
+00:20:19,000 --> 00:20:21,000
+Yes po.
+
+292
+00:20:21,000 --> 00:20:23,000
+Kapag may mga fabric din naman na matte.
+
+293
+00:20:23,000 --> 00:20:25,000
+Or parang may buhok.
+
+294
+00:20:25,000 --> 00:20:27,000
+Like yung velvet.
+
+295
+00:20:27,000 --> 00:20:30,000
+Parang matte siya.
+
+296
+00:20:30,000 --> 00:20:32,000
+Actually, matte si velvet.
+
+297
+00:20:32,000 --> 00:20:35,000
+Or parang may velvet din naman na parang may shine.
+
+298
+00:20:35,000 --> 00:20:40,000
+Tapos si velvet, meron siyang kalakteristik na parang may hair texture.
+
+299
+00:20:40,000 --> 00:20:50,000
+So parang hindi yung iniinsip ko na parang sana may opportunity to bump din yung mga ganun types of material.
+
+300
+00:20:50,000 --> 00:20:53,000
+So for velvet, may panamataas po yung bump.
+
+301
+00:20:53,000 --> 00:20:55,000
+Kasi di parang may hair siya.
+
+302
+00:20:55,000 --> 00:20:57,000
+Yes po.
+
+303
+00:20:57,000 --> 00:20:59,000
+Okay.
+
+304
+00:20:59,000 --> 00:21:01,000
+Okay, noted po.
+
+305
+00:21:01,000 --> 00:21:06,000
+So currently po, it uses glossy.
+
+306
+00:21:06,000 --> 00:21:13,000
+So with this drop down po, if you could choose, like let's say if you go to floor.
+
+307
+00:21:13,000 --> 00:21:16,000
+And then you want the floor to be glossy.
+
+308
+00:21:16,000 --> 00:21:18,000
+Ba-apply po yan.
+
+309
+00:21:23,000 --> 00:21:25,000
+Ah, okay. I can see it.
+
+310
+00:21:25,000 --> 00:21:30,000
+Parang ganun po. Or if you want it by matte.
+
+311
+00:21:30,000 --> 00:21:35,000
+Tapos you could do the same po for other objects here.
+
+312
+00:21:35,000 --> 00:21:38,000
+Parang yan yung matte ata.
+
+313
+00:21:38,000 --> 00:21:39,000
+Tapos you could do it for the shelves.
+
+314
+00:21:39,000 --> 00:21:43,000
+Parang yung gawing glossy yung wall panels.
+
+315
+00:21:43,000 --> 00:21:47,000
+So yan pa yung material finish.
+
+316
+00:21:47,000 --> 00:21:50,000
+In terms of parang speed of rendering.
+
+317
+00:21:50,000 --> 00:21:55,000
+Kasi isa rin yan sa malaking factor sa rendering.
+
+318
+00:21:55,000 --> 00:22:02,000
+Kung gaano kabiles na-apply yung texturing or yung rendering ng isang material sa view.
+
+319
+00:22:02,000 --> 00:22:11,000
+Kasi based from my experience, kapag glossy yung isang model, matagal yung rendering timing.
+
+320
+00:22:11,000 --> 00:22:15,000
+Kasi for this example, syempre wala pa siyang syadong laman.
+
+321
+00:22:15,000 --> 00:22:18,000
+But pag dumadami kasi yung nilalagay mo.
+
+322
+00:22:18,000 --> 00:22:19,000
+For example sa SketchUp.
+
+323
+00:22:19,000 --> 00:22:23,000
+Ako kasi ginagangka SketchUp and then Lumion for rendering.
+
+324
+00:22:23,000 --> 00:22:28,000
+Sa SketchUp, so syempre lagil-lagil lang ako ng model, accessories kanyang mabigat na siya.
+
+325
+00:22:28,000 --> 00:22:37,000
+Pag mag-render na ako, through Lumion, mas bumibigat pa siya kasi ang dami ng elements sa model.
+
+326
+00:22:37,000 --> 00:22:41,000
+So yung isa sigurang tamatakbo din sa isip ko for this app,
+
+327
+00:22:41,000 --> 00:22:49,000
+is gaano kabiles yung nagiging rendering process nya kapag marami na akong texturing na model.
+
+328
+00:22:49,000 --> 00:22:56,000
+Currently po, gumagamit po siya ng blender.
+
+329
+00:22:56,000 --> 00:22:58,000
+Do you know blender po?
+
+330
+00:22:58,000 --> 00:23:02,000
+Oo, narinig ko na pero I haven't yet tried using it.
+
+331
+00:23:03,000 --> 00:23:06,000
+So yung blender, may dalawa po siyang renderers.
+
+332
+00:23:06,000 --> 00:23:10,000
+One is Cycles, tapos yung isa EV.
+
+333
+00:23:10,000 --> 00:23:16,000
+So yung Cycles renderer po, yan yung renderer na tamatagal po.
+
+334
+00:23:16,000 --> 00:23:23,000
+I think that's the professional kind of renderer used for interior design.
+
+335
+00:23:23,000 --> 00:23:26,000
+Yan po ata yung, that's the same as Lumion.
+
+336
+00:23:26,000 --> 00:23:30,000
+Pero this renderer po, it uses a renderer called EV.
+
+337
+00:23:30,000 --> 00:23:36,000
+Mas mabilis po siya, but it's not as accurate as the one you see in Lumion.
+
+338
+00:23:36,000 --> 00:23:42,000
+Kaya mabilis po yung rendering process.
+
+339
+00:23:42,000 --> 00:23:50,000
+Pero going back to your question of what happens kung babagal po siya, kung mas marami po yung objects.
+
+340
+00:23:50,000 --> 00:23:55,000
+About that, what objects were you expecting more in the bedroom po?
+
+341
+00:23:55,000 --> 00:23:58,000
+Kung may dagdag?
+
+342
+00:23:58,000 --> 00:24:09,000
+For example, you're going to add appliances like kung nyari a phone, alarm clock or additional lighting fixture.
+
+343
+00:24:09,000 --> 00:24:19,000
+Kung nyari sa bedside lamp, sa shelving po maglalagay na ako ng mga libro, accent boxes, ganyan.
+
+344
+00:24:20,000 --> 00:24:27,000
+Up to those small details, ako very particular akong lagyan din siya ng texture.
+
+345
+00:24:27,000 --> 00:24:39,000
+Like for example kung may vase dito siya shelve, lalagyan ko talaga siya ng texture, ng glossiness or kung anumang material finish siya.
+
+346
+00:24:39,000 --> 00:24:43,000
+Para mas realistic tignan yung rendering.
+
+347
+00:24:43,000 --> 00:24:54,000
+So yun lang yung na curious ako kung gano siya, kung yung app na ito, gano siya kabilis magrender pag marami na siyang accessory elements sa setting.
+
+348
+00:24:54,000 --> 00:24:56,000
+Okay noted po.
+
+349
+00:24:56,000 --> 00:25:04,000
+Saka factor din siguro yung lighting nito.
+
+350
+00:25:04,000 --> 00:25:06,000
+Okay okay.
+
+351
+00:25:06,000 --> 00:25:20,000
+The more light sa experience ko din kasi parang mas madaming light, pagpas mas madami kang light na nilalagay sa 3D model, yun din factor din siya kung ba't bumigigat yung rendering.
+
+352
+00:25:20,000 --> 00:25:22,000
+Okay.
+
+353
+00:25:22,000 --> 00:25:24,000
+Okay understood po.
+
+354
+00:25:27,000 --> 00:25:31,000
+So ayun po. Do you have any comments regarding the finish?
+
+355
+00:25:31,000 --> 00:25:38,000
+I mean actually in this room po, were you expecting parang more furniture to be added?
+
+356
+00:25:38,000 --> 00:25:47,000
+Kasi sa ngayon po it has and only uses yung cabinets or drawers here, the shelves and the bed.
+
+357
+00:25:47,000 --> 00:26:06,000
+I think siguro parang additional element lang, siguro dagdag ka ng accessory para makita rin ng user or makita rin yung parang doability ng rendering when it comes sa mga accessories din.
+
+358
+00:26:06,000 --> 00:26:14,000
+Saka sa ilaw. For example ceiling lamp or yung bedside lamp.
+
+359
+00:26:15,000 --> 00:26:23,000
+Would adding more furniture like let's say like a study table or let's say a chair, would that also be helpful?
+
+360
+00:26:23,000 --> 00:26:29,000
+I think pero for me yung more on accessories lang.
+
+361
+00:26:29,000 --> 00:26:32,000
+Sige po. Okay noted.
+
+362
+00:26:32,000 --> 00:26:37,000
+Okay so shall we move on to the module yung may adding color?
+
+363
+00:26:37,000 --> 00:26:38,000
+Okay sure.
+
+364
+00:26:38,000 --> 00:26:43,000
+Okay po. So here currently if you press this, parang wala po siyang color.
+
+365
+00:26:43,000 --> 00:26:48,000
+But if you select this, may malalabas po na color picker.
+
+366
+00:26:48,000 --> 00:26:51,000
+So you could create your own color here.
+
+367
+00:26:51,000 --> 00:26:55,000
+Parang ito yung color palette na pinili niyo po.
+
+368
+00:26:55,000 --> 00:26:58,000
+So sa mong pisa, wala po siyang color.
+
+369
+00:26:58,000 --> 00:27:06,000
+But with this you can actually apply it onto the part of the object.
+
+370
+00:27:06,000 --> 00:27:09,000
+So let's say with the floor, can you apply this?
+
+371
+00:27:14,000 --> 00:27:17,000
+Parang magiging ganyan po yung blending.
+
+372
+00:27:17,000 --> 00:27:20,000
+Pero ano pa rin siya? Wood material pa rin?
+
+373
+00:27:20,000 --> 00:27:22,000
+Wood material pa rin po.
+
+374
+00:27:22,000 --> 00:27:26,000
+Na manipulate lang yung color niyo?
+
+375
+00:27:26,000 --> 00:27:28,000
+Yes po.
+
+376
+00:27:28,000 --> 00:27:34,000
+So this is just simply through using the rendering application I use.
+
+377
+00:27:34,000 --> 00:27:36,000
+So yun you can pick different materials.
+
+378
+00:27:36,000 --> 00:27:41,000
+Pero let's say wala po kayong color palette na naisip.
+
+379
+00:27:41,000 --> 00:27:46,000
+You could actually go to this option called suggest colors.
+
+380
+00:27:46,000 --> 00:27:50,000
+And then with this, this uses AI.
+
+381
+00:27:50,000 --> 00:27:54,000
+Kung alam niyo pa yung nag-trending ngayon, if you're aware po,
+
+382
+00:27:54,000 --> 00:27:56,000
+do you know chat GPT?
+
+383
+00:27:56,000 --> 00:27:58,000
+Oh yeah.
+
+384
+00:27:58,000 --> 00:28:03,000
+Automatically gumagawa siya ng essay for a specific,
+
+385
+00:28:03,000 --> 00:28:05,000
+kung ano yung ilalagay mong parang topic.
+
+386
+00:28:05,000 --> 00:28:10,000
+And then automatically mag-generate siya ng parang article or something.
+
+387
+00:28:10,000 --> 00:28:12,000
+Parang gano'n, tamo ba?
+
+388
+00:28:12,000 --> 00:28:13,000
+Yes po.
+
+389
+00:28:13,000 --> 00:28:19,000
+So this prototype, it takes advantage of chat GPT as an API.
+
+390
+00:28:19,000 --> 00:28:22,000
+Tapos from here, you could, from this drop-down,
+
+391
+00:28:22,000 --> 00:28:28,000
+currently you could have it suggest color palettes based on interior design style po.
+
+392
+00:28:28,000 --> 00:28:31,000
+So may drop-down po ito.
+
+393
+00:28:31,000 --> 00:28:36,000
+And dito yung mga choices like industrial or bohemian, minimalist.
+
+394
+00:28:36,000 --> 00:28:39,000
+And so when you suggest the color palettes.
+
+395
+00:28:45,000 --> 00:28:47,000
+Cool naman.
+
+396
+00:28:48,000 --> 00:28:52,000
+So yun po may malalabas na color palettes here po.
+
+397
+00:28:52,000 --> 00:28:54,000
+You could also refresh again po.
+
+398
+00:28:54,000 --> 00:29:00,000
+Okay, tas ibang set of color palettes yung ipaproject mo.
+
+399
+00:29:00,000 --> 00:29:02,000
+Yes.
+
+400
+00:29:02,000 --> 00:29:09,000
+It's not always consistent, but it makes color palettes up to five swatches.
+
+401
+00:29:09,000 --> 00:29:10,000
+So yun po.
+
+402
+00:29:10,000 --> 00:29:14,000
+So after that, you could let's say select more than one.
+
+403
+00:29:14,000 --> 00:29:16,000
+Tapos pwede niyo siya sa save.
+
+404
+00:29:16,000 --> 00:29:20,000
+Napag nasave niyo siya, when you go back to the generate tab,
+
+405
+00:29:20,000 --> 00:29:22,000
+malalabas po yung pala dito.
+
+406
+00:29:22,000 --> 00:29:23,000
+Okay.
+
+407
+00:29:23,000 --> 00:29:25,000
+Actually, I was about to comment that.
+
+408
+00:29:25,000 --> 00:29:31,000
+Masana may option na parang pwede mong pagtabi-tabihin yung mga selections mo.
+
+409
+00:29:31,000 --> 00:29:35,000
+Para lang makita mo siya kung mag-keep it ba or what.
+
+410
+00:29:35,000 --> 00:29:36,000
+Ayun po.
+
+411
+00:29:36,000 --> 00:29:37,000
+So parin niyo siya i-save.
+
+412
+00:29:37,000 --> 00:29:39,000
+Tapos nasa tabi po.
+
+413
+00:29:39,000 --> 00:29:42,000
+Maka ma-tabi po yung mga options.
+
+414
+00:29:42,000 --> 00:29:48,000
+Tapos using this, parin niyo siya i-apply to the object using these swatches.
+
+415
+00:29:48,000 --> 00:29:52,000
+Tapos finally, let's say you're done with it.
+
+416
+00:29:52,000 --> 00:29:55,000
+If you want to apply this change to the current rendering,
+
+417
+00:29:55,000 --> 00:30:00,000
+mag-overwrite siya, mag-overwrite na yung current rendering dito.
+
+418
+00:30:00,000 --> 00:30:01,000
+So how would I?
+
+419
+00:30:01,000 --> 00:30:03,000
+Ato, apply to current rendering.
+
+420
+00:30:03,000 --> 00:30:07,000
+So when you press this, when you press apply.
+
+421
+00:30:07,000 --> 00:30:11,000
+So as of now, yung prototype, mabagal po siya.
+
+422
+00:30:11,000 --> 00:30:16,000
+So yeah, pasentyan na lang po.
+
+423
+00:30:16,000 --> 00:30:17,000
+Okay lang po.
+
+424
+00:30:17,000 --> 00:30:24,000
+I think it takes around 2 minutes for the rendering to update.
+
+425
+00:30:24,000 --> 00:30:27,000
+Hindi ko pa alam kung bakit ganyan po.
+
+426
+00:30:27,000 --> 00:30:33,000
+But that's how the prototype works currently.
+
+427
+00:30:34,000 --> 00:30:39,000
+I think yung siguro, one factor that you can consider siguro.
+
+428
+00:30:39,000 --> 00:30:45,000
+Since as of now, kung ako maghahanap ng isang application,
+
+429
+00:30:45,000 --> 00:30:48,000
+as a designer, makakatulong sa kan sa proposal ko,
+
+430
+00:30:48,000 --> 00:30:51,000
+yung speed, I think factor siya.
+
+431
+00:30:51,000 --> 00:30:54,000
+Aside dun siyempre sa quality ng
+
+432
+00:30:54,000 --> 00:30:57,000
+or parang special feature na mga offer ng app.
+
+433
+00:30:57,000 --> 00:31:02,000
+Kasi nung nagsustart ako, nasanay ako na b-day yung gamit ko.
+
+434
+00:31:02,000 --> 00:31:09,000
+But sa V-Ray kasi, I'm not sure if you've also tried exploring yung mga interface noon.
+
+435
+00:31:09,000 --> 00:31:13,000
+Si V-Ray kasi very complex yung interface niya.
+
+436
+00:31:13,000 --> 00:31:21,000
+So if you want to, kung gusto mo na yung isang material na may multi-texture siya
+
+437
+00:31:21,000 --> 00:31:24,000
+or may mame-melepulate mo yung sheen, yung bump,
+
+438
+00:31:24,000 --> 00:31:26,000
+ganyan ang dami mo kailangan pin-doodle.
+
+439
+00:31:26,000 --> 00:31:29,000
+Nung na-experience ko ng gumamit ng gloom yun,
+
+440
+00:31:29,000 --> 00:31:31,000
+parang mas siya.
+
+441
+00:31:31,000 --> 00:31:33,000
+Mas prefer ko na siyang gumamit yun ngayon
+
+442
+00:31:33,000 --> 00:31:36,000
+kasi mas simple yung interface niya.
+
+443
+00:31:36,000 --> 00:31:41,000
+Tapos parang at the same time, mas simplified siya.
+
+444
+00:31:41,000 --> 00:31:44,000
+So if I wanted it na parang...
+
+445
+00:31:44,000 --> 00:31:48,000
+Kasa parang for me, mas simplified lang talaga yung gloom yun.
+
+446
+00:31:48,000 --> 00:31:52,000
+Tsaka yun nga, real-time yung parang application niya.
+
+447
+00:31:52,000 --> 00:31:54,000
+So kabang i-adjust ko siya,
+
+448
+00:31:54,000 --> 00:31:56,000
+nakikita ko na rin agad sa current rendering
+
+449
+00:31:56,000 --> 00:31:59,000
+kung ano yung parang possible na magiging itsyuran.
+
+450
+00:31:59,000 --> 00:32:03,000
+Pero yun, pinaka-factor ko talaga sa ngayon yung speed ng rendering
+
+451
+00:32:03,000 --> 00:32:09,000
+kasi makakasave siya ng time,
+
+452
+00:32:09,000 --> 00:32:11,000
+especially kapag sabay-sabay yung project.
+
+453
+00:32:15,000 --> 00:32:18,000
+Ano yung name ng first app na ginamit niya po
+
+454
+00:32:18,000 --> 00:32:19,000
+na medyo mahirap gamitin?
+
+455
+00:32:19,000 --> 00:32:20,000
+V-Ray?
+
+456
+00:32:20,000 --> 00:32:22,000
+V-Ray, yeah.
+
+457
+00:32:22,000 --> 00:32:24,000
+How do you spell that?
+
+458
+00:32:24,000 --> 00:32:27,000
+Letter V as in victory,
+
+459
+00:32:27,000 --> 00:32:32,000
+and then R, rabbit, apple, and then yellow.
+
+460
+00:32:32,000 --> 00:32:35,000
+Apple, yellow, V-Ray software.
+
+461
+00:32:35,000 --> 00:32:39,000
+Ano siya, rendering software siya na
+
+462
+00:32:39,000 --> 00:32:42,000
+usually ginagamit na plug-in sa SketchUp
+
+463
+00:32:42,000 --> 00:32:45,000
+or pwede rin siyang incorporate sa 3DS Max.
+
+464
+00:32:45,000 --> 00:32:46,000
+I don't know if you...
+
+465
+00:32:46,000 --> 00:32:48,000
+Yes po.
+
+466
+00:32:48,000 --> 00:32:49,000
+Okay.
+
+467
+00:32:49,000 --> 00:32:53,000
+Siya po, I'll look into this V-Ray, pati Lumion.
+
+468
+00:32:53,000 --> 00:32:55,000
+Lumion, I've heard of that before.
+
+469
+00:32:55,000 --> 00:32:56,000
+Okay.
+
+470
+00:32:56,000 --> 00:32:57,000
+Actually, may isa pa yun.
+
+471
+00:32:57,000 --> 00:32:58,000
+May isa pang...
+
+472
+00:32:58,000 --> 00:33:02,000
+May isa ba kami application na tinintignan na i-purchase recently
+
+473
+00:33:02,000 --> 00:33:07,000
+kasi parang mas simplified pa siya kesa sa Lumion.
+
+474
+00:33:07,000 --> 00:33:10,000
+So simplified na si Lumion, pero mas simplified pa siya.
+
+475
+00:33:10,000 --> 00:33:11,000
+Parang gano'n.
+
+476
+00:33:11,000 --> 00:33:12,000
+Ano po yung name ng app?
+
+477
+00:33:12,000 --> 00:33:13,000
+Let me ask.
+
+478
+00:33:13,000 --> 00:33:15,000
+I-ask pa lang sa team isa.
+
+479
+00:33:18,000 --> 00:33:19,000
+Sige lang natin ang app.
+
+480
+00:33:23,000 --> 00:33:24,000
+Nscape.
+
+481
+00:33:24,000 --> 00:33:27,000
+So it's letter E.
+
+482
+00:33:27,000 --> 00:33:28,000
+Yup.
+
+483
+00:33:28,000 --> 00:33:31,000
+N-s-n-d.
+
+484
+00:33:31,000 --> 00:33:32,000
+Tapos scape.
+
+485
+00:33:32,000 --> 00:33:33,000
+Scape.
+
+486
+00:33:33,000 --> 00:33:34,000
+Nscape.
+
+487
+00:33:34,000 --> 00:33:35,000
+D-a-p-e.
+
+488
+00:33:35,000 --> 00:33:36,000
+Yup.
+
+489
+00:33:36,000 --> 00:33:39,000
+Real-time rendering and virtual reality.
+
+490
+00:33:39,000 --> 00:33:40,000
+Sige po.
+
+491
+00:33:40,000 --> 00:33:45,000
+Parang sabi nila, sabi ng mga other designers na friends ko
+
+492
+00:33:45,000 --> 00:33:48,000
+na naka-try ng gumamit yan.
+
+493
+00:33:48,000 --> 00:33:51,000
+Parang mas simplified version pa siya ng Lumion.
+
+494
+00:33:51,000 --> 00:33:52,000
+According to them.
+
+495
+00:33:52,000 --> 00:33:55,000
+But ayun, I haven't tried using it pa.
+
+496
+00:33:55,000 --> 00:34:02,000
+Kasi yung cost din ng original version ng application
+
+497
+00:34:02,000 --> 00:34:06,000
+medyo mahal siya, pero mas mura siya compared sa Lumion.
+
+498
+00:34:07,000 --> 00:34:08,000
+Sige po.
+
+499
+00:34:08,000 --> 00:34:11,000
+I'll check out the interface po nito.
+
+500
+00:34:11,000 --> 00:34:13,000
+And check ko siyang gayahin.
+
+501
+00:34:13,000 --> 00:34:14,000
+Okay.
+
+502
+00:34:14,000 --> 00:34:15,000
+Sige po.
+
+503
+00:34:15,000 --> 00:34:18,000
+So ayun po, if you look at the current rendering,
+
+504
+00:34:18,000 --> 00:34:20,000
+ayun, mara-reflect po siya.
+
+505
+00:34:20,000 --> 00:34:21,000
+Tapos yung sa kanan po.
+
+506
+00:34:21,000 --> 00:34:22,000
+Sorry, may bug dito.
+
+507
+00:34:22,000 --> 00:34:25,000
+But if kung napili niyo po yung bed,
+
+508
+00:34:25,000 --> 00:34:30,000
+parang nareflekt din yung mga materials for each part.
+
+509
+00:34:30,000 --> 00:34:32,000
+So for yung bed frame.
+
+510
+00:34:32,000 --> 00:34:34,000
+Headboard, same panin siya.
+
+511
+00:34:34,000 --> 00:34:38,000
+Tapos yung floor, yung material.
+
+512
+00:34:38,000 --> 00:34:40,000
+Malalabas din po yung finish.
+
+513
+00:34:40,000 --> 00:34:44,000
+Pero yung color, hindi po siya kita dito.
+
+514
+00:34:44,000 --> 00:34:49,000
+Would it help kung ma-check niya din po yung color dito?
+
+515
+00:34:49,000 --> 00:34:53,000
+I think, mas maganda kung may input.
+
+516
+00:34:53,000 --> 00:34:55,000
+Parang mara-reflect din dito.
+
+517
+00:34:55,000 --> 00:34:58,000
+Para lang makita din up close if ano ba yung
+
+518
+00:34:58,000 --> 00:35:02,000
+parang adjusted color niya
+
+519
+00:35:02,000 --> 00:35:04,000
+or yung adjustment din sa material.
+
+520
+00:35:04,000 --> 00:35:09,000
+I have pala one more comment habang nag-rendering time.
+
+521
+00:35:09,000 --> 00:35:14,000
+Kasi minsan, kung ginagamit ko yung V-Ray,
+
+522
+00:35:14,000 --> 00:35:16,000
+kung nag-render siya, ang nag-show lang
+
+523
+00:35:16,000 --> 00:35:18,000
+is yung percentage ng rendering.
+
+524
+00:35:18,000 --> 00:35:21,000
+So habang nag-aantay ka yung percentage na
+
+525
+00:35:21,000 --> 00:35:24,000
+nakita mo of 25, 50, tas mag-90.
+
+526
+00:35:24,000 --> 00:35:27,000
+Tapos eto naman sa loong yun,
+
+527
+00:35:27,000 --> 00:35:29,000
+based on my experience,
+
+528
+00:35:29,000 --> 00:35:32,000
+ang nakareflekt naman sa kanya
+
+529
+00:35:32,000 --> 00:35:34,000
+is hindi siya naka-percentage.
+
+530
+00:35:34,000 --> 00:35:35,000
+Naka-time siya.
+
+531
+00:35:35,000 --> 00:35:37,000
+So may nakikita ng user kung
+
+532
+00:35:37,000 --> 00:35:39,000
+gano ba siya katagal mag-aantay?
+
+533
+00:35:39,000 --> 00:35:41,000
+Like, for example, 2 minutes
+
+534
+00:35:41,000 --> 00:35:43,000
+before siya ma-final render.
+
+535
+00:35:43,000 --> 00:35:46,000
+So parang for me, based on my experience,
+
+536
+00:35:46,000 --> 00:35:48,000
+pag nakikita ko na yung time na
+
+537
+00:35:48,000 --> 00:35:49,000
+okay, 5 minutes pa siya,
+
+538
+00:35:49,000 --> 00:35:51,000
+so I can do other things pa
+
+539
+00:35:51,000 --> 00:35:53,000
+while it's rendering.
+
+540
+00:35:53,000 --> 00:35:54,000
+So parang I don't know if
+
+541
+00:35:54,000 --> 00:35:57,000
+nakaka-help din siya sa UX or UI design
+
+542
+00:35:57,000 --> 00:35:59,000
+nito parang gano'n.
+
+543
+00:35:59,000 --> 00:36:00,000
+Okay, okay.
+
+544
+00:36:00,000 --> 00:36:01,000
+Okay, noted po.
+
+545
+00:36:01,000 --> 00:36:06,000
+So when you pass apply to current rendering dito,
+
+546
+00:36:06,000 --> 00:36:09,000
+you're hoping na may malalabas na percentage
+
+547
+00:36:09,000 --> 00:36:10,000
+or as in like time-gauge.
+
+548
+00:36:10,000 --> 00:36:11,000
+Or at least parang time,
+
+549
+00:36:11,000 --> 00:36:13,000
+parang at least parang ako,
+
+550
+00:36:13,000 --> 00:36:15,000
+personal preference mo lang.
+
+551
+00:36:15,000 --> 00:36:17,000
+Preferring na nakikita ko yung oras
+
+552
+00:36:17,000 --> 00:36:19,000
+kung gano'n siya katagal mag-aantay.
+
+553
+00:36:19,000 --> 00:36:21,000
+So I could do other things pa
+
+554
+00:36:21,000 --> 00:36:24,000
+aside from while it's rendering.
+
+555
+00:36:24,000 --> 00:36:25,000
+Okay, sige po.
+
+556
+00:36:25,000 --> 00:36:27,000
+Okay, noted.
+
+557
+00:36:27,000 --> 00:36:28,000
+So iyan po.
+
+558
+00:36:28,000 --> 00:36:31,000
+That's the generate model.
+
+559
+00:36:31,000 --> 00:36:33,000
+Module po.
+
+560
+00:36:33,000 --> 00:36:37,000
+So iyan yung pa yung lahat ng steps.
+
+561
+00:36:37,000 --> 00:36:42,000
+So before we move on to suggesting,
+
+562
+00:36:42,000 --> 00:36:46,000
+what are your overall thoughts po on the models?
+
+563
+00:36:46,000 --> 00:36:48,000
+Ano pa yung nagustan nyo?
+
+564
+00:36:48,000 --> 00:36:51,000
+What can you suggest overall apart from
+
+565
+00:36:51,000 --> 00:36:52,000
+what you mentioned earlier?
+
+566
+00:36:52,000 --> 00:36:56,000
+What are the things you're looking for
+
+567
+00:36:56,000 --> 00:37:00,000
+to make this better in a sense?
+
+568
+00:37:01,000 --> 00:37:04,000
+I think, eto ba, may isa pa lang comment.
+
+569
+00:37:04,000 --> 00:37:08,000
+Dito pala sa lumalabas na material choices.
+
+570
+00:37:08,000 --> 00:37:10,000
+I think it would be much better
+
+571
+00:37:10,000 --> 00:37:13,000
+if mas malaki yung capacity niya
+
+572
+00:37:13,000 --> 00:37:16,000
+na makapag-show ng mas marami pang materials.
+
+573
+00:37:16,000 --> 00:37:17,000
+Okay.
+
+574
+00:37:17,000 --> 00:37:19,000
+Kasi parang for example,
+
+575
+00:37:19,000 --> 00:37:20,000
+for this oak wood,
+
+576
+00:37:20,000 --> 00:37:22,000
+nag-generate ako ng material,
+
+577
+00:37:22,000 --> 00:37:23,000
+wala ko nagustuhan.
+
+578
+00:37:23,000 --> 00:37:25,000
+And then for example,
+
+579
+00:37:25,000 --> 00:37:26,000
+nag-generate ulit ako ng material,
+
+580
+00:37:26,000 --> 00:37:28,000
+tas may nagustuhan ako pero parang
+
+581
+00:37:28,000 --> 00:37:32,000
+i-compare sa previous selection na lumabas.
+
+582
+00:37:32,000 --> 00:37:34,000
+So parang I think mas,
+
+583
+00:37:34,000 --> 00:37:35,000
+I don't know,
+
+584
+00:37:35,000 --> 00:37:38,000
+mas better siguro if parang may ganun feature
+
+585
+00:37:38,000 --> 00:37:42,000
+or mas maganda kung mas wide pa yung range
+
+586
+00:37:42,000 --> 00:37:46,000
+na makikita ako na mag-generate na type of material
+
+587
+00:37:46,000 --> 00:37:49,000
+under the oak wood siguro dito sa interface.
+
+588
+00:37:49,000 --> 00:37:50,000
+Okay.
+
+589
+00:37:50,000 --> 00:37:52,000
+So siguro like when you generate this,
+
+590
+00:37:52,000 --> 00:37:54,000
+tapos may malabas na bagong results,
+
+591
+00:37:54,000 --> 00:37:57,000
+you're hoping na para makumparaman yung results,
+
+592
+00:37:57,000 --> 00:37:59,000
+and then go back to the previous na na-generate.
+
+593
+00:37:59,000 --> 00:38:01,000
+Para makita mo siya.
+
+594
+00:38:01,000 --> 00:38:03,000
+Kasi parang iniisip ko ang worry ko dito.
+
+595
+00:38:03,000 --> 00:38:07,000
+Baka hindi ko namabalikan yung mga last selection,
+
+596
+00:38:07,000 --> 00:38:11,000
+tas biglang narealize ko may maganda pala yung previews,
+
+597
+00:38:11,000 --> 00:38:12,000
+parang ganun.
+
+598
+00:38:12,000 --> 00:38:13,000
+Okay.
+
+599
+00:38:13,000 --> 00:38:16,000
+But when it comes to technicalities
+
+600
+00:38:16,000 --> 00:38:22,000
+or parang difficulty ng itsura ng application,
+
+601
+00:38:22,000 --> 00:38:24,000
+parang for me,
+
+602
+00:38:24,000 --> 00:38:28,000
+ako prefer ko yung mas simplified yung itsura niya
+
+603
+00:38:28,000 --> 00:38:31,000
+as compared sa ang daming nakalagay
+
+604
+00:38:31,000 --> 00:38:36,000
+parang hindi ko ang daming kung kailangang i-control na elements
+
+605
+00:38:36,000 --> 00:38:38,000
+para makapag-render.
+
+606
+00:38:38,000 --> 00:38:40,000
+So ayun lang.
+
+607
+00:38:41,000 --> 00:38:43,000
+Sige po.
+
+608
+00:38:43,000 --> 00:38:44,000
+Okay.
+
+609
+00:38:44,000 --> 00:38:47,000
+What are your comments po sa pagse-select ng parts?
+
+610
+00:38:47,000 --> 00:38:49,000
+Kasi po, here, you have to,
+
+611
+00:38:49,000 --> 00:38:52,000
+mandami niya pang mapapointing click.
+
+612
+00:38:52,000 --> 00:38:58,000
+Actually, yung sa feature naman niya na parang
+
+613
+00:38:58,000 --> 00:39:00,000
+pwede mong sabay-sabay i-click,
+
+614
+00:39:00,000 --> 00:39:04,000
+tas may parang mapipreview mo na rin siya.
+
+615
+00:39:04,000 --> 00:39:07,000
+Gusto ko yung feature na yun.
+
+616
+00:39:07,000 --> 00:39:09,000
+Para at least dito,
+
+617
+00:39:09,000 --> 00:39:14,000
+parang mabibigyan niya na ako ng freedom to
+
+618
+00:39:14,000 --> 00:39:18,000
+decide on anong kahit pa parang preference ko
+
+619
+00:39:18,000 --> 00:39:23,000
+at itong mga material na sinilag ko yung natili ko.
+
+620
+00:39:23,000 --> 00:39:26,000
+So ayun, gusto ko yung feature na yun.
+
+621
+00:39:26,000 --> 00:39:32,000
+But when it comes to parang difficulty na kapag maraming pang pinili...
+
+622
+00:39:32,000 --> 00:39:35,000
+I think for me, wala naman akong issue doon.
+
+623
+00:39:35,000 --> 00:39:40,000
+Kasi parang at least nakikita mo yung option eh.
+
+624
+00:39:40,000 --> 00:39:43,000
+Parang sabay-sabay mong makikita yung adjustment eh.
+
+625
+00:39:43,000 --> 00:39:45,000
+Pero yun lang.
+
+626
+00:39:45,000 --> 00:39:51,000
+Gusto lang ako kapag mas maraming accessories elements yung nakalagay sa room.
+
+627
+00:39:51,000 --> 00:39:55,000
+Let's say for accessories halimbawa, you put books.
+
+628
+00:39:55,000 --> 00:40:00,000
+Will you expect na malalabas po yung books dito sa options?
+
+629
+00:40:00,000 --> 00:40:02,000
+Ya, oo.
+
+630
+00:40:02,000 --> 00:40:04,000
+Kasi, oo.
+
+631
+00:40:04,000 --> 00:40:06,000
+Inisi ko kung maglalagay ka ng plant,
+
+632
+00:40:06,000 --> 00:40:10,000
+I'm expecting na lalabas dito sa parang selections yung plant.
+
+633
+00:40:10,000 --> 00:40:14,000
+And then yung books, for example, yung nabanggit mo.
+
+634
+00:40:14,000 --> 00:40:19,000
+Except sa SketchUp, diba may mga model name na siya agad.
+
+635
+00:40:19,000 --> 00:40:21,000
+Parang ganun din eh.
+
+636
+00:40:21,000 --> 00:40:25,000
+Pero mas simplified lang yung nakalagay dito.
+
+637
+00:40:25,000 --> 00:40:32,000
+Kasi at least ito, nakalatag na siya sa isang area.
+
+638
+00:40:32,000 --> 00:40:33,000
+Yeah, area.
+
+639
+00:40:33,000 --> 00:40:34,000
+Oo.
+
+640
+00:40:34,000 --> 00:40:36,000
+Okay. So when you're changing let's say books,
+
+641
+00:40:36,000 --> 00:40:40,000
+you want to change yung mukha ng book cover or something like that?
+
+642
+00:40:40,000 --> 00:40:42,000
+Or not naman siguro.
+
+643
+00:40:42,000 --> 00:40:43,000
+Naman naman siguro.
+
+644
+00:40:43,000 --> 00:40:46,000
+Pero yung name lang siguro.
+
+645
+00:40:46,000 --> 00:40:48,000
+Ako enact na siguro yung name.
+
+646
+00:40:48,000 --> 00:40:51,000
+Tapos siguro while I'm selecting this,
+
+647
+00:40:51,000 --> 00:40:55,000
+may ikita na akong para sa model, naka-highlight siya.
+
+648
+00:40:55,000 --> 00:40:57,000
+Parang ito yung book na yun.
+
+649
+00:40:57,000 --> 00:40:58,000
+Parang ganun.
+
+650
+00:40:58,000 --> 00:41:00,000
+Nagigets mo.
+
+651
+00:41:00,000 --> 00:41:02,000
+Like kapag napili ko yung...
+
+652
+00:41:02,000 --> 00:41:04,000
+I'm pointing sa walls.
+
+653
+00:41:04,000 --> 00:41:06,000
+For example, this one.
+
+654
+00:41:06,000 --> 00:41:08,000
+Parang ma-highlight siya.
+
+655
+00:41:08,000 --> 00:41:11,000
+Parang yung outline na ito na blue.
+
+656
+00:41:11,000 --> 00:41:12,000
+Okay.
+
+657
+00:41:12,000 --> 00:41:13,000
+Parang ganun.
+
+658
+00:41:13,000 --> 00:41:15,000
+So kung napili pa yung walls,
+
+659
+00:41:15,000 --> 00:41:18,000
+may malalabas na option na ganyan?
+
+660
+00:41:18,000 --> 00:41:21,000
+Parang na-highlight agad yung area na yun.
+
+661
+00:41:21,000 --> 00:41:22,000
+Okay.
+
+662
+00:41:22,000 --> 00:41:23,000
+Would you prefer to...
+
+663
+00:41:23,000 --> 00:41:26,000
+Would it be easier for you na mapipili niyo yung objects
+
+664
+00:41:26,000 --> 00:41:29,000
+by clicking on the picture itself?
+
+665
+00:41:32,000 --> 00:41:33,000
+Pwede rin.
+
+666
+00:41:33,000 --> 00:41:34,000
+Ayan.
+
+667
+00:41:34,000 --> 00:41:37,000
+Parang I think that would be much better siguro.
+
+668
+00:41:37,000 --> 00:41:38,000
+Sige pa.
+
+669
+00:41:38,000 --> 00:41:40,000
+Okay, understood.
+
+670
+00:41:40,000 --> 00:41:41,000
+Okay.
+
+671
+00:41:41,000 --> 00:41:44,000
+So ayun po.
+
+672
+00:41:44,000 --> 00:41:49,000
+Do you have any other questions or comments regarding this?
+
+673
+00:41:49,000 --> 00:41:51,000
+Aside sa material,
+
+674
+00:41:51,000 --> 00:41:53,000
+can you also...
+
+675
+00:41:53,000 --> 00:41:54,000
+Parang ano.
+
+676
+00:41:54,000 --> 00:41:55,000
+I don't know if it's possible then
+
+677
+00:41:55,000 --> 00:42:00,000
+na parang ma-manipulate yung environment setting na.
+
+678
+00:42:00,000 --> 00:42:01,000
+Like for example,
+
+679
+00:42:01,000 --> 00:42:03,000
+ito kasi parang nakaklose yung curtain.
+
+680
+00:42:03,000 --> 00:42:05,000
+What if I wanted it to look
+
+681
+00:42:05,000 --> 00:42:09,000
+na parang nakita yung outside environment?
+
+682
+00:42:09,000 --> 00:42:12,000
+Would it be possible na may ganun picture?
+
+683
+00:42:12,000 --> 00:42:13,000
+Although...
+
+684
+00:42:13,000 --> 00:42:16,000
+Like kasi napag-i-galaw yung mga objects?
+
+685
+00:42:16,000 --> 00:42:17,000
+Yeah.
+
+686
+00:42:17,000 --> 00:42:19,000
+Parang, for example,
+
+687
+00:42:19,000 --> 00:42:20,000
+ayun, hindi.
+
+688
+00:42:20,000 --> 00:42:23,000
+What I mean is yung parang outside environment niya.
+
+689
+00:42:23,000 --> 00:42:24,000
+For example,
+
+690
+00:42:24,000 --> 00:42:27,000
+nakabukas itong curtain na.
+
+691
+00:42:27,000 --> 00:42:30,000
+So yung window, yung parang outside...
+
+692
+00:42:30,000 --> 00:42:33,000
+yun ng window may kita siya daba.
+
+693
+00:42:33,000 --> 00:42:37,000
+Parang possible kaya na parang magkaroon ng ganun picture siya.
+
+694
+00:42:37,000 --> 00:42:39,000
+Na parang pwede kong i-customize na
+
+695
+00:42:39,000 --> 00:42:41,000
+Titi Skyline na makita
+
+696
+00:42:41,000 --> 00:42:45,000
+or parang houses ng subdivision.
+
+697
+00:42:45,000 --> 00:42:46,000
+Parang ganun.
+
+698
+00:42:46,000 --> 00:42:50,000
+Parang may iba yung background?
+
+699
+00:42:50,000 --> 00:42:51,000
+Parang ganun.
+
+700
+00:42:51,000 --> 00:42:55,000
+Tapos siyempre pag iniibag mo na yung environment setting niya,
+
+701
+00:42:55,000 --> 00:42:58,000
+yung direction din ng sun
+
+702
+00:42:58,000 --> 00:43:00,000
+or yung shadowing ng sun,
+
+703
+00:43:00,000 --> 00:43:04,000
+magiging magkakaran na rin siya ng ganong factor.
+
+704
+00:43:04,000 --> 00:43:10,000
+So I think parang was usable siya in a realistic rendering setting.
+
+705
+00:43:10,000 --> 00:43:14,000
+Yung ganung feature, I think mas okay siya.
+
+706
+00:43:14,000 --> 00:43:17,000
+I think you can explore
+
+707
+00:43:17,000 --> 00:43:21,000
+yung ganung feature sa loom yun.
+
+708
+00:43:21,000 --> 00:43:22,000
+Kasi may ganun sila yun.
+
+709
+00:43:22,000 --> 00:43:25,000
+You can adjust the direction of the sun
+
+710
+00:43:25,000 --> 00:43:26,000
+kung sunset ba siya
+
+711
+00:43:26,000 --> 00:43:28,000
+or sunrise,
+
+712
+00:43:28,000 --> 00:43:30,000
+yung brightness ng sun,
+
+713
+00:43:30,000 --> 00:43:32,000
+or parang ganun,
+
+714
+00:43:32,000 --> 00:43:34,000
+brightness ng sky.
+
+715
+00:43:34,000 --> 00:43:37,000
+Para mas realistic siya tingnan.
+
+716
+00:43:37,000 --> 00:43:38,000
+Okay.
+
+717
+00:43:38,000 --> 00:43:40,000
+Baka you can consider
+
+718
+00:43:40,000 --> 00:43:43,000
+future developments ng app.
+
+719
+00:43:43,000 --> 00:43:44,000
+Sige po.
+
+720
+00:43:44,000 --> 00:43:46,000
+I'll look into it
+
+721
+00:43:46,000 --> 00:43:48,000
+yung pag-adjust ng environment.
+
+722
+00:43:48,000 --> 00:43:50,000
+Okay.
+
+723
+00:43:50,000 --> 00:43:53,000
+So anything else before we move on
+
+724
+00:43:53,000 --> 00:43:58,000
+to the suggestion part of the application?
+
+725
+00:43:58,000 --> 00:44:00,000
+I think I'm good.
+
+726
+00:44:00,000 --> 00:44:02,000
+I'm good with the portion.
+
+727
+00:44:02,000 --> 00:44:03,000
+Okay.
+
+728
+00:44:03,000 --> 00:44:04,000
+Mamaya po.
+
+729
+00:44:04,000 --> 00:44:07,000
+After I introduce all of the functions,
+
+730
+00:44:07,000 --> 00:44:09,000
+you can try it out yourself.
+
+731
+00:44:09,000 --> 00:44:14,000
+Dito sa Zoom, I enabled remote access naman po.
+
+732
+00:44:14,000 --> 00:44:16,000
+So moving on po.
+
+733
+00:44:16,000 --> 00:44:18,000
+So this app,
+
+734
+00:44:18,000 --> 00:44:20,000
+it could also suggest materials
+
+735
+00:44:20,000 --> 00:44:22,000
+or colors to you
+
+736
+00:44:22,000 --> 00:44:26,000
+based on certain criteria.
+
+737
+00:44:26,000 --> 00:44:28,000
+So so far,
+
+738
+00:44:28,000 --> 00:44:30,000
+it suggests materials and colors
+
+739
+00:44:30,000 --> 00:44:34,000
+based on the interior design style
+
+740
+00:44:34,000 --> 00:44:35,000
+you're looking for.
+
+741
+00:44:35,000 --> 00:44:36,000
+So here po,
+
+742
+00:44:36,000 --> 00:44:37,000
+if you look at the first,
+
+743
+00:44:37,000 --> 00:44:39,000
+you could suggest
+
+744
+00:44:39,000 --> 00:44:41,000
+there are all types of materials
+
+745
+00:44:41,000 --> 00:44:43,000
+or you could suggest what type of wood
+
+746
+00:44:43,000 --> 00:44:45,000
+or metal or fabric.
+
+747
+00:44:45,000 --> 00:44:46,000
+And then you could suggest
+
+748
+00:44:46,000 --> 00:44:48,000
+your design style here po.
+
+749
+00:44:48,000 --> 00:44:51,000
+So and then,
+
+750
+00:44:51,000 --> 00:44:54,000
+ayun, gumagamit po siya ng chat GPT
+
+751
+00:44:54,000 --> 00:44:58,000
+to help it suggest based on this here po.
+
+752
+00:45:02,000 --> 00:45:04,000
+I think interesting siya.
+
+753
+00:45:04,000 --> 00:45:06,000
+Because at least as a designer,
+
+754
+00:45:06,000 --> 00:45:08,000
+parang hindi ka na babalik sa Google
+
+755
+00:45:08,000 --> 00:45:12,000
+ano ba yung mga transitional type
+
+756
+00:45:12,000 --> 00:45:16,000
+or Scandinavian type of a certain material.
+
+757
+00:45:16,000 --> 00:45:17,000
+Okay.
+
+758
+00:45:17,000 --> 00:45:18,000
+So yun po,
+
+759
+00:45:18,000 --> 00:45:20,000
+malalabas pa yung materials dito.
+
+760
+00:45:20,000 --> 00:45:22,000
+So there's velvet, there's cotton,
+
+761
+00:45:22,000 --> 00:45:23,000
+there's linen.
+
+762
+00:45:23,000 --> 00:45:24,000
+Tapos with this,
+
+763
+00:45:24,000 --> 00:45:25,000
+with this option,
+
+764
+00:45:25,000 --> 00:45:26,000
+pwede ninyo siyang gamitin
+
+765
+00:45:26,000 --> 00:45:28,000
+to generate the material.
+
+766
+00:45:28,000 --> 00:45:29,000
+Sorry, wait.
+
+767
+00:45:29,000 --> 00:45:30,000
+May bug po.
+
+768
+00:45:30,000 --> 00:45:32,000
+Pero if you look at the previous page,
+
+769
+00:45:32,000 --> 00:45:35,000
+magproceed siya to generate
+
+770
+00:45:35,000 --> 00:45:37,000
+that certain material here.
+
+771
+00:45:37,000 --> 00:45:40,000
+So yung napili ko was cotton.
+
+772
+00:45:40,000 --> 00:45:41,000
+So from here,
+
+773
+00:45:41,000 --> 00:45:43,000
+I generated this.
+
+774
+00:45:43,000 --> 00:45:44,000
+Parang ganun po.
+
+775
+00:45:44,000 --> 00:45:47,000
+Tapos maulit po yung generation.
+
+776
+00:45:47,000 --> 00:45:48,000
+Yes po.
+
+777
+00:45:48,000 --> 00:45:50,000
+So ganyan po yung work,
+
+778
+00:45:50,000 --> 00:45:53,000
+yung work flow,
+
+779
+00:45:53,000 --> 00:45:55,000
+ng suggestion ng materials.
+
+780
+00:45:55,000 --> 00:45:58,000
+Tapos po for the suggestion of colors,
+
+781
+00:45:58,000 --> 00:45:59,000
+I think I've shown this before.
+
+782
+00:45:59,000 --> 00:46:01,000
+Pero let's show one more time.
+
+783
+00:46:01,000 --> 00:46:04,000
+You can type in different styles
+
+784
+00:46:04,000 --> 00:46:07,000
+and you can suggest color palettes again.
+
+785
+00:46:07,000 --> 00:46:08,000
+Tapos pwede ninyo siya i-save.
+
+786
+00:46:08,000 --> 00:46:09,000
+And then yun,
+
+787
+00:46:09,000 --> 00:46:10,000
+gagamitin niyo siya
+
+788
+00:46:10,000 --> 00:46:12,000
+when you're adding the color finish po.
+
+789
+00:46:15,000 --> 00:46:16,000
+Ayun po.
+
+790
+00:46:16,000 --> 00:46:18,000
+Parang ganun po.
+
+791
+00:46:18,000 --> 00:46:24,000
+So starting with the suggestion of the materials.
+
+792
+00:46:26,000 --> 00:46:27,000
+So again,
+
+793
+00:46:27,000 --> 00:46:29,000
+what are your thoughts on this module?
+
+794
+00:46:29,000 --> 00:46:31,000
+What are the things you like?
+
+795
+00:46:31,000 --> 00:46:33,000
+What are the things that you find confusing
+
+796
+00:46:33,000 --> 00:46:36,000
+or my comments para to make it better?
+
+797
+00:46:38,000 --> 00:46:41,000
+Siguro in terms of,
+
+798
+00:46:41,000 --> 00:46:43,000
+hindi ko pa siya kung gaano kaway
+
+799
+00:46:43,000 --> 00:46:45,000
+yung rain nung capability na.
+
+800
+00:46:45,000 --> 00:46:50,000
+But what if I'm interested to use
+
+801
+00:46:50,000 --> 00:46:53,000
+yung material na katulad ng mga sulihiya
+
+802
+00:46:53,000 --> 00:46:59,000
+or parang mga fiber-textured na material,
+
+803
+00:46:59,000 --> 00:47:01,000
+yung mga weave material?
+
+804
+00:47:01,000 --> 00:47:03,000
+Possible din ba siya?
+
+805
+00:47:03,000 --> 00:47:07,000
+I think so.
+
+806
+00:47:07,000 --> 00:47:08,000
+Like kung ito,
+
+807
+00:47:08,000 --> 00:47:11,000
+like here you type in like weaved fabric.
+
+808
+00:47:11,000 --> 00:47:12,000
+Ganun po.
+
+809
+00:47:12,000 --> 00:47:14,000
+I mean barang weave.
+
+810
+00:47:14,000 --> 00:47:17,000
+So under siguro ng category ng wood eh.
+
+811
+00:47:17,000 --> 00:47:18,000
+Di ba fiber siya?
+
+812
+00:47:18,000 --> 00:47:19,000
+Wood fiber siya?
+
+813
+00:47:19,000 --> 00:47:21,000
+Yes po, wood.
+
+814
+00:47:21,000 --> 00:47:24,000
+So it suggests based on weave?
+
+815
+00:47:24,000 --> 00:47:25,000
+Ganun po ba?
+
+816
+00:47:25,000 --> 00:47:27,000
+Parang ganun.
+
+817
+00:47:27,000 --> 00:47:30,000
+Would it also kakayanin kaya niyang
+
+818
+00:47:30,000 --> 00:47:32,000
+mag-apply din ng mga ganun?
+
+819
+00:47:34,000 --> 00:47:35,000
+I haven't tried it yet,
+
+820
+00:47:35,000 --> 00:47:38,000
+pero I think there's a,
+
+821
+00:47:38,000 --> 00:47:40,000
+yeah, I could implement it naman po
+
+822
+00:47:40,000 --> 00:47:44,000
+to have it suggest based on weave?
+
+823
+00:47:44,000 --> 00:47:47,000
+Parang weave materials.
+
+824
+00:47:47,000 --> 00:47:51,000
+So would that suggest weave materials?
+
+825
+00:47:51,000 --> 00:47:52,000
+Ganun po ba?
+
+826
+00:47:52,000 --> 00:47:53,000
+Parang ganun.
+
+827
+00:47:53,000 --> 00:47:56,000
+Okay, what are the types of like weave materials po?
+
+828
+00:47:56,000 --> 00:48:02,000
+For example, yung mga furniture textures
+
+829
+00:48:02,000 --> 00:48:04,000
+na nakita mo sa mga works ni
+
+830
+00:48:04,000 --> 00:48:05,000
+cannot go one way.
+
+831
+00:48:05,000 --> 00:48:06,000
+Parang ganun.
+
+832
+00:48:06,000 --> 00:48:07,000
+Weaker type.
+
+833
+00:48:07,000 --> 00:48:09,000
+Parang mga weaker.
+
+834
+00:48:09,000 --> 00:48:10,000
+Weaker.
+
+835
+00:48:10,000 --> 00:48:11,000
+Parang ganun.
+
+836
+00:48:11,000 --> 00:48:12,000
+Okay.
+
+837
+00:48:12,000 --> 00:48:14,000
+I think minsan lumalabas po siya.
+
+838
+00:48:14,000 --> 00:48:17,000
+Based on style lang po.
+
+839
+00:48:17,000 --> 00:48:21,000
+Pero okay, so suggest based on weave.
+
+840
+00:48:25,000 --> 00:48:28,000
+Apart from that, my second question is,
+
+841
+00:48:28,000 --> 00:48:32,000
+does it suggest materials based on style only?
+
+842
+00:48:32,000 --> 00:48:38,000
+So what are you hoping to search materials like based on?
+
+843
+00:48:38,000 --> 00:48:42,000
+Ah, may inisa pa pala ko isang question.
+
+844
+00:48:42,000 --> 00:48:49,000
+So what if I prefer na mag-create ng own interior design style ko?
+
+845
+00:48:49,000 --> 00:48:54,000
+Like for example, I'm designing a store, for example, for a bench.
+
+846
+00:48:54,000 --> 00:48:58,000
+And then nag-set ako ng standard material
+
+847
+00:48:58,000 --> 00:49:04,000
+and standard fodder na gagamitin for that specific project.
+
+848
+00:49:04,000 --> 00:49:10,000
+And I also, baka makatulong din if parang magkaharan yung app
+
+849
+00:49:10,000 --> 00:49:16,000
+ng feature for the user na makapag-create ng own template niya.
+
+850
+00:49:16,000 --> 00:49:18,000
+Parang ganun.
+
+851
+00:49:18,000 --> 00:49:19,000
+Own template?
+
+852
+00:49:19,000 --> 00:49:20,000
+Parang ganun.
+
+853
+00:49:20,000 --> 00:49:24,000
+So that kapag sa next project niya, if for example,
+
+854
+00:49:24,000 --> 00:49:27,000
+store pa rin, bench store pa rin siya,
+
+855
+00:49:27,000 --> 00:49:31,000
+hindi na niya masyadong, parang hindi na niya ulit
+
+856
+00:49:31,000 --> 00:49:38,000
+bubuin from scratch yung lahat ng materials under that parang project branding.
+
+857
+00:49:38,000 --> 00:49:39,000
+Okay.
+
+858
+00:49:39,000 --> 00:49:45,000
+So yung template na yan parang may nag-set na style,
+
+859
+00:49:45,000 --> 00:49:48,000
+tapos may nag-set na materials?
+
+860
+00:49:48,000 --> 00:49:49,000
+A-a.
+
+861
+00:49:49,000 --> 00:49:50,000
+Parang ganun.
+
+862
+00:49:50,000 --> 00:49:51,000
+Ganun po ba?
+
+863
+00:49:51,000 --> 00:49:54,000
+I think that could also be helpful
+
+864
+00:49:54,000 --> 00:49:58,000
+kapag may gusto ka na ulit parang balikan na parang project,
+
+865
+00:49:58,000 --> 00:50:00,000
+tapos ir-render mo lang siya ulit.
+
+866
+00:50:00,000 --> 00:50:04,000
+At least naka-project na dito lahat ng type of material under that template.
+
+867
+00:50:04,000 --> 00:50:12,000
+Like for example, I would make my own modern interior design theme.
+
+868
+00:50:12,000 --> 00:50:19,000
+Pero yung parang definition ko ng modern,
+
+869
+00:50:19,000 --> 00:50:24,000
+gusto ko naman i-rearrange ko
+
+870
+00:50:24,000 --> 00:50:27,000
+or parang i-adjust.
+
+871
+00:50:27,000 --> 00:50:30,000
+Parang ganun.
+
+872
+00:50:30,000 --> 00:50:34,000
+Would that also be siguro balaking tulog yun sa user?
+
+873
+00:50:34,000 --> 00:50:41,000
+Parang magkaroon ng freedom to make his or her own material template
+
+874
+00:50:41,000 --> 00:50:44,000
+or parang design template.
+
+875
+00:50:44,000 --> 00:50:45,000
+Okay.
+
+876
+00:50:45,000 --> 00:50:49,000
+So were you expecting na like,
+
+877
+00:50:49,000 --> 00:50:51,000
+halimbawa, if you look at the bottom right,
+
+878
+00:50:51,000 --> 00:50:56,000
+or bottom here, maglalagay ako ng save as template.
+
+879
+00:50:56,000 --> 00:50:58,000
+Yeah, something like that.
+
+880
+00:50:58,000 --> 00:51:01,000
+Parang, for example, ito,
+
+881
+00:51:01,000 --> 00:51:05,000
+ginawa ko na andami ko ng na-adjust na material
+
+882
+00:51:05,000 --> 00:51:08,000
+and then the next time that I would work on this type of project,
+
+883
+00:51:08,000 --> 00:51:12,000
+gusto ko same style lang din siya.
+
+884
+00:51:12,000 --> 00:51:14,000
+Parang much better siguro if
+
+885
+00:51:14,000 --> 00:51:17,000
+parang mas-save mo yung lahat mong in-adjust mo.
+
+886
+00:51:17,000 --> 00:51:19,000
+Parang into it.
+
+887
+00:51:19,000 --> 00:51:23,000
+Parang may sarili siyang,
+
+888
+00:51:23,000 --> 00:51:26,000
+parang category ganun.
+
+889
+00:51:26,000 --> 00:51:29,000
+Tapos pag magbubukas ulit ako ng other type of project,
+
+890
+00:51:29,000 --> 00:51:31,000
+pag pinindot ko yung category na yun,
+
+891
+00:51:31,000 --> 00:51:34,000
+lalabas lang din ulit lahat mong material na in-adjust ko
+
+892
+00:51:34,000 --> 00:51:36,000
+from a previous project.
+
+893
+00:51:36,000 --> 00:51:39,000
+Tapos dun lang ulit ako maglalalo ng mga material
+
+894
+00:51:39,000 --> 00:51:42,000
+na gagamit lang sa i-rendel.
+
+895
+00:51:42,000 --> 00:51:43,000
+Okay.
+
+896
+00:51:43,000 --> 00:51:45,000
+So yung kinds of materials of that style,
+
+897
+00:51:45,000 --> 00:51:47,000
+parin mo siya mas-save.
+
+898
+00:51:47,000 --> 00:51:50,000
+Oo. Parang mas maganda siguro kung may ganun feature siya.
+
+899
+00:51:50,000 --> 00:51:52,000
+Okay. All right.
+
+900
+00:51:52,000 --> 00:51:55,000
+Para hindi lang nalilimit sa,
+
+901
+00:51:55,000 --> 00:51:58,000
+para hindi lang nalilimit sa category
+
+902
+00:51:58,000 --> 00:52:01,000
+ng nanandito.
+
+903
+00:52:01,000 --> 00:52:04,000
+Parang ganun. Kasi diba dito ilan lang siya,
+
+904
+00:52:04,000 --> 00:52:07,000
+modern, contemporary, tu-tu-tu-tu, ganyan.
+
+905
+00:52:07,000 --> 00:52:10,000
+Parang much better if may option din na parang add style.
+
+906
+00:52:10,000 --> 00:52:12,000
+Parang ganun.
+
+907
+00:52:12,000 --> 00:52:15,000
+So parin mo siya i-type na style?
+
+908
+00:52:15,000 --> 00:52:18,000
+Oo. Or parang may freedom lang yung user
+
+909
+00:52:18,000 --> 00:52:21,000
+na parang mag-create ng own style na.
+
+910
+00:52:21,000 --> 00:52:25,000
+Like, kuna nila, from my end,
+
+911
+00:52:25,000 --> 00:52:30,000
+kuna nila may project ako na store interior.
+
+912
+00:52:30,000 --> 00:52:35,000
+Tapos ano, parang lahat mong in-adjust ko
+
+913
+00:52:35,000 --> 00:52:37,000
+sa project na yun,
+
+914
+00:52:37,000 --> 00:52:41,000
+makokonsider na siya na parang isang template na siya.
+
+915
+00:52:41,000 --> 00:52:43,000
+Okay.
+
+916
+00:52:43,000 --> 00:52:45,000
+Parang ganun lang naman. Pero i-understand na
+
+917
+00:52:45,000 --> 00:52:48,000
+since ito, nag-generate kasi siya ng
+
+918
+00:52:48,000 --> 00:52:51,000
+style based sa parang sa naka-chat,
+
+919
+00:52:51,000 --> 00:52:54,000
+GPT nung, naka-AI na...
+
+920
+00:52:54,000 --> 00:52:57,000
+Yeah. So for yours, it's more on like...
+
+921
+00:52:57,000 --> 00:52:59,000
+Personalization.
+
+922
+00:52:59,000 --> 00:53:02,000
+Yeah. So when you select the material,
+
+923
+00:53:02,000 --> 00:53:05,000
+tapos, let's say like for these materials here,
+
+924
+00:53:05,000 --> 00:53:09,000
+like kapag na-finalize mo na yung material sa isang project,
+
+925
+00:53:09,000 --> 00:53:11,000
+parin mo siya i-save sa template,
+
+926
+00:53:11,000 --> 00:53:13,000
+tapos parin mo siyang gamitin ulit.
+
+927
+00:53:13,000 --> 00:53:16,000
+Not just materials, pero also color palettes.
+
+928
+00:53:16,000 --> 00:53:18,000
+Yeah. Parang ganun.
+
+929
+00:53:18,000 --> 00:53:21,000
+Parang yung same interface sa Lightroom.
+
+930
+00:53:21,000 --> 00:53:23,000
+Have you tried using it?
+
+931
+00:53:23,000 --> 00:53:25,000
+Light... Adobe Lightroom?
+
+932
+00:53:25,000 --> 00:53:26,000
+Yeah.
+
+933
+00:53:26,000 --> 00:53:27,000
+Um, I think...
+
+934
+00:53:27,000 --> 00:53:29,000
+Pero pag naglalightroom ka,
+
+935
+00:53:29,000 --> 00:53:31,000
+mag-adjust ka ng image, right?
+
+936
+00:53:31,000 --> 00:53:34,000
+And then you can control the settings,
+
+937
+00:53:34,000 --> 00:53:38,000
+and then you can just copy-paste it to the next image.
+
+938
+00:53:38,000 --> 00:53:40,000
+Parang something like that.
+
+939
+00:53:41,000 --> 00:53:42,000
+Okay.
+
+940
+00:53:42,000 --> 00:53:43,000
+So you can...
+
+941
+00:53:43,000 --> 00:53:46,000
+Tapos pag nag-create ka ng adjustment sa Lightroom,
+
+942
+00:53:46,000 --> 00:53:49,000
+pwede mong i-save yung parang filter nun as
+
+943
+00:53:49,000 --> 00:53:52,000
+a DNG type of file.
+
+944
+00:53:52,000 --> 00:53:53,000
+Ah, yeah, yeah.
+
+945
+00:53:53,000 --> 00:53:55,000
+Yeah. Parang ganun. Do you...
+
+946
+00:53:55,000 --> 00:53:57,000
+Yeah. Parang yung contrast may values,
+
+947
+00:53:57,000 --> 00:53:58,000
+tapos yung mga values na yan,
+
+948
+00:53:58,000 --> 00:53:59,000
+pwede mo siya i-save.
+
+949
+00:53:59,000 --> 00:54:01,000
+Aos pwede mo siya i-load.
+
+950
+00:54:01,000 --> 00:54:03,000
+So parang filter siya.
+
+951
+00:54:03,000 --> 00:54:04,000
+Okay.
+
+952
+00:54:04,000 --> 00:54:06,000
+Pero in a rendering setting. Parang ganun.
+
+953
+00:54:06,000 --> 00:54:08,000
+Naka-name ka ng template for that.
+
+954
+00:54:08,000 --> 00:54:09,000
+Para sa next project mo,
+
+955
+00:54:09,000 --> 00:54:13,000
+gusto mo ulit-ulitin yung store interior motif.
+
+956
+00:54:13,000 --> 00:54:15,000
+Tapos para mo i-inload yung mga materials na
+
+957
+00:54:15,000 --> 00:54:17,000
+ginamit mo last time into this one.
+
+958
+00:54:17,000 --> 00:54:18,000
+O. Tapos ako na parang...
+
+959
+00:54:18,000 --> 00:54:21,000
+Ako na bahala mag-apply kung saan ko siya i-apply ulit na
+
+960
+00:54:21,000 --> 00:54:23,000
+surface or something like that.
+
+961
+00:54:23,000 --> 00:54:25,000
+Or sa akong anong model.
+
+962
+00:54:26,000 --> 00:54:28,000
+So when you're suggesting materials,
+
+963
+00:54:28,000 --> 00:54:29,000
+or creating materials,
+
+964
+00:54:29,000 --> 00:54:31,000
+hoping that you could like save...
+
+965
+00:54:31,000 --> 00:54:33,000
+Yeah. Yung mga nakaraan...
+
+966
+00:54:33,000 --> 00:54:36,000
+Parang mga past materials na nagamit ko before.
+
+967
+00:54:36,000 --> 00:54:37,000
+Okay. All right.
+
+968
+00:54:37,000 --> 00:54:39,000
+Okay, got it.
+
+969
+00:54:39,000 --> 00:54:40,000
+Okay.
+
+970
+00:54:40,000 --> 00:54:43,000
+Were you hoping to suggest it like...
+
+971
+00:54:43,000 --> 00:54:45,000
+Like, would it help po?
+
+972
+00:54:45,000 --> 00:54:46,000
+Kasi this is an idea,
+
+973
+00:54:46,000 --> 00:54:48,000
+pero di ko po siya na-execute.
+
+974
+00:54:48,000 --> 00:54:51,000
+Would it help if you suggest materials based on
+
+975
+00:54:51,000 --> 00:54:54,000
+yung nakalagay sa design requirements?
+
+976
+00:54:54,000 --> 00:54:55,000
+Ano imbawa po?
+
+977
+00:54:55,000 --> 00:54:58,000
+Like for yung sa design requirements,
+
+978
+00:54:58,000 --> 00:54:59,000
+correct me if I'm wrong,
+
+979
+00:54:59,000 --> 00:55:03,000
+but the client is looking for,
+
+980
+00:55:03,000 --> 00:55:09,000
+let's say, a low-cost or mid-range na residential space.
+
+981
+00:55:09,000 --> 00:55:13,000
+So would it help na it would suggest materials
+
+982
+00:55:13,000 --> 00:55:16,000
+based on the cost?
+
+983
+00:55:16,000 --> 00:55:18,000
+Like there's high-end, mid-range...
+
+984
+00:55:18,000 --> 00:55:19,000
+Like for example,
+
+985
+00:55:19,000 --> 00:55:22,000
+if you're targeting parang low-cost,
+
+986
+00:55:22,000 --> 00:55:25,000
+siyempre wala ka masyadong makitang laminates.
+
+987
+00:55:25,000 --> 00:55:26,000
+Parang ganun.
+
+988
+00:55:26,000 --> 00:55:27,000
+Parang ganun po, yes.
+
+989
+00:55:27,000 --> 00:55:29,000
+I think that would be helpful.
+
+990
+00:55:29,000 --> 00:55:32,000
+Para at least yung user,
+
+991
+00:55:32,000 --> 00:55:33,000
+parang hindi na niya...
+
+992
+00:55:33,000 --> 00:55:35,000
+Parang magandang feature siya.
+
+993
+00:55:35,000 --> 00:55:38,000
+Kasi at least makokoncider niya na yung...
+
+994
+00:55:38,000 --> 00:55:40,000
+Malilimit niya na sa mind niya yung mga materials
+
+995
+00:55:40,000 --> 00:55:43,000
+na pwede niyong pagdaroan within that budget.
+
+996
+00:55:43,000 --> 00:55:48,000
+And don't know lang kung paano kaya yung magiging accuracy ng...
+
+997
+00:55:48,000 --> 00:55:51,000
+Parang costing ng material na yun.
+
+998
+00:55:51,000 --> 00:55:52,000
+Parang...
+
+999
+00:55:52,000 --> 00:55:54,000
+At wala akong be a nice fee.
+
+1000
+00:55:54,000 --> 00:55:55,000
+Okay.
+
+1001
+00:55:55,000 --> 00:55:56,000
+Alright.
+
+1002
+00:55:56,000 --> 00:55:57,000
+Okay.
+
+1003
+00:55:57,000 --> 00:55:58,000
+Ayun po.
+
+1004
+00:55:58,000 --> 00:55:59,000
+So...
+
+1005
+00:55:59,000 --> 00:56:00,000
+So before we move...
+
+1006
+00:56:00,000 --> 00:56:01,000
+Oh, wait.
+
+1007
+00:56:01,000 --> 00:56:02,000
+Sorry.
+
+1008
+00:56:02,000 --> 00:56:03,000
+We have only 7 minutes.
+
+1009
+00:56:03,000 --> 00:56:04,000
+Is it possible to extend
+
+1010
+00:56:04,000 --> 00:56:07,000
+or do you have a meeting po after this?
+
+1011
+00:56:07,000 --> 00:56:10,000
+I can extend a bit naman.
+
+1012
+00:56:10,000 --> 00:56:12,000
+If you need my feedback.
+
+1013
+00:56:12,000 --> 00:56:15,000
+I'm not sure if nakatulong ba yung feedback mo.
+
+1014
+00:56:15,000 --> 00:56:17,000
+Nakatudong po siya.
+
+1015
+00:56:17,000 --> 00:56:18,000
+So, sige.
+
+1016
+00:56:18,000 --> 00:56:20,000
+I can extend siguro mga...
+
+1017
+00:56:20,000 --> 00:56:22,000
+Sigurong 10 minutes.
+
+1018
+00:56:22,000 --> 00:56:23,000
+10 minutes?
+
+1019
+00:56:23,000 --> 00:56:24,000
+Okay lang po.
+
+1020
+00:56:24,000 --> 00:56:25,000
+So until 11, 10.
+
+1021
+00:56:25,000 --> 00:56:26,000
+Okay.
+
+1022
+00:56:26,000 --> 00:56:27,000
+So...
+
+1023
+00:56:28,000 --> 00:56:29,000
+Ayun po.
+
+1024
+00:56:29,000 --> 00:56:31,000
+So that's for the suggestion of materials.
+
+1025
+00:56:31,000 --> 00:56:32,000
+So are there...
+
+1026
+00:56:32,000 --> 00:56:34,000
+Are there any other ways
+
+1027
+00:56:34,000 --> 00:56:37,000
+you hope the prototype to suggest by
+
+1028
+00:56:37,000 --> 00:56:39,000
+apart from let's say suggest by style
+
+1029
+00:56:39,000 --> 00:56:42,000
+or suggest by cost or...
+
+1030
+00:56:43,000 --> 00:56:45,000
+Would it help po like let's say
+
+1031
+00:56:45,000 --> 00:56:48,000
+I suggest based on the object?
+
+1032
+00:56:48,000 --> 00:56:51,000
+Like what are materials used for a...
+
+1033
+00:56:51,000 --> 00:56:52,000
+Let's say for the floor.
+
+1034
+00:56:52,000 --> 00:56:55,000
+That can also be an okay feature.
+
+1035
+00:56:55,000 --> 00:56:57,000
+Kasi, for example, sa floor.
+
+1036
+00:56:58,000 --> 00:56:59,000
+Ay, hindi.
+
+1037
+00:56:59,000 --> 00:57:01,000
+For example na lang sa isang...
+
+1038
+00:57:02,000 --> 00:57:03,000
+Ang ibang material.
+
+1039
+00:57:03,000 --> 00:57:05,000
+Ay, for example na lang siguro sa upuan.
+
+1040
+00:57:06,000 --> 00:57:07,000
+Parang I can use...
+
+1041
+00:57:07,000 --> 00:57:08,000
+Hindi.
+
+1042
+00:57:08,000 --> 00:57:09,000
+Daming material eh.
+
+1043
+00:57:09,000 --> 00:57:10,000
+Wait lang.
+
+1044
+00:57:10,000 --> 00:57:12,000
+Kaya ng material na ano...
+
+1045
+00:57:12,000 --> 00:57:14,000
+Na kaunti lang.
+
+1046
+00:57:14,000 --> 00:57:16,000
+For example...
+
+1047
+00:57:18,000 --> 00:57:19,000
+Ang material.
+
+1048
+00:57:19,000 --> 00:57:20,000
+So wait lang.
+
+1049
+00:57:20,000 --> 00:57:21,000
+Napaisip pa ko.
+
+1050
+00:57:22,000 --> 00:57:24,000
+For example, sa phone.
+
+1051
+00:57:28,000 --> 00:57:29,000
+Pwedeng...
+
+1052
+00:57:29,000 --> 00:57:31,000
+Usually ang applicable lang.
+
+1053
+00:57:32,000 --> 00:57:33,000
+Sabihin natin metal.
+
+1054
+00:57:34,000 --> 00:57:35,000
+Mas maganda...
+
+1055
+00:57:35,000 --> 00:57:36,000
+Mas maganda yung ganung feature.
+
+1056
+00:57:36,000 --> 00:57:38,000
+Para at least hindi ko nai-explore na
+
+1057
+00:57:38,000 --> 00:57:40,000
+gawin siya on a glass.
+
+1058
+00:57:40,000 --> 00:57:41,000
+Parang ganoon.
+
+1059
+00:57:41,000 --> 00:57:43,000
+Or on a cloth.
+
+1060
+00:57:43,000 --> 00:57:45,000
+I think that would be much better.
+
+1061
+00:57:45,000 --> 00:57:48,000
+Para at least additional
+
+1062
+00:57:48,000 --> 00:57:50,000
+knowledge na yun sa user na parang...
+
+1063
+00:57:50,000 --> 00:57:52,000
+For example, kung hindi naman lahat
+
+1064
+00:57:52,000 --> 00:57:53,000
+professional gumagamit.
+
+1065
+00:57:53,000 --> 00:57:55,000
+May student na parang...
+
+1066
+00:57:55,000 --> 00:57:57,000
+Bawal ba la to gamitin sa ganun-ganun.
+
+1067
+00:57:57,000 --> 00:57:58,000
+Something like that.
+
+1068
+00:57:58,000 --> 00:57:59,000
+Okay.
+
+1069
+00:57:59,000 --> 00:58:00,000
+Okay.
+
+1070
+00:58:02,000 --> 00:58:03,000
+Ayun po.
+
+1071
+00:58:03,000 --> 00:58:06,000
+Going back to suggestion ng colors po.
+
+1072
+00:58:06,000 --> 00:58:07,000
+And so...
+
+1073
+00:58:07,000 --> 00:58:08,000
+My last question is...
+
+1074
+00:58:08,000 --> 00:58:09,000
+Kasi so far...
+
+1075
+00:58:09,000 --> 00:58:13,000
+It adds the color finish individually po.
+
+1076
+00:58:13,000 --> 00:58:14,000
+Like, you have to select one.
+
+1077
+00:58:14,000 --> 00:58:17,000
+Pwede mo siya i-apply to the object
+
+1078
+00:58:17,000 --> 00:58:18,000
+one at a time.
+
+1079
+00:58:18,000 --> 00:58:20,000
+Would it help po if you like...
+
+1080
+00:58:20,000 --> 00:58:23,000
+Distribute the colors to the entire scene
+
+1081
+00:58:23,000 --> 00:58:24,000
+or something like that?
+
+1082
+00:58:24,000 --> 00:58:26,000
+Parang in the click of a button,
+
+1083
+00:58:26,000 --> 00:58:28,000
+madidistribute pa yung colors.
+
+1084
+00:58:28,000 --> 00:58:30,000
+Makaatulong po ba yun?
+
+1085
+00:58:30,000 --> 00:58:31,000
+Like...
+
+1086
+00:58:31,000 --> 00:58:32,000
+Diga lang.
+
+1087
+00:58:32,000 --> 00:58:34,000
+Hindi ko masyad maintindi yan. Sorry.
+
+1088
+00:58:34,000 --> 00:58:35,000
+Like, aningbawa.
+
+1089
+00:58:35,000 --> 00:58:37,000
+Let's say for...
+
+1090
+00:58:37,000 --> 00:58:39,000
+Let's say if I save this color pad
+
+1091
+00:58:39,000 --> 00:58:40,000
+for instance.
+
+1092
+00:58:40,000 --> 00:58:42,000
+Tapos, when I...
+
+1093
+00:58:42,000 --> 00:58:44,000
+Kapag ito yung napili ko.
+
+1094
+00:58:44,000 --> 00:58:45,000
+Uh-uh.
+
+1095
+00:58:45,000 --> 00:58:46,000
+Would it help if I...
+
+1096
+00:58:46,000 --> 00:58:47,000
+With this color palette,
+
+1097
+00:58:47,000 --> 00:58:51,000
+it automatically colors the entire room.
+
+1098
+00:58:51,000 --> 00:58:52,000
+Like, with this...
+
+1099
+00:58:52,000 --> 00:58:53,000
+With these colors.
+
+1100
+00:58:53,000 --> 00:58:56,000
+For example, ma-apply din siya sa wall and ceiling.
+
+1101
+00:58:56,000 --> 00:58:57,000
+Yes po.
+
+1102
+00:58:57,000 --> 00:58:58,000
+Just on the flooring.
+
+1103
+00:58:58,000 --> 00:59:01,000
+Like, it equally distributes the colors.
+
+1104
+00:59:01,000 --> 00:59:04,000
+Would it help po na ganyan?
+
+1105
+00:59:04,000 --> 00:59:06,000
+So that way you don't need to like
+
+1106
+00:59:06,000 --> 00:59:08,000
+continuously point and click
+
+1107
+00:59:08,000 --> 00:59:09,000
+on different parts.
+
+1108
+00:59:09,000 --> 00:59:10,000
+Do you get what I'm saying?
+
+1109
+00:59:11,000 --> 00:59:12,000
+Kapag, for example,
+
+1110
+00:59:12,000 --> 00:59:14,000
+I click itong...
+
+1111
+00:59:14,000 --> 00:59:17,000
+Yeah, yung color green.
+
+1112
+00:59:17,000 --> 00:59:19,000
+Ma-apply lang siya sa isang material.
+
+1113
+00:59:19,000 --> 00:59:20,000
+Tama ba?
+
+1114
+00:59:20,000 --> 00:59:21,000
+No, no.
+
+1115
+00:59:21,000 --> 00:59:24,000
+Like, with this entire color palette po.
+
+1116
+00:59:24,000 --> 00:59:26,000
+And then kung maga...
+
+1117
+00:59:26,000 --> 00:59:27,000
+Let's say there's a button called
+
+1118
+00:59:27,000 --> 00:59:30,000
+apply to entire rendering.
+
+1119
+00:59:30,000 --> 00:59:31,000
+So the colors I applied...
+
+1120
+00:59:31,000 --> 00:59:34,000
+Automatically mag-apply na siya sa iba-ibang surface.
+
+1121
+00:59:34,000 --> 00:59:35,000
+Yes.
+
+1122
+00:59:35,000 --> 00:59:36,000
+Ah.
+
+1123
+00:59:36,000 --> 00:59:37,000
+Would it help na ganyan?
+
+1124
+00:59:37,000 --> 00:59:39,000
+Or...
+
+1125
+00:59:39,000 --> 00:59:42,000
+I think it's also a nice feature,
+
+1126
+00:59:42,000 --> 00:59:46,000
+but parang malilimit lang yung user
+
+1127
+00:59:46,000 --> 00:59:48,000
+into a box.
+
+1128
+00:59:48,000 --> 00:59:49,000
+Parang gano'n.
+
+1129
+00:59:49,000 --> 00:59:50,000
+A boxed option.
+
+1130
+00:59:50,000 --> 00:59:53,000
+Would it like induce fixation?
+
+1131
+00:59:53,000 --> 00:59:54,000
+Ganun po?
+
+1132
+00:59:57,000 --> 00:59:58,000
+Siguro ano.
+
+1133
+00:59:58,000 --> 01:00:01,000
+Parang you can do that.
+
+1134
+01:00:01,000 --> 01:00:02,000
+Not just sa coder.
+
+1135
+01:00:02,000 --> 01:00:06,000
+Parang baka pwede kang mag-add ng...
+
+1136
+01:00:06,000 --> 01:00:08,000
+Parang pwede ka siguro...
+
+1137
+01:00:08,000 --> 01:00:10,000
+Maganda siguro kung may feature na parang...
+
+1138
+01:00:10,000 --> 01:00:12,000
+Gagawa ka ng collection.
+
+1139
+01:00:12,000 --> 01:00:18,000
+For example, you'll be choosing this color.
+
+1140
+01:00:18,000 --> 01:00:20,000
+Namimili ka ng tatmong kulay dyan.
+
+1141
+01:00:20,000 --> 01:00:23,000
+Baka mas maganda kung pwede kang mag-add ng...
+
+1142
+01:00:23,000 --> 01:00:26,000
+ng texture or material.
+
+1143
+01:00:26,000 --> 01:00:28,000
+Based on the color?
+
+1144
+01:00:31,000 --> 01:00:33,000
+Parang...
+
+1145
+01:00:33,000 --> 01:00:35,000
+Hindi ko alam kung lumalayo na ba ako.
+
+1146
+01:00:35,000 --> 01:00:37,000
+Sa understanding.
+
+1147
+01:00:37,000 --> 01:00:38,000
+So parang medyo...
+
+1148
+01:00:38,000 --> 01:00:40,000
+Tama ba yung understanding ko na
+
+1149
+01:00:40,000 --> 01:00:44,000
+kapag sinalag ko tong color palette na ito,
+
+1150
+01:00:44,000 --> 01:00:47,000
+ma-apply siya sa floor.
+
+1151
+01:00:47,000 --> 01:00:50,000
+Yung darker color, ma-apply siya sa wall.
+
+1152
+01:00:50,000 --> 01:00:53,000
+Yung lighter color, ma-apply siya sa wall.
+
+1153
+01:00:53,000 --> 01:00:55,000
+Yes, like...
+
+1154
+01:00:55,000 --> 01:00:58,000
+Parang may button that...
+
+1155
+01:00:58,000 --> 01:01:00,000
+that assigns it.
+
+1156
+01:01:00,000 --> 01:01:04,000
+At the same time, maging mukhang harmonious.
+
+1157
+01:01:04,000 --> 01:01:05,000
+Yung room.
+
+1158
+01:01:05,000 --> 01:01:06,000
+I think okay din siya.
+
+1159
+01:01:06,000 --> 01:01:08,000
+In terms of color,
+
+1160
+01:01:08,000 --> 01:01:10,000
+medyo nakikets ka na.
+
+1161
+01:01:10,000 --> 01:01:11,000
+Okay.
+
+1162
+01:01:11,000 --> 01:01:14,000
+Pero mas maganda kung yan, may freedom yung user
+
+1163
+01:01:14,000 --> 01:01:17,000
+na mag-customize ng own set of color palette niya.
+
+1164
+01:01:17,000 --> 01:01:18,000
+Okay.
+
+1165
+01:01:18,000 --> 01:01:19,000
+Aside from parang...
+
+1166
+01:01:19,000 --> 01:01:21,000
+Aside from parang tinatype na lang
+
+1167
+01:01:21,000 --> 01:01:22,000
+and nire-research.
+
+1168
+01:01:22,000 --> 01:01:26,000
+Parang may feature to create his or her color palette.
+
+1169
+01:01:26,000 --> 01:01:28,000
+Like parang may refresh button or something?
+
+1170
+01:01:28,000 --> 01:01:30,000
+Or like if you select this...
+
+1171
+01:01:30,000 --> 01:01:31,000
+Parang customize.
+
+1172
+01:01:31,000 --> 01:01:33,000
+Something like that.
+
+1173
+01:01:33,000 --> 01:01:35,000
+Aside from suggest,
+
+1174
+01:01:35,000 --> 01:01:37,000
+customize your own...
+
+1175
+01:01:37,000 --> 01:01:39,000
+Like when you add a new color palette,
+
+1176
+01:01:39,000 --> 01:01:41,000
+may manarabas na list yung na empty.
+
+1177
+01:01:41,000 --> 01:01:43,000
+Tapos parang may syang i-gumit.
+
+1178
+01:01:43,000 --> 01:01:45,000
+Pwede kang mag-customize ng sarili mong color palette.
+
+1179
+01:01:45,000 --> 01:01:47,000
+Yeah, parang gano'n po.
+
+1180
+01:01:47,000 --> 01:01:49,000
+Like something like that.
+
+1181
+01:01:49,000 --> 01:01:50,000
+Yeah, something like that.
+
+1182
+01:01:50,000 --> 01:01:51,000
+Okay.
+
+1183
+01:01:51,000 --> 01:01:54,000
+So parang may additional new palette.
+
+1184
+01:01:54,000 --> 01:01:56,000
+Oh, parang gano'n.
+
+1185
+01:01:56,000 --> 01:01:57,000
+Okay.
+
+1186
+01:01:57,000 --> 01:01:59,000
+Alright, understood.
+
+1187
+01:01:59,000 --> 01:02:00,000
+Ayun po.
+
+1188
+01:02:00,000 --> 01:02:03,000
+So that's the suggest materials and suggest colors.
+
+1189
+01:02:03,000 --> 01:02:05,000
+So lastly po, if you look at the right side,
+
+1190
+01:02:05,000 --> 01:02:08,000
+yung second tab, it shows feedback.
+
+1191
+01:02:08,000 --> 01:02:12,000
+So yung feedback po, currently,
+
+1192
+01:02:12,000 --> 01:02:16,000
+the material, this prototype,
+
+1193
+01:02:16,000 --> 01:02:19,000
+it gives feedback based on
+
+1194
+01:02:19,000 --> 01:02:21,000
+the assembly ng parts together.
+
+1195
+01:02:21,000 --> 01:02:23,000
+So for different objects po,
+
+1196
+01:02:23,000 --> 01:02:26,000
+ano ba po, let's say for bed.
+
+1197
+01:02:26,000 --> 01:02:29,000
+So if you look at this,
+
+1198
+01:02:29,000 --> 01:02:32,000
+let me know if like mukhang confusing
+
+1199
+01:02:32,000 --> 01:02:34,000
+yung mukha.
+
+1200
+01:02:34,000 --> 01:02:36,000
+Pero what this means is that yung headboard,
+
+1201
+01:02:36,000 --> 01:02:40,000
+parang naka-attach po sya sa bed frame.
+
+1202
+01:02:40,000 --> 01:02:41,000
+Ganun po.
+
+1203
+01:02:41,000 --> 01:02:44,000
+And it shows like the different materials.
+
+1204
+01:02:44,000 --> 01:02:48,000
+So the purpose of this is to like suggest
+
+1205
+01:02:48,000 --> 01:02:51,000
+different ways to attach parts
+
+1206
+01:02:51,000 --> 01:02:54,000
+of different materials together.
+
+1207
+01:02:54,000 --> 01:02:57,000
+So ano ba po, like if I want to find ways
+
+1208
+01:02:57,000 --> 01:03:00,000
+to suggest to attach the headboard
+
+1209
+01:03:00,000 --> 01:03:02,000
+ng bed to the bed frame,
+
+1210
+01:03:02,000 --> 01:03:05,000
+tapos po na yung sya ipindot.
+
+1211
+01:03:05,000 --> 01:03:07,000
+And when you suggest it,
+
+1212
+01:03:07,000 --> 01:03:09,000
+parang may malalabas na text dito.
+
+1213
+01:03:09,000 --> 01:03:11,000
+Ah, parang may installation.
+
+1214
+01:03:11,000 --> 01:03:14,000
+For installation.
+
+1215
+01:03:14,000 --> 01:03:16,000
+Parang ganun po, yes.
+
+1216
+01:03:16,000 --> 01:03:19,000
+Tapos may malalabas na suggestions
+
+1217
+01:03:19,000 --> 01:03:21,000
+on how you can do it.
+
+1218
+01:03:21,000 --> 01:03:23,000
+Ayun po, yes.
+
+1219
+01:03:23,000 --> 01:03:26,000
+And you can do the same for side tables.
+
+1220
+01:03:26,000 --> 01:03:29,000
+Of course, hindi po sya applicable for all parts
+
+1221
+01:03:29,000 --> 01:03:32,000
+kasi po yung floors, for example.
+
+1222
+01:03:32,000 --> 01:03:35,000
+Pero yung shelves, for example.
+
+1223
+01:03:35,000 --> 01:03:38,000
+Yung, ay tawag baliktad to.
+
+1224
+01:03:38,000 --> 01:03:41,000
+Yung shelves, parang kung nakikita...
+
+1225
+01:03:41,000 --> 01:03:43,000
+Did you notice the first time yung shelves?
+
+1226
+01:03:43,000 --> 01:03:44,000
+Parang yun po yung...
+
+1227
+01:03:44,000 --> 01:03:46,000
+Anong tawag po dito?
+
+1228
+01:03:46,000 --> 01:03:48,000
+Yung horizontal na...
+
+1229
+01:03:48,000 --> 01:03:50,000
+Ledge?
+
+1230
+01:03:50,000 --> 01:03:51,000
+Ah, ledge.
+
+1231
+01:03:51,000 --> 01:03:52,000
+Okay, sir.
+
+1232
+01:03:52,000 --> 01:03:54,000
+I don't know the right terms for a shelf.
+
+1233
+01:03:54,000 --> 01:03:55,000
+Self-ledge.
+
+1234
+01:03:55,000 --> 01:03:56,000
+Self-ledge.
+
+1235
+01:03:56,000 --> 01:03:57,000
+So ito yung ledge.
+
+1236
+01:03:57,000 --> 01:03:58,000
+As steel sya?
+
+1237
+01:03:58,000 --> 01:04:01,000
+Currently it's made of steel po.
+
+1238
+01:04:01,000 --> 01:04:04,000
+If you look at the shelf here.
+
+1239
+01:04:04,000 --> 01:04:07,000
+Tapos naka-attach po sya sa wall panels.
+
+1240
+01:04:07,000 --> 01:04:09,000
+Actually, baliktad to.
+
+1241
+01:04:09,000 --> 01:04:13,000
+So you can suggest the attachments here.
+
+1242
+01:04:13,000 --> 01:04:15,000
+Yung suggested.
+
+1243
+01:04:15,000 --> 01:04:18,000
+Parang ganun po.
+
+1244
+01:04:18,000 --> 01:04:20,000
+Ako I'm okay with that.
+
+1245
+01:04:20,000 --> 01:04:22,000
+Kasi parang additional info din sya.
+
+1246
+01:04:22,000 --> 01:04:24,000
+Kasi hindi naman lahat ng designers
+
+1247
+01:04:24,000 --> 01:04:27,000
+knowledgeable on how to install.
+
+1248
+01:04:27,000 --> 01:04:31,000
+Parang hindi naman lahat knowledgeable sa construction.
+
+1249
+01:04:31,000 --> 01:04:34,000
+But yung appearance lang,
+
+1250
+01:04:34,000 --> 01:04:37,000
+pwede yung bumalik ka dun ulit sa viewport.
+
+1251
+01:04:37,000 --> 01:04:40,000
+Parang medyo confusing lang sya for me.
+
+1252
+01:04:40,000 --> 01:04:43,000
+I don't know if it's the role.
+
+1253
+01:04:43,000 --> 01:04:46,000
+Kasi parang before and after yung naging impression po.
+
+1254
+01:04:46,000 --> 01:04:49,000
+Ah, okay.
+
+1255
+01:04:49,000 --> 01:04:52,000
+Sigurong parang it needs to...
+
+1256
+01:04:52,000 --> 01:04:54,000
+I don't know kung mas facilitate na ba
+
+1257
+01:04:54,000 --> 01:04:57,000
+or baka may ibang way pa.
+
+1258
+01:04:57,000 --> 01:05:00,000
+Para mas maintindihan ng user na parang...
+
+1259
+01:05:00,000 --> 01:05:03,000
+ito yung parang...
+
+1260
+01:05:03,000 --> 01:05:06,000
+parang connection niya o yung parang attachment niya.
+
+1261
+01:05:06,000 --> 01:05:09,000
+Parang ganun.
+
+1262
+01:05:09,000 --> 01:05:12,000
+Complicated lang sya maintindihan for me.
+
+1263
+01:05:12,000 --> 01:05:15,000
+But aside from that,
+
+1264
+01:05:15,000 --> 01:05:18,000
+I like yung parang may suggested way sya
+
+1265
+01:05:18,000 --> 01:05:21,000
+on how to install things.
+
+1266
+01:05:22,000 --> 01:05:25,000
+Malalagyan niya na explanation.
+
+1267
+01:05:25,000 --> 01:05:28,000
+But I think it's a good feature.
+
+1268
+01:05:28,000 --> 01:05:31,000
+Okay po. Understood.
+
+1269
+01:05:31,000 --> 01:05:34,000
+Apart from that,
+
+1270
+01:05:34,000 --> 01:05:37,000
+kasi currently it gives feedback on
+
+1271
+01:05:37,000 --> 01:05:40,000
+how the parts are assembled together
+
+1272
+01:05:40,000 --> 01:05:43,000
+based on the materials used.
+
+1273
+01:05:43,000 --> 01:05:46,000
+So my question is,
+
+1274
+01:05:46,000 --> 01:05:49,000
+what are other things you hope this system
+
+1275
+01:05:49,000 --> 01:05:52,000
+can do?
+
+1276
+01:05:52,000 --> 01:05:55,000
+Aside from that,
+
+1277
+01:05:55,000 --> 01:05:58,000
+well, hindi naman kasi nalilimit yung parang
+
+1278
+01:05:58,000 --> 01:06:01,000
+installation sa mga isa-suggest niya.
+
+1279
+01:06:01,000 --> 01:06:04,000
+I think an additional
+
+1280
+01:06:04,000 --> 01:06:07,000
+feature like siguro...
+
+1281
+01:06:07,000 --> 01:06:10,000
+I don't know if it's possible.
+
+1282
+01:06:10,000 --> 01:06:13,000
+Pero yung mga, nabawa, standard sizing,
+
+1283
+01:06:13,000 --> 01:06:16,000
+would that also be possible?
+
+1284
+01:06:16,000 --> 01:06:19,000
+So yung shelf ledge,
+
+1285
+01:06:19,000 --> 01:06:22,000
+maganda siguro na parang
+
+1286
+01:06:22,000 --> 01:06:25,000
+pi-feedback ka na rin yung app na parang
+
+1287
+01:06:25,000 --> 01:06:28,000
+ang ideal depth nito
+
+1288
+01:06:28,000 --> 01:06:31,000
+if mag-di-display ka ng books is
+
+1289
+01:06:31,000 --> 01:06:34,000
+0.30 meters I guess.
+
+1290
+01:06:34,000 --> 01:06:37,000
+So it would be much better
+
+1291
+01:06:37,000 --> 01:06:40,000
+if malagyan din sya ng ganong feedback
+
+1292
+01:06:40,000 --> 01:06:43,000
+when it comes to standard sizing.
+
+1293
+01:06:43,000 --> 01:06:46,000
+So it would be back on proportion sizing
+
+1294
+01:06:46,000 --> 01:06:49,000
+ng mga objects.
+
+1295
+01:06:49,000 --> 01:06:52,000
+I think that...
+
+1296
+01:06:52,000 --> 01:06:55,000
+ang maganda yun.
+
+1297
+01:06:55,000 --> 01:06:58,000
+Para at least ma-determine nila,
+
+1298
+01:06:58,000 --> 01:07:01,000
+gusto ko mag-display dito ng VES.
+
+1299
+01:07:01,000 --> 01:07:04,000
+Kakasha kaya yung 0.30 dito,
+
+1300
+01:07:04,000 --> 01:07:07,000
+yung 0.15 meters na depth.
+
+1301
+01:07:07,000 --> 01:07:10,000
+So yung measurements ng mga parts.
+
+1302
+01:07:10,000 --> 01:07:13,000
+Most especially sa interior design.
+
+1303
+01:07:13,000 --> 01:07:16,000
+I'm sure sa ibang field din naman.
+
+1304
+01:07:16,000 --> 01:07:19,000
+Important sa sizing.
+
+1305
+01:07:19,000 --> 01:07:22,000
+Standard seat height,
+
+1306
+01:07:22,000 --> 01:07:25,000
+standard door height or something like that.
+
+1307
+01:07:25,000 --> 01:07:28,000
+Okay.
+
+1308
+01:07:28,000 --> 01:07:31,000
+I think we only have 5 minutes.
+
+1309
+01:07:31,000 --> 01:07:34,000
+So apart from that,
+
+1310
+01:07:34,000 --> 01:07:37,000
+before I lend to you the prototype
+
+1311
+01:07:37,000 --> 01:07:40,000
+what other ways you hope this
+
+1312
+01:07:40,000 --> 01:07:43,000
+prototype can give feedback on?
+
+1313
+01:07:43,000 --> 01:07:46,000
+Maybe like...
+
+1314
+01:07:46,000 --> 01:07:49,000
+In what sense?
+
+1315
+01:07:49,000 --> 01:07:52,000
+It could be about the room
+
+1316
+01:07:52,000 --> 01:07:55,000
+regarding proportions.
+
+1317
+01:07:55,000 --> 01:07:58,000
+Is there any feedback on the materials?
+
+1318
+01:07:58,000 --> 01:08:01,000
+It could give feedback on
+
+1319
+01:08:01,000 --> 01:08:04,000
+materials.
+
+1320
+01:08:04,000 --> 01:08:07,000
+Pero kanina nakita ko,
+
+1321
+01:08:07,000 --> 01:08:10,000
+parang inisip ko kasi yung durability ng material
+
+1322
+01:08:10,000 --> 01:08:13,000
+or in this specific setting.
+
+1323
+01:08:13,000 --> 01:08:16,000
+I think that would be helpful.
+
+1324
+01:08:16,000 --> 01:08:19,000
+For example, yung project ko is na sa
+
+1325
+01:08:19,000 --> 01:08:22,000
+coastal area.
+
+1326
+01:08:22,000 --> 01:08:25,000
+Baka that would be helpful na parang at least
+
+1327
+01:08:25,000 --> 01:08:28,000
+mapipinpuntin ako anong mga material na typically
+
+1328
+01:08:28,000 --> 01:08:31,000
+pwede mong gamitin sa mga coastal area
+
+1329
+01:08:31,000 --> 01:08:34,000
+sa tropical environment setting.
+
+1330
+01:08:34,000 --> 01:08:37,000
+Ito lang yung mga material na pwede mong i-workout.
+
+1331
+01:08:37,000 --> 01:08:40,000
+Parang hindi ka pwede masyadang mag-metal.
+
+1332
+01:08:40,000 --> 01:08:43,000
+Since metal, pag ganoit na sa tropical setting,
+
+1333
+01:08:43,000 --> 01:08:46,000
+nag-absorb siya ng heat.
+
+1334
+01:08:46,000 --> 01:08:49,000
+Understood po.
+
+1335
+01:08:52,000 --> 01:08:55,000
+Is there anything else you have comments to say
+
+1336
+01:08:55,000 --> 01:08:58,000
+before I let you try the prototype itself?
+
+1337
+01:08:58,000 --> 01:09:01,000
+Siguro,
+
+1338
+01:09:01,000 --> 01:09:03,000
+I'll let you know kapag may iba pa
+
+1339
+01:09:03,000 --> 01:09:06,000
+ang naisip na other question.
+
+1340
+01:09:06,000 --> 01:09:09,000
+But at the moment, I think yun na yung mga
+
+1341
+01:09:09,000 --> 01:09:12,000
+feedback ko on this app.
+
+1342
+01:09:12,000 --> 01:09:15,000
+Okay po. Would you like to try it out
+
+1343
+01:09:15,000 --> 01:09:18,000
+for the remaining? Sige po.
+
+1344
+01:09:18,000 --> 01:09:21,000
+So if you'll see on your screen
+
+1345
+01:09:21,000 --> 01:09:24,000
+because on the top part
+
+1346
+01:09:24,000 --> 01:09:27,000
+on the zoom, it says you're viewing RG Galiega's
+
+1347
+01:09:27,000 --> 01:09:30,000
+screen. So on the right,
+
+1348
+01:09:30,000 --> 01:09:33,000
+may view options. Kapag napintit niyo po yun,
+
+1349
+01:09:33,000 --> 01:09:36,000
+yes, request remote control po.
+
+1350
+01:09:36,000 --> 01:09:39,000
+So that allows you to control my mouse.
+
+1351
+01:09:39,000 --> 01:09:42,000
+And you can actually type onto the
+
+1352
+01:09:42,000 --> 01:09:45,000
+yes po. If you click on the screen,
+
+1353
+01:09:45,000 --> 01:09:48,000
+if you click on the screen, yun, magagalag po yung mouse.
+
+1354
+01:09:48,000 --> 01:09:51,000
+Do you see it? Ni masyadong mabilis yung
+
+1355
+01:09:51,000 --> 01:09:54,000
+connection, but you could also control it by yourself.
+
+1356
+01:09:54,000 --> 01:09:57,000
+You could play around with it for the remaining time.
+
+1357
+01:09:57,000 --> 01:10:00,000
+Sige nga. Let me try.
+
+1358
+01:10:00,000 --> 01:10:03,000
+Ang galing may ganda pala.
+
+1359
+01:10:03,000 --> 01:10:06,000
+Ngayon ko lang nalaman yung picture mo.
+
+1360
+01:10:06,000 --> 01:10:09,000
+Actually ngayon ko rin po nalaman.
+
+1361
+01:10:09,000 --> 01:10:12,000
+Yes.
+
+1362
+01:10:12,000 --> 01:10:15,000
+If you want to enable yung remote access,
+
+1363
+01:10:15,000 --> 01:10:18,000
+kailangan niya pupuntahan sa main website ng zoom.
+
+1364
+01:10:18,000 --> 01:10:21,000
+May parang settings diyan. You can enable remote
+
+1365
+01:10:21,000 --> 01:10:24,000
+access.
+
+1366
+01:10:24,000 --> 01:10:27,000
+Tapos kapag na-enable nyo po yan, malalabas yung option yun
+
+1367
+01:10:27,000 --> 01:10:30,000
+dito sa zoom call when you're sharing your screen.
+
+1368
+01:10:30,000 --> 01:10:33,000
+Was that something you're
+
+1369
+01:10:33,000 --> 01:10:36,000
+expecting po for metal?
+
+1370
+01:10:36,000 --> 01:10:39,000
+Actually, not actually. Parang more on muka siyang
+
+1371
+01:10:39,000 --> 01:10:42,000
+leather sa paningin ko.
+
+1372
+01:10:42,000 --> 01:10:45,000
+Okay.
+
+1373
+01:10:45,000 --> 01:10:48,000
+You could also refresh it until you
+
+1374
+01:10:48,000 --> 01:10:51,000
+generate po siya if you apply it.
+
+1375
+01:10:51,000 --> 01:10:54,000
+Ah, nasakotan kasi ako.
+
+1376
+01:10:54,000 --> 01:10:57,000
+Kailangan bang pumunta ako sa...
+
+1377
+01:10:57,000 --> 01:11:00,000
+Ay, wait lang ulit to.
+
+1378
+01:11:00,000 --> 01:11:03,000
+Generate, sorry. You have to go to the previous
+
+1379
+01:11:03,000 --> 01:11:06,000
+page if you scroll down.
+
+1380
+01:11:06,000 --> 01:11:09,000
+Parang may previous button po.
+
+1381
+01:11:09,000 --> 01:11:12,000
+Nag-generate po siya diyan.
+
+1382
+01:11:12,000 --> 01:11:15,000
+Okay noted.
+
+1383
+01:11:15,000 --> 01:11:18,000
+Okay.
+
+1384
+01:11:18,000 --> 01:11:21,000
+Okay.
+
+1385
+01:11:21,000 --> 01:11:24,000
+Okay.
+
+1386
+01:11:24,000 --> 01:11:27,000
+So sike, magdadry lang ka na isang
+
+1387
+01:11:27,000 --> 01:11:30,000
+sample material.
+
+1388
+01:11:30,000 --> 01:11:33,000
+Plastic.
+
+1389
+01:11:33,000 --> 01:11:36,000
+If you say metal,
+
+1390
+01:11:36,000 --> 01:11:39,000
+were you expecting yung panang shiny na
+
+1391
+01:11:39,000 --> 01:11:42,000
+brushed metal?
+
+1392
+01:11:42,000 --> 01:11:45,000
+Yeah, that was what I was expecting.
+
+1393
+01:11:45,000 --> 01:11:48,000
+Okay.
+
+1394
+01:11:48,000 --> 01:11:51,000
+Parang medyo leather pattern yung sa paningin ko yung
+
+1395
+01:11:51,000 --> 01:11:54,000
+lumabas din.
+
+1396
+01:11:54,000 --> 01:11:57,000
+Siguro next time, maybe you could try brushed metal
+
+1397
+01:11:57,000 --> 01:12:00,000
+kapag nyenta yung na-type nyo.
+
+1398
+01:12:00,000 --> 01:12:03,000
+Kailangan ba mas ano siya? Parang mas specific siya.
+
+1399
+01:12:03,000 --> 01:12:06,000
+I think so.
+
+1400
+01:12:13,000 --> 01:12:16,000
+If you're aware po of like,
+
+1401
+01:12:16,000 --> 01:12:19,000
+yung isa pang AI nag-trend.
+
+1402
+01:12:19,000 --> 01:12:22,000
+The one that's doing the AI-generated art.
+
+1403
+01:12:22,000 --> 01:12:25,000
+Ano yung action?
+
+1404
+01:12:25,000 --> 01:12:28,000
+I haven't heard that.
+
+1405
+01:12:28,000 --> 01:12:31,000
+On social media, there's...
+
+1406
+01:12:31,000 --> 01:12:34,000
+Okay, so there's an issue there.
+
+1407
+01:12:34,000 --> 01:12:37,000
+Let's try.
+
+1408
+01:12:37,000 --> 01:12:40,000
+Pero maka pa rin siyang unform.
+
+1409
+01:12:40,000 --> 01:12:43,000
+Anyway, I'll just try
+
+1410
+01:12:43,000 --> 01:12:46,000
+selecting this. So pag sinelect ko siya,
+
+1411
+01:12:46,000 --> 01:12:49,000
+and then next, tama?
+
+1412
+01:12:49,000 --> 01:12:52,000
+Yes po.
+
+1413
+01:12:52,000 --> 01:12:55,000
+And then I should input kung saang
+
+1414
+01:12:55,000 --> 01:12:58,000
+application siya.
+
+1415
+01:12:58,000 --> 01:13:01,000
+Yes po kung gusto niyo i-apply sa floor.
+
+1416
+01:13:01,000 --> 01:13:04,000
+Pero take note, the ones that were
+
+1417
+01:13:04,000 --> 01:13:07,000
+selected po, they were previously selected
+
+1418
+01:13:07,000 --> 01:13:10,000
+so...
+
+1419
+01:13:10,000 --> 01:13:13,000
+Okay, so may mga naselect na kasing,
+
+1420
+01:13:13,000 --> 01:13:16,000
+may naman naka-check niya.
+
+1421
+01:13:16,000 --> 01:13:19,000
+Sorry, okay.
+
+1422
+01:13:19,000 --> 01:13:22,000
+So kapag i-unselect ko lang siya,
+
+1423
+01:13:22,000 --> 01:13:25,000
+then apply texture ko lang ulit para lang mag-refresh siya.
+
+1424
+01:13:25,000 --> 01:13:28,000
+Yes.
+
+1425
+01:13:28,000 --> 01:13:31,000
+Wait.
+
+1426
+01:13:31,000 --> 01:13:34,000
+Wait, tama ba?
+
+1427
+01:13:34,000 --> 01:13:37,000
+Tama ba?
+
+1428
+01:13:37,000 --> 01:13:40,000
+Sa floor lang siya. Parang floor lang yung kinig ko eh.
+
+1429
+01:13:40,000 --> 01:13:43,000
+So tama naman, nag-apply naman siya sa floor lang.
+
+1430
+01:13:43,000 --> 01:13:46,000
+Okay, so it's undoed, okay.
+
+1431
+01:13:46,000 --> 01:13:49,000
+And then kapag i-render ko na siya,
+
+1432
+01:13:49,000 --> 01:13:52,000
+kanyang final render ko nito, I should click yung next.
+
+1433
+01:13:52,000 --> 01:13:55,000
+Yes, yep. Kapag iyan po yung napili niyo,
+
+1434
+01:13:55,000 --> 01:13:58,000
+and then yung parang final.
+
+1435
+01:13:58,000 --> 01:14:01,000
+Okay, try lang.
+
+1436
+01:14:01,000 --> 01:14:04,000
+Apply to current render. Tama na yung pin-rendered ko na?
+
+1437
+01:14:04,000 --> 01:14:07,000
+Tama po, pero yung dapat yung naunan...
+
+1438
+01:14:07,000 --> 01:14:10,000
+Yes, dapat apply finish pa yung naunan niyo
+
+1439
+01:14:10,000 --> 01:14:13,000
+para ma-save yung final rendering.
+
+1440
+01:14:13,000 --> 01:14:16,000
+Okay.
+
+1441
+01:14:16,000 --> 01:14:19,000
+Nag-render na to, di ba?
+
+1442
+01:14:19,000 --> 01:14:22,000
+Yes, nag-reding po siya, yes.
+
+1443
+01:14:22,000 --> 01:14:25,000
+Rantain ko na lang.
+
+1444
+01:14:25,000 --> 01:14:28,000
+So dapat pala, pag kinig ko yung glossy or matte,
+
+1445
+01:14:28,000 --> 01:14:31,000
+mag-apply finish.
+
+1446
+01:14:31,000 --> 01:14:34,000
+Okay.
+
+1447
+01:14:34,000 --> 01:14:37,000
+Baka there's a way siguro na parang
+
+1448
+01:14:37,000 --> 01:14:40,000
+pag pinundat ko, automatic na yun.
+
+1449
+01:14:40,000 --> 01:14:43,000
+Ah, like automatic na ma-apply.
+
+1450
+01:14:43,000 --> 01:14:46,000
+Okay.
+
+1451
+01:14:46,000 --> 01:14:49,000
+Okay, sige po.
+
+1452
+01:14:49,000 --> 01:14:52,000
+Okay, okay.
+
+1453
+01:14:52,000 --> 01:14:55,000
+Tapos ayun, parang may time.
+
+1454
+01:14:55,000 --> 01:14:58,000
+But at least I would know how long will I wait.
+
+1455
+01:14:58,000 --> 01:15:01,000
+Okay.
+
+1456
+01:15:04,000 --> 01:15:07,000
+Sorry, pero parang mambangal ito.
+
+1457
+01:15:07,000 --> 01:15:10,000
+But ano din name ng application,
+
+1458
+01:15:10,000 --> 01:15:13,000
+yung itong prototype application?
+
+1459
+01:15:13,000 --> 01:15:16,000
+It doesn't have an official application name,
+
+1460
+01:15:16,000 --> 01:15:19,000
+pero I tentatively named it
+
+1461
+01:15:19,000 --> 01:15:22,000
+funk and form.
+
+1462
+01:15:22,000 --> 01:15:25,000
+Function and form.
+
+1463
+01:15:25,000 --> 01:15:28,000
+Ah, okay.
+
+1464
+01:15:28,000 --> 01:15:31,000
+Funk and form.
+
+1465
+01:15:31,000 --> 01:15:34,000
+It's supposed to facilitate yung look
+
+1466
+01:15:34,000 --> 01:15:37,000
+at the same time functionality.
+
+1467
+01:15:37,000 --> 01:15:40,000
+But in a sense, functionality right now,
+
+1468
+01:15:40,000 --> 01:15:43,000
+it could be assembled together.
+
+1469
+01:15:43,000 --> 01:15:46,000
+But yeah, I'll consider the other things
+
+1470
+01:15:46,000 --> 01:15:49,000
+you mentioned regarding the sizing
+
+1471
+01:15:49,000 --> 01:15:52,000
+and durability
+
+1472
+01:15:52,000 --> 01:15:55,000
+to make sure it's more functional, the design.
+
+1473
+01:15:55,000 --> 01:15:58,000
+Yeah.
+
+1474
+01:15:58,000 --> 01:16:01,000
+Sorry, wait.
+
+1475
+01:16:01,000 --> 01:16:04,000
+Naglaloading po siya or
+
+1476
+01:16:04,000 --> 01:16:07,000
+or may mali or I think it's just
+
+1477
+01:16:07,000 --> 01:16:10,000
+really slow.
+
+1478
+01:16:10,000 --> 01:16:13,000
+Okay, I think it's updated.
+
+1479
+01:16:13,000 --> 01:16:16,000
+Okay.
+
+1480
+01:16:17,000 --> 01:16:20,000
+Ito yung matte.
+
+1481
+01:16:20,000 --> 01:16:23,000
+Yung glossy pa yung nasa left.
+
+1482
+01:16:23,000 --> 01:16:26,000
+So you could try it again po if you want.
+
+1483
+01:16:26,000 --> 01:16:29,000
+Ay, and baka I need to go.
+
+1484
+01:16:29,000 --> 01:16:32,000
+Sige po, okay na po.
+
+1485
+01:16:32,000 --> 01:16:35,000
+So overall, yung prototype na ito,
+
+1486
+01:16:35,000 --> 01:16:38,000
+the goal of this is so that you could use it
+
+1487
+01:16:38,000 --> 01:16:41,000
+during the session with your clients.
+
+1488
+01:16:41,000 --> 01:16:44,000
+So let's say your clients din want to change materials.
+
+1489
+01:16:45,000 --> 01:16:48,000
+So that's the purpose of this prototype.
+
+1490
+01:16:48,000 --> 01:16:51,000
+It's to show the final product but you could
+
+1491
+01:16:51,000 --> 01:16:54,000
+make changes on the spot.
+
+1492
+01:16:54,000 --> 01:16:57,000
+Yes po.
+
+1493
+01:16:57,000 --> 01:17:00,000
+So overall,
+
+1494
+01:17:00,000 --> 01:17:03,000
+what do you think
+
+1495
+01:17:03,000 --> 01:17:06,000
+is beneficial about this prototype?
+
+1496
+01:17:06,000 --> 01:17:09,000
+And what are other suggestions overall
+
+1497
+01:17:09,000 --> 01:17:12,000
+apart from the ones you mentioned before?
+
+1498
+01:17:12,000 --> 01:17:15,000
+Yung ano lang din, yung parang
+
+1499
+01:17:15,000 --> 01:17:18,000
+paano ba, yung pagka-visually
+
+1500
+01:17:18,000 --> 01:17:21,000
+engaging ng feature nya or yung parang
+
+1501
+01:17:21,000 --> 01:17:24,000
+interface.
+
+1502
+01:17:24,000 --> 01:17:27,000
+For me, parang very
+
+1503
+01:17:27,000 --> 01:17:30,000
+not sure kung ano yung tamang, pero parang very
+
+1504
+01:17:30,000 --> 01:17:33,000
+institutional pa yung itsura nya or parang
+
+1505
+01:17:33,000 --> 01:17:36,000
+baka mas better if may way pa to make the
+
+1506
+01:17:36,000 --> 01:17:39,000
+interface more engaging.
+
+1507
+01:17:39,000 --> 01:17:42,000
+So parang point and click, point and click ganyan.
+
+1508
+01:17:42,000 --> 01:17:45,000
+Parang mas madali siyang maintindihan.
+
+1509
+01:17:45,000 --> 01:17:48,000
+But aside from the things that I mentioned kanina,
+
+1510
+01:17:48,000 --> 01:17:51,000
+other than that, parang I think this app
+
+1511
+01:17:51,000 --> 01:17:54,000
+very helpful siya.
+
+1512
+01:17:54,000 --> 01:17:57,000
+But
+
+1513
+01:17:57,000 --> 01:18:00,000
+sana, parang mas mabilis, if ever lang.
+
+1514
+01:18:00,000 --> 01:18:03,000
+Parang next time, parang mas mabilis
+
+1515
+01:18:03,000 --> 01:18:06,000
+pasana yung parang maging real-time rendering
+
+1516
+01:18:06,000 --> 01:18:09,000
+niya.
+
+1517
+01:18:09,000 --> 01:18:12,000
+Ano pa ba? Basically yun, yun pala yung
+
+1518
+01:18:12,000 --> 01:18:15,000
+na-offserve ko sa ngayon.
+
+1519
+01:18:15,000 --> 01:18:18,000
+Usually engaging interface.
+
+1520
+01:18:18,000 --> 01:18:21,000
+And more engaging interface.
+
+1521
+01:18:21,000 --> 01:18:24,000
+And speed ng rendering.
+
+1522
+01:18:24,000 --> 01:18:27,000
+So that concludes the session.
+
+1523
+01:18:27,000 --> 01:18:30,000
+Thank you for having your time again.
+
+1524
+01:18:30,000 --> 01:18:33,000
+May I consult you again for follow up sessions?
+
+1525
+01:18:33,000 --> 01:18:36,000
+Sure, sure. Just let me know in advance.
+
+1526
+01:18:36,000 --> 01:18:39,000
+So mapagbangga ko siya sa schedule ko.
+
+1527
+01:18:39,000 --> 01:18:42,000
+Sige po, noted. Pero yun, thank you for reminding
+
+1528
+01:18:42,000 --> 01:18:45,000
+pala ka na. Kasi honestly I forgot na meron pala.
+
+1529
+01:18:45,000 --> 01:18:48,000
+Okay naman po.
+
+1530
+01:18:48,000 --> 01:18:51,000
+Thank you, thank you RG.
+
+1531
+01:18:51,000 --> 01:18:54,000
+Okay, I'll end this meeting. Bye po.
+
+1532
+01:18:54,000 --> 01:18:55,000
+Bye bye.
+

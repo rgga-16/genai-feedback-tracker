@@ -1,0 +1,3120 @@
+﻿1
+00:00:14,060 --> 00:00:02,033
+Speaker 0: Here.
+
+2
+00:00:16,778 --> 00:00:21,844
+Speaker 0: Okay, so first of all, thank you for giving your time to be consulted.
+
+3
+00:00:22,224 --> 00:00:27,110
+Speaker 0: Oh, by the way, Po, can you disregard the dual setup here?
+
+4
+00:00:27,130 --> 00:00:32,516
+Speaker 0: I have a computer, and I have a webcam, so I have a separate profile here.
+
+5
+00:00:33,937 --> 00:00:44,182
+Speaker 0: So the purpose of this session is for me to present to you a prototype that uses AI to help designers with their design.
+
+6
+00:00:44,782 --> 00:01:06,993
+Speaker 0: I'll explain the prototype in detail but also not only I'll be presenting this prototype, you'll have the opportunity to try this out for yourself and for you to give back way to give feedback on the prototype in order to improve it and make it more useful, free as a designer.
+
+7
+00:01:07,453 --> 00:01:10,855
+Speaker 0: So with that said, I encourage you to be honest and constructive.
+
+8
+00:01:11,215 --> 00:01:13,256
+Speaker 0: You could say anything that comes into mind.
+
+9
+00:01:14,217 --> 00:01:27,284
+Speaker 0: Please also feel free to ask questions about the prototype and feel free to make any suggestions that would improve it and make it more useful for you as an industrial or interior designer.
+
+10
+00:01:27,964 --> 00:01:29,985
+Speaker 0: Okay, so I'll be sharing my screen book.
+
+11
+00:01:32,327 --> 00:01:34,188
+Speaker 0: Okay, so can you see my screen here?
+
+12
+00:01:34,208 --> 00:01:36,410
+Speaker 0: Yeah, I can see it.
+
+13
+00:01:36,890 --> 00:01:55,122
+Speaker 0: Okay, so let's say you're in a design session and you're designing, let's say, a residential space like a bedroom or furniture for a bedroom and you're showing a 3D rendering in the center here to your other co-designers or to your client.
+
+14
+00:01:56,563 --> 00:02:03,909
+Speaker 0: And one of their suggestions is to change the material or color of a part of furniture or part of the bedroom here.
+
+15
+00:02:04,769 --> 00:02:11,615
+Speaker 0: So this is a prototype that allows you to change materials in a 3D rendering.
+
+16
+00:02:12,296 --> 00:02:15,838
+Speaker 0: It could suggest materials and it could also provide feedback.
+
+17
+00:02:16,639 --> 00:02:17,881
+Speaker 0: on the materials used.
+
+18
+00:02:18,642 --> 00:02:21,845
+Speaker 0: So here in the center is the current 3D rendering of the room.
+
+19
+00:02:23,728 --> 00:02:26,912
+Speaker 0: Below here you could see the list of saved renderings.
+
+20
+00:02:27,492 --> 00:02:30,055
+Speaker 0: So you could save this and add it to the list.
+
+21
+00:02:30,195 --> 00:02:31,637
+Speaker 0: You can also load it here.
+
+22
+00:02:33,879 --> 00:02:38,181
+Speaker 0: On the right, you'll see here's the rendering information.
+
+23
+00:02:38,661 --> 00:02:42,963
+Speaker 0: It shows all the materials used for each part of an object.
+
+24
+00:02:43,423 --> 00:02:57,089
+Speaker 0: For example, let's say for a bed, it shows what each part is made of, like the bed frame or the blanket, and you could switch with the different objects in the room so you can see what materials they're currently made of.
+
+25
+00:02:58,752 --> 00:03:03,876
+Speaker 0: So I'll explain to you three different functions that this prototype can do.
+
+26
+00:03:04,917 --> 00:03:09,601
+Speaker 0: First, if you look at the left, so here the left, I'm showing you the generate tab.
+
+27
+00:03:10,141 --> 00:03:15,025
+Speaker 0: So this system first could create image textures on the spot.
+
+28
+00:03:15,546 --> 00:03:33,084
+Speaker 0: So you can type a name of material like let's say oak wood and if I press the generate button, it uses artificial intelligence to create the image of the material that you typed in here.
+
+29
+00:03:35,007 --> 00:03:36,870
+Speaker 0: So it takes some time buffers.
+
+30
+00:03:43,131 --> 00:03:51,736
+Speaker 0: So after that, it will show four candidates of the image of Oakwood that is a texture map.
+
+31
+00:03:52,276 --> 00:03:57,959
+Speaker 0: And you could continue regenerating the material by pressing this again, and it'll keep on refreshing.
+
+32
+00:03:57,979 --> 00:04:01,961
+Speaker 1: So how about this one?
+
+33
+00:04:03,428 --> 00:04:04,169
+Speaker 1: What is this?
+
+34
+00:04:04,410 --> 00:04:06,052
+Speaker 1: For example, oak wood.
+
+35
+00:04:06,072 --> 00:04:08,535
+Speaker 1: Do you have different contents?
+
+36
+00:04:08,595 --> 00:04:09,376
+Speaker 1: Do you generate materials?
+
+37
+00:04:09,416 --> 00:04:10,697
+Speaker 1: Do you have images?
+
+38
+00:04:10,818 --> 00:04:10,898
+Speaker 1: Yes.
+
+39
+00:04:23,923 --> 00:04:31,010
+Speaker 0: So far, do you have any comments or any questions in mind regarding this?
+
+40
+00:04:31,411 --> 00:04:39,999
+Speaker 1: In terms of wood, very particular wood has a greening.
+
+41
+00:04:40,019 --> 00:04:45,985
+Speaker 1: A person as a designer must prefer a more accurate.
+
+42
+00:04:46,065 --> 00:04:46,125
+Speaker 1: or.
+
+43
+00:04:47,186 --> 00:04:49,948
+Speaker 1: I'm curious about the scaling of the model.
+
+44
+00:04:49,968 --> 00:04:53,310
+Speaker 1: For example, the texture of the model.
+
+45
+00:04:53,330 --> 00:04:56,752
+Speaker 1: The automatic scaling of the models.
+
+46
+00:04:56,953 --> 00:05:00,015
+Speaker 1: For example, the back of the bed frame.
+
+47
+00:05:11,020 --> 00:05:18,846
+Speaker 0: As of now Hindi pusha automatic, there's a later stage but where you're the designer my setting pusha where you could adjust the scaling book.
+
+48
+00:05:19,367 --> 00:05:37,823
+Speaker 0: Okay so let's say you found something that you're looking for and if you can click up to four and then when you proceed you could select which parts of the bedroom you want to apply the material onto.
+
+49
+00:05:38,603 --> 00:06:04,455
+Speaker 0: So let's say for example, if you want to change the bed frame to oak or make the floor oak, you have to click on the tabs here and then when you apply the textures, It's a temporary rendering with the material applied.
+
+50
+00:06:04,515 --> 00:06:09,002
+Speaker 1: There's no difference, but if you look at the head frame, since I chose also the floor.
+
+51
+00:06:15,976 --> 00:06:19,658
+Speaker 0: And at the same time, you could also view the texture.
+
+52
+00:06:20,338 --> 00:06:25,441
+Speaker 0: But you could go back and you could... I'm just showing you if you want to apply different textures.
+
+53
+00:06:25,461 --> 00:06:28,162
+Speaker 0: So let's say you want to apply these three.
+
+54
+00:06:28,582 --> 00:06:29,703
+Speaker 0: You could do it again.
+
+55
+00:06:29,723 --> 00:06:35,926
+Speaker 0: You could do three renderings, each with those textures applied.
+
+56
+00:06:36,486 --> 00:06:41,648
+Speaker 0: So you could see what each rendering looks like with the textures.
+
+57
+00:06:45,390 --> 00:06:51,453
+Speaker 0: So for example here, and it's applied on the parts that you selected here.
+
+58
+00:06:53,194 --> 00:06:57,796
+Speaker 0: So you could also add more, you could also choose to add different parts.
+
+59
+00:06:57,816 --> 00:06:59,957
+Speaker 0: So you can apply it again.
+
+60
+00:07:10,765 --> 00:07:11,326
+Speaker 1: Yes, Bob, currently.
+
+61
+00:07:32,029 --> 00:07:38,698
+Speaker 0: Regarding your question about scaling, after this, you can only choose one to refine.
+
+62
+00:07:38,718 --> 00:07:42,202
+Speaker 0: So here in the last step, you could add a finish.
+
+63
+00:07:49,331 --> 00:07:52,213
+Speaker 0: You could add a color finish to the texture.
+
+64
+00:07:52,233 --> 00:07:56,337
+Speaker 0: And you could also adjust the texture map.
+
+65
+00:07:56,457 --> 00:08:07,927
+Speaker 0: So here you could change the scaling and also the rotation pot and also the location based on x, y and the rotation pot here.
+
+66
+00:08:08,567 --> 00:08:12,871
+Speaker 0: So for example, let's say with the floor.
+
+67
+00:08:15,868 --> 00:08:17,208
+Speaker 0: What are your thoughts on the scaling?
+
+68
+00:08:17,228 --> 00:08:22,930
+Speaker 0: Would it be better if we did it in green or would it be better if we did it in green?
+
+69
+00:08:22,990 --> 00:08:25,831
+Speaker 1: I think it would be better if we did it in a zoom screen.
+
+70
+00:08:25,891 --> 00:08:32,972
+Speaker 1: I think it would be better if we did it in a small scale.
+
+71
+00:08:33,573 --> 00:08:40,916
+Speaker 0: Okay, so in order to do that, my drop down here, it shows the objects with the material applied.
+
+72
+00:08:41,916 --> 00:08:43,837
+Speaker 0: And then you could select different parts.
+
+73
+00:08:43,857 --> 00:08:46,998
+Speaker 0: You can choose between bed frame or bedboard.
+
+74
+00:08:47,359 --> 00:08:50,500
+Speaker 0: But for now, you can choose between bed frame or bedboard.
+
+75
+00:08:50,520 --> 00:08:55,202
+Speaker 0: So with the scale, with this, if you want to make it smaller, you can increase the scale.
+
+76
+00:08:55,222 --> 00:08:57,183
+Speaker 0: But yeah, it's still.
+
+77
+00:09:11,210 --> 00:09:14,873
+Speaker 0: If you want the scale to be smaller, you can decrease the scale.
+
+78
+00:09:15,214 --> 00:09:17,176
+Speaker 0: So that will be fixed later.
+
+79
+00:09:17,256 --> 00:09:23,162
+Speaker 0: But for now, this is what you do to make the grain smaller in scale.
+
+80
+00:09:24,023 --> 00:09:28,347
+Speaker 0: So you can do it by X and Y or X if you want to make it thinner or Y.
+
+81
+00:09:32,791 --> 00:09:43,282
+Speaker 1: So, the larger the number, if you increase the unit, for example, it's 1.0, so it's 3.0, but it's not that big.
+
+82
+00:09:46,946 --> 00:09:48,087
+Speaker 1: Currently, no, no, no, no,
+
+83
+00:09:48,367 --> 00:09:54,289
+Speaker 0: no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no,
+
+84
+00:09:54,630 --> 00:09:55,730
+Speaker 1: no, no, no, no, no,
+
+85
+00:09:55,750 --> 00:10:16,396
+Speaker 0: no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, You could adjust the rotation.
+
+86
+00:10:16,416 --> 00:10:24,662
+Speaker 0: I'm not sure if you want to adjust the wall panel on my shelf here.
+
+87
+00:10:25,763 --> 00:10:28,565
+Speaker 0: You could rotate it from zero until 360 degrees.
+
+88
+00:10:28,665 --> 00:10:33,569
+Speaker 0: I don't know what you're talking about.
+
+89
+00:10:33,589 --> 00:10:34,150
+Speaker 1: What do you think?
+
+90
+00:10:38,598 --> 00:10:45,444
+Speaker 1: For example, if you scroll down, you can input the number.
+
+91
+00:10:45,724 --> 00:10:46,905
+Speaker 0: You can input the number.
+
+92
+00:10:46,925 --> 00:10:52,310
+Speaker 0: I just drag the value, but you can click here.
+
+93
+00:10:52,390 --> 00:10:54,391
+Speaker 0: So let's say if you want a specific value like 319.
+
+94
+00:10:54,391 --> 00:11:00,396
+Speaker 0: Yes, you could type the number.
+
+95
+00:11:00,436 --> 00:11:03,759
+Speaker 0: But right now, I think it rounds to the nearest value.
+
+96
+00:11:04,500 --> 00:11:14,078
+Speaker 0: And then when you apply it, What are your thoughts on the previous screen?
+
+97
+00:11:14,178 --> 00:11:20,161
+Speaker 0: Is this the right size or would you prefer to make it as big as like the current rendering here?
+
+98
+00:11:24,103 --> 00:11:29,867
+Speaker 1: Well, in terms of rendering, I'm okay with the previous screen.
+
+99
+00:11:37,134 --> 00:11:44,541
+Speaker 1: I'm fine with the sizing, but I don't know how many designers prefer it.
+
+100
+00:11:44,801 --> 00:11:55,871
+Speaker 1: So, I don't know if there is an actual edit or an actual adjustment in the current rendering screen.
+
+101
+00:11:56,972 --> 00:11:59,794
+Speaker 1: So, I don't know if there is a real-time edit.
+
+102
+00:11:59,814 --> 00:12:04,457
+Speaker 1: But... Okay, in terms of rotation.
+
+103
+00:12:33,453 --> 00:12:35,595
+Speaker 1: I forgot the technical term.
+
+104
+00:12:35,635 --> 00:12:38,918
+Speaker 1: I forgot the technical term.
+
+105
+00:12:39,318 --> 00:12:40,760
+Speaker 1: I forgot the technical term.
+
+106
+00:12:54,611 --> 00:12:54,791
+Speaker 0: Okay.
+
+107
+00:12:54,851 --> 00:12:55,072
+Speaker 0: Okay.
+
+108
+00:13:15,347 --> 00:13:20,791
+Speaker 0: Okay, actually, it's not about rotation, but I think it's also about this.
+
+109
+00:13:20,851 --> 00:13:23,032
+Speaker 1: In terms of scaling, I can see...
+
+110
+00:13:36,969 --> 00:13:43,056
+Speaker 0: okay okay um I think it rotated accordingly.
+
+111
+00:13:43,377 --> 00:13:59,759
+Speaker 1: let's say if I make it 90 okay I don't know how to explain it, but it's horizontal?
+
+112
+00:13:59,979 --> 00:14:00,800
+Speaker 0: It's horizontal.
+
+113
+00:14:03,282 --> 00:14:11,007
+Speaker 0: As of now, it's applied all together to all three panels.
+
+114
+00:14:11,908 --> 00:14:17,171
+Speaker 0: Would you prefer to have it that way or would it be better with all three panels?
+
+115
+00:14:17,191 --> 00:14:19,053
+Speaker 0: You can select each one individually.
+
+116
+00:14:20,233 --> 00:14:29,756
+Speaker 1: It depends on the texture, whether it's metal or wood, I prefer not to adjust it.
+
+117
+00:14:29,836 --> 00:14:42,020
+Speaker 1: For example, paint finish, you can use it to explore the application, you can use it on the first panel or on the second panel.
+
+118
+00:14:42,060 --> 00:14:43,721
+Speaker 1: So I think it depends on the texture.
+
+119
+00:14:44,221 --> 00:14:50,783
+Speaker 1: Okay, so do you have any questions about regarding the adjustment here or any suggestions about this part?
+
+120
+00:15:03,686 --> 00:15:09,812
+Speaker 1: I think it's just that the texture is long, the locking feature is a little bit different.
+
+121
+00:15:10,353 --> 00:15:19,361
+Speaker 1: I don't know what the terms are, but I don't know how to write something like that.
+
+122
+00:15:19,381 --> 00:15:21,243
+Speaker 1: Yes, of course.
+
+123
+00:15:21,884 --> 00:15:27,049
+Speaker 1: I'm curious how long it's been since it's been finished.
+
+124
+00:15:28,226 --> 00:15:40,598
+Speaker 1: When it comes to rendering particular materials like glossy or satin, you can adjust it in the add finish category.
+
+125
+00:15:46,553 --> 00:15:49,654
+Speaker 0: Would you like to proceed with the add finish function?
+
+126
+00:15:50,974 --> 00:15:57,215
+Speaker 0: Actually, there are constant options.
+
+127
+00:15:57,675 --> 00:16:02,956
+Speaker 0: As of now, it's glossy, but this applies to all of the materials.
+
+128
+00:16:03,296 --> 00:16:15,400
+Speaker 0: So regardless of which material you generate, for let's say, if you generate fabric or steel or concrete, The finish will always be constant here.
+
+129
+00:16:16,021 --> 00:16:18,382
+Speaker 0: What are your thoughts on that?
+
+130
+00:16:18,462 --> 00:16:24,006
+Speaker 0: Would the finish depend on the material you want to like create?
+
+131
+00:16:25,167 --> 00:16:32,472
+Speaker 1: Actually, I would suggest not as flexible material finishes and choices.
+
+132
+00:16:33,172 --> 00:16:35,152
+Speaker 1: I don't know if it's possible.
+
+133
+00:17:02,976 --> 00:17:08,656
+Speaker 1: I applied it by adjusting the texture, by digits.
+
+134
+00:17:09,377 --> 00:17:10,577
+Speaker 1: Would that be possible?
+
+135
+00:17:10,597 --> 00:17:11,557
+Speaker 0: By digits?
+
+136
+00:17:11,577 --> 00:17:12,157
+Speaker 0: Yes, by digits.
+
+137
+00:17:12,578 --> 00:17:14,877
+Speaker 1: From one to five, from one below, it's flexible.
+
+138
+00:17:14,958 --> 00:17:18,539
+Speaker 1: It's an adjustment for the material.
+
+139
+00:17:32,705 --> 00:17:33,425
+Speaker 0: Okay, okay.
+
+140
+00:17:34,366 --> 00:17:38,967
+Speaker 0: Okay, so I'm going to use the slider.
+
+141
+00:17:38,987 --> 00:17:40,247
+Speaker 0: Oh, okay.
+
+142
+00:17:40,267 --> 00:17:43,768
+Speaker 1: So, at least I'm going to use the user.
+
+143
+00:17:43,808 --> 00:17:45,909
+Speaker 1: I'm going to use the freedom user.
+
+144
+00:17:45,929 --> 00:17:47,369
+Speaker 1: I'm going to adjust the machine.
+
+145
+00:17:47,389 --> 00:17:48,910
+Speaker 1: I'm going to use the material.
+
+146
+00:17:49,250 --> 00:17:52,591
+Speaker 1: Although I understand that I'm going to use the point and click.
+
+147
+00:17:56,383 --> 00:18:08,276
+Speaker 1: But if every union is a similar goal, point and click, how much better if we are ending somewhere in the middle of the glossy anymore?
+
+148
+00:18:09,085 --> 00:18:12,827
+Speaker 0: Okay, okay.
+
+149
+00:18:13,387 --> 00:18:19,050
+Speaker 0: Is it just limited to sateen, matte and glossy?
+
+150
+00:18:19,330 --> 00:18:25,313
+Speaker 0: Or the finish is depending on the material?
+
+151
+00:18:25,333 --> 00:18:28,615
+Speaker 0: I think it depends, but it depends on the finish.
+
+152
+00:18:35,738 --> 00:18:37,198
+Speaker 1: I forgot my bark, but it's a rough texture.
+
+153
+00:18:37,238 --> 00:18:40,079
+Speaker 1: My option is to use the application before.
+
+154
+00:19:00,874 --> 00:19:03,817
+Speaker 1: It's like a bump in the air.
+
+155
+00:19:04,417 --> 00:19:05,718
+Speaker 1: So, we have to be careful.
+
+156
+00:19:06,179 --> 00:19:08,240
+Speaker 1: We don't have to worry about it.
+
+157
+00:19:08,300 --> 00:19:13,485
+Speaker 1: But the gloss is the middle, matte and glossy.
+
+158
+00:19:14,557 --> 00:19:17,740
+Speaker 1: Okay, so apart from the machine, do you have a height map?
+
+159
+00:19:17,780 --> 00:19:18,800
+Speaker 1: Yes, I have a depth map.
+
+160
+00:19:18,820 --> 00:19:19,461
+Speaker 0: Depth, okay.
+
+161
+00:19:34,781 --> 00:19:40,785
+Speaker 1: So in terms of metal, there are many types of finishes in metal.
+
+162
+00:19:40,805 --> 00:19:45,008
+Speaker 1: For example, we have metal gloss, which is made in the middle of the gloss and matte.
+
+163
+00:19:45,448 --> 00:19:51,031
+Speaker 1: And then we have aluminum steel or textured steel like brushed steel.
+
+164
+00:19:54,433 --> 00:19:59,716
+Speaker 0: Okay, okay.
+
+165
+00:20:00,316 --> 00:20:05,039
+Speaker 0: Is that also the same for fabric or are there more finishes you can apply as a fabric?
+
+166
+00:20:05,370 --> 00:20:07,172
+Speaker 1: The fabric has different types.
+
+167
+00:20:07,613 --> 00:20:14,723
+Speaker 1: For example, it's leather, it's glossy, and it has a different texture.
+
+168
+00:20:14,743 --> 00:20:17,847
+Speaker 1: It has a different fingerprint texture.
+
+169
+00:20:18,027 --> 00:20:21,111
+Speaker 1: It has a different fabric than a mat.
+
+170
+00:20:23,374 --> 00:20:27,377
+Speaker 1: or for example, like velvet.
+
+171
+00:20:28,418 --> 00:20:31,880
+Speaker 1: Actually, it's called matzi velvet.
+
+172
+00:20:31,900 --> 00:20:34,842
+Speaker 1: Or for example, for velvet, it's called shiny.
+
+173
+00:20:34,862 --> 00:20:37,764
+Speaker 1: For example, for velvet, it's called characteristic.
+
+174
+00:20:37,804 --> 00:20:42,767
+Speaker 1: For example, for hair texture, it's an opportunity to bump different types of material.
+
+175
+00:20:50,979 --> 00:21:06,172
+Speaker 0: so for velvet my panamata aspoying okay okay noted um so you currently it uses uh glossy.
+
+176
+00:21:06,192 --> 00:21:24,810
+Speaker 0: so with this drop down point if you could choose like let's say if we go to floor and then you want the floor to be glossy Oh yeah, I can see it.
+
+177
+00:21:24,890 --> 00:21:28,491
+Speaker 0: I'm going to pour if you want it by matte.
+
+178
+00:21:29,711 --> 00:21:34,032
+Speaker 0: That was you could do the same for other objects here.
+
+179
+00:21:34,933 --> 00:21:36,813
+Speaker 0: But I'm using matte at that.
+
+180
+00:21:37,713 --> 00:21:41,014
+Speaker 0: That was you could do it for the shelves but you're going glossy and wall panels.
+
+181
+00:21:43,054 --> 00:21:44,855
+Speaker 0: So you have a material finish.
+
+182
+00:21:47,410 --> 00:22:02,095
+Speaker 1: In terms of the speed of rendering, if you want to render something, you can apply texturing or rendering material to the view.
+
+183
+00:22:04,396 --> 00:22:05,536
+Speaker 1: based from my experience.
+
+184
+00:22:05,776 --> 00:22:10,818
+Speaker 1: So, for this example, for example, a SketchUp and then Lumion for rendering.
+
+185
+00:22:10,878 --> 00:22:36,605
+Speaker 1: For SketchUp, for example, But the rendering is still good, but it's not as good as the other elements.
+
+186
+00:22:36,625 --> 00:22:41,147
+Speaker 1: So I think that's a good thing for this app.
+
+187
+00:22:41,227 --> 00:22:48,591
+Speaker 1: It has the ability to do the rendering process, but also the texture of the model.
+
+188
+00:22:49,311 --> 00:22:49,531
+Speaker 0: Okay.
+
+189
+00:22:51,292 --> 00:22:54,897
+Speaker 0: Currently, I haven't tried using it yet.
+
+190
+00:23:02,574 --> 00:23:07,997
+Speaker 0: Yeah, so one of the blenders that I use for rendering is Cycles.
+
+191
+00:23:08,017 --> 00:23:12,759
+Speaker 0: I think that's the professional kind of render you use for, let's say, interior design.
+
+192
+00:23:12,879 --> 00:23:14,419
+Speaker 0: That's the same as Lumion.
+
+193
+00:23:26,525 --> 00:23:30,127
+Speaker 0: But this renderer, it uses a renderer called Eevee.
+
+194
+00:23:30,147 --> 00:23:33,468
+Speaker 0: It's not as accurate as what you see in Lumion.
+
+195
+00:23:33,548 --> 00:23:36,449
+Speaker 0: It's not as accurate as what you see in Lumion.
+
+196
+00:23:36,469 --> 00:23:40,771
+Speaker 0: It's not as accurate as what you see in Lumion.
+
+197
+00:23:42,452 --> 00:23:49,236
+Speaker 0: But going back to your question of what happens if we are not able to see objects.
+
+198
+00:23:51,537 --> 00:23:55,480
+Speaker 0: About that, what objects were you expecting more in the bedroom?
+
+199
+00:23:58,848 --> 00:24:53,523
+Speaker 1: For example, you're going to add appliances like a phone, alarm clock, additional lighting, additional lighting fixture, bedside lamp, bedside lamp, a shelving, a libro, accent boxes, So, up to those small details, for example, for example, for example, for example, for example, for example, for example, for example, for example, for example, for example, So if you look at yourself, you can see that you can see that you can see that you can see that you can see that you can see that you can see that
+
+200
+00:24:54,904 --> 00:24:56,705
+Speaker 0: you can see that you can
+
+201
+00:24:56,785 --> 00:25:03,649
+Speaker 1: see that you can see that you can see that you can see that you can
+
+202
+00:25:04,209 --> 00:25:04,950
+Speaker 0: see that you
+
+203
+00:25:05,010 --> 00:25:18,983
+Speaker 1: can see that you can see that you can see that you can see that a 3D model and then factor it in, but we get to rendering.
+
+204
+00:25:20,600 --> 00:25:20,900
+Speaker 0: Okay.
+
+205
+00:25:22,461 --> 00:25:23,362
+Speaker 0: Okay, I understood.
+
+206
+00:25:23,903 --> 00:25:24,123
+Speaker 0: Okay.
+
+207
+00:25:27,285 --> 00:25:31,448
+Speaker 0: Do you have any comments regarding the finish?
+
+208
+00:25:31,589 --> 00:25:37,913
+Speaker 0: I mean, actually in this room, were you expecting more furniture to be added?
+
+209
+00:25:37,973 --> 00:25:47,361
+Speaker 0: Because it only uses cabinets or drawers here, the shelves and a bed.
+
+210
+00:25:48,081 --> 00:26:20,435
+Speaker 1: I think if you have additional element lamps, if you have accessories, for example, if you have a dual-ability rendering, when it comes to accessories, for example, ceiling lamps or bedside lamps, would adding more furniture like let's say like a study table or let's say a chair.
+
+211
+00:26:20,716 --> 00:26:22,360
+Speaker 0: would that also be helpful?
+
+212
+00:26:24,880 --> 00:26:29,922
+Speaker 1: I think that for me, it's more of an accesory sound.
+
+213
+00:26:30,222 --> 00:26:31,383
+Speaker 0: Okay, noted.
+
+214
+00:26:32,303 --> 00:26:36,625
+Speaker 0: Okay, so shall we move on to the module you might add in color?
+
+215
+00:26:36,645 --> 00:26:38,366
+Speaker 0: Okay, sure.
+
+216
+00:26:38,606 --> 00:26:50,590
+Speaker 0: So here, currently if you press this, but if you select this color picker, So you could create your own color here.
+
+217
+00:26:50,610 --> 00:26:53,951
+Speaker 0: So you could actually apply it onto the part of the object.
+
+218
+00:26:53,971 --> 00:26:55,811
+Speaker 0: So let's say with the floor, you apply this.
+
+219
+00:26:55,831 --> 00:26:56,311
+Speaker 0: Blending.
+
+220
+00:27:17,740 --> 00:27:19,984
+Speaker 1: But what about wood materials?
+
+221
+00:27:20,004 --> 00:27:21,846
+Speaker 1: They are not manipulated by a scholar.
+
+222
+00:27:26,668 --> 00:27:27,789
+Speaker 0: Yes.
+
+223
+00:27:29,090 --> 00:27:34,275
+Speaker 0: So this is just simply through using the rendering application I use.
+
+224
+00:27:34,636 --> 00:27:36,437
+Speaker 0: So you can pick different materials.
+
+225
+00:27:36,978 --> 00:27:42,163
+Speaker 0: But let's say you have a color palette.
+
+226
+00:27:42,523 --> 00:27:50,272
+Speaker 0: You could actually go to this option called suggest colors and then With this, this uses AI.
+
+227
+00:27:50,292 --> 00:27:51,413
+Speaker 0: Do you know ChatGPT?
+
+228
+00:27:57,009 --> 00:28:09,793
+Speaker 1: Oh yeah, automatically you can use SE for a specific topic and then automatically you can generate an article or something.
+
+229
+00:28:09,813 --> 00:28:12,734
+Speaker 1: Yes, so this prototype takes advantage of ChatGPT.
+
+230
+00:28:18,736 --> 00:28:22,959
+Speaker 0: as an API that was from here you could from this drop down.
+
+231
+00:28:23,119 --> 00:28:28,483
+Speaker 0: currently you could have it suggest color palettes based on interior design style.
+
+232
+00:28:29,323 --> 00:28:36,268
+Speaker 0: so my drop down point oh you can and detail my choices like industrial or bohemian minimalist.
+
+233
+00:28:37,069 --> 00:28:53,181
+Speaker 0: and so when you suggest the color palettes You can also refresh again.
+
+234
+00:28:53,281 --> 00:28:59,213
+Speaker 1: Okay, that's an even set of color palettes you need to project.
+
+235
+00:29:00,098 --> 00:29:08,725
+Speaker 0: yes it's not always consistent but it makes color palettes up to five swatches.
+
+236
+00:29:09,845 --> 00:29:15,089
+Speaker 0: so after that you could let's say select more than one when you go back to the generate tab.
+
+237
+00:29:23,415 --> 00:29:25,215
+Speaker 1: Okay, I was about to comment on that.
+
+238
+00:29:25,355 --> 00:29:34,318
+Speaker 1: I thought that my option was that I could select a selection, but I didn't want to keep it bad or what.
+
+239
+00:29:35,199 --> 00:29:36,699
+Speaker 0: The input.
+
+240
+00:29:36,719 --> 00:29:40,441
+Speaker 0: So, that was my option.
+
+241
+00:29:41,261 --> 00:29:47,043
+Speaker 0: I was using this to apply to the object using these swatches.
+
+242
+00:29:48,613 --> 00:29:51,876
+Speaker 0: But finally, let's say you're done with it.
+
+243
+00:29:52,476 --> 00:29:57,601
+Speaker 0: If you want to apply this change to the create rendering, you have to do it right.
+
+244
+00:29:57,641 --> 00:30:02,665
+Speaker 0: You have to do it right in the create rendering window.
+
+245
+00:30:02,765 --> 00:30:10,191
+Speaker 0: So, when you press this, when you press apply, so as of now, we have a prototype that we will use.
+
+246
+00:30:17,131 --> 00:30:27,053
+Speaker 0: I think it takes around two minutes for the rendering to update.
+
+247
+00:30:27,593 --> 00:30:32,415
+Speaker 0: But that's how the prototype works currently.
+
+248
+00:30:34,416 --> 00:30:45,925
+Speaker 1: Yes, I think one factor that you can consider is that as of now, as a designer, I think there is a special feature that is being offered by a designer.
+
+249
+00:30:45,965 --> 00:30:50,049
+Speaker 1: I think there is a special feature that is being offered by a designer.
+
+250
+00:30:50,189 --> 00:30:53,371
+Speaker 1: I think there is a special feature that is being offered by a designer.
+
+251
+00:31:03,059 --> 00:31:08,981
+Speaker 1: But I'm not sure if you've also tried exploring the interface.
+
+252
+00:31:09,801 --> 00:31:13,403
+Speaker 1: It's a very complex interface.
+
+253
+00:31:13,583 --> 00:31:26,087
+Speaker 1: So if you want to use some material like multi-textures, or manipulate machines, or bumps, you can use this in detail.
+
+254
+00:31:26,707 --> 00:31:31,188
+Speaker 1: If you want to experience the experience, you have to do so.
+
+255
+00:31:31,208 --> 00:31:36,170
+Speaker 1: I prefer to do so because it's a simple interface.
+
+256
+00:31:37,590 --> 00:31:39,250
+Speaker 1: But at the same time, it's simplified.
+
+257
+00:31:39,270 --> 00:31:41,651
+Speaker 1: So if I wanted it to be simplified, you have to do so.
+
+258
+00:31:41,731 --> 00:31:42,871
+Speaker 1: It's a real-time application.
+
+259
+00:31:53,074 --> 00:32:12,519
+Speaker 1: I don't know if it's possible to render it, but it's possible to render it, but it's possible to render it, but it's possible to render it, but it's possible to render it, but it's possible to render it, but it's possible to render it, but it's possible to render it, but it's possible to render it, but it's possible to render it, but it's possible to render it, but it's possible to render it, but it's possible to render it, but it's possible
+
+260
+00:32:13,239 --> 00:32:14,419
+Speaker 0: to render it, but it's
+
+261
+00:32:15,039 --> 00:32:15,660
+Speaker 1: possible
+
+262
+00:32:15,680 --> 00:32:19,961
+Speaker 0: to render it, but it's possible to render it, but it's possible to render it, but it's possible
+
+263
+00:32:20,521 --> 00:32:21,361
+Speaker 1: to render it,
+
+264
+00:32:22,779 --> 00:32:23,920
+Speaker 0: How do you spell that?
+
+265
+00:32:24,861 --> 00:32:32,268
+Speaker 1: Letter D as in victory, and then R, rabbit, apple, and then yellow.
+
+266
+00:32:32,508 --> 00:32:34,650
+Speaker 0: Apple, yellow, V-Ray, software.
+
+267
+00:32:35,371 --> 00:32:35,651
+Speaker 1: Yeah.
+
+268
+00:32:36,752 --> 00:32:38,814
+Speaker 1: So, rendering software.
+
+269
+00:32:39,154 --> 00:32:45,120
+Speaker 1: Usually, Gina Gambit plug-ins a SketchUp, or Pedro D'Inción incorporates 3ds max.
+
+270
+00:32:45,440 --> 00:32:47,422
+Speaker 1: I don't know if you know what that is.
+
+271
+00:32:48,693 --> 00:32:53,035
+Speaker 0: Okay, so I'll look into this very pretty Lumion.
+
+272
+00:32:53,155 --> 00:32:54,396
+Speaker 0: I've heard of that before.
+
+273
+00:32:54,416 --> 00:33:02,520
+Speaker 1: Actually, there was an application that I purchased recently.
+
+274
+00:33:02,640 --> 00:33:07,662
+Speaker 1: It was simplified by Lumion.
+
+275
+00:33:07,702 --> 00:33:10,844
+Speaker 1: So, simplified by Lumion, but it was simplified by Lumion.
+
+276
+00:33:11,404 --> 00:33:12,845
+Speaker 1: Let me ask you something.
+
+277
+00:33:23,619 --> 00:33:24,259
+Speaker 1: Enscape.
+
+278
+00:33:24,779 --> 00:33:27,320
+Speaker 1: So letter E.
+
+279
+00:33:27,700 --> 00:33:32,121
+Speaker 0: Enscape.
+
+280
+00:33:33,101 --> 00:33:34,242
+Speaker 1: Enscape.
+
+281
+00:33:34,862 --> 00:33:39,323
+Speaker 0: Ah, real-time rendering in virtual reality.
+
+282
+00:33:39,343 --> 00:33:41,304
+Speaker 0: I'll check it out.
+
+283
+00:33:41,624 --> 00:33:45,325
+Speaker 1: Sabinella, Sabinella, one of our other designers in our friend school.
+
+284
+00:33:45,865 --> 00:33:47,206
+Speaker 1: But I haven't tried using it.
+
+285
+00:33:47,286 --> 00:33:52,409
+Speaker 1: I think it's because it's the original version of the original version of the application.
+
+286
+00:33:52,449 --> 00:33:54,471
+Speaker 1: But I haven't tried comparing it.
+
+287
+00:34:07,687 --> 00:34:09,947
+Speaker 0: Yes, I'll check out the interface.
+
+288
+00:34:09,967 --> 00:34:16,471
+Speaker 0: If you look at the current rendering, you can see my bug detail.
+
+289
+00:34:16,491 --> 00:34:29,838
+Speaker 0: But if you look at the bed, But it doesn't reflect any of the materials for each part.
+
+290
+00:34:30,138 --> 00:34:34,400
+Speaker 0: So for the bed frame, headboard, that kind of thing.
+
+291
+00:34:34,501 --> 00:34:38,024
+Speaker 0: Then the floor, the material.
+
+292
+00:34:38,043 --> 00:34:44,268
+Speaker 0: I don't know if it's finished, but the color, you can see it here.
+
+293
+00:34:44,929 --> 00:34:48,952
+Speaker 0: Would it help if I added some color to it?
+
+294
+00:34:50,284 --> 00:34:57,872
+Speaker 1: I think my input will be reflected in detail, but it will be up close if it is not adjusted.
+
+295
+00:34:58,473 --> 00:35:00,454
+Speaker 1: I have one more comment.
+
+296
+00:35:00,574 --> 00:35:02,296
+Speaker 1: It is about rendering time.
+
+297
+00:35:09,722 --> 00:35:18,185
+Speaker 1: For example, if you look at V-Ray, if you look at the render, you can see the percentage of rendering.
+
+298
+00:35:18,205 --> 00:35:28,570
+Speaker 1: If you look at the percentage of 25, 50, 90, you can see that this is a lot of experience.
+
+299
+00:35:29,210 --> 00:35:34,792
+Speaker 1: If you look at the reflectors, you can see the percentage of the time.
+
+300
+00:35:34,832 --> 00:35:42,755
+Speaker 1: So if you look at the user, you can see that For example, two minutes before the final render.
+
+301
+00:35:42,995 --> 00:35:48,617
+Speaker 1: So, for me, based on my experience, I can do it in five minutes.
+
+302
+00:35:49,358 --> 00:35:52,159
+Speaker 1: So, I can do other things while it's rendering.
+
+303
+00:35:52,799 --> 00:35:57,581
+Speaker 1: So, I don't know if I helped in the UX or UI design.
+
+304
+00:35:57,681 --> 00:35:59,742
+Speaker 0: Okay, okay.
+
+305
+00:35:59,762 --> 00:36:00,922
+Speaker 0: Okay, no tip.
+
+306
+00:36:01,262 --> 00:36:09,949
+Speaker 0: So, when you press apply to current rendering, So I could do other things aside from what it's really doing.
+
+307
+00:36:24,321 --> 00:36:26,104
+Speaker 0: Okay, not dead.
+
+308
+00:36:27,827 --> 00:36:30,411
+Speaker 0: So that's the generate module.
+
+309
+00:36:30,431 --> 00:36:46,907
+Speaker 0: So before... So before we move on to suggesting, what are your like overall thoughts on the models?
+
+310
+00:36:49,227 --> 00:36:52,148
+Speaker 0: What can you suggest overall, apart from what you mentioned earlier?
+
+311
+00:36:55,328 --> 00:36:59,649
+Speaker 0: What are the things you're looking for to make this like better in a sense?
+
+312
+00:37:00,730 --> 00:37:04,110
+Speaker 1: I think this is a good example.
+
+313
+00:37:04,190 --> 00:37:07,371
+Speaker 1: I think it's the best material choices.
+
+314
+00:37:08,004 --> 00:37:15,352
+Speaker 1: I think it would be much better if we had more capacity to generate materials.
+
+315
+00:37:15,372 --> 00:37:32,309
+Speaker 1: For example, for this open generator material, And then, for example, if you generate a lot of material, you can compare the previous selection to the previous one.
+
+316
+00:37:32,329 --> 00:37:48,324
+Speaker 1: So, I think, I don't know, it would be better if it were made in the future, or if it was made in a wide range, in order to generate the material, the type of material, under the opal, that would be the interface.
+
+317
+00:37:48,849 --> 00:37:49,109
+Speaker 0: Okay.
+
+318
+00:37:49,609 --> 00:37:53,770
+Speaker 0: So, when you generate this, that was my result.
+
+319
+00:37:54,290 --> 00:37:56,711
+Speaker 0: You're hoping to generate the results.
+
+320
+00:37:56,751 --> 00:37:58,912
+Speaker 0: You can go back to the previous one in January.
+
+321
+00:37:58,932 --> 00:37:59,172
+Speaker 0: Yes.
+
+322
+00:37:59,192 --> 00:38:02,813
+Speaker 0: So, if you want to generate the results, you can go back to the previous one.
+
+323
+00:38:02,833 --> 00:38:07,654
+Speaker 1: If you want to generate the results, you can go back to the previous one.
+
+324
+00:38:12,455 --> 00:38:22,220
+Speaker 1: Even when it comes to technicalities or difficulty in the application.
+
+325
+00:38:22,780 --> 00:38:29,584
+Speaker 1: For me, I prefer to simplify things as compared to other elements.
+
+326
+00:38:42,896 --> 00:38:46,781
+Speaker 0: Okay, what are your comments about select noun parts?
+
+327
+00:38:47,221 --> 00:38:49,984
+Speaker 0: Because here you have to point and click.
+
+328
+00:38:52,765 --> 00:38:56,747
+Speaker 1: Actually, I don't have a feature anymore, but I can tell you about it.
+
+329
+00:38:56,767 --> 00:38:58,168
+Speaker 1: I have a preview of it.
+
+330
+00:38:58,248 --> 00:39:02,370
+Speaker 1: I don't have a feature anymore, but at least I can tell you about it.
+
+331
+00:39:02,390 --> 00:39:09,614
+Speaker 1: I can tell you about it, but I can tell you about it, but I can tell you about it, but I can tell
+
+332
+00:39:09,674 --> 00:39:09,874
+Speaker 0: you
+
+333
+00:39:10,214 --> 00:39:18,038
+Speaker 1: about it, but I can tell you about it, but I can tell you about it, but I can tell you about it, but I can tell you about it.
+
+334
+00:39:26,099 --> 00:39:31,943
+Speaker 1: But when it comes to difficulty, I think for me it should be done.
+
+335
+00:39:32,223 --> 00:39:33,644
+Speaker 1: I think it should be an option.
+
+336
+00:39:33,724 --> 00:39:38,107
+Speaker 1: I think it should be an adjustment.
+
+337
+00:39:38,187 --> 00:39:42,070
+Speaker 1: I am curious about the accessories elements in this room.
+
+338
+00:39:50,962 --> 00:39:53,844
+Speaker 0: Let's say for accessories, you put books.
+
+339
+00:39:55,205 --> 00:39:58,728
+Speaker 0: Would you expect books to have different options?
+
+340
+00:39:58,748 --> 00:39:58,808
+Speaker 0: Yes.
+
+341
+00:39:59,048 --> 00:40:04,112
+Speaker 0: I'm expecting books to have different selections.
+
+342
+00:40:04,152 --> 00:40:04,913
+Speaker 1: For example, in books.
+
+343
+00:40:13,499 --> 00:40:18,941
+Speaker 1: So when you're changing, let's say books, you want to like change your book cover or something like that.
+
+344
+00:40:40,991 --> 00:40:48,638
+Speaker 1: I don't have a name, but I have a name.
+
+345
+00:40:48,978 --> 00:40:55,824
+Speaker 1: While I'm selecting this, I'm going to use this as a model, as a highlight, so it's a bit different.
+
+346
+00:40:55,844 --> 00:40:56,804
+Speaker 1: Let's see.
+
+347
+00:40:59,694 --> 00:41:03,638
+Speaker 1: I'm pointing some walls.
+
+348
+00:41:03,658 --> 00:41:05,480
+Speaker 1: For example, this one.
+
+349
+00:41:05,800 --> 00:41:07,983
+Speaker 1: This is for the highlights.
+
+350
+00:41:08,343 --> 00:41:10,325
+Speaker 1: For the outline, it's blue.
+
+351
+00:41:10,806 --> 00:41:11,026
+Speaker 0: Yes.
+
+352
+00:41:11,707 --> 00:41:12,067
+Speaker 0: Okay.
+
+353
+00:41:12,327 --> 00:41:12,568
+Speaker 0: Okay.
+
+354
+00:41:12,588 --> 00:41:14,470
+Speaker 0: So for the walls, there is no option.
+
+355
+00:41:14,710 --> 00:41:17,072
+Speaker 0: For the highlights, there is no option.
+
+356
+00:41:21,511 --> 00:41:23,292
+Speaker 0: okay would you prefer to?
+
+357
+00:41:23,552 --> 00:41:28,555
+Speaker 0: would it be easier for you to map the objects by clicking on the picture itself?
+
+358
+00:41:30,096 --> 00:41:36,000
+Speaker 1: um like yeah okay and i think that would be much better.
+
+359
+00:41:37,041 --> 00:41:44,946
+Speaker 0: see about okay understood okay um so um do you have?
+
+360
+00:41:45,466 --> 00:41:48,748
+Speaker 0: um any other questions or comments regarding this?
+
+361
+00:41:49,315 --> 00:41:59,719
+Speaker 1: Besides the material, can you also, if possible, manipulate the environment setting?
+
+362
+00:42:00,299 --> 00:42:08,302
+Speaker 1: Like for example, what if I wanted it to be outside the environment?
+
+363
+00:42:09,982 --> 00:42:10,903
+Speaker 1: Would it be possible?
+
+364
+00:42:12,868 --> 00:42:17,351
+Speaker 0: For example, what is the outside environment?
+
+365
+00:42:17,511 --> 00:42:21,334
+Speaker 1: For example, there is a window outside the window.
+
+366
+00:42:33,422 --> 00:42:37,164
+Speaker 1: But it's possible that they will be able to customize the skylines for houses and subdivisions, right?
+
+367
+00:42:37,184 --> 00:42:38,344
+Speaker 1: Maybe in your background.
+
+368
+00:42:50,566 --> 00:42:54,870
+Speaker 1: I think it's very useful in a realistic rendering setting.
+
+369
+00:42:54,890 --> 00:42:56,311
+Speaker 1: I think it's a good feature.
+
+370
+00:43:15,709 --> 00:43:22,653
+Speaker 1: You can explore... You can adjust the direction of the sun or sunrise, brightness of the sun, brightness of the sky.
+
+371
+00:43:22,673 --> 00:43:24,454
+Speaker 1: How you can consider future developments in the app.
+
+372
+00:43:43,860 --> 00:43:45,643
+Speaker 0: Yes, okay.
+
+373
+00:43:45,864 --> 00:43:49,289
+Speaker 0: I'll look into it just now.
+
+374
+00:43:51,714 --> 00:43:57,684
+Speaker 0: So anything else before we move on to the suggestion part of the application?
+
+375
+00:43:58,414 --> 00:44:01,618
+Speaker 1: I think I'm good with the portion.
+
+376
+00:44:02,960 --> 00:44:04,342
+Speaker 1: Okay.
+
+377
+00:44:04,422 --> 00:44:08,728
+Speaker 0: After I introduce all of the functions, you could try it out yourself.
+
+378
+00:44:09,669 --> 00:44:11,711
+Speaker 0: In Zoom, I enabled remote access.
+
+379
+00:44:14,525 --> 00:44:25,730
+Speaker 0: So this app, it could also suggest materials or colors to you based on certain criteria.
+
+380
+00:44:26,371 --> 00:44:35,015
+Speaker 0: So far, it suggests materials and colors based on the interior design style you're looking for.
+
+381
+00:44:35,695 --> 00:44:48,028
+Speaker 0: So herepo, if you look at the first, you could suggest there are all types of materials or you could suggest what type of wood or metal or fabric and then you can suggest your design style herepo.
+
+382
+00:44:49,430 --> 00:44:57,539
+Speaker 0: So and then they help it suggest based on this herepo.
+
+383
+00:45:01,912 --> 00:45:14,388
+Speaker 1: I think it must be interesting, at least as a designer, to look at the traditional type or Scandinavian type of a certain material.
+
+384
+00:45:15,808 --> 00:45:19,252
+Speaker 0: Okay.
+
+385
+00:45:20,013 --> 00:45:22,736
+Speaker 0: So, there's velvet, there's cotton, there's linen.
+
+386
+00:45:22,756 --> 00:45:24,858
+Speaker 0: That was with this option, to generate the material.
+
+387
+00:45:24,898 --> 00:45:28,222
+Speaker 0: If you look at the previous page, to generate that certain material.
+
+388
+00:45:36,831 --> 00:45:37,552
+Speaker 0: material here.
+
+389
+00:45:38,093 --> 00:45:45,061
+Speaker 0: So from here I generated this, but I'm gonna put a small generation.
+
+390
+00:45:54,071 --> 00:45:58,055
+Speaker 0: That was for the suggestion of colors.
+
+391
+00:45:58,135 --> 00:46:00,418
+Speaker 0: I think I've shown this before, but I'll show it one more time.
+
+392
+00:46:01,880 --> 00:46:06,725
+Speaker 0: You could type in different styles and it could suggest color palettes again.
+
+393
+00:46:06,905 --> 00:46:11,510
+Speaker 0: That was put in, and then you got the meeting when you're adding the color finish book.
+
+394
+00:46:17,997 --> 00:46:23,743
+Speaker 0: So starting with the suggesting of the materials.
+
+395
+00:46:26,066 --> 00:46:28,909
+Speaker 0: So again, what are your thoughts on this module?
+
+396
+00:46:28,989 --> 00:46:30,310
+Speaker 0: What are the things you like?
+
+397
+00:46:30,951 --> 00:46:35,876
+Speaker 0: What are the things that you find confusing or my comments to make it better?
+
+398
+00:46:38,355 --> 00:46:45,359
+Speaker 1: Well, in terms of... I don't know if it's the same capability as Hawaii's rain.
+
+399
+00:46:45,659 --> 00:46:52,763
+Speaker 1: But what if I'm interested to use a material that is more solid?
+
+400
+00:46:53,123 --> 00:46:59,106
+Speaker 1: Or a fiber-textured material?
+
+401
+00:46:59,567 --> 00:47:00,807
+Speaker 1: Or a weaved material?
+
+402
+00:47:00,827 --> 00:47:02,668
+Speaker 1: It's possible.
+
+403
+00:47:04,289 --> 00:47:06,610
+Speaker 0: I think so.
+
+404
+00:47:07,170 --> 00:47:11,172
+Speaker 0: Like here you type in like weaved fabric.
+
+405
+00:47:11,192 --> 00:47:11,892
+Speaker 0: I mean weaved.
+
+406
+00:47:12,312 --> 00:47:14,393
+Speaker 1: Under shot, it's a good category.
+
+407
+00:47:14,773 --> 00:47:15,634
+Speaker 1: It's a fiber shot.
+
+408
+00:47:15,674 --> 00:47:15,954
+Speaker 1: Yes, but wood.
+
+409
+00:47:21,716 --> 00:47:25,159
+Speaker 0: So it's suggest based on weave?
+
+410
+00:47:27,541 --> 00:47:43,794
+Speaker 0: I haven't tried it yet but I think there there's a. yeah I could implement it in the man pot to have it suggest based on weave?
+
+411
+00:47:47,665 --> 00:47:51,010
+Speaker 0: So would that suggest weaved materials?
+
+412
+00:47:51,511 --> 00:47:52,953
+Speaker 1: What are the types of weaved materials?
+
+413
+00:47:56,918 --> 00:48:03,421
+Speaker 1: Ah, for example, furniture, textures, etc.
+
+414
+00:48:03,641 --> 00:48:05,562
+Speaker 1: works in Kanatka one way.
+
+415
+00:48:05,702 --> 00:48:07,503
+Speaker 1: Wicker type.
+
+416
+00:48:07,823 --> 00:48:08,704
+Speaker 1: Paramo, weaker.
+
+417
+00:48:09,304 --> 00:48:10,444
+Speaker 1: Ah, weaker.
+
+418
+00:48:10,685 --> 00:48:12,586
+Speaker 1: Okay, I think it's based on style.
+
+419
+00:48:12,646 --> 00:48:14,807
+Speaker 0: But okay, so it's just based on weave.
+
+420
+00:48:24,256 --> 00:48:32,041
+Speaker 0: Apart from that, my second question is, this suggests materials based on style only.
+
+421
+00:48:32,421 --> 00:48:37,004
+Speaker 0: So what are you hoping to search materials based on?
+
+422
+00:48:38,882 --> 00:48:41,605
+Speaker 1: I have a question.
+
+423
+00:48:44,148 --> 00:48:49,453
+Speaker 1: What if I prefer to create my own interior design style?
+
+424
+00:48:49,473 --> 00:49:03,645
+Speaker 1: For example, I'm designing a store, for example, for bench, and then I set a standard material and standard for that specific project.
+
+425
+00:49:03,925 --> 00:49:16,027
+Speaker 1: Can I also... If I have a feature for the app for the user, I can create my own template.
+
+426
+00:49:18,167 --> 00:49:29,672
+Speaker 1: So, for example, if I have a Sanex project, for example, a store, under that project branding.
+
+427
+00:49:38,476 --> 00:49:44,597
+Speaker 0: Okay, so there is no template for my Naka Setna style.
+
+428
+00:49:44,617 --> 00:49:48,158
+Speaker 0: That was my Naka Setna materials.
+
+429
+00:49:48,618 --> 00:49:53,279
+Speaker 1: I think that could also be helpful.
+
+430
+00:49:53,299 --> 00:49:59,901
+Speaker 1: I would like to see if there is a project or a render or something like that.
+
+431
+00:50:00,041 --> 00:50:04,402
+Speaker 1: At least there is no project with that type of material under that template.
+
+432
+00:50:04,482 --> 00:50:11,849
+Speaker 1: Like for example, I would make my own modern interior design theme.
+
+433
+00:50:11,909 --> 00:50:14,331
+Speaker 1: This is the definition of modern.
+
+434
+00:50:15,993 --> 00:50:18,675
+Speaker 1: This is how it is arranged, how it is adjusted.
+
+435
+00:50:30,410 --> 00:50:42,648
+Speaker 1: Would that also be a tool for the user to have freedom to make his or her own material template or design template?
+
+436
+00:50:44,412 --> 00:50:45,052
+Speaker 0: Okay.
+
+437
+00:50:45,493 --> 00:50:55,277
+Speaker 0: So, were you expecting now like, if you look at the bottom right, or bottom here, save as template.
+
+438
+00:50:56,978 --> 00:50:58,659
+Speaker 0: Yeah, something like that.
+
+439
+00:50:59,880 --> 00:51:05,162
+Speaker 1: For example, you know, and then we're going to adjust the material.
+
+440
+00:51:05,362 --> 00:51:10,325
+Speaker 1: And then the next time that I would work on this type of project, we start the same style in London.
+
+441
+00:51:12,352 --> 00:51:19,083
+Speaker 1: But I'm much better if, but I'm not in a just mode, but I'm into it.
+
+442
+00:51:23,274 --> 00:51:26,176
+Speaker 1: but there are many categories.
+
+443
+00:51:26,316 --> 00:51:31,459
+Speaker 1: There are many other types of projects, but there are many categories.
+
+444
+00:51:32,379 --> 00:51:40,864
+Speaker 1: There are a lot of materials from previous projects, but there are a lot of materials that have been rendered.
+
+445
+00:51:40,964 --> 00:51:46,026
+Speaker 0: Okay, so there are many kinds of materials of that style, I see.
+
+446
+00:51:46,047 --> 00:51:49,749
+Speaker 1: Yes, but there are many different types of materials.
+
+447
+00:51:51,184 --> 00:51:52,145
+Speaker 1: Okay, all right.
+
+448
+00:51:52,205 --> 00:51:54,347
+Speaker 1: But I didn't learn any limits.
+
+449
+00:51:55,247 --> 00:51:57,869
+Speaker 1: But I didn't learn any limits category.
+
+450
+00:51:58,990 --> 00:52:01,592
+Speaker 1: No, no, neither.
+
+451
+00:52:01,913 --> 00:52:06,897
+Speaker 1: But I'm going to guess it the body to Ilan longshan model contemporary.
+
+452
+00:52:07,817 --> 00:52:14,282
+Speaker 1: But how much better if my option did a pattern ad style, but I'm gonna put emotion in the style.
+
+453
+00:52:15,323 --> 00:52:23,108
+Speaker 1: And my freedom belonging user has created my own style now.
+
+454
+00:52:23,388 --> 00:52:28,671
+Speaker 1: From my end, when I started my project, I had a store interior.
+
+455
+00:52:28,691 --> 00:52:35,735
+Speaker 1: And now, I'm working on a project now.
+
+456
+00:52:35,755 --> 00:52:38,016
+Speaker 1: I'm going to consider it as a template.
+
+457
+00:52:38,036 --> 00:52:38,196
+Speaker 1: Okay.
+
+458
+00:52:43,659 --> 00:52:52,968
+Speaker 1: But I understand since it's a generic style base, it's more like a GPP, AI.
+
+459
+00:52:55,290 --> 00:52:56,952
+Speaker 0: So for yours, it's more on like...
+
+460
+00:52:57,753 --> 00:52:59,554
+Speaker 1: Personalization.
+
+461
+00:52:59,734 --> 00:53:00,115
+Speaker 0: Yeah.
+
+462
+00:53:00,395 --> 00:53:12,766
+Speaker 0: So when you select the material, Let's say for these materials here, let's say we finalize the material in the project, we save the template, and let's say we do a meeting.
+
+463
+00:53:13,266 --> 00:53:16,129
+Speaker 0: Not just materials, but also color palettes.
+
+464
+00:53:16,429 --> 00:53:21,414
+Speaker 1: Yeah, but I'm gonna... Parashang, Parang is saying interface with Lightroom.
+
+465
+00:53:21,554 --> 00:53:22,875
+Speaker 1: Have you tried using it?
+
+466
+00:53:23,848 --> 00:53:24,689
+Speaker 0: Adobe Lightroom?
+
+467
+00:53:25,249 --> 00:53:32,033
+Speaker 1: Yes, you can adjust the image, right?
+
+468
+00:53:32,093 --> 00:53:38,117
+Speaker 1: And then you can control the settings and then you can just copy paste it to the next image.
+
+469
+00:53:41,579 --> 00:53:43,920
+Speaker 1: Okay, all right.
+
+470
+00:53:43,960 --> 00:53:51,905
+Speaker 1: You can adjust the Lightroom by using a filter known as a DNG type of file.
+
+471
+00:53:53,386 --> 00:53:55,147
+Speaker 1: Yes, for example, do you get...
+
+472
+00:53:55,167 --> 00:54:00,071
+Speaker 0: Yes, for example, you can contrast my values, that's another value, you can save it.
+
+473
+00:54:00,091 --> 00:54:05,555
+Speaker 1: Yes, for example, filters in a rendering setting, for example.
+
+474
+00:54:05,795 --> 00:54:08,036
+Speaker 1: There is a name template for that.
+
+475
+00:54:08,137 --> 00:54:12,920
+Speaker 1: For the next project, we have a store interior motif.
+
+476
+00:54:13,340 --> 00:54:35,596
+Speaker 0: So when you're suggesting materials or creating materials hoping that you could like save Yeah, I've already mentioned the past materials before.
+
+477
+00:54:35,616 --> 00:54:37,097
+Speaker 0: Okay, all right.
+
+478
+00:54:37,557 --> 00:54:38,117
+Speaker 0: Okay, got it.
+
+479
+00:54:39,278 --> 00:54:53,582
+Speaker 0: Okay, were you hoping to suggest it, like, would it help, because this is an idea, but it's not executed, would it help if you suggest materials based on the design requirements?
+
+480
+00:54:54,922 --> 00:55:08,706
+Speaker 0: Like for, you said design requirements, correct me if I'm wrong, but like the client is looking for let's say a low cost or mid-range residential space.
+
+481
+00:55:09,226 --> 00:55:10,026
+Speaker 0: so would it help?
+
+482
+00:55:10,086 --> 00:55:15,647
+Speaker 0: now it would like suggest materials based on like the what do I call like cost?
+
+483
+00:55:15,707 --> 00:55:22,328
+Speaker 1: like there's high end mid-range like for example if you're targeting low cost.
+
+484
+00:55:22,348 --> 00:55:38,875
+Speaker 1: I think I think that would be helpful for at least a new user, because at least they can see the limits of the material within that budget.
+
+485
+00:55:43,798 --> 00:55:46,362
+Speaker 1: I don't know how much time it takes to get to the beginning.
+
+486
+00:55:47,023 --> 00:55:48,265
+Speaker 1: I don't know.
+
+487
+00:55:48,385 --> 00:55:52,551
+Speaker 1: I don't know how much time it takes to get to the beginning.
+
+488
+00:55:52,591 --> 00:55:53,833
+Speaker 1: That would be a nice thing.
+
+489
+00:56:00,181 --> 00:56:03,002
+Speaker 0: So before we move, oh wait, sorry, we have only seven minutes.
+
+490
+00:56:03,803 --> 00:56:06,964
+Speaker 0: Is it possible to extend or do you have a meeting after this?
+
+491
+00:56:07,524 --> 00:56:12,646
+Speaker 1: I can extend a bit, if you need my feedback.
+
+492
+00:56:12,706 --> 00:56:14,127
+Speaker 1: I'm not sure if I can extend my feedback.
+
+493
+00:56:15,379 --> 00:56:17,900
+Speaker 0: So that's for the suggestion of materials.
+
+494
+00:56:18,040 --> 00:56:24,103
+Speaker 1: Are there any other ways you hope the prototype to suggest by apart from let's say suggest by style or suggest by cost?
+
+495
+00:56:24,163 --> 00:56:51,897
+Speaker 0: or Would it help if, like, let's say, I suggest based on the object, like, what are materials used for a floor?
+
+496
+00:56:51,917 --> 00:56:55,198
+Speaker 1: That can also be an okay feature.
+
+497
+00:56:55,238 --> 00:56:56,698
+Speaker 1: For example, the floor.
+
+498
+00:56:58,538 --> 00:57:02,579
+Speaker 1: For example, I can use this material.
+
+499
+00:57:09,841 --> 00:57:11,383
+Speaker 1: For example, for example it's a phone.
+
+500
+00:57:28,163 --> 00:57:36,012
+Speaker 1: I think usually it's applicable to metal, but I don't think it's a good feature, because you can use it on glass or on a cloth.
+
+501
+00:57:43,447 --> 00:57:50,116
+Speaker 1: I think that would be much better, but at least for additional knowledge to use a user.
+
+502
+00:57:50,637 --> 00:57:54,121
+Speaker 1: For example, if you have a professional student, you can do something like that.
+
+503
+00:57:58,727 --> 00:58:05,892
+Speaker 0: okay okay um going back to suggestion on color spot.
+
+504
+00:58:05,972 --> 00:58:17,701
+Speaker 0: and so yeah my last question is because so far it adds the color finish individually like you have to select one thousand but it must apply to the object one at a time.
+
+505
+00:58:18,041 --> 00:58:30,090
+Speaker 0: would it help if you like Distribute the colors to the entire scene or something like that but in a click of a button, but they distribute by
+
+506
+00:58:32,712 --> 00:58:35,354
+Speaker 1: your colors Let's
+
+507
+00:58:35,374 --> 00:58:50,766
+Speaker 0: say for Let's say if I see this color pad for instance tapos when I compare it to in the paleo Would it help if I, with this color palette, it automatically colors the entire room?
+
+508
+00:58:51,746 --> 00:58:52,567
+Speaker 0: Like with these colors?
+
+509
+00:58:52,587 --> 00:58:57,810
+Speaker 1: Like for example, I'm applying just a wall and ceiling, just on the flooring.
+
+510
+00:58:58,731 --> 00:59:02,333
+Speaker 0: Like it equally distributes the colors, would it help?
+
+511
+00:59:04,574 --> 00:59:09,616
+Speaker 0: So that way you don't need to continuously point and click on different parts.
+
+512
+00:59:09,636 --> 00:59:11,636
+Speaker 0: Do you get what I'm saying?
+
+513
+00:59:11,656 --> 00:59:15,577
+Speaker 1: For example, I clicked on the color green.
+
+514
+00:59:17,698 --> 00:59:19,518
+Speaker 1: No, no, like with this entire color palette.
+
+515
+00:59:19,538 --> 00:59:21,759
+Speaker 1: Let's say there's a button called apply to entire rendering.
+
+516
+00:59:30,603 --> 00:59:34,565
+Speaker 0: So the college I applied, yes.
+
+517
+00:59:36,025 --> 00:59:37,986
+Speaker 0: Where would it top down, Ganyan?
+
+518
+00:59:38,006 --> 00:59:50,252
+Speaker 1: I think it's also a nice feature, but I would like to put it into a box option.
+
+519
+00:59:50,512 --> 00:59:53,393
+Speaker 0: Would it like induce fixation, Ganyanpo?
+
+520
+00:59:59,723 --> 01:00:02,485
+Speaker 1: You can do that, not just the ordering.
+
+521
+01:00:02,865 --> 01:00:07,308
+Speaker 1: For example, you'll be choosing this code or based on the colour.
+
+522
+01:00:28,523 --> 01:00:30,986
+Speaker 1: Yes, yes.
+
+523
+01:00:52,774 --> 01:00:58,835
+Speaker 0: Yes, like the button that assigns it.
+
+524
+01:01:00,476 --> 01:01:04,536
+Speaker 0: At the same time, it's very harmonious in the room.
+
+525
+01:01:04,836 --> 01:01:05,817
+Speaker 1: I think it's okay.
+
+526
+01:01:06,697 --> 01:01:08,397
+Speaker 1: In terms of color, I think it's okay.
+
+527
+01:01:08,417 --> 01:01:08,657
+Speaker 1: It's okay.
+
+528
+01:01:08,697 --> 01:01:09,257
+Speaker 1: I think it's okay.
+
+529
+01:01:09,277 --> 01:01:11,178
+Speaker 1: I think it's okay.
+
+530
+01:01:11,218 --> 01:01:12,018
+Speaker 1: I think it's okay.
+
+531
+01:01:12,038 --> 01:01:13,138
+Speaker 1: I think it's okay.
+
+532
+01:01:13,198 --> 01:01:13,998
+Speaker 1: I think it's okay.
+
+533
+01:01:14,018 --> 01:01:14,578
+Speaker 1: I think it's okay.
+
+534
+01:01:14,639 --> 01:01:15,739
+Speaker 1: I think it's okay.
+
+535
+01:01:15,859 --> 01:01:17,359
+Speaker 1: I think it's okay.
+
+536
+01:01:22,000 --> 01:01:25,441
+Speaker 1: I don't know if it's a color palette.
+
+537
+01:01:25,941 --> 01:01:28,022
+Speaker 0: Like, my refresh button or something?
+
+538
+01:01:28,202 --> 01:01:29,683
+Speaker 0: Or like, if you select this.
+
+539
+01:01:29,783 --> 01:01:30,603
+Speaker 1: Or customize.
+
+540
+01:01:31,343 --> 01:01:32,084
+Speaker 1: Something like that.
+
+541
+01:01:33,024 --> 01:01:36,765
+Speaker 1: Aside from suggest, customize your own 2G.
+
+542
+01:01:37,045 --> 01:01:38,866
+Speaker 0: Like, when you add a new color palette.
+
+543
+01:01:39,126 --> 01:01:46,709
+Speaker 0: Like, let's say in the empty, we can customize the color palette.
+
+544
+01:01:47,689 --> 01:01:48,669
+Speaker 0: Like, something like that.
+
+545
+01:01:48,709 --> 01:01:49,910
+Speaker 1: Yeah, something like that.
+
+546
+01:01:50,396 --> 01:01:53,679
+Speaker 0: Okay, so this is my additional new palette.
+
+547
+01:01:54,359 --> 01:01:57,722
+Speaker 0: Okay, all right, understood.
+
+548
+01:01:59,984 --> 01:02:02,987
+Speaker 0: So that's the suggest materials and suggest colors.
+
+549
+01:02:03,507 --> 01:02:08,051
+Speaker 0: So lastly, if you look at the right side, the second tab, it shows feedback.
+
+550
+01:02:08,812 --> 01:02:16,038
+Speaker 0: Currently, the material, this prototype.
+
+551
+01:02:16,138 --> 01:02:20,962
+Speaker 0: it gives feedback based on the assembly parts together.
+
+552
+01:02:21,762 --> 01:02:25,685
+Speaker 0: so for different objects let's say for bed.
+
+553
+01:02:26,826 --> 01:02:32,250
+Speaker 0: so if you look at this let me know if like more confusing you know.
+
+554
+01:02:33,891 --> 01:02:39,815
+Speaker 0: But what this means is that the headboard is attached to the bed frame.
+
+555
+01:02:41,416 --> 01:02:43,397
+Speaker 0: And it shows the different materials.
+
+556
+01:02:44,018 --> 01:02:53,263
+Speaker 0: So the purpose of this is to suggest different ways to attach parts of different materials together.
+
+557
+01:02:53,283 --> 01:03:01,729
+Speaker 0: If I want to find ways to suggest to attach the headboard to the bed frame.
+
+558
+01:03:03,948 --> 01:03:12,440
+Speaker 0: and when you suggest it for installation yes that was my suggestions on how you can do it.
+
+559
+01:03:22,793 --> 01:03:34,681
+Speaker 0: But yes, and you can do the same for side tables, of course Nipushya applicable for all parts, because I put in floor for example, but young shelves for example.
+
+560
+01:03:35,541 --> 01:03:38,663
+Speaker 0: Did you notice the first time he shelves?
+
+561
+01:03:38,964 --> 01:03:40,605
+Speaker 0: It's horizontal.
+
+562
+01:03:40,625 --> 01:03:40,905
+Speaker 0: Ledge?
+
+563
+01:03:41,426 --> 01:03:42,727
+Speaker 0: I don't know the right terms for a shelf.
+
+564
+01:03:58,138 --> 01:03:58,899
+Speaker 0: it's all kind.
+
+565
+01:03:58,959 --> 01:04:00,780
+Speaker 0: it's made of steel.
+
+566
+01:04:01,381 --> 01:04:04,764
+Speaker 0: if you look at the shelf here that was so.
+
+567
+01:04:05,004 --> 01:04:20,245
+Speaker 0: you can suggest the attachments here and when you suggest it I'm okay with that.
+
+568
+01:04:20,265 --> 01:04:22,046
+Speaker 1: There is additional input in here.
+
+569
+01:04:22,066 --> 01:04:25,508
+Speaker 1: There are a lot of designers who are knowledgeable on how to install.
+
+570
+01:04:25,528 --> 01:04:30,372
+Speaker 1: There is also a lot of construction.
+
+571
+01:04:30,912 --> 01:04:36,075
+Speaker 1: But even in the appearance, you can see the viewport.
+
+572
+01:04:37,536 --> 01:04:39,277
+Speaker 1: There are a lot of things for me.
+
+573
+01:04:40,218 --> 01:04:41,879
+Speaker 1: I don't know if it's the row.
+
+574
+01:04:42,759 --> 01:04:43,439
+Speaker 1: Before and after the game.
+
+575
+01:04:43,800 --> 01:04:45,120
+Speaker 1: Before and after the game.
+
+576
+01:04:45,140 --> 01:04:46,621
+Speaker 1: Before and after the game.
+
+577
+01:04:46,641 --> 01:04:47,482
+Speaker 0: Before and after the game.
+
+578
+01:04:47,522 --> 01:04:49,323
+Speaker 0: Before and after the game.
+
+579
+01:04:49,343 --> 01:04:51,224
+Speaker 1: Before and after the game.
+
+580
+01:04:51,324 --> 01:04:53,345
+Speaker 1: Before and after the game.
+
+581
+01:04:53,365 --> 01:04:54,926
+Speaker 1: Before and after the game.
+
+582
+01:04:54,946 --> 01:04:56,767
+Speaker 1: Before and after the game.
+
+583
+01:04:56,787 --> 01:04:58,348
+Speaker 1: Before and after the game.
+
+584
+01:04:58,388 --> 01:04:59,529
+Speaker 1: Before and after the game.
+
+585
+01:05:00,249 --> 01:05:01,150
+Speaker 1: Before and after the game.
+
+586
+01:05:10,410 --> 01:05:18,400
+Speaker 1: But aside from that, I'd like to suggest on how to install things.
+
+587
+01:05:18,861 --> 01:05:19,922
+Speaker 1: But I think it's a good feature.
+
+588
+01:05:26,232 --> 01:05:27,673
+Speaker 0: Okay, understood.
+
+589
+01:05:29,475 --> 01:05:41,565
+Speaker 0: So apart from that, currently it gives feedback on how the parts are assembled together based on the materials used.
+
+590
+01:05:41,866 --> 01:05:48,011
+Speaker 0: So my question is, what are other things you hope the system could give feedback on?
+
+591
+01:05:51,147 --> 01:05:56,193
+Speaker 1: Aside from that, I think an additional feature like Seguro.
+
+592
+01:06:05,726 --> 01:06:06,526
+Speaker 1: I don't know if it's possible.
+
+593
+01:06:06,546 --> 01:06:07,647
+Speaker 1: I don't know about standard sizing.
+
+594
+01:06:07,727 --> 01:06:08,367
+Speaker 1: Would that also be possible?
+
+595
+01:06:08,387 --> 01:06:09,187
+Speaker 1: Like it's a shelf ledge.
+
+596
+01:06:09,207 --> 01:06:09,847
+Speaker 1: I don't know if it's possible.
+
+597
+01:06:09,867 --> 01:06:10,568
+Speaker 1: I don't know about standard sizing.
+
+598
+01:06:10,588 --> 01:06:11,248
+Speaker 1: Would that also be possible?
+
+599
+01:06:11,268 --> 01:06:11,728
+Speaker 1: Like it's a shelf ledge.
+
+600
+01:06:11,768 --> 01:06:12,448
+Speaker 1: I don't know about standard sizing.
+
+601
+01:06:12,468 --> 01:06:13,268
+Speaker 1: Would that also be possible?
+
+602
+01:06:13,288 --> 01:06:13,989
+Speaker 1: Like it's a shelf ledge.
+
+603
+01:06:14,009 --> 01:06:14,709
+Speaker 1: I don't know about standard sizing.
+
+604
+01:06:14,729 --> 01:06:15,329
+Speaker 1: Would that also be possible?
+
+605
+01:06:15,349 --> 01:06:15,829
+Speaker 1: Like it's a shelf ledge.
+
+606
+01:06:15,849 --> 01:06:16,629
+Speaker 1: I don't know about standard sizing.
+
+607
+01:06:16,649 --> 01:06:17,490
+Speaker 1: Would that also be possible?
+
+608
+01:06:17,510 --> 01:06:17,970
+Speaker 1: Like it's a shelf ledge.
+
+609
+01:06:17,990 --> 01:06:19,170
+Speaker 1: I don't know about standard sizing.
+
+610
+01:06:19,190 --> 01:06:19,810
+Speaker 1: Would that also be possible?
+
+611
+01:06:19,830 --> 01:06:20,291
+Speaker 1: Like it's a shelf ledge.
+
+612
+01:06:20,311 --> 01:06:21,251
+Speaker 1: I don't know about standard sizing.
+
+613
+01:06:21,271 --> 01:06:21,831
+Speaker 1: Would that also be possible?
+
+614
+01:06:21,851 --> 01:06:22,411
+Speaker 1: Like it's a shelf ledge.
+
+615
+01:06:22,431 --> 01:06:23,172
+Speaker 1: I don't know about standard sizing.
+
+616
+01:06:23,212 --> 01:06:23,832
+Speaker 1: Would that also be possible?
+
+617
+01:06:23,852 --> 01:06:24,312
+Speaker 1: Like it's a shelf ledge.
+
+618
+01:06:24,332 --> 01:06:24,972
+Speaker 1: Would that also be possible?
+
+619
+01:06:24,992 --> 01:06:25,452
+Speaker 1: Like it's a shelf ledge.
+
+620
+01:06:25,472 --> 01:06:26,052
+Speaker 1: Would that also be possible?
+
+621
+01:06:26,072 --> 01:06:26,553
+Speaker 1: Like it's a shelf ledge?
+
+622
+01:06:26,573 --> 01:06:27,153
+Speaker 1: Would that also be possible?
+
+623
+01:06:27,173 --> 01:06:33,895
+Speaker 1: Like it's a shelf ledge if the display of the box is 0.13 meters, I guess.
+
+624
+01:06:34,815 --> 01:06:40,676
+Speaker 1: It would be much better if the box is more than 100 meters when it comes to standard sizing.
+
+625
+01:06:41,476 --> 01:06:46,818
+Speaker 0: So, feedback on proportion, sizing of the objects.
+
+626
+01:06:47,498 --> 01:06:47,738
+Speaker 1: Yeah.
+
+627
+01:06:48,590 --> 01:06:50,991
+Speaker 0: Okay, so measurements.
+
+628
+01:06:51,011 --> 01:06:52,572
+Speaker 1: That's important.
+
+629
+01:07:09,611 --> 01:07:10,312
+Speaker 1: Yeah.
+
+630
+01:07:10,752 --> 01:07:12,553
+Speaker 1: Most especially is interior design.
+
+631
+01:07:12,873 --> 01:07:16,276
+Speaker 1: I'm sure it's even more important in sizing.
+
+632
+01:07:16,656 --> 01:07:17,917
+Speaker 0: Even furniture design.
+
+633
+01:07:18,137 --> 01:07:18,477
+Speaker 0: Yeah.
+
+634
+01:07:19,338 --> 01:07:24,321
+Speaker 1: Standard seat height, standard door height or something like that.
+
+635
+01:07:25,262 --> 01:07:25,502
+Speaker 0: Okay.
+
+636
+01:07:26,743 --> 01:07:27,363
+Speaker 0: Okay, understood.
+
+637
+01:07:28,684 --> 01:07:30,466
+Speaker 0: I think we only have five minutes.
+
+638
+01:07:30,886 --> 01:07:41,994
+Speaker 0: So apart from that, before I... Before I lend to you the prototype to try it out, what other ways do you hope this prototype could give feedback on?
+
+639
+01:07:43,655 --> 01:07:48,298
+Speaker 1: In what sense?
+
+640
+01:07:49,359 --> 01:07:55,423
+Speaker 0: Well, it could be about the room regarding proportions, but is there any feedback on the materials?
+
+641
+01:07:56,504 --> 01:08:01,828
+Speaker 0: It could give feedback on some materials.
+
+642
+01:08:04,515 --> 01:08:07,016
+Speaker 1: I think that would be helpful.
+
+643
+01:08:07,096 --> 01:08:10,737
+Speaker 1: For example, in the coastal area, that would be helpful.
+
+644
+01:08:10,757 --> 01:08:14,177
+Speaker 1: For example, in the coastal area, that would be helpful.
+
+645
+01:08:15,478 --> 01:08:22,059
+Speaker 1: For example, in the coastal area, that would be helpful.
+
+646
+01:08:30,041 --> 01:08:43,865
+Speaker 1: or in a tropical environment setting, it is a material that can be worked out, but it can be used in metals, in metals, in tropical settings, in absorption and heat.
+
+647
+01:08:44,886 --> 01:08:45,207
+Speaker 0: Okay.
+
+648
+01:08:45,647 --> 01:08:45,867
+Speaker 0: Okay.
+
+649
+01:08:45,908 --> 01:08:46,608
+Speaker 0: Understood.
+
+650
+01:08:47,548 --> 01:08:47,868
+Speaker 0: All right.
+
+651
+01:08:47,988 --> 01:08:48,228
+Speaker 0: Okay.
+
+652
+01:08:48,268 --> 01:08:48,649
+Speaker 0: Noted.
+
+653
+01:08:49,589 --> 01:08:49,868
+Speaker 0: Okay.
+
+654
+01:08:50,870 --> 01:08:54,970
+Speaker 0: So is there anything else you have comments to say before?
+
+655
+01:08:54,991 --> 01:09:00,974
+Speaker 0: I let you try the prototype itself?
+
+656
+01:09:01,453 --> 01:09:02,174
+Speaker 1: I'll let you know.
+
+657
+01:09:02,434 --> 01:09:14,939
+Speaker 1: But at the moment, I think, you know, Would you like to try it out?
+
+658
+01:09:15,220 --> 01:09:18,421
+Speaker 0: Sure, how can I try this out?
+
+659
+01:09:18,622 --> 01:09:27,548
+Speaker 0: So if you see on your screen and you're on the top part on the zoom it says you're viewing RG Gallega's screen.
+
+660
+01:09:28,388 --> 01:09:28,608
+Speaker 0: Yeah.
+
+661
+01:09:28,627 --> 01:09:30,970
+Speaker 0: So on the right, my view options.
+
+662
+01:09:31,290 --> 01:09:33,072
+Speaker 0: Ah, request remote control.
+
+663
+01:09:33,112 --> 01:09:34,653
+Speaker 0: Yes, request remote control.
+
+664
+01:09:35,212 --> 01:09:42,358
+Speaker 0: So that allows you to control my mouse and you can actually type onto the yes button.
+
+665
+01:09:42,959 --> 01:09:47,742
+Speaker 0: If you click on the screen, if you click on the screen, do you see it?
+
+666
+01:09:48,462 --> 01:09:50,644
+Speaker 0: Ah, I see.
+
+667
+01:09:50,865 --> 01:09:52,725
+Speaker 0: But you can also control it by yourself.
+
+668
+01:09:53,707 --> 01:09:56,509
+Speaker 0: So you can play around with it for the remaining time.
+
+669
+01:09:58,059 --> 01:09:58,820
+Speaker 1: Let me try.
+
+670
+01:09:58,840 --> 01:10:04,405
+Speaker 1: If you want to enable remote access, you can enable remote access.
+
+671
+01:10:22,978 --> 01:10:29,142
+Speaker 0: I don't know how to use it, but you can use it as an option when you're sharing your screen.
+
+672
+01:10:31,984 --> 01:10:34,586
+Speaker 0: Was that something you're expecting for metal?
+
+673
+01:10:35,867 --> 01:10:39,609
+Speaker 1: Actually, not actually, but more like leather.
+
+674
+01:10:40,410 --> 01:10:40,670
+Speaker 0: Okay.
+
+675
+01:10:43,492 --> 01:10:47,895
+Speaker 0: You could also refresh it until you... Sorry, wait, sorry.
+
+676
+01:10:47,935 --> 01:10:50,157
+Speaker 0: You'll probably push it if you apply it.
+
+677
+01:10:50,457 --> 01:10:50,597
+Speaker 0: Yeah.
+
+678
+01:10:59,953 --> 01:11:08,581
+Speaker 0: generate sorry you have to go to the previous page if you scroll down but on my my previous button book if you go to rev.
+
+679
+01:11:09,061 --> 01:11:10,362
+Speaker 0: but yeah um yeah okay noted.
+
+680
+01:11:25,187 --> 01:11:27,153
+Speaker 1: So, this is the sample material.
+
+681
+01:11:35,279 --> 01:11:41,540
+Speaker 0: If you say metal, were you expecting a shiny brushed metal?
+
+682
+01:11:41,780 --> 01:11:44,001
+Speaker 1: Yeah, that was what I was expecting.
+
+683
+01:11:44,561 --> 01:11:45,001
+Speaker 0: Okay.
+
+684
+01:11:46,401 --> 01:11:49,222
+Speaker 1: Maybe you could try brushed metal?
+
+685
+01:11:49,262 --> 01:11:49,822
+Speaker 1: I think so.
+
+686
+01:12:15,262 --> 01:12:22,007
+Speaker 0: If you're aware both like, you know, is upon AI now the trend, the one that's doing the AI generated art.
+
+687
+01:12:25,029 --> 01:12:34,416
+Speaker 0: So you like, like on social media, there's okay, so there's an issue there.
+
+688
+01:12:34,657 --> 01:12:34,897
+Speaker 1: Yes.
+
+689
+01:12:36,089 --> 01:12:37,869
+Speaker 1: But anyway, I'll just try collecting this.
+
+690
+01:12:37,929 --> 01:12:39,370
+Speaker 1: And then next.
+
+691
+01:12:39,390 --> 01:12:39,510
+Speaker 1: Yes.
+
+692
+01:12:39,530 --> 01:12:40,810
+Speaker 1: I should import some application.
+
+693
+01:12:40,830 --> 01:12:40,930
+Speaker 1: Yes.
+
+694
+01:12:57,795 --> 01:13:01,017
+Speaker 0: Yes, it applies to the floor.
+
+695
+01:13:01,417 --> 01:13:08,701
+Speaker 0: But take note, the ones that were selected, but they were previously selected before, they were not selected yet.
+
+696
+01:13:09,082 --> 01:13:11,303
+Speaker 1: Oh, okay.
+
+697
+01:13:11,343 --> 01:13:12,864
+Speaker 1: So we have to select them.
+
+698
+01:13:12,984 --> 01:13:14,225
+Speaker 1: We have to check them.
+
+699
+01:13:14,305 --> 01:13:15,405
+Speaker 0: Okay, I guess.
+
+700
+01:13:15,866 --> 01:13:16,426
+Speaker 0: Sorry, okay.
+
+701
+01:13:17,807 --> 01:13:18,207
+Speaker 1: Okay.
+
+702
+01:13:19,168 --> 01:13:22,790
+Speaker 1: So if you want to select, then apply texture, right?
+
+703
+01:13:23,270 --> 01:13:24,271
+Speaker 1: And then refresh.
+
+704
+01:13:25,529 --> 01:13:37,395
+Speaker 1: yes oh wait ah wait tamaba I should click on the next one.
+
+705
+01:13:37,415 --> 01:13:37,956
+Speaker 1: Okay, so it's undoed.
+
+706
+01:13:37,976 --> 01:13:39,696
+Speaker 1: And then, I should click on the next one.
+
+707
+01:13:39,736 --> 01:13:40,456
+Speaker 1: I should click on the next one.
+
+708
+01:13:40,516 --> 01:13:41,957
+Speaker 0: I should click on the next one.
+
+709
+01:14:01,809 --> 01:14:02,710
+Speaker 1: Apply to current render.
+
+710
+01:14:02,730 --> 01:14:03,410
+Speaker 1: Do you want to apply finish?
+
+711
+01:14:03,430 --> 01:14:04,511
+Speaker 1: Yes, apply finish to current rendering.
+
+712
+01:14:04,531 --> 01:14:05,351
+Speaker 0: Yes, apply finish to current rendering.
+
+713
+01:14:05,371 --> 01:14:06,332
+Speaker 0: Yes, apply finish to current rendering.
+
+714
+01:14:06,352 --> 01:14:07,233
+Speaker 0: Yes, apply finish to current rendering.
+
+715
+01:14:07,393 --> 01:14:08,493
+Speaker 0: Yes, apply finish to current rendering.
+
+716
+01:14:08,513 --> 01:14:09,274
+Speaker 0: Yes, apply finish to current rendering.
+
+717
+01:14:09,294 --> 01:14:10,114
+Speaker 1: Yes, apply finish to current rendering.
+
+718
+01:14:10,135 --> 01:14:11,996
+Speaker 0: Yes, apply finish to current rendering.
+
+719
+01:14:12,016 --> 01:14:12,836
+Speaker 0: Yes, apply finish to current rendering.
+
+720
+01:14:12,856 --> 01:14:13,657
+Speaker 0: Yes, apply finish to current rendering.
+
+721
+01:14:13,677 --> 01:14:15,338
+Speaker 1: Yes, apply finish to current rendering.
+
+722
+01:14:15,358 --> 01:14:16,158
+Speaker 1: Yes, apply finish to current rendering.
+
+723
+01:14:16,178 --> 01:14:16,999
+Speaker 1: Yes, apply finish to current rendering.
+
+724
+01:14:17,039 --> 01:14:17,900
+Speaker 1: Yes, apply finish to current rendering.
+
+725
+01:14:17,920 --> 01:14:18,900
+Speaker 1: Yes, apply finish to current rendering.
+
+726
+01:14:18,920 --> 01:14:19,761
+Speaker 0: Yes, apply finish to current rendering.
+
+727
+01:14:19,781 --> 01:14:20,621
+Speaker 0: Yes, apply finish to current rendering.
+
+728
+01:14:20,641 --> 01:14:21,562
+Speaker 0: Yes, apply finish to current rendering.
+
+729
+01:14:21,582 --> 01:14:22,583
+Speaker 1: Yes, apply finish to current rendering.
+
+730
+01:14:22,603 --> 01:14:23,944
+Speaker 1: Yes, apply finish to current rendering.
+
+731
+01:14:23,964 --> 01:14:25,044
+Speaker 1: Yes, apply finish to current rendering.
+
+732
+01:14:25,064 --> 01:14:25,805
+Speaker 1: Yes, apply finish to current rendering.
+
+733
+01:14:25,825 --> 01:14:26,765
+Speaker 1: Yes, apply finish to current rendering.
+
+734
+01:14:26,785 --> 01:14:27,686
+Speaker 1: Yes, apply finish to current rendering.
+
+735
+01:14:27,706 --> 01:14:28,647
+Speaker 1: Yes, apply finish to current rendering.
+
+736
+01:14:29,207 --> 01:14:30,208
+Speaker 1: Yes, apply finish to current rendering.
+
+737
+01:14:30,228 --> 01:14:30,628
+Speaker 1: Yes, apply finish.
+
+738
+01:14:35,572 --> 01:14:37,513
+Speaker 1: I would know how long will I wait.
+
+739
+01:15:04,643 --> 01:15:14,872
+Speaker 1: But it doesn't have an official application name, but I tentatively named it func and form.
+
+740
+01:15:26,251 --> 01:15:29,532
+Speaker 0: Function and form.
+
+741
+01:15:31,912 --> 01:15:39,415
+Speaker 0: It's supposed to facilitate like you look at the same time functionality but in a sense functionality.
+
+742
+01:15:39,475 --> 01:15:53,480
+Speaker 0: right now it could be like assembled together but oh yeah I'll consider the other things you mentioned but like regarding the sizing and the durability to make sure it's more functional.
+
+743
+01:15:53,700 --> 01:15:58,418
+Speaker 0: the design Sorry, wait.
+
+744
+01:15:59,079 --> 01:16:02,701
+Speaker 0: I'm just going to check if it's in the shower.
+
+745
+01:16:02,721 --> 01:16:05,583
+Speaker 0: Or in my shower.
+
+746
+01:16:05,964 --> 01:16:07,605
+Speaker 0: I think it's really slow.
+
+747
+01:16:09,426 --> 01:16:09,947
+Speaker 0: Sorry, wait.
+
+748
+01:16:10,007 --> 01:16:11,268
+Speaker 0: Okay, I think it's updated.
+
+749
+01:16:11,348 --> 01:16:11,588
+Speaker 0: Oh, okay.
+
+750
+01:16:11,608 --> 01:16:12,008
+Speaker 0: I think it's done.
+
+751
+01:16:12,068 --> 01:16:12,348
+Speaker 0: It's done.
+
+752
+01:16:12,368 --> 01:16:13,609
+Speaker 0: I think it's done.
+
+753
+01:16:15,050 --> 01:16:15,731
+Speaker 1: I think it's done.
+
+754
+01:16:15,851 --> 01:16:16,091
+Speaker 1: It's done.
+
+755
+01:16:16,151 --> 01:16:16,892
+Speaker 1: I think it's done.
+
+756
+01:16:16,912 --> 01:16:18,533
+Speaker 0: So, you can try it again if you want, yeah.
+
+757
+01:16:34,147 --> 01:16:40,052
+Speaker 0: The goal of this is so that you could use it during the session with your clients.
+
+758
+01:16:40,692 --> 01:16:42,674
+Speaker 0: So let's say your clients didn't want to change materials.
+
+759
+01:16:43,415 --> 01:16:48,019
+Speaker 0: So that's the purpose of this prototype.
+
+760
+01:16:49,040 --> 01:16:51,963
+Speaker 0: It's to show the final product but you could like make changes on the spot.
+
+761
+01:16:52,563 --> 01:16:54,605
+Speaker 1: Overall, what do you think is beneficial about this prototype?
+
+762
+01:16:54,625 --> 01:16:56,227
+Speaker 0: What are other suggestions?
+
+763
+01:16:56,247 --> 01:17:12,772
+Speaker 1: Apart from the ones you mentioned before, I think there are a lot of things.
+
+764
+01:17:12,892 --> 01:17:19,717
+Speaker 1: There are a lot of visually engaging features.
+
+765
+01:17:19,757 --> 01:17:21,158
+Speaker 1: There is also an interface.
+
+766
+01:17:21,178 --> 01:17:36,467
+Speaker 1: For me, there are very... I'm not sure if it's very institutional or if it's better if my way to make the interface more engaging.
+
+767
+01:17:36,847 --> 01:17:44,149
+Speaker 1: Although I think it's more of a simplicity point and point and point, but I think it's more of a maintenance.
+
+768
+01:17:44,649 --> 01:17:52,231
+Speaker 1: But aside from the things that I mentioned, other than that, I think this app is very helpful.
+
+769
+01:17:55,780 --> 01:17:57,441
+Speaker 1: But if ever then.
+
+770
+01:17:57,461 --> 01:17:58,141
+Speaker 1: Next time.
+
+771
+01:17:58,181 --> 01:17:59,061
+Speaker 1: Real time rendering.
+
+772
+01:18:10,605 --> 01:18:12,006
+Speaker 1: Basically, it's more engaging.
+
+773
+01:18:12,126 --> 01:18:14,248
+Speaker 1: So, that concludes the session.
+
+774
+01:18:14,308 --> 01:18:16,670
+Speaker 0: So, thank you for having your time again.
+
+775
+01:18:17,170 --> 01:18:19,532
+Speaker 0: And may I come to you again for follow-up sessions?
+
+776
+01:18:19,552 --> 01:18:21,274
+Speaker 1: Sure, just let me know in advance.
+
+777
+01:18:40,376 --> 01:18:42,099
+Speaker 1: Thank you for reminding me.
+
+778
+01:18:42,199 --> 01:18:43,302
+Speaker 1: Honestly, I forgot.
+
+779
+01:18:43,342 --> 01:18:45,866
+Speaker 1: Thank you, R.G I'll end this meeting.
+
+780
+01:18:46,007 --> 01:18:46,307
+Speaker 0: Bye.
+

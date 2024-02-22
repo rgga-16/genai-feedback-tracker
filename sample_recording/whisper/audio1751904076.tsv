@@ -1,0 +1,1533 @@
+start	end	text
+0	22000	So first of all, thank you for giving your time to be consulted.
+22000	27000	Oh, by the way po, can you disregard the dual setup here?
+27000	30000	Yung computer po dito, wala po siyang webcam.
+30000	33000	So I have a separate profile here.
+33000	44000	So the purpose of this session is for me to present to you a prototype that uses AI to help designers with their design.
+44000	47000	I'll explain the prototype in detail po.
+47000	67000	But also, not only I'll be presenting this prototype, you'll have the opportunity to try this out for yourself and for you to give feedback on the prototype in order to improve it and make it more useful for you as a designer.
+67000	71000	So with that said, I encourage you to be honest and constructive.
+71000	74000	You could say anything that comes into mind.
+74000	88000	Please also feel free to ask questions about the prototype and feel free to make any suggestions that would improve it and make it more useful for you as an industrial or interior designer.
+88000	92000	Okay, so I'll be sharing my screen po.
+92000	95000	Okay, so can you see my screen here?
+95000	97000	Yeah, I can see it.
+97000	116000	So let's say you're in a design session and you're designing let's say a residential space like a bedroom or furniture for a bedroom and you're showing a 3D rendering in the center here to let's say to your other co-designers or to your client.
+116000	124000	And one of their suggestions is to change the material or color of a part of furniture or part of the bedroom here.
+124000	132000	So this is a prototype that allows you to change materials in a 3D rendering.
+132000	138000	It could suggest materials and it could also provide feedback on the materials used.
+138000	143000	So here in the center is the current 3D rendering of the room.
+143000	147000	Below here po, you could see the list of saved renderings.
+147000	150000	So you could save this and add it to the list.
+150000	153000	You can also load it here.
+153000	158000	On the right, you'll see here's the rendering information.
+158000	163000	It shows all the materials used for each part of an object.
+163000	171000	For example, let's say for a bed, it shows what each part is made of like the bed frame or the blanket.
+171000	178000	And you could switch with the different objects in the room so you can see what materials they're currently made of.
+178000	184000	So I'll explain to you three different functions that this prototype can do.
+184000	190000	First, if you look at the left, so here at the left, I'm showing you the generate tab.
+190000	195000	So this system first could create image textures on the spot.
+195000	201000	So you can type a name of material like let's say oak wood.
+202000	214000	And if I press the generate button, it uses artificial intelligence to create the image of the material that you typed in here.
+214000	218000	So it takes some time po first.
+219000	231000	So after that, it will show four candidates of the image of oak wood that is a texture map po.
+231000	239000	And you could continue regenerating the material by pressing this again and it'll keep on refreshing po.
+240000	253000	So kapag pinipindot siya kahit ito, for example, itong oak wood, different contents pa rin yung makikita ko kahit pinipindot lang ako na pinipindot ng generate material?
+255000	257000	Or mag-iato, mag-iiba siya?
+257000	259000	Mag-iiba po yung images po.
+259000	269000	So for, do you have any comments po or any questions in mind regarding this?
+270000	280000	Siguro in terms of, ako kasi, pag nag-render ako ng wood, very particular ako sa parang sa graining, sa itsura ng graining.
+280000	291000	Kasi parang ako personally as a designer, mas prefer ko na parang mas accurate or mas, I'm curious lang din kung pag pinipindot ko ba to, yung scaling?
+292000	295000	Or baka mamaya mo pa ba ipapakita?
+295000	306000	So kapag pinipindot, for example, yung isang texture na ito, mag-automatic scaling ba siya dun sa parang specific model sa tree?
+306000	310000	For example, yung back of the bed frame, parang ganyan?
+310000	313000	As of now, hindi po siya automatic.
+313000	319000	There's a later stage po where you're the designer, may setting po siya where you could adjust the scaling po.
+319000	321000	Makikita po yung mamaya.
+321000	323000	Okay.
+323000	327000	Okay, so let's say you found something that you're looking for po.
+327000	338000	And you can click up to four and then when you proceed, you could select which parts of the bedroom you want to apply the material onto.
+338000	350000	So let's say, for example, if you want to change the bed frame to oak or make the floor oak, you have to click on the tabs here.
+350000	365000	And then when you apply the textures, malalabas po yung rendering, parang temporary rendering with the material applied po.
+365000	368000	Hindi po halata yung difference, but if you look up the bed frame.
+368000	370000	Sa baba o yung framing ng bed.
+370000	375000	Pati yung floor po na iba po since I chose also the floor.
+375000	380000	And at the same time, you could also view the texture.
+380000	386000	But you could go back and you could, I'm just showing you if you want to apply different textures po.
+386000	390000	So let's say you want to apply these three, you could do it again.
+390000	396000	Tapos malalabas po yung three renderings, each with those textures applied.
+396000	405000	So you could see what each rendering looks like with the textures na pinili niyo po.
+405000	408000	So for example, here.
+408000	413000	And it's applied on the parts that you selected here.
+413000	415000	So you could also add more.
+415000	418000	You could also choose to add different parts here.
+418000	420000	And maiiba po siya.
+420000	423000	Yung wall panels, yan po yun.
+423000	430000	So you can apply it again.
+430000	439000	So parang pwede kung lumabas na four textures ng wood, pwede ko siyang iselec ng sabay-sabay.
+440000	448000	And then makikita ko na dito sa view yung anong itsura na kapag na render siya on each of the wood.
+448000	450000	Yes po, currently.
+450000	459000	Tapos regarding your question about scaling, after this, you can only choose one to refine.
+459000	461000	Tapos sa susunod na stage po, you could.
+461000	464000	So here, ito po yung refinement stage.
+465000	469000	So here, in the last step, you could add a finish.
+469000	474000	You could add a color finish to the texture.
+474000	476000	And you could also adjust the texture map.
+476000	482000	So here po, you could change the scaling and also the rotation po.
+482000	488000	And also the location based on x, y, and the rotation po here.
+488000	494000	So for example, let's say with the floor.
+494000	497000	What are your thoughts upon the scaling?
+497000	500000	Would it be better kung mas maliliit po yung grain?
+500000	502000	Or dapat mas malikip po?
+502000	506000	Siguro I think, based na na kita ka dito sa zoom screen na,
+506000	513000	siguro mas abit, mas maliit, mas small pa siguro ng kaunti yung scaling na.
+513000	514000	Okay.
+514000	521000	So in order to do that, my drop down here, it shows the objects po with the material applied.
+521000	524000	And then you could select the different part.
+524000	526000	Yung sa floor, roll lang po siya.
+526000	531000	But let's say for a bed, you have to choose between bed frame or bed board.
+531000	533000	But for now, yung bed frame lang po yung napili.
+533000	536000	Kaya isang option lang po yung lumabas.
+536000	542000	So with the scale, with this, if you want to make it smaller,
+542000	546000	ilangan nyo po i-increase yung scale.
+546000	551000	Pero yeah, it's still medyo bagi po siya.
+551000	555000	Kasi if you want the scale to be smaller, dapat i-decrease nyo po yung scale.
+555000	557000	So that will be fixed later.
+557000	563000	Pero for now, this is what you do to make the grain smaller in scale.
+563000	569000	So you can do it by X and Y or X if you want to make it like thinner or Y.
+569000	571000	Parang ganun po.
+571000	579000	So yung the larger the number, parang kapag nag-increase yung unit,
+579000	582000	like for example kanina nasa 1.0 siya.
+582000	586000	Pag nanito na sa 3.0, mas lumiliit siya? Tama po?
+586000	589000	No, no, no. Tama po.
+589000	594000	Pero currently, parang hindi siya intuitive.
+594000	599000	Siguro po as a user, kung iniisip nyo po na mas maliit yung number,
+599000	602000	dapat lumitin po yung grain.
+602000	605000	So this is just on my end po.
+605000	609000	So currently, that's how you make the grain smaller.
+609000	613000	So ito po yung adjusting the texture here.
+613000	616000	Tapos you could adjust the rotation.
+616000	619000	I'm not sure kung halata po dito sa floor.
+619000	625000	So let's say you want to adjust the wall panel dito sa may shelf here.
+625000	631000	You could rotate it from 0 until 360 the degrees.
+631000	634000	Oh, natin ay kita ko naman siya.
+634000	638000	Pero pwedeng iano?
+638000	642000	For example, parang kailangan ba siya, pano mo siya kiniklik?
+642000	645000	Parang ini-scroll ba siya? Or pwedeng mag-input ng number?
+645000	647000	You can input a number.
+647000	652000	Yung ginagawa ko po ngayon, I just drag the value, but you can click here.
+652000	656000	So let's say if you want the specific value like 319.
+656000	659000	Ay, wait. Ay mali po yun.
+659000	661000	Pero yes, you could type the number.
+661000	664000	Pero right now, I think it rounds to the nearest value.
+664000	667000	And then when you apply it.
+667000	670000	Hindi ko po siya kung halata.
+670000	674000	What are your thoughts po on the previous screen?
+674000	676000	Is this the right size?
+676000	681000	Or would you prefer to make it as big as like the current rendering here?
+681000	686000	Siguro sa akin, in terms of rendering,
+686000	690000	I'm okay with kahit sa maliit lang siya.
+690000	692000	Parang maliit na preview screen lang.
+692000	696000	Kasi iba pa rin yung rendering screen.
+696000	699000	Ako I'm fine with the sizing.
+699000	703000	But siguro I don't know lang kung sa ibang designers,
+703000	711000	mas prefer nila na parang ayikita na rin nila yung actual edit
+711000	716000	or parang actual adjustment sa mismong current rendering screen mo.
+716000	720000	Parang at the same. Parang siyang real-time edit na rin siguro.
+720000	724000	Pero ako ang feedback ko dito yun.
+724000	726000	Okay naman siya.
+726000	728000	Pero siguro in terms of rotation.
+728000	730000	Kasi parang mas...
+730000	733000	Ako mas sanay kasi ako na kapag nag-rotate.
+733000	734000	Ano ba anong...
+734000	736000	Nung texture or bagay-bagay.
+736000	738000	Sa SketchUp kasi.
+738000	741000	Parang pag nirrotate mo yung texture.
+741000	743000	Parang meron siyang...
+743000	744000	Ano ba yun?
+744000	746000	Nakamutan ko yung tawag sa kanya.
+746000	747000	But may...
+747000	751000	Let me open yung application.
+751000	753000	Pero kasi parang...
+753000	755000	Pag nirrotate mo yung isang bagay,
+755000	757000	may lalabas na ruler.
+757000	759000	Tapos parang naka-lock.
+759000	761000	I forgot yung technical term for that.
+761000	764000	Pero i-move mo siya ng...
+764000	765000	Pa konti-konti.
+765000	767000	So parang...
+767000	769000	Divisible by 5 yung movement niya.
+769000	771000	So 5, 10, 15.
+771000	772000	Parang at least...
+772000	774000	I forgot yung...
+774000	776000	Para makita po yung...
+776000	778000	Kasi parang...
+778000	780000	May lumalabas na parang protractor?
+780000	782000	Parang ganun, yeah.
+782000	783000	Parang ganun siya.
+783000	784000	Kasi parang...
+784000	790000	Mas accurate or parang mas aligned yung movement ng rotation.
+790000	792000	Okay.
+792000	793000	Subjection lang naman.
+793000	795000	Okay po.
+795000	796000	Okay.
+796000	800000	Actually, so nagawa na po yung rotation pero I think it's...
+800000	801000	It also...
+801000	803000	Hindi lang siya masyadong...
+803000	806000	Hindi ko lang siya masyadong kita dito sa zoom screen.
+806000	807000	Okay, sige pa.
+807000	811000	Pero yung in terms of scaling, I can see...
+811000	817000	Nakita ko naman na parang mas lunit yung scaling ng texture.
+817000	819000	Okay, okay.
+819000	820000	So yun po.
+820000	823000	I think it rotated accordingly.
+823000	827000	Let's say if I make it 90.
+827000	832000	Okay.
+832000	834000	Na iba po pa?
+834000	835000	Wait lang.
+835000	837000	Nakita ko yung greening niya.
+837000	838000	Parang nag...
+838000	839000	Ano ba siya?
+839000	840000	Horizontal?
+840000	841000	Parang horizontal po.
+841000	843000	Okay.
+843000	850000	As of now po, yung texture na ito, it's applied altogether to all three panels.
+850000	857000	I mean, would you prefer to have it that way or would it be better na yung wall panels?
+857000	860000	You can select each one individually.
+860000	863000	Siguro, depende kasi sa texture yun.
+863000	869000	Kung halimbawang metal siya or wood, I prefer na sabay-sabay siyang na-adjust.
+869000	872000	Pero kung, for example, paint finish.
+872000	878000	Kasi pwede mong explore yung application.
+878000	881000	Pwede nilimbawa, sa first panel, iba yung kulay mo.
+881000	882000	Sa second panel, iba.
+882000	884000	So I think it depends on the texture.
+884000	890000	Pero kung halimbawa, like wood or natural materials,
+890000	894000	parang mas okay na sabay-sabay siyang na-adjust for me.
+894000	895000	Okay.
+895000	897000	Okay po.
+897000	903000	So do you have any questions regarding the adjustment here or any suggestions about this part?
+903000	906000	Regarding sa adjustment ng texture, yun lang.
+906000	910000	Yung locking feature lang nung pag nag-rotate ka.
+910000	911000	Okay.
+911000	915000	Pag naisip ko yung tamang terms.
+915000	918000	But ayun, yung parang ruler guide, something like that.
+918000	919000	Yes po.
+919000	920000	Sige po.
+921000	925000	I'm curious lang din sa finish.
+925000	928000	Kasi syempre yung...
+928000	933000	When it comes to rendering, parang particular din ako sa parang ano yung sheen ng material.
+933000	935000	Like matte ba siya?
+935000	937000	Glossy or satin?
+937000	941000	Kaya din ba siyang ma-adjust dito sa add finish na category?
+941000	943000	Or iba ba yung...
+943000	945000	Or wala pa siya?
+945000	946000	Meron po.
+946000	949000	Would you like to proceed with the add finish function?
+949000	952000	So ito po sa add finish.
+952000	956000	Actually, constant lang po yung options na pwede nung piliin.
+956000	960000	So as of now, it's glossy or matte.
+960000	963000	But this applies to all of the materials.
+963000	971000	So regardless kung anong material na generate nyo po, for let's say, if you generate fabric or steel or concrete,
+971000	975000	the finish will always be constant here.
+975000	976000	Okay.
+976000	979000	So what are your thoughts on that po?
+979000	985000	Would the finish depend on the material you want to create?
+985000	993000	Actually ako, I would suggest na sana mas flexible yung material finishes na choices.
+993000	997000	Since may instances kasi na hindi rin...
+997000	1002000	Parang very limiting lang na dalawa lang yung type of finishes na mapipili ko.
+1002000	1009000	Kasi sometimes may instances na gusto ko parang in the middle siya ng glossy and matte.
+1009000	1012000	So parang satin finish siya.
+1012000	1016000	Parang hindi siya super glossy, hindi siya super matte.
+1016000	1019000	So I think that mas maganda siguro kung...
+1019000	1024000	I don't know if it's possible if maging ma-apply din parang...
+1024000	1027000	Parang katulad kung paano mo na adjust yung texture.
+1027000	1031000	Parang by digits, would that be possible?
+1031000	1032000	By digits?
+1032000	1040000	Oo, or parang kapag pinindut mo siguro na from 1 to 5 glossy siya.
+1040000	1045000	From 1 below, nagiging papunta na siya sa matte.
+1045000	1052000	So parang sana mas flexible yung magiging adjustment for the material finish siya para sa akin.
+1052000	1055000	Okay, okay.
+1055000	1059000	Okay, so parang gusto niyo po na parang slider?
+1059000	1060000	Oo, parang ganun.
+1060000	1069000	Kasi at least bahala na si user kung parang may freedom si user na mas ma-adjust siya yung sheen na gusto niya sa material.
+1069000	1076000	Although I understand na parang mas madali yung parang ganito na point and click.
+1076000	1079000	But if yun yung pwede ding...
+1079000	1084000	If ever yun yung isa sa mga goal na parang maging point and click na lang siya,
+1084000	1089000	baka much better if meron ding somewhere in the middle ng glossy and matte.
+1089000	1091000	Okay, okay.
+1091000	1099000	Yung mga finishes po, is it just limited to satin, matte, and glossy?
+1099000	1107000	Or the finishes, parang depends po siya sa material na inaagawa niyo po?
+1107000	1109000	I think it depends.
+1109000	1112000	Pero kasi kung...
+1112000	1119000	Kasi may aside sa finish, meron ding parang bump.
+1119000	1125000	Kasi di ba sa pag-wood material, aside sa kung gano siyang glossy or matte,
+1125000	1129000	may din siyang parang texture na parang...
+1129000	1133000	I forgot, parang may bark. Parang yung rough texture.
+1133000	1137000	Pero parang may option kasi sa loom yun.
+1137000	1144000	Sa mga nagamit ko na application before na pwede mong imanipulate din yung bump ng isang bagay.
+1144000	1148000	So kung gusto mo yung wood, mas rougher siya tignan.
+1148000	1154000	But yung gloss niya is na sa middle ng matte and glossy.
+1154000	1158000	Parang pwede mong manipulate sa ganang sense.
+1158000	1160000	Okay, okay.
+1160000	1164000	So apart from Shane, yung height map?
+1164000	1166000	Parang ganun.
+1166000	1168000	Parang ganun.
+1168000	1171000	Parang may mukhang 3D po yung material.
+1171000	1173000	Parang may depth siya.
+1173000	1175000	Ah, depth. Okay.
+1175000	1181000	In terms of metal naman, may iba maraming types of finishes din sa metal.
+1181000	1183000	Kasi hindi naman lahat ng metal glossy.
+1183000	1185000	Meron din parang in the middle ng glossy and matte.
+1185000	1191000	And then meron ding parang aluminum steel or parang may texture din like brush steel.
+1191000	1193000	Parang ganun.
+1193000	1195000	Okay po.
+1195000	1197000	Okay.
+1197000	1202000	Yung matte sa tining glossy, is that also the same for fabric?
+1202000	1205000	Or are there more finishes you can apply sa fabric?
+1205000	1207000	Sa fabric marami din siyang types.
+1207000	1209000	Kasi for example, is leather.
+1209000	1212000	Di ba, glossy siya.
+1212000	1217000	And then meron siyang parang yung texture na parang fingerprint texture.
+1217000	1219000	Parang ganun.
+1219000	1221000	Yes po.
+1221000	1223000	Kapag may mga fabric din naman na matte.
+1223000	1225000	Or parang may buhok.
+1225000	1227000	Like yung velvet.
+1227000	1230000	Parang matte siya.
+1230000	1232000	Actually, matte si velvet.
+1232000	1235000	Or parang may velvet din naman na parang may shine.
+1235000	1240000	Tapos si velvet, meron siyang kalakteristik na parang may hair texture.
+1240000	1250000	So parang hindi yung iniinsip ko na parang sana may opportunity to bump din yung mga ganun types of material.
+1250000	1253000	So for velvet, may panamataas po yung bump.
+1253000	1255000	Kasi di parang may hair siya.
+1255000	1257000	Yes po.
+1257000	1259000	Okay.
+1259000	1261000	Okay, noted po.
+1261000	1266000	So currently po, it uses glossy.
+1266000	1273000	So with this drop down po, if you could choose, like let's say if you go to floor.
+1273000	1276000	And then you want the floor to be glossy.
+1276000	1278000	Ba-apply po yan.
+1283000	1285000	Ah, okay. I can see it.
+1285000	1290000	Parang ganun po. Or if you want it by matte.
+1290000	1295000	Tapos you could do the same po for other objects here.
+1295000	1298000	Parang yan yung matte ata.
+1298000	1299000	Tapos you could do it for the shelves.
+1299000	1303000	Parang yung gawing glossy yung wall panels.
+1303000	1307000	So yan pa yung material finish.
+1307000	1310000	In terms of parang speed of rendering.
+1310000	1315000	Kasi isa rin yan sa malaking factor sa rendering.
+1315000	1322000	Kung gaano kabiles na-apply yung texturing or yung rendering ng isang material sa view.
+1322000	1331000	Kasi based from my experience, kapag glossy yung isang model, matagal yung rendering timing.
+1331000	1335000	Kasi for this example, syempre wala pa siyang syadong laman.
+1335000	1338000	But pag dumadami kasi yung nilalagay mo.
+1338000	1339000	For example sa SketchUp.
+1339000	1343000	Ako kasi ginagangka SketchUp and then Lumion for rendering.
+1343000	1348000	Sa SketchUp, so syempre lagil-lagil lang ako ng model, accessories kanyang mabigat na siya.
+1348000	1357000	Pag mag-render na ako, through Lumion, mas bumibigat pa siya kasi ang dami ng elements sa model.
+1357000	1361000	So yung isa sigurang tamatakbo din sa isip ko for this app,
+1361000	1369000	is gaano kabiles yung nagiging rendering process nya kapag marami na akong texturing na model.
+1369000	1376000	Currently po, gumagamit po siya ng blender.
+1376000	1378000	Do you know blender po?
+1378000	1382000	Oo, narinig ko na pero I haven't yet tried using it.
+1383000	1386000	So yung blender, may dalawa po siyang renderers.
+1386000	1390000	One is Cycles, tapos yung isa EV.
+1390000	1396000	So yung Cycles renderer po, yan yung renderer na tamatagal po.
+1396000	1403000	I think that's the professional kind of renderer used for interior design.
+1403000	1406000	Yan po ata yung, that's the same as Lumion.
+1406000	1410000	Pero this renderer po, it uses a renderer called EV.
+1410000	1416000	Mas mabilis po siya, but it's not as accurate as the one you see in Lumion.
+1416000	1422000	Kaya mabilis po yung rendering process.
+1422000	1430000	Pero going back to your question of what happens kung babagal po siya, kung mas marami po yung objects.
+1430000	1435000	About that, what objects were you expecting more in the bedroom po?
+1435000	1438000	Kung may dagdag?
+1438000	1449000	For example, you're going to add appliances like kung nyari a phone, alarm clock or additional lighting fixture.
+1449000	1459000	Kung nyari sa bedside lamp, sa shelving po maglalagay na ako ng mga libro, accent boxes, ganyan.
+1460000	1467000	Up to those small details, ako very particular akong lagyan din siya ng texture.
+1467000	1479000	Like for example kung may vase dito siya shelve, lalagyan ko talaga siya ng texture, ng glossiness or kung anumang material finish siya.
+1479000	1483000	Para mas realistic tignan yung rendering.
+1483000	1494000	So yun lang yung na curious ako kung gano siya, kung yung app na ito, gano siya kabilis magrender pag marami na siyang accessory elements sa setting.
+1494000	1496000	Okay noted po.
+1496000	1504000	Saka factor din siguro yung lighting nito.
+1504000	1506000	Okay okay.
+1506000	1520000	The more light sa experience ko din kasi parang mas madaming light, pagpas mas madami kang light na nilalagay sa 3D model, yun din factor din siya kung ba't bumigigat yung rendering.
+1520000	1522000	Okay.
+1522000	1524000	Okay understood po.
+1527000	1531000	So ayun po. Do you have any comments regarding the finish?
+1531000	1538000	I mean actually in this room po, were you expecting parang more furniture to be added?
+1538000	1547000	Kasi sa ngayon po it has and only uses yung cabinets or drawers here, the shelves and the bed.
+1547000	1566000	I think siguro parang additional element lang, siguro dagdag ka ng accessory para makita rin ng user or makita rin yung parang doability ng rendering when it comes sa mga accessories din.
+1566000	1574000	Saka sa ilaw. For example ceiling lamp or yung bedside lamp.
+1575000	1583000	Would adding more furniture like let's say like a study table or let's say a chair, would that also be helpful?
+1583000	1589000	I think pero for me yung more on accessories lang.
+1589000	1592000	Sige po. Okay noted.
+1592000	1597000	Okay so shall we move on to the module yung may adding color?
+1597000	1598000	Okay sure.
+1598000	1603000	Okay po. So here currently if you press this, parang wala po siyang color.
+1603000	1608000	But if you select this, may malalabas po na color picker.
+1608000	1611000	So you could create your own color here.
+1611000	1615000	Parang ito yung color palette na pinili niyo po.
+1615000	1618000	So sa mong pisa, wala po siyang color.
+1618000	1626000	But with this you can actually apply it onto the part of the object.
+1626000	1629000	So let's say with the floor, can you apply this?
+1634000	1637000	Parang magiging ganyan po yung blending.
+1637000	1640000	Pero ano pa rin siya? Wood material pa rin?
+1640000	1642000	Wood material pa rin po.
+1642000	1646000	Na manipulate lang yung color niyo?
+1646000	1648000	Yes po.
+1648000	1654000	So this is just simply through using the rendering application I use.
+1654000	1656000	So yun you can pick different materials.
+1656000	1661000	Pero let's say wala po kayong color palette na naisip.
+1661000	1666000	You could actually go to this option called suggest colors.
+1666000	1670000	And then with this, this uses AI.
+1670000	1674000	Kung alam niyo pa yung nag-trending ngayon, if you're aware po,
+1674000	1676000	do you know chat GPT?
+1676000	1678000	Oh yeah.
+1678000	1683000	Automatically gumagawa siya ng essay for a specific,
+1683000	1685000	kung ano yung ilalagay mong parang topic.
+1685000	1690000	And then automatically mag-generate siya ng parang article or something.
+1690000	1692000	Parang gano'n, tamo ba?
+1692000	1693000	Yes po.
+1693000	1699000	So this prototype, it takes advantage of chat GPT as an API.
+1699000	1702000	Tapos from here, you could, from this drop-down,
+1702000	1708000	currently you could have it suggest color palettes based on interior design style po.
+1708000	1711000	So may drop-down po ito.
+1711000	1716000	And dito yung mga choices like industrial or bohemian, minimalist.
+1716000	1719000	And so when you suggest the color palettes.
+1725000	1727000	Cool naman.
+1728000	1732000	So yun po may malalabas na color palettes here po.
+1732000	1734000	You could also refresh again po.
+1734000	1740000	Okay, tas ibang set of color palettes yung ipaproject mo.
+1740000	1742000	Yes.
+1742000	1749000	It's not always consistent, but it makes color palettes up to five swatches.
+1749000	1750000	So yun po.
+1750000	1754000	So after that, you could let's say select more than one.
+1754000	1756000	Tapos pwede niyo siya sa save.
+1756000	1760000	Napag nasave niyo siya, when you go back to the generate tab,
+1760000	1762000	malalabas po yung pala dito.
+1762000	1763000	Okay.
+1763000	1765000	Actually, I was about to comment that.
+1765000	1771000	Masana may option na parang pwede mong pagtabi-tabihin yung mga selections mo.
+1771000	1775000	Para lang makita mo siya kung mag-keep it ba or what.
+1775000	1776000	Ayun po.
+1776000	1777000	So parin niyo siya i-save.
+1777000	1779000	Tapos nasa tabi po.
+1779000	1782000	Maka ma-tabi po yung mga options.
+1782000	1788000	Tapos using this, parin niyo siya i-apply to the object using these swatches.
+1788000	1792000	Tapos finally, let's say you're done with it.
+1792000	1795000	If you want to apply this change to the current rendering,
+1795000	1800000	mag-overwrite siya, mag-overwrite na yung current rendering dito.
+1800000	1801000	So how would I?
+1801000	1803000	Ato, apply to current rendering.
+1803000	1807000	So when you press this, when you press apply.
+1807000	1811000	So as of now, yung prototype, mabagal po siya.
+1811000	1816000	So yeah, pasentyan na lang po.
+1816000	1817000	Okay lang po.
+1817000	1824000	I think it takes around 2 minutes for the rendering to update.
+1824000	1827000	Hindi ko pa alam kung bakit ganyan po.
+1827000	1833000	But that's how the prototype works currently.
+1834000	1839000	I think yung siguro, one factor that you can consider siguro.
+1839000	1845000	Since as of now, kung ako maghahanap ng isang application,
+1845000	1848000	as a designer, makakatulong sa kan sa proposal ko,
+1848000	1851000	yung speed, I think factor siya.
+1851000	1854000	Aside dun siyempre sa quality ng
+1854000	1857000	or parang special feature na mga offer ng app.
+1857000	1862000	Kasi nung nagsustart ako, nasanay ako na b-day yung gamit ko.
+1862000	1869000	But sa V-Ray kasi, I'm not sure if you've also tried exploring yung mga interface noon.
+1869000	1873000	Si V-Ray kasi very complex yung interface niya.
+1873000	1881000	So if you want to, kung gusto mo na yung isang material na may multi-texture siya
+1881000	1884000	or may mame-melepulate mo yung sheen, yung bump,
+1884000	1886000	ganyan ang dami mo kailangan pin-doodle.
+1886000	1889000	Nung na-experience ko ng gumamit ng gloom yun,
+1889000	1891000	parang mas siya.
+1891000	1893000	Mas prefer ko na siyang gumamit yun ngayon
+1893000	1896000	kasi mas simple yung interface niya.
+1896000	1901000	Tapos parang at the same time, mas simplified siya.
+1901000	1904000	So if I wanted it na parang...
+1904000	1908000	Kasa parang for me, mas simplified lang talaga yung gloom yun.
+1908000	1912000	Tsaka yun nga, real-time yung parang application niya.
+1912000	1914000	So kabang i-adjust ko siya,
+1914000	1916000	nakikita ko na rin agad sa current rendering
+1916000	1919000	kung ano yung parang possible na magiging itsyuran.
+1919000	1923000	Pero yun, pinaka-factor ko talaga sa ngayon yung speed ng rendering
+1923000	1929000	kasi makakasave siya ng time,
+1929000	1931000	especially kapag sabay-sabay yung project.
+1935000	1938000	Ano yung name ng first app na ginamit niya po
+1938000	1939000	na medyo mahirap gamitin?
+1939000	1940000	V-Ray?
+1940000	1942000	V-Ray, yeah.
+1942000	1944000	How do you spell that?
+1944000	1947000	Letter V as in victory,
+1947000	1952000	and then R, rabbit, apple, and then yellow.
+1952000	1955000	Apple, yellow, V-Ray software.
+1955000	1959000	Ano siya, rendering software siya na
+1959000	1962000	usually ginagamit na plug-in sa SketchUp
+1962000	1965000	or pwede rin siyang incorporate sa 3DS Max.
+1965000	1966000	I don't know if you...
+1966000	1968000	Yes po.
+1968000	1969000	Okay.
+1969000	1973000	Siya po, I'll look into this V-Ray, pati Lumion.
+1973000	1975000	Lumion, I've heard of that before.
+1975000	1976000	Okay.
+1976000	1977000	Actually, may isa pa yun.
+1977000	1978000	May isa pang...
+1978000	1982000	May isa ba kami application na tinintignan na i-purchase recently
+1982000	1987000	kasi parang mas simplified pa siya kesa sa Lumion.
+1987000	1990000	So simplified na si Lumion, pero mas simplified pa siya.
+1990000	1991000	Parang gano'n.
+1991000	1992000	Ano po yung name ng app?
+1992000	1993000	Let me ask.
+1993000	1995000	I-ask pa lang sa team isa.
+1998000	1999000	Sige lang natin ang app.
+2003000	2004000	Nscape.
+2004000	2007000	So it's letter E.
+2007000	2008000	Yup.
+2008000	2011000	N-s-n-d.
+2011000	2012000	Tapos scape.
+2012000	2013000	Scape.
+2013000	2014000	Nscape.
+2014000	2015000	D-a-p-e.
+2015000	2016000	Yup.
+2016000	2019000	Real-time rendering and virtual reality.
+2019000	2020000	Sige po.
+2020000	2025000	Parang sabi nila, sabi ng mga other designers na friends ko
+2025000	2028000	na naka-try ng gumamit yan.
+2028000	2031000	Parang mas simplified version pa siya ng Lumion.
+2031000	2032000	According to them.
+2032000	2035000	But ayun, I haven't tried using it pa.
+2035000	2042000	Kasi yung cost din ng original version ng application
+2042000	2046000	medyo mahal siya, pero mas mura siya compared sa Lumion.
+2047000	2048000	Sige po.
+2048000	2051000	I'll check out the interface po nito.
+2051000	2053000	And check ko siyang gayahin.
+2053000	2054000	Okay.
+2054000	2055000	Sige po.
+2055000	2058000	So ayun po, if you look at the current rendering,
+2058000	2060000	ayun, mara-reflect po siya.
+2060000	2061000	Tapos yung sa kanan po.
+2061000	2062000	Sorry, may bug dito.
+2062000	2065000	But if kung napili niyo po yung bed,
+2065000	2070000	parang nareflekt din yung mga materials for each part.
+2070000	2072000	So for yung bed frame.
+2072000	2074000	Headboard, same panin siya.
+2074000	2078000	Tapos yung floor, yung material.
+2078000	2080000	Malalabas din po yung finish.
+2080000	2084000	Pero yung color, hindi po siya kita dito.
+2084000	2089000	Would it help kung ma-check niya din po yung color dito?
+2089000	2093000	I think, mas maganda kung may input.
+2093000	2095000	Parang mara-reflect din dito.
+2095000	2098000	Para lang makita din up close if ano ba yung
+2098000	2102000	parang adjusted color niya
+2102000	2104000	or yung adjustment din sa material.
+2104000	2109000	I have pala one more comment habang nag-rendering time.
+2109000	2114000	Kasi minsan, kung ginagamit ko yung V-Ray,
+2114000	2116000	kung nag-render siya, ang nag-show lang
+2116000	2118000	is yung percentage ng rendering.
+2118000	2121000	So habang nag-aantay ka yung percentage na
+2121000	2124000	nakita mo of 25, 50, tas mag-90.
+2124000	2127000	Tapos eto naman sa loong yun,
+2127000	2129000	based on my experience,
+2129000	2132000	ang nakareflekt naman sa kanya
+2132000	2134000	is hindi siya naka-percentage.
+2134000	2135000	Naka-time siya.
+2135000	2137000	So may nakikita ng user kung
+2137000	2139000	gano ba siya katagal mag-aantay?
+2139000	2141000	Like, for example, 2 minutes
+2141000	2143000	before siya ma-final render.
+2143000	2146000	So parang for me, based on my experience,
+2146000	2148000	pag nakikita ko na yung time na
+2148000	2149000	okay, 5 minutes pa siya,
+2149000	2151000	so I can do other things pa
+2151000	2153000	while it's rendering.
+2153000	2154000	So parang I don't know if
+2154000	2157000	nakaka-help din siya sa UX or UI design
+2157000	2159000	nito parang gano'n.
+2159000	2160000	Okay, okay.
+2160000	2161000	Okay, noted po.
+2161000	2166000	So when you pass apply to current rendering dito,
+2166000	2169000	you're hoping na may malalabas na percentage
+2169000	2170000	or as in like time-gauge.
+2170000	2171000	Or at least parang time,
+2171000	2173000	parang at least parang ako,
+2173000	2175000	personal preference mo lang.
+2175000	2177000	Preferring na nakikita ko yung oras
+2177000	2179000	kung gano'n siya katagal mag-aantay.
+2179000	2181000	So I could do other things pa
+2181000	2184000	aside from while it's rendering.
+2184000	2185000	Okay, sige po.
+2185000	2187000	Okay, noted.
+2187000	2188000	So iyan po.
+2188000	2191000	That's the generate model.
+2191000	2193000	Module po.
+2193000	2197000	So iyan yung pa yung lahat ng steps.
+2197000	2202000	So before we move on to suggesting,
+2202000	2206000	what are your overall thoughts po on the models?
+2206000	2208000	Ano pa yung nagustan nyo?
+2208000	2211000	What can you suggest overall apart from
+2211000	2212000	what you mentioned earlier?
+2212000	2216000	What are the things you're looking for
+2216000	2220000	to make this better in a sense?
+2221000	2224000	I think, eto ba, may isa pa lang comment.
+2224000	2228000	Dito pala sa lumalabas na material choices.
+2228000	2230000	I think it would be much better
+2230000	2233000	if mas malaki yung capacity niya
+2233000	2236000	na makapag-show ng mas marami pang materials.
+2236000	2237000	Okay.
+2237000	2239000	Kasi parang for example,
+2239000	2240000	for this oak wood,
+2240000	2242000	nag-generate ako ng material,
+2242000	2243000	wala ko nagustuhan.
+2243000	2245000	And then for example,
+2245000	2246000	nag-generate ulit ako ng material,
+2246000	2248000	tas may nagustuhan ako pero parang
+2248000	2252000	i-compare sa previous selection na lumabas.
+2252000	2254000	So parang I think mas,
+2254000	2255000	I don't know,
+2255000	2258000	mas better siguro if parang may ganun feature
+2258000	2262000	or mas maganda kung mas wide pa yung range
+2262000	2266000	na makikita ako na mag-generate na type of material
+2266000	2269000	under the oak wood siguro dito sa interface.
+2269000	2270000	Okay.
+2270000	2272000	So siguro like when you generate this,
+2272000	2274000	tapos may malabas na bagong results,
+2274000	2277000	you're hoping na para makumparaman yung results,
+2277000	2279000	and then go back to the previous na na-generate.
+2279000	2281000	Para makita mo siya.
+2281000	2283000	Kasi parang iniisip ko ang worry ko dito.
+2283000	2287000	Baka hindi ko namabalikan yung mga last selection,
+2287000	2291000	tas biglang narealize ko may maganda pala yung previews,
+2291000	2292000	parang ganun.
+2292000	2293000	Okay.
+2293000	2296000	But when it comes to technicalities
+2296000	2302000	or parang difficulty ng itsura ng application,
+2302000	2304000	parang for me,
+2304000	2308000	ako prefer ko yung mas simplified yung itsura niya
+2308000	2311000	as compared sa ang daming nakalagay
+2311000	2316000	parang hindi ko ang daming kung kailangang i-control na elements
+2316000	2318000	para makapag-render.
+2318000	2320000	So ayun lang.
+2321000	2323000	Sige po.
+2323000	2324000	Okay.
+2324000	2327000	What are your comments po sa pagse-select ng parts?
+2327000	2329000	Kasi po, here, you have to,
+2329000	2332000	mandami niya pang mapapointing click.
+2332000	2338000	Actually, yung sa feature naman niya na parang
+2338000	2340000	pwede mong sabay-sabay i-click,
+2340000	2344000	tas may parang mapipreview mo na rin siya.
+2344000	2347000	Gusto ko yung feature na yun.
+2347000	2349000	Para at least dito,
+2349000	2354000	parang mabibigyan niya na ako ng freedom to
+2354000	2358000	decide on anong kahit pa parang preference ko
+2358000	2363000	at itong mga material na sinilag ko yung natili ko.
+2363000	2366000	So ayun, gusto ko yung feature na yun.
+2366000	2372000	But when it comes to parang difficulty na kapag maraming pang pinili...
+2372000	2375000	I think for me, wala naman akong issue doon.
+2375000	2380000	Kasi parang at least nakikita mo yung option eh.
+2380000	2383000	Parang sabay-sabay mong makikita yung adjustment eh.
+2383000	2385000	Pero yun lang.
+2385000	2391000	Gusto lang ako kapag mas maraming accessories elements yung nakalagay sa room.
+2391000	2395000	Let's say for accessories halimbawa, you put books.
+2395000	2400000	Will you expect na malalabas po yung books dito sa options?
+2400000	2402000	Ya, oo.
+2402000	2404000	Kasi, oo.
+2404000	2406000	Inisi ko kung maglalagay ka ng plant,
+2406000	2410000	I'm expecting na lalabas dito sa parang selections yung plant.
+2410000	2414000	And then yung books, for example, yung nabanggit mo.
+2414000	2419000	Except sa SketchUp, diba may mga model name na siya agad.
+2419000	2421000	Parang ganun din eh.
+2421000	2425000	Pero mas simplified lang yung nakalagay dito.
+2425000	2432000	Kasi at least ito, nakalatag na siya sa isang area.
+2432000	2433000	Yeah, area.
+2433000	2434000	Oo.
+2434000	2436000	Okay. So when you're changing let's say books,
+2436000	2440000	you want to change yung mukha ng book cover or something like that?
+2440000	2442000	Or not naman siguro.
+2442000	2443000	Naman naman siguro.
+2443000	2446000	Pero yung name lang siguro.
+2446000	2448000	Ako enact na siguro yung name.
+2448000	2451000	Tapos siguro while I'm selecting this,
+2451000	2455000	may ikita na akong para sa model, naka-highlight siya.
+2455000	2457000	Parang ito yung book na yun.
+2457000	2458000	Parang ganun.
+2458000	2460000	Nagigets mo.
+2460000	2462000	Like kapag napili ko yung...
+2462000	2464000	I'm pointing sa walls.
+2464000	2466000	For example, this one.
+2466000	2468000	Parang ma-highlight siya.
+2468000	2471000	Parang yung outline na ito na blue.
+2471000	2472000	Okay.
+2472000	2473000	Parang ganun.
+2473000	2475000	So kung napili pa yung walls,
+2475000	2478000	may malalabas na option na ganyan?
+2478000	2481000	Parang na-highlight agad yung area na yun.
+2481000	2482000	Okay.
+2482000	2483000	Would you prefer to...
+2483000	2486000	Would it be easier for you na mapipili niyo yung objects
+2486000	2489000	by clicking on the picture itself?
+2492000	2493000	Pwede rin.
+2493000	2494000	Ayan.
+2494000	2497000	Parang I think that would be much better siguro.
+2497000	2498000	Sige pa.
+2498000	2500000	Okay, understood.
+2500000	2501000	Okay.
+2501000	2504000	So ayun po.
+2504000	2509000	Do you have any other questions or comments regarding this?
+2509000	2511000	Aside sa material,
+2511000	2513000	can you also...
+2513000	2514000	Parang ano.
+2514000	2515000	I don't know if it's possible then
+2515000	2520000	na parang ma-manipulate yung environment setting na.
+2520000	2521000	Like for example,
+2521000	2523000	ito kasi parang nakaklose yung curtain.
+2523000	2525000	What if I wanted it to look
+2525000	2529000	na parang nakita yung outside environment?
+2529000	2532000	Would it be possible na may ganun picture?
+2532000	2533000	Although...
+2533000	2536000	Like kasi napag-i-galaw yung mga objects?
+2536000	2537000	Yeah.
+2537000	2539000	Parang, for example,
+2539000	2540000	ayun, hindi.
+2540000	2543000	What I mean is yung parang outside environment niya.
+2543000	2544000	For example,
+2544000	2547000	nakabukas itong curtain na.
+2547000	2550000	So yung window, yung parang outside...
+2550000	2553000	yun ng window may kita siya daba.
+2553000	2557000	Parang possible kaya na parang magkaroon ng ganun picture siya.
+2557000	2559000	Na parang pwede kong i-customize na
+2559000	2561000	Titi Skyline na makita
+2561000	2565000	or parang houses ng subdivision.
+2565000	2566000	Parang ganun.
+2566000	2570000	Parang may iba yung background?
+2570000	2571000	Parang ganun.
+2571000	2575000	Tapos siyempre pag iniibag mo na yung environment setting niya,
+2575000	2578000	yung direction din ng sun
+2578000	2580000	or yung shadowing ng sun,
+2580000	2584000	magiging magkakaran na rin siya ng ganong factor.
+2584000	2590000	So I think parang was usable siya in a realistic rendering setting.
+2590000	2594000	Yung ganung feature, I think mas okay siya.
+2594000	2597000	I think you can explore
+2597000	2601000	yung ganung feature sa loom yun.
+2601000	2602000	Kasi may ganun sila yun.
+2602000	2605000	You can adjust the direction of the sun
+2605000	2606000	kung sunset ba siya
+2606000	2608000	or sunrise,
+2608000	2610000	yung brightness ng sun,
+2610000	2612000	or parang ganun,
+2612000	2614000	brightness ng sky.
+2614000	2617000	Para mas realistic siya tingnan.
+2617000	2618000	Okay.
+2618000	2620000	Baka you can consider
+2620000	2623000	future developments ng app.
+2623000	2624000	Sige po.
+2624000	2626000	I'll look into it
+2626000	2628000	yung pag-adjust ng environment.
+2628000	2630000	Okay.
+2630000	2633000	So anything else before we move on
+2633000	2638000	to the suggestion part of the application?
+2638000	2640000	I think I'm good.
+2640000	2642000	I'm good with the portion.
+2642000	2643000	Okay.
+2643000	2644000	Mamaya po.
+2644000	2647000	After I introduce all of the functions,
+2647000	2649000	you can try it out yourself.
+2649000	2654000	Dito sa Zoom, I enabled remote access naman po.
+2654000	2656000	So moving on po.
+2656000	2658000	So this app,
+2658000	2660000	it could also suggest materials
+2660000	2662000	or colors to you
+2662000	2666000	based on certain criteria.
+2666000	2668000	So so far,
+2668000	2670000	it suggests materials and colors
+2670000	2674000	based on the interior design style
+2674000	2675000	you're looking for.
+2675000	2676000	So here po,
+2676000	2677000	if you look at the first,
+2677000	2679000	you could suggest
+2679000	2681000	there are all types of materials
+2681000	2683000	or you could suggest what type of wood
+2683000	2685000	or metal or fabric.
+2685000	2686000	And then you could suggest
+2686000	2688000	your design style here po.
+2688000	2691000	So and then,
+2691000	2694000	ayun, gumagamit po siya ng chat GPT
+2694000	2698000	to help it suggest based on this here po.
+2702000	2704000	I think interesting siya.
+2704000	2706000	Because at least as a designer,
+2706000	2708000	parang hindi ka na babalik sa Google
+2708000	2712000	ano ba yung mga transitional type
+2712000	2716000	or Scandinavian type of a certain material.
+2716000	2717000	Okay.
+2717000	2718000	So yun po,
+2718000	2720000	malalabas pa yung materials dito.
+2720000	2722000	So there's velvet, there's cotton,
+2722000	2723000	there's linen.
+2723000	2724000	Tapos with this,
+2724000	2725000	with this option,
+2725000	2726000	pwede ninyo siyang gamitin
+2726000	2728000	to generate the material.
+2728000	2729000	Sorry, wait.
+2729000	2730000	May bug po.
+2730000	2732000	Pero if you look at the previous page,
+2732000	2735000	magproceed siya to generate
+2735000	2737000	that certain material here.
+2737000	2740000	So yung napili ko was cotton.
+2740000	2741000	So from here,
+2741000	2743000	I generated this.
+2743000	2744000	Parang ganun po.
+2744000	2747000	Tapos maulit po yung generation.
+2747000	2748000	Yes po.
+2748000	2750000	So ganyan po yung work,
+2750000	2753000	yung work flow,
+2753000	2755000	ng suggestion ng materials.
+2755000	2758000	Tapos po for the suggestion of colors,
+2758000	2759000	I think I've shown this before.
+2759000	2761000	Pero let's show one more time.
+2761000	2764000	You can type in different styles
+2764000	2767000	and you can suggest color palettes again.
+2767000	2768000	Tapos pwede ninyo siya i-save.
+2768000	2769000	And then yun,
+2769000	2770000	gagamitin niyo siya
+2770000	2772000	when you're adding the color finish po.
+2775000	2776000	Ayun po.
+2776000	2778000	Parang ganun po.
+2778000	2784000	So starting with the suggestion of the materials.
+2786000	2787000	So again,
+2787000	2789000	what are your thoughts on this module?
+2789000	2791000	What are the things you like?
+2791000	2793000	What are the things that you find confusing
+2793000	2796000	or my comments para to make it better?
+2798000	2801000	Siguro in terms of,
+2801000	2803000	hindi ko pa siya kung gaano kaway
+2803000	2805000	yung rain nung capability na.
+2805000	2810000	But what if I'm interested to use
+2810000	2813000	yung material na katulad ng mga sulihiya
+2813000	2819000	or parang mga fiber-textured na material,
+2819000	2821000	yung mga weave material?
+2821000	2823000	Possible din ba siya?
+2823000	2827000	I think so.
+2827000	2828000	Like kung ito,
+2828000	2831000	like here you type in like weaved fabric.
+2831000	2832000	Ganun po.
+2832000	2834000	I mean barang weave.
+2834000	2837000	So under siguro ng category ng wood eh.
+2837000	2838000	Di ba fiber siya?
+2838000	2839000	Wood fiber siya?
+2839000	2841000	Yes po, wood.
+2841000	2844000	So it suggests based on weave?
+2844000	2845000	Ganun po ba?
+2845000	2847000	Parang ganun.
+2847000	2850000	Would it also kakayanin kaya niyang
+2850000	2852000	mag-apply din ng mga ganun?
+2854000	2855000	I haven't tried it yet,
+2855000	2858000	pero I think there's a,
+2858000	2860000	yeah, I could implement it naman po
+2860000	2864000	to have it suggest based on weave?
+2864000	2867000	Parang weave materials.
+2867000	2871000	So would that suggest weave materials?
+2871000	2872000	Ganun po ba?
+2872000	2873000	Parang ganun.
+2873000	2876000	Okay, what are the types of like weave materials po?
+2876000	2882000	For example, yung mga furniture textures
+2882000	2884000	na nakita mo sa mga works ni
+2884000	2885000	cannot go one way.
+2885000	2886000	Parang ganun.
+2886000	2887000	Weaker type.
+2887000	2889000	Parang mga weaker.
+2889000	2890000	Weaker.
+2890000	2891000	Parang ganun.
+2891000	2892000	Okay.
+2892000	2894000	I think minsan lumalabas po siya.
+2894000	2897000	Based on style lang po.
+2897000	2901000	Pero okay, so suggest based on weave.
+2905000	2908000	Apart from that, my second question is,
+2908000	2912000	does it suggest materials based on style only?
+2912000	2918000	So what are you hoping to search materials like based on?
+2918000	2922000	Ah, may inisa pa pala ko isang question.
+2922000	2929000	So what if I prefer na mag-create ng own interior design style ko?
+2929000	2934000	Like for example, I'm designing a store, for example, for a bench.
+2934000	2938000	And then nag-set ako ng standard material
+2938000	2944000	and standard fodder na gagamitin for that specific project.
+2944000	2950000	And I also, baka makatulong din if parang magkaharan yung app
+2950000	2956000	ng feature for the user na makapag-create ng own template niya.
+2956000	2958000	Parang ganun.
+2958000	2959000	Own template?
+2959000	2960000	Parang ganun.
+2960000	2964000	So that kapag sa next project niya, if for example,
+2964000	2967000	store pa rin, bench store pa rin siya,
+2967000	2971000	hindi na niya masyadong, parang hindi na niya ulit
+2971000	2978000	bubuin from scratch yung lahat ng materials under that parang project branding.
+2978000	2979000	Okay.
+2979000	2985000	So yung template na yan parang may nag-set na style,
+2985000	2988000	tapos may nag-set na materials?
+2988000	2989000	A-a.
+2989000	2990000	Parang ganun.
+2990000	2991000	Ganun po ba?
+2991000	2994000	I think that could also be helpful
+2994000	2998000	kapag may gusto ka na ulit parang balikan na parang project,
+2998000	3000000	tapos ir-render mo lang siya ulit.
+3000000	3004000	At least naka-project na dito lahat ng type of material under that template.
+3004000	3012000	Like for example, I would make my own modern interior design theme.
+3012000	3019000	Pero yung parang definition ko ng modern,
+3019000	3024000	gusto ko naman i-rearrange ko
+3024000	3027000	or parang i-adjust.
+3027000	3030000	Parang ganun.
+3030000	3034000	Would that also be siguro balaking tulog yun sa user?
+3034000	3041000	Parang magkaroon ng freedom to make his or her own material template
+3041000	3044000	or parang design template.
+3044000	3045000	Okay.
+3045000	3049000	So were you expecting na like,
+3049000	3051000	halimbawa, if you look at the bottom right,
+3051000	3056000	or bottom here, maglalagay ako ng save as template.
+3056000	3058000	Yeah, something like that.
+3058000	3061000	Parang, for example, ito,
+3061000	3065000	ginawa ko na andami ko ng na-adjust na material
+3065000	3068000	and then the next time that I would work on this type of project,
+3068000	3072000	gusto ko same style lang din siya.
+3072000	3074000	Parang much better siguro if
+3074000	3077000	parang mas-save mo yung lahat mong in-adjust mo.
+3077000	3079000	Parang into it.
+3079000	3083000	Parang may sarili siyang,
+3083000	3086000	parang category ganun.
+3086000	3089000	Tapos pag magbubukas ulit ako ng other type of project,
+3089000	3091000	pag pinindot ko yung category na yun,
+3091000	3094000	lalabas lang din ulit lahat mong material na in-adjust ko
+3094000	3096000	from a previous project.
+3096000	3099000	Tapos dun lang ulit ako maglalalo ng mga material
+3099000	3102000	na gagamit lang sa i-rendel.
+3102000	3103000	Okay.
+3103000	3105000	So yung kinds of materials of that style,
+3105000	3107000	parin mo siya mas-save.
+3107000	3110000	Oo. Parang mas maganda siguro kung may ganun feature siya.
+3110000	3112000	Okay. All right.
+3112000	3115000	Para hindi lang nalilimit sa,
+3115000	3118000	para hindi lang nalilimit sa category
+3118000	3121000	ng nanandito.
+3121000	3124000	Parang ganun. Kasi diba dito ilan lang siya,
+3124000	3127000	modern, contemporary, tu-tu-tu-tu, ganyan.
+3127000	3130000	Parang much better if may option din na parang add style.
+3130000	3132000	Parang ganun.
+3132000	3135000	So parin mo siya i-type na style?
+3135000	3138000	Oo. Or parang may freedom lang yung user
+3138000	3141000	na parang mag-create ng own style na.
+3141000	3145000	Like, kuna nila, from my end,
+3145000	3150000	kuna nila may project ako na store interior.
+3150000	3155000	Tapos ano, parang lahat mong in-adjust ko
+3155000	3157000	sa project na yun,
+3157000	3161000	makokonsider na siya na parang isang template na siya.
+3161000	3163000	Okay.
+3163000	3165000	Parang ganun lang naman. Pero i-understand na
+3165000	3168000	since ito, nag-generate kasi siya ng
+3168000	3171000	style based sa parang sa naka-chat,
+3171000	3174000	GPT nung, naka-AI na...
+3174000	3177000	Yeah. So for yours, it's more on like...
+3177000	3179000	Personalization.
+3179000	3182000	Yeah. So when you select the material,
+3182000	3185000	tapos, let's say like for these materials here,
+3185000	3189000	like kapag na-finalize mo na yung material sa isang project,
+3189000	3191000	parin mo siya i-save sa template,
+3191000	3193000	tapos parin mo siyang gamitin ulit.
+3193000	3196000	Not just materials, pero also color palettes.
+3196000	3198000	Yeah. Parang ganun.
+3198000	3201000	Parang yung same interface sa Lightroom.
+3201000	3203000	Have you tried using it?
+3203000	3205000	Light... Adobe Lightroom?
+3205000	3206000	Yeah.
+3206000	3207000	Um, I think...
+3207000	3209000	Pero pag naglalightroom ka,
+3209000	3211000	mag-adjust ka ng image, right?
+3211000	3214000	And then you can control the settings,
+3214000	3218000	and then you can just copy-paste it to the next image.
+3218000	3220000	Parang something like that.
+3221000	3222000	Okay.
+3222000	3223000	So you can...
+3223000	3226000	Tapos pag nag-create ka ng adjustment sa Lightroom,
+3226000	3229000	pwede mong i-save yung parang filter nun as
+3229000	3232000	a DNG type of file.
+3232000	3233000	Ah, yeah, yeah.
+3233000	3235000	Yeah. Parang ganun. Do you...
+3235000	3237000	Yeah. Parang yung contrast may values,
+3237000	3238000	tapos yung mga values na yan,
+3238000	3239000	pwede mo siya i-save.
+3239000	3241000	Aos pwede mo siya i-load.
+3241000	3243000	So parang filter siya.
+3243000	3244000	Okay.
+3244000	3246000	Pero in a rendering setting. Parang ganun.
+3246000	3248000	Naka-name ka ng template for that.
+3248000	3249000	Para sa next project mo,
+3249000	3253000	gusto mo ulit-ulitin yung store interior motif.
+3253000	3255000	Tapos para mo i-inload yung mga materials na
+3255000	3257000	ginamit mo last time into this one.
+3257000	3258000	O. Tapos ako na parang...
+3258000	3261000	Ako na bahala mag-apply kung saan ko siya i-apply ulit na
+3261000	3263000	surface or something like that.
+3263000	3265000	Or sa akong anong model.
+3266000	3268000	So when you're suggesting materials,
+3268000	3269000	or creating materials,
+3269000	3271000	hoping that you could like save...
+3271000	3273000	Yeah. Yung mga nakaraan...
+3273000	3276000	Parang mga past materials na nagamit ko before.
+3276000	3277000	Okay. All right.
+3277000	3279000	Okay, got it.
+3279000	3280000	Okay.
+3280000	3283000	Were you hoping to suggest it like...
+3283000	3285000	Like, would it help po?
+3285000	3286000	Kasi this is an idea,
+3286000	3288000	pero di ko po siya na-execute.
+3288000	3291000	Would it help if you suggest materials based on
+3291000	3294000	yung nakalagay sa design requirements?
+3294000	3295000	Ano imbawa po?
+3295000	3298000	Like for yung sa design requirements,
+3298000	3299000	correct me if I'm wrong,
+3299000	3303000	but the client is looking for,
+3303000	3309000	let's say, a low-cost or mid-range na residential space.
+3309000	3313000	So would it help na it would suggest materials
+3313000	3316000	based on the cost?
+3316000	3318000	Like there's high-end, mid-range...
+3318000	3319000	Like for example,
+3319000	3322000	if you're targeting parang low-cost,
+3322000	3325000	siyempre wala ka masyadong makitang laminates.
+3325000	3326000	Parang ganun.
+3326000	3327000	Parang ganun po, yes.
+3327000	3329000	I think that would be helpful.
+3329000	3332000	Para at least yung user,
+3332000	3333000	parang hindi na niya...
+3333000	3335000	Parang magandang feature siya.
+3335000	3338000	Kasi at least makokoncider niya na yung...
+3338000	3340000	Malilimit niya na sa mind niya yung mga materials
+3340000	3343000	na pwede niyong pagdaroan within that budget.
+3343000	3348000	And don't know lang kung paano kaya yung magiging accuracy ng...
+3348000	3351000	Parang costing ng material na yun.
+3351000	3352000	Parang...
+3352000	3354000	At wala akong be a nice fee.
+3354000	3355000	Okay.
+3355000	3356000	Alright.
+3356000	3357000	Okay.
+3357000	3358000	Ayun po.
+3358000	3359000	So...
+3359000	3360000	So before we move...
+3360000	3361000	Oh, wait.
+3361000	3362000	Sorry.
+3362000	3363000	We have only 7 minutes.
+3363000	3364000	Is it possible to extend
+3364000	3367000	or do you have a meeting po after this?
+3367000	3370000	I can extend a bit naman.
+3370000	3372000	If you need my feedback.
+3372000	3375000	I'm not sure if nakatulong ba yung feedback mo.
+3375000	3377000	Nakatudong po siya.
+3377000	3378000	So, sige.
+3378000	3380000	I can extend siguro mga...
+3380000	3382000	Sigurong 10 minutes.
+3382000	3383000	10 minutes?
+3383000	3384000	Okay lang po.
+3384000	3385000	So until 11, 10.
+3385000	3386000	Okay.
+3386000	3387000	So...
+3388000	3389000	Ayun po.
+3389000	3391000	So that's for the suggestion of materials.
+3391000	3392000	So are there...
+3392000	3394000	Are there any other ways
+3394000	3397000	you hope the prototype to suggest by
+3397000	3399000	apart from let's say suggest by style
+3399000	3402000	or suggest by cost or...
+3403000	3405000	Would it help po like let's say
+3405000	3408000	I suggest based on the object?
+3408000	3411000	Like what are materials used for a...
+3411000	3412000	Let's say for the floor.
+3412000	3415000	That can also be an okay feature.
+3415000	3417000	Kasi, for example, sa floor.
+3418000	3419000	Ay, hindi.
+3419000	3421000	For example na lang sa isang...
+3422000	3423000	Ang ibang material.
+3423000	3425000	Ay, for example na lang siguro sa upuan.
+3426000	3427000	Parang I can use...
+3427000	3428000	Hindi.
+3428000	3429000	Daming material eh.
+3429000	3430000	Wait lang.
+3430000	3432000	Kaya ng material na ano...
+3432000	3434000	Na kaunti lang.
+3434000	3436000	For example...
+3438000	3439000	Ang material.
+3439000	3440000	So wait lang.
+3440000	3441000	Napaisip pa ko.
+3442000	3444000	For example, sa phone.
+3448000	3449000	Pwedeng...
+3449000	3451000	Usually ang applicable lang.
+3452000	3453000	Sabihin natin metal.
+3454000	3455000	Mas maganda...
+3455000	3456000	Mas maganda yung ganung feature.
+3456000	3458000	Para at least hindi ko nai-explore na
+3458000	3460000	gawin siya on a glass.
+3460000	3461000	Parang ganoon.
+3461000	3463000	Or on a cloth.
+3463000	3465000	I think that would be much better.
+3465000	3468000	Para at least additional
+3468000	3470000	knowledge na yun sa user na parang...
+3470000	3472000	For example, kung hindi naman lahat
+3472000	3473000	professional gumagamit.
+3473000	3475000	May student na parang...
+3475000	3477000	Bawal ba la to gamitin sa ganun-ganun.
+3477000	3478000	Something like that.
+3478000	3479000	Okay.
+3479000	3480000	Okay.
+3482000	3483000	Ayun po.
+3483000	3486000	Going back to suggestion ng colors po.
+3486000	3487000	And so...
+3487000	3488000	My last question is...
+3488000	3489000	Kasi so far...
+3489000	3493000	It adds the color finish individually po.
+3493000	3494000	Like, you have to select one.
+3494000	3497000	Pwede mo siya i-apply to the object
+3497000	3498000	one at a time.
+3498000	3500000	Would it help po if you like...
+3500000	3503000	Distribute the colors to the entire scene
+3503000	3504000	or something like that?
+3504000	3506000	Parang in the click of a button,
+3506000	3508000	madidistribute pa yung colors.
+3508000	3510000	Makaatulong po ba yun?
+3510000	3511000	Like...
+3511000	3512000	Diga lang.
+3512000	3514000	Hindi ko masyad maintindi yan. Sorry.
+3514000	3515000	Like, aningbawa.
+3515000	3517000	Let's say for...
+3517000	3519000	Let's say if I save this color pad
+3519000	3520000	for instance.
+3520000	3522000	Tapos, when I...
+3522000	3524000	Kapag ito yung napili ko.
+3524000	3525000	Uh-uh.
+3525000	3526000	Would it help if I...
+3526000	3527000	With this color palette,
+3527000	3531000	it automatically colors the entire room.
+3531000	3532000	Like, with this...
+3532000	3533000	With these colors.
+3533000	3536000	For example, ma-apply din siya sa wall and ceiling.
+3536000	3537000	Yes po.
+3537000	3538000	Just on the flooring.
+3538000	3541000	Like, it equally distributes the colors.
+3541000	3544000	Would it help po na ganyan?
+3544000	3546000	So that way you don't need to like
+3546000	3548000	continuously point and click
+3548000	3549000	on different parts.
+3549000	3550000	Do you get what I'm saying?
+3551000	3552000	Kapag, for example,
+3552000	3554000	I click itong...
+3554000	3557000	Yeah, yung color green.
+3557000	3559000	Ma-apply lang siya sa isang material.
+3559000	3560000	Tama ba?
+3560000	3561000	No, no.
+3561000	3564000	Like, with this entire color palette po.
+3564000	3566000	And then kung maga...
+3566000	3567000	Let's say there's a button called
+3567000	3570000	apply to entire rendering.
+3570000	3571000	So the colors I applied...
+3571000	3574000	Automatically mag-apply na siya sa iba-ibang surface.
+3574000	3575000	Yes.
+3575000	3576000	Ah.
+3576000	3577000	Would it help na ganyan?
+3577000	3579000	Or...
+3579000	3582000	I think it's also a nice feature,
+3582000	3586000	but parang malilimit lang yung user
+3586000	3588000	into a box.
+3588000	3589000	Parang gano'n.
+3589000	3590000	A boxed option.
+3590000	3593000	Would it like induce fixation?
+3593000	3594000	Ganun po?
+3597000	3598000	Siguro ano.
+3598000	3601000	Parang you can do that.
+3601000	3602000	Not just sa coder.
+3602000	3606000	Parang baka pwede kang mag-add ng...
+3606000	3608000	Parang pwede ka siguro...
+3608000	3610000	Maganda siguro kung may feature na parang...
+3610000	3612000	Gagawa ka ng collection.
+3612000	3618000	For example, you'll be choosing this color.
+3618000	3620000	Namimili ka ng tatmong kulay dyan.
+3620000	3623000	Baka mas maganda kung pwede kang mag-add ng...
+3623000	3626000	ng texture or material.
+3626000	3628000	Based on the color?
+3631000	3633000	Parang...
+3633000	3635000	Hindi ko alam kung lumalayo na ba ako.
+3635000	3637000	Sa understanding.
+3637000	3638000	So parang medyo...
+3638000	3640000	Tama ba yung understanding ko na
+3640000	3644000	kapag sinalag ko tong color palette na ito,
+3644000	3647000	ma-apply siya sa floor.
+3647000	3650000	Yung darker color, ma-apply siya sa wall.
+3650000	3653000	Yung lighter color, ma-apply siya sa wall.
+3653000	3655000	Yes, like...
+3655000	3658000	Parang may button that...
+3658000	3660000	that assigns it.
+3660000	3664000	At the same time, maging mukhang harmonious.
+3664000	3665000	Yung room.
+3665000	3666000	I think okay din siya.
+3666000	3668000	In terms of color,
+3668000	3670000	medyo nakikets ka na.
+3670000	3671000	Okay.
+3671000	3674000	Pero mas maganda kung yan, may freedom yung user
+3674000	3677000	na mag-customize ng own set of color palette niya.
+3677000	3678000	Okay.
+3678000	3679000	Aside from parang...
+3679000	3681000	Aside from parang tinatype na lang
+3681000	3682000	and nire-research.
+3682000	3686000	Parang may feature to create his or her color palette.
+3686000	3688000	Like parang may refresh button or something?
+3688000	3690000	Or like if you select this...
+3690000	3691000	Parang customize.
+3691000	3693000	Something like that.
+3693000	3695000	Aside from suggest,
+3695000	3697000	customize your own...
+3697000	3699000	Like when you add a new color palette,
+3699000	3701000	may manarabas na list yung na empty.
+3701000	3703000	Tapos parang may syang i-gumit.
+3703000	3705000	Pwede kang mag-customize ng sarili mong color palette.
+3705000	3707000	Yeah, parang gano'n po.
+3707000	3709000	Like something like that.
+3709000	3710000	Yeah, something like that.
+3710000	3711000	Okay.
+3711000	3714000	So parang may additional new palette.
+3714000	3716000	Oh, parang gano'n.
+3716000	3717000	Okay.
+3717000	3719000	Alright, understood.
+3719000	3720000	Ayun po.
+3720000	3723000	So that's the suggest materials and suggest colors.
+3723000	3725000	So lastly po, if you look at the right side,
+3725000	3728000	yung second tab, it shows feedback.
+3728000	3732000	So yung feedback po, currently,
+3732000	3736000	the material, this prototype,
+3736000	3739000	it gives feedback based on
+3739000	3741000	the assembly ng parts together.
+3741000	3743000	So for different objects po,
+3743000	3746000	ano ba po, let's say for bed.
+3746000	3749000	So if you look at this,
+3749000	3752000	let me know if like mukhang confusing
+3752000	3754000	yung mukha.
+3754000	3756000	Pero what this means is that yung headboard,
+3756000	3760000	parang naka-attach po sya sa bed frame.
+3760000	3761000	Ganun po.
+3761000	3764000	And it shows like the different materials.
+3764000	3768000	So the purpose of this is to like suggest
+3768000	3771000	different ways to attach parts
+3771000	3774000	of different materials together.
+3774000	3777000	So ano ba po, like if I want to find ways
+3777000	3780000	to suggest to attach the headboard
+3780000	3782000	ng bed to the bed frame,
+3782000	3785000	tapos po na yung sya ipindot.
+3785000	3787000	And when you suggest it,
+3787000	3789000	parang may malalabas na text dito.
+3789000	3791000	Ah, parang may installation.
+3791000	3794000	For installation.
+3794000	3796000	Parang ganun po, yes.
+3796000	3799000	Tapos may malalabas na suggestions
+3799000	3801000	on how you can do it.
+3801000	3803000	Ayun po, yes.
+3803000	3806000	And you can do the same for side tables.
+3806000	3809000	Of course, hindi po sya applicable for all parts
+3809000	3812000	kasi po yung floors, for example.
+3812000	3815000	Pero yung shelves, for example.
+3815000	3818000	Yung, ay tawag baliktad to.
+3818000	3821000	Yung shelves, parang kung nakikita...
+3821000	3823000	Did you notice the first time yung shelves?
+3823000	3824000	Parang yun po yung...
+3824000	3826000	Anong tawag po dito?
+3826000	3828000	Yung horizontal na...
+3828000	3830000	Ledge?
+3830000	3831000	Ah, ledge.
+3831000	3832000	Okay, sir.
+3832000	3834000	I don't know the right terms for a shelf.
+3834000	3835000	Self-ledge.
+3835000	3836000	Self-ledge.
+3836000	3837000	So ito yung ledge.
+3837000	3838000	As steel sya?
+3838000	3841000	Currently it's made of steel po.
+3841000	3844000	If you look at the shelf here.
+3844000	3847000	Tapos naka-attach po sya sa wall panels.
+3847000	3849000	Actually, baliktad to.
+3849000	3853000	So you can suggest the attachments here.
+3853000	3855000	Yung suggested.
+3855000	3858000	Parang ganun po.
+3858000	3860000	Ako I'm okay with that.
+3860000	3862000	Kasi parang additional info din sya.
+3862000	3864000	Kasi hindi naman lahat ng designers
+3864000	3867000	knowledgeable on how to install.
+3867000	3871000	Parang hindi naman lahat knowledgeable sa construction.
+3871000	3874000	But yung appearance lang,
+3874000	3877000	pwede yung bumalik ka dun ulit sa viewport.
+3877000	3880000	Parang medyo confusing lang sya for me.
+3880000	3883000	I don't know if it's the role.
+3883000	3886000	Kasi parang before and after yung naging impression po.
+3886000	3889000	Ah, okay.
+3889000	3892000	Sigurong parang it needs to...
+3892000	3894000	I don't know kung mas facilitate na ba
+3894000	3897000	or baka may ibang way pa.
+3897000	3900000	Para mas maintindihan ng user na parang...
+3900000	3903000	ito yung parang...
+3903000	3906000	parang connection niya o yung parang attachment niya.
+3906000	3909000	Parang ganun.
+3909000	3912000	Complicated lang sya maintindihan for me.
+3912000	3915000	But aside from that,
+3915000	3918000	I like yung parang may suggested way sya
+3918000	3921000	on how to install things.
+3922000	3925000	Malalagyan niya na explanation.
+3925000	3928000	But I think it's a good feature.
+3928000	3931000	Okay po. Understood.
+3931000	3934000	Apart from that,
+3934000	3937000	kasi currently it gives feedback on
+3937000	3940000	how the parts are assembled together
+3940000	3943000	based on the materials used.
+3943000	3946000	So my question is,
+3946000	3949000	what are other things you hope this system
+3949000	3952000	can do?
+3952000	3955000	Aside from that,
+3955000	3958000	well, hindi naman kasi nalilimit yung parang
+3958000	3961000	installation sa mga isa-suggest niya.
+3961000	3964000	I think an additional
+3964000	3967000	feature like siguro...
+3967000	3970000	I don't know if it's possible.
+3970000	3973000	Pero yung mga, nabawa, standard sizing,
+3973000	3976000	would that also be possible?
+3976000	3979000	So yung shelf ledge,
+3979000	3982000	maganda siguro na parang
+3982000	3985000	pi-feedback ka na rin yung app na parang
+3985000	3988000	ang ideal depth nito
+3988000	3991000	if mag-di-display ka ng books is
+3991000	3994000	0.30 meters I guess.
+3994000	3997000	So it would be much better
+3997000	4000000	if malagyan din sya ng ganong feedback
+4000000	4003000	when it comes to standard sizing.
+4003000	4006000	So it would be back on proportion sizing
+4006000	4009000	ng mga objects.
+4009000	4012000	I think that...
+4012000	4015000	ang maganda yun.
+4015000	4018000	Para at least ma-determine nila,
+4018000	4021000	gusto ko mag-display dito ng VES.
+4021000	4024000	Kakasha kaya yung 0.30 dito,
+4024000	4027000	yung 0.15 meters na depth.
+4027000	4030000	So yung measurements ng mga parts.
+4030000	4033000	Most especially sa interior design.
+4033000	4036000	I'm sure sa ibang field din naman.
+4036000	4039000	Important sa sizing.
+4039000	4042000	Standard seat height,
+4042000	4045000	standard door height or something like that.
+4045000	4048000	Okay.
+4048000	4051000	I think we only have 5 minutes.
+4051000	4054000	So apart from that,
+4054000	4057000	before I lend to you the prototype
+4057000	4060000	what other ways you hope this
+4060000	4063000	prototype can give feedback on?
+4063000	4066000	Maybe like...
+4066000	4069000	In what sense?
+4069000	4072000	It could be about the room
+4072000	4075000	regarding proportions.
+4075000	4078000	Is there any feedback on the materials?
+4078000	4081000	It could give feedback on
+4081000	4084000	materials.
+4084000	4087000	Pero kanina nakita ko,
+4087000	4090000	parang inisip ko kasi yung durability ng material
+4090000	4093000	or in this specific setting.
+4093000	4096000	I think that would be helpful.
+4096000	4099000	For example, yung project ko is na sa
+4099000	4102000	coastal area.
+4102000	4105000	Baka that would be helpful na parang at least
+4105000	4108000	mapipinpuntin ako anong mga material na typically
+4108000	4111000	pwede mong gamitin sa mga coastal area
+4111000	4114000	sa tropical environment setting.
+4114000	4117000	Ito lang yung mga material na pwede mong i-workout.
+4117000	4120000	Parang hindi ka pwede masyadang mag-metal.
+4120000	4123000	Since metal, pag ganoit na sa tropical setting,
+4123000	4126000	nag-absorb siya ng heat.
+4126000	4129000	Understood po.
+4132000	4135000	Is there anything else you have comments to say
+4135000	4138000	before I let you try the prototype itself?
+4138000	4141000	Siguro,
+4141000	4143000	I'll let you know kapag may iba pa
+4143000	4146000	ang naisip na other question.
+4146000	4149000	But at the moment, I think yun na yung mga
+4149000	4152000	feedback ko on this app.
+4152000	4155000	Okay po. Would you like to try it out
+4155000	4158000	for the remaining? Sige po.
+4158000	4161000	So if you'll see on your screen
+4161000	4164000	because on the top part
+4164000	4167000	on the zoom, it says you're viewing RG Galiega's
+4167000	4170000	screen. So on the right,
+4170000	4173000	may view options. Kapag napintit niyo po yun,
+4173000	4176000	yes, request remote control po.
+4176000	4179000	So that allows you to control my mouse.
+4179000	4182000	And you can actually type onto the
+4182000	4185000	yes po. If you click on the screen,
+4185000	4188000	if you click on the screen, yun, magagalag po yung mouse.
+4188000	4191000	Do you see it? Ni masyadong mabilis yung
+4191000	4194000	connection, but you could also control it by yourself.
+4194000	4197000	You could play around with it for the remaining time.
+4197000	4200000	Sige nga. Let me try.
+4200000	4203000	Ang galing may ganda pala.
+4203000	4206000	Ngayon ko lang nalaman yung picture mo.
+4206000	4209000	Actually ngayon ko rin po nalaman.
+4209000	4212000	Yes.
+4212000	4215000	If you want to enable yung remote access,
+4215000	4218000	kailangan niya pupuntahan sa main website ng zoom.
+4218000	4221000	May parang settings diyan. You can enable remote
+4221000	4224000	access.
+4224000	4227000	Tapos kapag na-enable nyo po yan, malalabas yung option yun
+4227000	4230000	dito sa zoom call when you're sharing your screen.
+4230000	4233000	Was that something you're
+4233000	4236000	expecting po for metal?
+4236000	4239000	Actually, not actually. Parang more on muka siyang
+4239000	4242000	leather sa paningin ko.
+4242000	4245000	Okay.
+4245000	4248000	You could also refresh it until you
+4248000	4251000	generate po siya if you apply it.
+4251000	4254000	Ah, nasakotan kasi ako.
+4254000	4257000	Kailangan bang pumunta ako sa...
+4257000	4260000	Ay, wait lang ulit to.
+4260000	4263000	Generate, sorry. You have to go to the previous
+4263000	4266000	page if you scroll down.
+4266000	4269000	Parang may previous button po.
+4269000	4272000	Nag-generate po siya diyan.
+4272000	4275000	Okay noted.
+4275000	4278000	Okay.
+4278000	4281000	Okay.
+4281000	4284000	Okay.
+4284000	4287000	So sike, magdadry lang ka na isang
+4287000	4290000	sample material.
+4290000	4293000	Plastic.
+4293000	4296000	If you say metal,
+4296000	4299000	were you expecting yung panang shiny na
+4299000	4302000	brushed metal?
+4302000	4305000	Yeah, that was what I was expecting.
+4305000	4308000	Okay.
+4308000	4311000	Parang medyo leather pattern yung sa paningin ko yung
+4311000	4314000	lumabas din.
+4314000	4317000	Siguro next time, maybe you could try brushed metal
+4317000	4320000	kapag nyenta yung na-type nyo.
+4320000	4323000	Kailangan ba mas ano siya? Parang mas specific siya.
+4323000	4326000	I think so.
+4333000	4336000	If you're aware po of like,
+4336000	4339000	yung isa pang AI nag-trend.
+4339000	4342000	The one that's doing the AI-generated art.
+4342000	4345000	Ano yung action?
+4345000	4348000	I haven't heard that.
+4348000	4351000	On social media, there's...
+4351000	4354000	Okay, so there's an issue there.
+4354000	4357000	Let's try.
+4357000	4360000	Pero maka pa rin siyang unform.
+4360000	4363000	Anyway, I'll just try
+4363000	4366000	selecting this. So pag sinelect ko siya,
+4366000	4369000	and then next, tama?
+4369000	4372000	Yes po.
+4372000	4375000	And then I should input kung saang
+4375000	4378000	application siya.
+4378000	4381000	Yes po kung gusto niyo i-apply sa floor.
+4381000	4384000	Pero take note, the ones that were
+4384000	4387000	selected po, they were previously selected
+4387000	4390000	so...
+4390000	4393000	Okay, so may mga naselect na kasing,
+4393000	4396000	may naman naka-check niya.
+4396000	4399000	Sorry, okay.
+4399000	4402000	So kapag i-unselect ko lang siya,
+4402000	4405000	then apply texture ko lang ulit para lang mag-refresh siya.
+4405000	4408000	Yes.
+4408000	4411000	Wait.
+4411000	4414000	Wait, tama ba?
+4414000	4417000	Tama ba?
+4417000	4420000	Sa floor lang siya. Parang floor lang yung kinig ko eh.
+4420000	4423000	So tama naman, nag-apply naman siya sa floor lang.
+4423000	4426000	Okay, so it's undoed, okay.
+4426000	4429000	And then kapag i-render ko na siya,
+4429000	4432000	kanyang final render ko nito, I should click yung next.
+4432000	4435000	Yes, yep. Kapag iyan po yung napili niyo,
+4435000	4438000	and then yung parang final.
+4438000	4441000	Okay, try lang.
+4441000	4444000	Apply to current render. Tama na yung pin-rendered ko na?
+4444000	4447000	Tama po, pero yung dapat yung naunan...
+4447000	4450000	Yes, dapat apply finish pa yung naunan niyo
+4450000	4453000	para ma-save yung final rendering.
+4453000	4456000	Okay.
+4456000	4459000	Nag-render na to, di ba?
+4459000	4462000	Yes, nag-reding po siya, yes.
+4462000	4465000	Rantain ko na lang.
+4465000	4468000	So dapat pala, pag kinig ko yung glossy or matte,
+4468000	4471000	mag-apply finish.
+4471000	4474000	Okay.
+4474000	4477000	Baka there's a way siguro na parang
+4477000	4480000	pag pinundat ko, automatic na yun.
+4480000	4483000	Ah, like automatic na ma-apply.
+4483000	4486000	Okay.
+4486000	4489000	Okay, sige po.
+4489000	4492000	Okay, okay.
+4492000	4495000	Tapos ayun, parang may time.
+4495000	4498000	But at least I would know how long will I wait.
+4498000	4501000	Okay.
+4504000	4507000	Sorry, pero parang mambangal ito.
+4507000	4510000	But ano din name ng application,
+4510000	4513000	yung itong prototype application?
+4513000	4516000	It doesn't have an official application name,
+4516000	4519000	pero I tentatively named it
+4519000	4522000	funk and form.
+4522000	4525000	Function and form.
+4525000	4528000	Ah, okay.
+4528000	4531000	Funk and form.
+4531000	4534000	It's supposed to facilitate yung look
+4534000	4537000	at the same time functionality.
+4537000	4540000	But in a sense, functionality right now,
+4540000	4543000	it could be assembled together.
+4543000	4546000	But yeah, I'll consider the other things
+4546000	4549000	you mentioned regarding the sizing
+4549000	4552000	and durability
+4552000	4555000	to make sure it's more functional, the design.
+4555000	4558000	Yeah.
+4558000	4561000	Sorry, wait.
+4561000	4564000	Naglaloading po siya or
+4564000	4567000	or may mali or I think it's just
+4567000	4570000	really slow.
+4570000	4573000	Okay, I think it's updated.
+4573000	4576000	Okay.
+4577000	4580000	Ito yung matte.
+4580000	4583000	Yung glossy pa yung nasa left.
+4583000	4586000	So you could try it again po if you want.
+4586000	4589000	Ay, and baka I need to go.
+4589000	4592000	Sige po, okay na po.
+4592000	4595000	So overall, yung prototype na ito,
+4595000	4598000	the goal of this is so that you could use it
+4598000	4601000	during the session with your clients.
+4601000	4604000	So let's say your clients din want to change materials.
+4605000	4608000	So that's the purpose of this prototype.
+4608000	4611000	It's to show the final product but you could
+4611000	4614000	make changes on the spot.
+4614000	4617000	Yes po.
+4617000	4620000	So overall,
+4620000	4623000	what do you think
+4623000	4626000	is beneficial about this prototype?
+4626000	4629000	And what are other suggestions overall
+4629000	4632000	apart from the ones you mentioned before?
+4632000	4635000	Yung ano lang din, yung parang
+4635000	4638000	paano ba, yung pagka-visually
+4638000	4641000	engaging ng feature nya or yung parang
+4641000	4644000	interface.
+4644000	4647000	For me, parang very
+4647000	4650000	not sure kung ano yung tamang, pero parang very
+4650000	4653000	institutional pa yung itsura nya or parang
+4653000	4656000	baka mas better if may way pa to make the
+4656000	4659000	interface more engaging.
+4659000	4662000	So parang point and click, point and click ganyan.
+4662000	4665000	Parang mas madali siyang maintindihan.
+4665000	4668000	But aside from the things that I mentioned kanina,
+4668000	4671000	other than that, parang I think this app
+4671000	4674000	very helpful siya.
+4674000	4677000	But
+4677000	4680000	sana, parang mas mabilis, if ever lang.
+4680000	4683000	Parang next time, parang mas mabilis
+4683000	4686000	pasana yung parang maging real-time rendering
+4686000	4689000	niya.
+4689000	4692000	Ano pa ba? Basically yun, yun pala yung
+4692000	4695000	na-offserve ko sa ngayon.
+4695000	4698000	Usually engaging interface.
+4698000	4701000	And more engaging interface.
+4701000	4704000	And speed ng rendering.
+4704000	4707000	So that concludes the session.
+4707000	4710000	Thank you for having your time again.
+4710000	4713000	May I consult you again for follow up sessions?
+4713000	4716000	Sure, sure. Just let me know in advance.
+4716000	4719000	So mapagbangga ko siya sa schedule ko.
+4719000	4722000	Sige po, noted. Pero yun, thank you for reminding
+4722000	4725000	pala ka na. Kasi honestly I forgot na meron pala.
+4725000	4728000	Okay naman po.
+4728000	4731000	Thank you, thank you RG.
+4731000	4734000	Okay, I'll end this meeting. Bye po.
+4734000	4735000	Bye bye.
