@@ -1,11 +1,16 @@
 <script>
-	export let name;
+  import { prevent_default } from "svelte/internal";
+	let name;
+	let recordings;
 	import Capture from "./components/Capture.svelte";
+	import Chatbot from "./components/Chatbot.svelte";
+
+
+
+
 </script>
 
 <main>
-
-
 	<div class="mb-4 border-b border-gray-200 dark:border-gray-700">
 		<ul class="flex flex-wrap -mb-px text-sm font-medium text-center w-full" id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist">
 			<li class="me-2" role="presentation">
@@ -17,14 +22,13 @@
 		</ul>
 	</div>
 	<div id="default-tab-content">
-		<div class="hidden rounded-lg bg-gray-50 dark:bg-gray-800" id="capture" role="tabpanel" aria-labelledby="capture-tab">
-			<Capture />
+		<div class="hidden rounded-lg bg-white " id="capture" role="tabpanel" aria-labelledby="capture-tab">
+			<Capture bind:recordings={recordings} />
 		</div>
 
 		
-		<div class="hidden rounded-lg bg-gray-50 dark:bg-gray-800" id="chatbot" role="tabpanel" aria-labelledby="chatbot-tab">
-			<p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Dashboard tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+		<div class="hidden rounded-lg bg-white " id="chatbot" role="tabpanel" aria-labelledby="chatbot-tab">
+			<Chatbot bind:recordings={recordings} />
 		</div>
 	</div>
-
 </main>
