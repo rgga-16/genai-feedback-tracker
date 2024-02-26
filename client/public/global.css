@@ -61,3 +61,38 @@ button:not(:disabled):active {
 button:focus {
 	border-color: #666;
 }
+
+main{
+	height:99vh;
+	width: 99vw;
+}
+
+.row {
+	display: flex;
+	flex-direction: row;
+}
+
+.column {
+	display: flex;
+	flex-direction: column;
+}
+
+.centered {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.spaced {
+	gap: 1rem;
+	padding: 1rem;
+}
+
+.overflow {
+	overflow: auto;
+}
+
+.bordered {
+	border: 1px solid #ccc;
+	border-radius: 2px;
+}
