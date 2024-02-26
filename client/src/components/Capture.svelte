@@ -1,6 +1,6 @@
 <script>
     // https://www.youtube.com/watch?v=g8FyESxBLfk
-    let recordings_list = [];
+    export let recordings = [];
     let is_recording=false;
     let is_paused=false;
 
@@ -16,6 +16,11 @@
 
     let videoPath;
     let micPath; 
+
+    function viewTranscript(transcript) {
+        alert(transcript);
+    }
+
 
     async function fetchAudio(audio_path) {
         try {   
@@ -182,7 +187,7 @@
         
         let newRecording = {video: videoSrc, audio: micSrc, transcription: transcript};
 
-        recordings_list = [...recordings_list, newRecording];
+        recordings = [...recordings, newRecording];
     }
 
     function pauseRecording() {
@@ -200,13 +205,13 @@
 </script>
 
 
-<div class="container mx-auto relative py-4">
-    <div id='captures-panel' class="container mx-auto">
-        {#if recordings_list.length > 0}
-            {#each recordings_list as recording, i}
-                <div class="container mx-auto block">
-                    <span class="dark:text-gray-400">Recording {i+1}</span>
-                    <div class="container mx-auto">
+<div class="column centered spaced bordered">
+    <div id="recordings-panel" class="column centered spaced bordered">
+        {#if recordings.length > 0}
+            {#each recordings as recording, i}
+                <div class="row centered space">
+                    <span >Recording {i+1}</span>
+                    <div class="column centered space">
                         <!-- BUG: micPath and videoPath are incorrect.  -->
                         {#if recording.video}
                             <video src={recording.video} controls></video>
@@ -215,42 +220,29 @@
                             <audio src={recording.audio} controls></audio>
                         {/if}
                     </div>
-                    {#if recording.transcription}
-                        <p class="dark:text-gray-400">{recording.transcription}</p>
-                    {/if}
+                    <button on:click|preventDefault={()=>viewTranscript(recording.transcription)}> View Transcript </button>
                 </div>
             {/each}
         {:else}
-            <p class="text-sm dark:text-gray-400">No captures made yet.</p>
+            <p >No captures made yet.</p>
         {/if}
     </div>
 
-    <div id='action-panel' class="container  block mx-auto">
+    <div id='action-panel' class="row centered space bordered">
 
-        <button class="dark:text-gray-400" on:click={startRecording} disabled={is_recording || is_paused}>Record</button>
+        <button on:click={startRecording} disabled={is_recording || is_paused}>Record</button>
         <!-- {#if is_paused}
             <button class="dark:text-gray-400" on:click={() => resumeRecording()} disabled={!is_paused}>Resume</button>
         {:else}
             <button class="dark:text-gray-400" on:click={() => pauseRecording()} disabled={!is_recording || is_paused}>Pause</button>
         {/if} -->
-        <button class="dark:text-gray-400" on:click={() => stopRecording()} disabled={!is_recording && !is_paused}>Stop</button>
+        <button on:click={() => stopRecording()} disabled={!is_recording && !is_paused}>Stop</button>
     </div>
 
 </div>
 
 <style>
-    #captures-panel {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    #action-panel {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-    }
+
     video {
         height: 15%;
         max-height: 200px;
