@@ -5,6 +5,19 @@ import pandas as pd
 
 EMBEDDING_MODEL = "text-embedding-3-small"
 
+def extract_lines_from_string(content, diarized=True):
+    pattern = re.compile(r'(\d+)\n(\d{2}:\d{2}:\d{2},\d{3}) --> (\d{2}:\d{2}:\d{2},\d{3})\n(.+?): (.+?)(?=\n\n\d+|\Z)', re.DOTALL)
+    matches = pattern.findall(content)
+    result = []
+    for match in matches:
+        result.append({
+            'start_timestamp': match[1],
+            'end_timestamp': match[2],
+            'speaker': match[3],
+            'dialogue': match[4].replace('\n', ' ')
+        })
+    return result
+
 def extract_lines_from_srt(file_path, diarized=True):
     with codecs.open(file_path, 'r', encoding='utf-8') as f:
         content = f.read()
