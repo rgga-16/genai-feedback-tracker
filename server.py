@@ -6,9 +6,12 @@ from datetime import datetime
 
 from utils import makedir, emptydir
 from transcribe import transcription_procedure, read_transcript
+from embedding import *
+from chatgpt import *
 
 CWD = os.getcwd()
 RECORD_I = 0
+TRANSCRIPT_DATABASE = None
 
 app = Flask(__name__)
 
@@ -54,10 +57,8 @@ def download_screen_recording():
 def transcribe_mic_recording():
     form_data = request.get_json()
     mic_path = form_data["audio"]
-
     transcript_path, transcript_with_timestamps_path = transcription_procedure(mic_path)
     transcript = read_transcript(transcript_with_timestamps_path)
-    
     return {"message": "Transcription complete", 
             "transcript": transcript}
 
@@ -76,9 +77,44 @@ def download_mic_recording():
         return {"message": "Mic recording saved", "filepath": filepath}
     return {"message": "Mic recording not saved"}
 
+@app.route("/embed_transcripts", methods=["POST"])
+def embed_transcript():
+    global TRANSCRIPT_DATABASE
+    form_data = request.get_json()
+    transcripts = form_data["transcripts"]
+    for i in range(len(transcripts)):
+        transcript = transcripts[i]
+        dialogues = extract_lines_from_string(transcript)
+        simplified_dialogues = dialogues
+        if "speaker" in dialogues[0]:
+            simplified_dialogues = simplify_dialogues(dialogues)
+        srt = convert_to_srt_string(simplified_dialogues)
+        text_chunks = divide_into_chunks(f"Transcript {i+1}",simplified_dialogues)
+        embeddings = []
+        for chunk in text_chunks:
+            embeddings.extend(convert_to_embedding(chunk))
+        if TRANSCRIPT_DATABASE is None:
+            TRANSCRIPT_DATABASE = pd.DataFrame({
+                'text': text_chunks,
+                'embedding': embeddings
+            })
+        else:
+            TRANSCRIPT_DATABASE = TRANSCRIPT_DATABASE.append(pd.DataFrame({
+                'text': text_chunks,
+                'embedding': embeddings
+            }), ignore_index=True)
+
+    return {"message": "Transcripts embedded"}
+
+@app.route("/chatbot_init_message", methods=["POST"])
+def get_initial_message():
+    form_data = request.get_json()
+    transcripts = form_data["transcripts"]
+    initial_message = initial_query(transcripts) 
+    return {"chatbot_init_message": initial_message}
+
+
 if __name__ == "__main__":
-    
-    
     HISTORY_DIR = os.path.join(CWD, "data_history"); makedir(HISTORY_DIR)
     DATA_DIR = os.path.join(CWD, "data"); makedir(DATA_DIR)
 
