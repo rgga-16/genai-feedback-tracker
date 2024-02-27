@@ -1,6 +1,7 @@
 import openai
 import re, codecs
 import pandas as pd
+from scipy import spatial 
 
 
 EMBEDDING_MODEL = "text-embedding-3-small"
@@ -78,7 +79,6 @@ def divide_into_chunks(transcript_title, dialogues, max_chunk_size=512):
     return chunks
 
 def convert_to_embedding(text, model_name=EMBEDDING_MODEL):
-
     response = openai.embeddings.create(
         input=text,
         model=model_name
@@ -87,6 +87,27 @@ def convert_to_embedding(text, model_name=EMBEDDING_MODEL):
         assert i == be.index # double check embeddings are in same order as input
     embedding = [be.embedding for be in response.data]
     return embedding
+
+def strings_ranked_by_relatedness(
+        query:str, 
+        df:pd.DataFrame,
+        relatedness_fn = lambda x,y: 1 - spatial.distance.cosine(x,y),
+        top_n:int=10
+    ):
+
+    query_embedding_response = openai.embeddings.create(
+        input=query,
+        model=EMBEDDING_MODEL,
+    )
+    query_embedding = query_embedding_response.data[0].embedding
+    strings_and_relatedness = [
+        (row["text"], relatedness_fn(query_embedding, row["embedding"])) for i,row in df.iterrows()
+    ]
+
+    strings_and_relatedness.sort(key=lambda x: x[1], reverse=True)
+    strings,relatednesses = zip(*strings_and_relatedness)
+
+    return strings[:top_n], relatednesses[:top_n]
 
 
 if __name__ == '__main__':

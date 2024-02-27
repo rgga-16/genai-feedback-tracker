@@ -458,7 +458,7 @@ def transcribe_batched(
 def transcription_procedure(audio_path, 
                             enable_stemming=True, 
                             batch_size=8, whisper_model_name="large-v2", 
-                            suppress_numerals=True, language=None, 
+                            suppress_numerals=True, language="en", 
                             device="cuda" if torch.cuda.is_available() else "cpu", compute_type="float16"):
 
     # Split the audio into vocals and background music

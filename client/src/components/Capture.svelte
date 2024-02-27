@@ -17,8 +17,22 @@
     let videoPath;
     let micPath; 
 
+    let files;
+
     function viewTranscript(transcript) {
         alert(transcript);
+    }
+
+    async function incrementRecordNumber() {
+        let response = await fetch('/increment_record_number', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if(!response.ok) {
+            throw new Error('Failed to increment record number');
+        } 
     }
 
 
@@ -111,13 +125,6 @@
         return micPath;
     }
 
-    async function downloadVideo(vidChunks) {
-        const blob = new Blob(vidChunks, {type: 'video/webm'});
-        console.log("video blobs", {vidChunks, blob});
-        let data = new FormData();
-        data.append('file', blob, 'video.webm');
-    }
-
     async function sendVideoToServer(videoBlobs) {
 
         const vidblob = new Blob(videoBlobs, {type: 'video/webm'});
@@ -160,7 +167,6 @@
         }
     }
 
-
     async function stopRecording() {
         is_recording=false;
         is_paused=false;
@@ -183,11 +189,10 @@
 
         let transcript = await transcribeMic(micPath);
 
-        
-        
         let newRecording = {video: videoSrc, audio: micSrc, transcription: transcript};
 
         recordings = [...recordings, newRecording];
+        await incrementRecordNumber();
     }
 
     function pauseRecording() {
@@ -202,6 +207,68 @@
         is_paused=false;
     }
 
+    async function extractAudioFromVideo(videoFile) {
+        const formData = new FormData();
+        formData.append('file', videoFile);
+        const response = await fetch('/extract_audio_from_video', {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (!response.ok) {
+            return null;
+        } 
+        const json = await response.json();
+        return json["audiopath"];
+    }
+
+    async function handleFilesUpload() {
+        if(files) {
+            for (const file of files) {
+                if(file.type.includes('video')) {
+                    let videoSrc = URL.createObjectURL(file);
+                    micPath = await extractAudioFromVideo(file);
+                    if(!micPath) {
+                        micPath = null;
+                        videoPath = null;
+                        throw new Error('Failed to extract audio from video');
+                    } 
+                    let micSrc = await fetchAudio(micPath);
+                    let transcript = await transcribeMic(micPath);
+                    let newRecording = {video: videoSrc, audio: micSrc, transcription: transcript};
+                    recordings = [...recordings, newRecording];
+                    await incrementRecordNumber();
+                } else if(file.type.includes('audio')) {
+                    let audioSrc = URL.createObjectURL(file);
+
+                    // Save the audio file and get its path
+                    const formData = new FormData();
+                    formData.append('audio', file);
+                    const response = await fetch('/download_mic', {
+                        method: 'POST',
+                        body: formData,
+                    });
+
+                    if(!response.ok) {
+                        micPath = null;
+                        videoPath = null;
+                        throw new Error('Failed to save uploaded audio');
+                    }
+                    let json = await response.json();
+                    micPath = json["filepath"];
+
+                    // Transcribe the audio
+                    let transcript = await transcribeMic(micPath);
+
+                    let newRecording = {video: null, audio: audioSrc, transcription: transcript};
+                    recordings = [...recordings, newRecording];
+                    await incrementRecordNumber();
+                }
+            }
+            // Clear the file input
+            files=null;
+        }
+    }
 </script>
 
 
@@ -212,7 +279,6 @@
                 <div class="row centered space">
                     <span >Recording {i+1}</span>
                     <div class="column centered space">
-                        <!-- BUG: micPath and videoPath are incorrect.  -->
                         {#if recording.video}
                             <video src={recording.video} controls></video>
                         {/if}
@@ -226,6 +292,11 @@
         {:else}
             <p >No captures made yet.</p>
         {/if}
+        <div class="row centered spaced bordered">
+            <label >Upload your own video or audio: </label>
+            <input bind:files type="file" id="file_upload" accept="video/*, audio/*" on:change={()=>handleFilesUpload()}/>
+
+        </div>
     </div>
 
     <div id='action-panel' class="row centered space bordered">
@@ -248,15 +319,6 @@
         max-height: 200px;
         width: auto;
     }
-    .container {
-        max-width: 100%;
-    }
-    .block {
-        display: block;
-    }
-    .dark\:text-gray-400 {
-        --text-opacity: 1;
-        color: #cbd5e0;
-        color: rgba(203,213,224,var(--text-opacity));
-    }
+
+
 </style>

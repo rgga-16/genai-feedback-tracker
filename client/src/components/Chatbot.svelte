@@ -1,20 +1,39 @@
 <script>
-    let is_enabled = false; 
+    let is_enabled = true; 
 
     export let recordings = [];
     let selected_recordings = [];
     let messages = [];
+    let inputMessage ="";
 
     function viewTranscript(transcript) {
         alert(transcript);
     }
 
+    async function sendMessage(message) {
+        inputMessage = "";
+        messages = [...messages, {role: "User", text: message}];
+        const response = await fetch("/message_chatbot", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({message: message})
+        });
+
+        if(!response.ok) {
+            throw new Error("Failed to send message to ChatGPT");
+        }
+
+        const json = await response.json();
+        let chatbot_response = json["chatbot_response"];
+        messages = [...messages, {role: "Chatbot", text: chatbot_response}];
+        
+    }
+
     async function startChatbot() {
         
-        // Send transcripts to server 
-        // A) Server-side: 
-        // 1) Divide to chunks
-        // 2) Embed each chunk 
+        // Get transcripts from selected recordings
         let recording_transcripts = [];
         for (let i = 0; i < selected_recordings.length; i++) {
             let recording = selected_recordings[i];
@@ -22,6 +41,7 @@
             recording_transcripts.push(transcript);
         }
 
+        // Send transcripts to server, divide into chunks, and embed each chunk
         const embed_response = await fetch("/embed_transcripts", {
             method: "POST",
             headers: {
@@ -29,7 +49,6 @@
             },
             body: JSON.stringify({transcripts: recording_transcripts})
         });
-
         if(!embed_response.ok) {
             throw new Error("Failed to embed transcripts");
         } 
@@ -42,7 +61,6 @@
             },
             body: JSON.stringify({transcripts: recording_transcripts})
         });
-
         if(!initial_response.ok) {
             throw new Error("Failed to receive initial message from ChatGPT");
         }
@@ -55,12 +73,9 @@
         messages = [...messages, {role: "Chatbot", text: initial_message}];
     }
 
-    
-
-
 </script>
 
-<div class="column centered spaced">   
+<div class="column centered spaced bordered" style="position:relative; height:100%;">   
     {#if !(is_enabled)}
         {#if recordings.length > 0}
             <h3> <b> Recordings </b> </h3>
@@ -90,17 +105,31 @@
         {/if}
     {:else}
         <h3> <b> Chatbot </b> </h3>
-        <div id="messages" class="column spaced">
+        <div id="messages" class="column spaced bordered">
             {#each messages as message, i}
-                <div id="message" class="column spaced">
+                <div id={message.role} class="column spaced">
                     <strong> {message.role} </strong>
                     <p>{message.text}</p>
                 </div>
             {/each}
+            <div id="assistant">
+                <strong> Assistant </strong>
+                <p> 
+                    Lorem ipsum dolor sit amet. Eos libero voluptatem sit excepturi rerum vel porro odio est eligendi voluptatibus. At mollitia quam ea dolorum quae aut nemo ipsum est asperiores quibusdam est voluptatem accusamus. Ut eligendi porro quo autem illum non voluptatem rerum et nobis nisi est molestiae facilis quo magni perferendis.
+                    Ea Quis molestiae cum minus consequatur At velit internos et omnis neque qui nihil consequatur et acc
+                </p>
+            </div>
+            <div id="assistant">
+                <strong> Assistant </strong>
+                <p> 
+                    Lorem ipsum dolor sit amet. Eos libero voluptatem sit excepturi rerum vel porro odio est eligendi voluptatibus. At mollitia quam ea dolorum quae aut nemo ipsum est asperiores quibusdam est voluptatem accusamus. Ut eligendi porro quo autem illum non voluptatem rerum et nobis nisi est molestiae facilis quo magni perferendis.
+                    Ea Quis molestiae cum minus consequatur At velit internos et omnis neque qui nihil consequatur et acc
+                </p>
+            </div>
         </div>
-        <div id="input" class="row centered spaced">
-            <input type="text" id="user" placeholder="Type a message..." />
-            <button id="send"> Send </button>
+        <div id="input" class="row centered spaced bordered">
+            <textarea bind:value="{inputMessage}" id="user" placeholder="Type a message..."></textarea>
+            <button id="send" on:click|preventDefault={()=>sendMessage(inputMessage)}> Send </button>
         </div>
             
     {/if}
@@ -115,6 +144,13 @@
         justify-content: flex-start;
         align-items: flex-start;
         overflow-y:auto; 
+        width: 100%;
+        height: 82%;
+    }
+
+    #input {
+        width: 100%;
+        height: 18%;
     }
 
     #user {
@@ -124,6 +160,13 @@
     #assistant {
         background-color: lightgray;
     }
+
+    #input textarea#user {
+        width:100%;
+        height:100%;
+    }
+
+    
 
     .selected:hover {
         border: 0.25rem solid blue;

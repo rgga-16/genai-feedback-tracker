@@ -1,6 +1,5 @@
 from flask import Flask, send_from_directory, request, send_file
-import random
-import os, base64, shutil
+import os, shutil, subprocess
 
 from datetime import datetime
 
@@ -24,6 +23,12 @@ def base():
 @app.route("/<path:path>")
 def home(path):
     return send_from_directory('client/public', path)
+
+@app.route("/increment_record_number", methods=["POST"])
+def increment_record_number():
+    global RECORD_I
+    RECORD_I += 1
+    return {"message": "Record number incremented"}
 
 @app.route("/fetch_audio", methods=["POST"])
 def fetch_audio(): 
@@ -62,6 +67,16 @@ def transcribe_mic_recording():
     return {"message": "Transcription complete", 
             "transcript": transcript}
 
+def save_file(file):
+    global RECORD_I 
+    if file:
+        filename = file.filename
+        recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}") 
+        makedir(recording_dir)
+        filepath = os.path.join(recording_dir, filename); file.save(filepath)
+        return filepath
+    return None
+
 @app.route("/download_mic", methods=["POST"])
 def download_mic_recording():
     global RECORD_I 
@@ -70,10 +85,11 @@ def download_mic_recording():
         return "No audio part", 400
     audio = request.files["audio"]  
     if audio:
-        filename = "mic.webm"
-        recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}") 
-        makedir(recording_dir)
-        filepath = os.path.join(recording_dir, filename); audio.save(filepath)
+        filepath = save_file(audio)
+        # filename = "mic.webm"
+        # recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}") 
+        # makedir(recording_dir)
+        # filepath = os.path.join(recording_dir, filename); audio.save(filepath)
         return {"message": "Mic recording saved", "filepath": filepath}
     return {"message": "Mic recording not saved"}
 
@@ -103,7 +119,6 @@ def embed_transcript():
                 'text': text_chunks,
                 'embedding': embeddings
             }), ignore_index=True)
-
     return {"message": "Transcripts embedded"}
 
 @app.route("/chatbot_init_message", methods=["POST"])
@@ -113,6 +128,53 @@ def get_initial_message():
     initial_message = initial_query(transcripts) 
     return {"chatbot_init_message": initial_message}
 
+@app.route("/message_chatbot", methods=["POST"])
+def message_chatbot():
+    form_data = request.get_json()
+    user_query = form_data["message"]
+
+    strings, relatednesses = strings_ranked_by_relatedness(
+        user_query, 
+        TRANSCRIPT_DATABASE
+    )
+
+    transcript_instruction = "Use the following transcript excerpts as references to answer the subsequent query. If the query is not related to any of the transcripts, ignore this instruction, inform the user that the query is not related to the transcripts, and answer the query as best as possible."
+
+    question = f"\n\n Query: {user_query}\n"
+    message = f"{transcript_instruction}\nTranscript excerpts:\n"
+    for string in strings:
+        message += f"{string}\n"
+    
+    full_query = message + question
+
+    response =  query(full_query)
+
+    return {"chatbot_response": response}
+
+
+@app.route("/extract_audio_from_video", methods=["POST"])
+def extract_audio_from_video():
+    global RECORD_I 
+    if 'file' not in request.files:
+        return 'No file sent', 400
+    file = request.files['file']
+    if file.filename == '':
+        return 'No selected file', 400
+    video_extensions = ('.mp4', '.avi', '.mov', '.mkv', '.webm', '.wav', '.flv', '.wmv', '.mpeg', '.mpg', '.3gp', '.m4v')  # Add more video extensions if needed
+    if file and file.filename.lower().endswith(video_extensions):
+        videopath = save_file(file)
+        videoext = videopath.split('.')[-1]
+        audioext = 'mp3'
+        audiopath = videopath.replace(videoext, audioext)
+        subprocess.run(['ffmpeg','-y','-i',videopath,audiopath], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+        if os.path.exists(audiopath):
+            # Here you might return the file in the response, save it to a database, upload it to a cloud storage service, etc.
+            # Return file in response
+            return {"message": "Audio extraction successful", "audiopath": audiopath}
+        else:
+            return {"message":'Audio extraction failed'}
+    else:
+        return {"message":'Invalid file type'}
 
 if __name__ == "__main__":
     HISTORY_DIR = os.path.join(CWD, "data_history"); makedir(HISTORY_DIR)

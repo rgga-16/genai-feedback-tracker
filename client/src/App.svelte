@@ -32,3 +32,11 @@
 		</div>
 	</div>
 </main>
+
+<style>
+	div#chatbot {
+		height: 100%;
+		width:100%;
+	}
+
+</style>

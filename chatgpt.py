@@ -76,7 +76,7 @@ def query(query,role="user", temp=temperature):
     global message_history
 
     # Retrieve n embeddings 
-
+    
 
 
     message_history.append({"role":role, "content":query})
