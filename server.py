@@ -133,9 +133,13 @@ def message_chatbot():
     form_data = request.get_json()
     user_query = form_data["message"]
 
+    n_rows = TRANSCRIPT_DATABASE.shape[0]
+    top_n = round(0.25*n_rows)
+
     strings, relatednesses = strings_ranked_by_relatedness(
         user_query, 
-        TRANSCRIPT_DATABASE
+        TRANSCRIPT_DATABASE,
+        top_n=top_n
     )
 
     transcript_instruction = "Use the following transcript excerpts as references to answer the subsequent query. If the query is not related to any of the transcripts, ignore this instruction, inform the user that the query is not related to the transcripts, and answer the query as best as possible."
