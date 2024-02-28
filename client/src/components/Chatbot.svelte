@@ -1,5 +1,5 @@
 <script>
-    let is_enabled = true; 
+    let is_enabled = false; 
 
     export let recordings = [];
     let selected_recordings = [];
@@ -112,20 +112,7 @@
                     <p>{message.text}</p>
                 </div>
             {/each}
-            <div id="assistant">
-                <strong> Assistant </strong>
-                <p> 
-                    Lorem ipsum dolor sit amet. Eos libero voluptatem sit excepturi rerum vel porro odio est eligendi voluptatibus. At mollitia quam ea dolorum quae aut nemo ipsum est asperiores quibusdam est voluptatem accusamus. Ut eligendi porro quo autem illum non voluptatem rerum et nobis nisi est molestiae facilis quo magni perferendis.
-                    Ea Quis molestiae cum minus consequatur At velit internos et omnis neque qui nihil consequatur et acc
-                </p>
-            </div>
-            <div id="assistant">
-                <strong> Assistant </strong>
-                <p> 
-                    Lorem ipsum dolor sit amet. Eos libero voluptatem sit excepturi rerum vel porro odio est eligendi voluptatibus. At mollitia quam ea dolorum quae aut nemo ipsum est asperiores quibusdam est voluptatem accusamus. Ut eligendi porro quo autem illum non voluptatem rerum et nobis nisi est molestiae facilis quo magni perferendis.
-                    Ea Quis molestiae cum minus consequatur At velit internos et omnis neque qui nihil consequatur et acc
-                </p>
-            </div>
+            
         </div>
         <div id="input" class="row centered spaced bordered">
             <textarea bind:value="{inputMessage}" id="user" placeholder="Type a message..."></textarea>
