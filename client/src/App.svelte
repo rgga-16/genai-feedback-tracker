@@ -1,6 +1,4 @@
 <script>
-  import { prevent_default } from "svelte/internal";
-	let name;
 	let recordings;
 	import Capture from "./components/Capture.svelte";
 	import Chatbot from "./components/Chatbot.svelte";
