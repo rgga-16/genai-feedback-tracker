@@ -85,7 +85,9 @@
             }
         });
         videoRecorder.addEventListener('stop', () => {
+            
             // sendVideoToServer(videoChunks);
+            // console.log("video chunks", videoChunks);
             // videoChunks = [];
         });
 
@@ -126,12 +128,14 @@
     }
 
     async function sendVideoToServer(videoBlobs) {
-
-        const vidblob = new Blob(videoBlobs, {type: 'video/webm'});
-        // BUG: videoBlobs is empty.
+    
+        // const vidblob = new Blob(videoBlobs, {type: 'video/webm'});
+        const vidblob = videoBlobs[0]; // workaround to resolve the following bug where creating a new Blob from videoBlobs ends up being empty.
+        
         console.log("video blobs", {videoBlobs, vidblob});
         let data = new FormData();
-        data.append('file', vidblob, 'video.webm');
+        data.append('file', vidblob);
+
         const response = await fetch('/download_screen', {
             method: 'POST',
             body: data,
@@ -160,9 +164,6 @@
         } else {
             const json = await response.json();
             let transcript = json["transcript"]
-            // let transcript_path = json["transcript_path"];
-            // let transcript_with_timestamps_path = json["transcript_with_timestamps_path"];
-            
             return transcript
         }
     }
@@ -174,10 +175,8 @@
         videoStream.getTracks().forEach(track => track.stop());
         micStream.getTracks().forEach(track => track.stop());
 
-        micRecorder.stop();
-        videoRecorder.stop();
-
-        console.log("videoChunks", videoChunks);
+        // micRecorder.stop();
+        // videoRecorder.stop();
         
         videoPath = await sendVideoToServer(videoChunks); 
         videoChunks = [];
