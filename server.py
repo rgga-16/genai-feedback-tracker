@@ -1,5 +1,5 @@
 from flask import Flask, send_from_directory, request, send_file
-import os, shutil, subprocess
+import os, shutil, subprocess, cv2
 
 from datetime import datetime
 
@@ -121,6 +121,39 @@ def embed_transcript():
             }), ignore_index=True)
     return {"message": "Transcripts embedded"}
 
+def convert_to_ms(timestamp):
+    h, m, s = map(str, timestamp.split(':'))
+    h = int(h)
+    m = int(m)
+    s, ms = map(int, s.split(','))
+    return (h * 3600 + m * 60 + s) * 1000 + ms
+    
+
+@app.route("/extract_frames_per_timestamp", methods=["POST"])
+def extract_frames_per_timestamp():
+    form_data = request.get_json()
+    video_path = form_data["video_path"]
+    transcript = form_data["transcript"]
+
+    timestamps = re.findall(r'(\d{2}:\d{2}:\d{2},\d{3}) --> (\d{2}:\d{2}:\d{2},\d{3})', transcript)
+
+    timestamps = [(convert_to_ms(start), convert_to_ms(end)) for start, end in timestamps]
+    cap = cv2.VideoCapture(video_path)
+
+    frames = []
+
+    # BUG: Get the frames per second. But it's so slow!! How to make this better?
+    frame_rate = cap.get(cv2.CAP_PROP_FPS)
+    for i, (start, end) in enumerate(timestamps):
+        cap.set(cv2.CAP_PROP_POS_MSEC, start)
+        success, image = cap.read()
+        while success and (cap.get(cv2.CAP_PROP_POS_MSEC) < end):
+            frames.append({cap.get(cv2.CAP_PROP_POS_MSEC): image})
+            cap.set(cv2.CAP_PROP_POS_MSEC, cap.get(cv2.CAP_PROP_POS_MSEC) + 1000/frame_rate)
+            success, image = cap.read()
+    cap.release()
+    return {"frames": frames}
+
 @app.route("/chatbot_init_message", methods=["POST"])
 def get_initial_message():
     form_data = request.get_json()
@@ -174,7 +207,7 @@ def extract_audio_from_video():
         if os.path.exists(audiopath):
             # Here you might return the file in the response, save it to a database, upload it to a cloud storage service, etc.
             # Return file in response
-            return {"message": "Audio extraction successful", "audiopath": audiopath}
+            return {"message": "Audio extraction successful", "audiopath": audiopath, "videopath": videopath}
         else:
             return {"message":'Audio extraction failed'}
     else:

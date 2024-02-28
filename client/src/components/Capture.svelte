@@ -175,8 +175,6 @@
         videoStream.getTracks().forEach(track => track.stop());
         micStream.getTracks().forEach(track => track.stop());
 
-        // micRecorder.stop();
-        // videoRecorder.stop();
         
         videoPath = await sendVideoToServer(videoChunks); 
         videoChunks = [];
@@ -218,7 +216,24 @@
             return null;
         } 
         const json = await response.json();
-        return json["audiopath"];
+        return [json["audiopath"], json["videopath"]];
+    }
+
+    async function extractFrames(videoPath, transcript) {
+        const response = await fetch('/extract_frames_per_timestamp', {
+            method: 'POST',
+            body: JSON.stringify({"video_path": videoPath, "transcript": transcript}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if(!response.ok) {
+            throw new Error('Failed to extract frames');
+        } else {
+            const json = await response.json();
+            let frames = json["frames"];
+            return frames;
+        }
     }
 
     async function handleFilesUpload() {
@@ -226,7 +241,10 @@
             for (const file of files) {
                 if(file.type.includes('video')) {
                     let videoSrc = URL.createObjectURL(file);
-                    micPath = await extractAudioFromVideo(file);
+                    [micPath, videoPath] = await extractAudioFromVideo(file);
+
+                    console.log({micPath, videoPath});
+
                     if(!micPath) {
                         micPath = null;
                         videoPath = null;
@@ -234,12 +252,16 @@
                     } 
                     let micSrc = await fetchAudio(micPath);
                     let transcript = await transcribeMic(micPath);
+
+                    let frames = await extractFrames(videoPath, transcript);
+
                     let newRecording = {video: videoSrc, audio: micSrc, transcription: transcript};
                     recordings = [...recordings, newRecording];
+                    micPath=null;
+                    videoPath=null;
                     await incrementRecordNumber();
                 } else if(file.type.includes('audio')) {
                     let audioSrc = URL.createObjectURL(file);
-
                     // Save the audio file and get its path
                     const formData = new FormData();
                     formData.append('audio', file);
@@ -247,7 +269,6 @@
                         method: 'POST',
                         body: formData,
                     });
-
                     if(!response.ok) {
                         micPath = null;
                         videoPath = null;
@@ -258,9 +279,10 @@
 
                     // Transcribe the audio
                     let transcript = await transcribeMic(micPath);
-
                     let newRecording = {video: null, audio: audioSrc, transcription: transcript};
                     recordings = [...recordings, newRecording];
+                    micPath=null;
+                    videoPath=null;
                     await incrementRecordNumber();
                 }
             }
