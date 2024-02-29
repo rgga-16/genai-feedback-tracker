@@ -1,5 +1,6 @@
 from flask import Flask, send_from_directory, request, send_file
-import os, shutil, subprocess, cv2
+import os, shutil, subprocess, cv2, imagehash
+from PIL import Image
 
 from datetime import datetime
 
@@ -7,10 +8,13 @@ from utils import makedir, emptydir
 from transcribe import transcription_procedure, read_transcript
 from embedding import *
 from chatgpt import *
+from frame_extractor import extract_frames_by_timestamp
+import time
 
 CWD = os.getcwd()
 RECORD_I = 0
 TRANSCRIPT_DATABASE = None
+DATA_DIR = os.path.join(CWD, "data"); makedir(DATA_DIR)
 
 app = Flask(__name__)
 
@@ -138,19 +142,29 @@ def extract_frames_per_timestamp():
     timestamps = re.findall(r'(\d{2}:\d{2}:\d{2},\d{3}) --> (\d{2}:\d{2}:\d{2},\d{3})', transcript)
 
     timestamps = [(convert_to_ms(start), convert_to_ms(end)) for start, end in timestamps]
+    timestamp_midpoints = [(int(round(start + end) / 2)) for start, end in timestamps]
     cap = cv2.VideoCapture(video_path)
 
     frames = []
 
     # BUG: Get the frames per second. But it's so slow!! How to make this better?
     frame_rate = cap.get(cv2.CAP_PROP_FPS)
-    for i, (start, end) in enumerate(timestamps):
-        cap.set(cv2.CAP_PROP_POS_MSEC, start)
-        success, image = cap.read()
-        while success and (cap.get(cv2.CAP_PROP_POS_MSEC) < end):
-            frames.append({cap.get(cv2.CAP_PROP_POS_MSEC): image})
-            cap.set(cv2.CAP_PROP_POS_MSEC, cap.get(cv2.CAP_PROP_POS_MSEC) + 1000/frame_rate)
-            success, image = cap.read()
+    start_time = time.time()
+
+    
+    frames = extract_frames_by_timestamp(video_path, DATA_DIR, timestamp_midpoints, overwrite=False, every=25)
+
+    # for i, (start, end) in enumerate(timestamps):   
+    #     midpoint = (start + end) / 2
+    #     cap.set(cv2.CAP_PROP_POS_MSEC, midpoint)
+    #     success, image = cap.read()
+    #     recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}") 
+    #     makedir(recording_dir)
+    #     frames.append({midpoint: image})
+    end_time = time.time()
+
+    execution_time = end_time - start_time
+    print(f"Execution time: {execution_time} seconds")
     cap.release()
     return {"frames": frames}
 
@@ -205,8 +219,6 @@ def extract_audio_from_video():
         audiopath = videopath.replace(videoext, audioext)
         subprocess.run(['ffmpeg','-y','-i',videopath,audiopath], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
         if os.path.exists(audiopath):
-            # Here you might return the file in the response, save it to a database, upload it to a cloud storage service, etc.
-            # Return file in response
             return {"message": "Audio extraction successful", "audiopath": audiopath, "videopath": videopath}
         else:
             return {"message":'Audio extraction failed'}
