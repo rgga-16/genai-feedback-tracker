@@ -129,12 +129,16 @@
 
     async function sendVideoToServer(videoBlobs) {
     
-        // const vidblob = new Blob(videoBlobs, {type: 'video/webm'});
-        const vidblob = videoBlobs[0]; // workaround to resolve the following bug where creating a new Blob from videoBlobs ends up being empty.
+        const vidblob = new Blob(videoBlobs, {type: 'video/webm'});
+        // let vidblob = videoBlobs[0]; // workaround to resolve the following bug where creating a new Blob from videoBlobs ends up being empty.
         
         console.log("video blobs", {videoBlobs, vidblob});
         let data = new FormData();
         data.append('file', vidblob);
+
+        if(vidblob.length === 0 || !vidblob) {
+            return null;
+        }
 
         const response = await fetch('/download_screen', {
             method: 'POST',
@@ -143,7 +147,8 @@
         if(!response.ok) {
             micPath = null;
             videoPath = null;
-            throw new Error('Failed to send video to server');
+            // throw new Error('Failed to send video to server');
+            console.log('Failed to send video to server');
         } else {
             const json = await response.json();
             videoPath = json["filepath"];
@@ -175,7 +180,7 @@
         videoStream.getTracks().forEach(track => track.stop());
         micStream.getTracks().forEach(track => track.stop());
 
-        
+        videoPath = await sendVideoToServer(videoChunks); //Bug workaround: Do this for the first time because newly created vidblob is empty during first time.
         videoPath = await sendVideoToServer(videoChunks); 
         videoChunks = [];
         let videoSrc = await fetchVideo(videoPath);
@@ -193,15 +198,23 @@
     }
 
     function pauseRecording() {
-        alert('pause recording');
+
         is_recording=false;
         is_paused=true;
+
+        videoRecorder.pause();
+        micRecorder.pause();
+
+
     }
 
     function resumeRecording() {
-        alert('resume recording');
+
         is_recording=true;
         is_paused=false;
+
+        videoRecorder.resume();
+        micRecorder.resume();
     }
 
     async function extractAudioFromVideo(videoFile) {
@@ -253,7 +266,7 @@
                     let micSrc = await fetchAudio(micPath);
                     let transcript = await transcribeMic(micPath);
 
-                    let frames = await extractFrames(videoPath, transcript);
+                    // let frames = await extractFrames(videoPath, transcript);
 
                     let newRecording = {video: videoSrc, audio: micSrc, transcription: transcript};
                     recordings = [...recordings, newRecording];
@@ -293,52 +306,103 @@
 </script>
 
 
-<div class="column centered spaced bordered">
-    <div id="recordings-panel" class="column centered spaced bordered">
+<div class="column centered spaced" id="capture-page">
+    <div id="recordings-panel" class="spaced padded bordered {recordings.length > 0 ? "grid" : "column centered"}" >
         {#if recordings.length > 0}
             {#each recordings as recording, i}
-                <div class="row centered space">
-                    <span >Recording {i+1}</span>
-                    <div class="column centered space">
-                        {#if recording.video}
-                            <video src={recording.video} controls></video>
-                        {/if}
-                        {#if recording.audio}
-                            <audio src={recording.audio} controls></audio>
-                        {/if}
-                    </div>
-                    <button on:click|preventDefault={()=>viewTranscript(recording.transcription)}> View Transcript </button>
+                <div class="column centered spaced bordered">
+                    <span> <strong> Recording {i+1} </strong></span>
+                    {#if recording.video}
+                        <video src={recording.video} controls></video>
+                    {:else}
+                        <span> No video available </span>
+                    {/if}
+                    {#if recording.audio}
+                        <audio src={recording.audio} controls></audio>
+                    {:else}
+                        <span> No audio available </span>
+                    {/if}
+                    {#if recording.transcription}
+                        <button on:click|preventDefault={()=>viewTranscript(recording.transcription)}> View Transcript </button>
+                    {:else}
+                        <span> No transcription available </span>
+                    {/if}
                 </div>
             {/each}
         {:else}
-            <p >No captures made yet.</p>
+            <p >No recordings made yet.</p>
         {/if}
-        <div class="row centered spaced bordered">
+    </div>
+    
+    <div id='action-panel' class="row centered spaced padded bordered">
+
+        <button class="action-button" on:click={startRecording} disabled={is_recording || is_paused}>
+            <img src="./logos/record-video-svgrepo-com.svg" alt="Start recording" class="logo">
+            Record
+        </button>
+        {#if is_paused}
+            <button class="action-button" on:click={() => resumeRecording()} disabled={!is_paused}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-play logo" style="border-radius: 50%; padding: 5px; background-color: #fff;">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                Resume
+            </button>
+        {:else}
+            <button class="action-button" on:click={() => pauseRecording()} disabled={!is_recording || is_paused}>
+                <img src="./logos/pause-circle-svgrepo-com.svg" alt="Pause recording" class="logo">
+                Pause
+            </button>
+        {/if}
+        <button class="action-button" on:click={() => stopRecording()} disabled={!is_recording && !is_paused}>
+            <img src="./logos/record-video-stop-svgrepo-com.svg" alt="Stop recording" class="logo">
+            Stop
+        </button>
+
+        <div class="column centered spaced bordered">
             <label >Upload your own video or audio: </label>
             <input bind:files type="file" id="file_upload" accept="video/*, audio/*" on:change={()=>handleFilesUpload()}/>
-
         </div>
     </div>
-
-    <div id='action-panel' class="row centered space bordered">
-
-        <button on:click={startRecording} disabled={is_recording || is_paused}>Record</button>
-        <!-- {#if is_paused}
-            <button class="dark:text-gray-400" on:click={() => resumeRecording()} disabled={!is_paused}>Resume</button>
-        {:else}
-            <button class="dark:text-gray-400" on:click={() => pauseRecording()} disabled={!is_recording || is_paused}>Pause</button>
-        {/if} -->
-        <button on:click={() => stopRecording()} disabled={!is_recording && !is_paused}>Stop</button>
-    </div>
-
 </div>
 
 <style>
 
-    video {
+    #capture-page {
+        position: relative;
+        height:100%;
+        width:auto;
+    }
+
+    #recordings-panel {
+        position: relative;
+        height: 85%;
+        width: 100%;
+    }
+
+    #action-panel {
+        position: relative;
         height: 15%;
+        width: 100%;
+    }
+
+    video {
+        height: 40%;
         max-height: 200px;
-        width: auto;
+        width: 100%;
+    }
+
+
+    .action-button{
+        height: 100%;
+        width: auto; 
+        border: 0 none;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 10px;
+        
     }
 
 

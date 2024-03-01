@@ -75,34 +75,41 @@
 
 </script>
 
-<div class="column centered spaced bordered" style="position:relative; height:100%;">   
+<div id="chatbot-page" class="column centered spaced" style="position:relative; height:100%;">   
     {#if !(is_enabled)}
-        {#if recordings.length > 0}
-            <h3> <b> Recordings </b> </h3>
-            <p> Please select recordings to add into chatbot </p>
-            {#each recordings as recording, i}
-                <label>
-                    <div id="recording" class="row centered spaced" class:selected = {selected_recordings.includes(recording)}>
-                        Recording {i+1}: 
-                        <!-- <video class="rounded-lg" controls>
-                            <source src={recording.video} type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video> -->
-                        <audio class="rounded-lg" controls>
-                            <source src={recording.audio} type="audio/webm">
-                        </audio>
-                        <!-- <p class="centered"> {recording.transcription} </p> -->
+        <h3> <b> Recordings </b> </h3>
+        <p> Please select recordings to add into chatbot </p>
+        <div id="recordings-panel" class="spaced padded bordered {recordings.length > 0 ? "grid" : "column centered"}">
+            {#if recordings.length > 0}
+                {#each recordings as recording, i}
+                    <div id="recording" class="column centered spaced bordered padded" class:selected = {selected_recordings.includes(recording)}>
+                        <label>
+                        <span> <strong> Recording {i+1} </strong></span>
+                        {#if recording.video}
+                            <video src={recording.video} controls></video>
+                        {:else}
+                            <span> No video available </span>
+                        {/if}
+                        {#if recording.audio}
+                            <audio src={recording.audio} controls></audio>
+                        {:else}
+                            <span> No audio available </span>
+                        {/if}
+                        <input type="checkbox" bind:group={selected_recordings} value={recording} />
+                        </label>
+                        {#if recording.transcription}
+                            <button on:click|preventDefault={()=>viewTranscript(recording.transcription)}> View Transcript </button>
+                        {:else}
+                            <span> No transcription available </span>
+                        {/if}
                     </div>
-                    <input type="checkbox" bind:group={selected_recordings} value={recording} />
-                </label>
-                <button on:click|preventDefault={()=>viewTranscript(recording.transcription)}> View Transcript </button>
-            {/each}
-
-            <button disabled={selected_recordings.length <= 0} on:click|preventDefault={()=>startChatbot()}> Start Chatbot </button>
-
-        {:else}
-            <p class="centered"> No recordings added yet. Make or add your own recordings in the Capture Panel. </p>
-        {/if}
+                {/each}
+                
+            {:else}
+                <p class="centered"> No recordings added yet. Make or add your own recordings in the Capture Panel. </p>
+            {/if}
+        </div>
+        <button disabled={selected_recordings.length <= 0} on:click|preventDefault={()=>startChatbot()}> Start Chatbot </button>
     {:else}
         <h3> <b> Chatbot </b> </h3>
         <div id="messages" class="column spaced bordered">
@@ -127,12 +134,32 @@
 
 
 <style>
+
+    #chatbot-page {
+        position: relative;
+        height: 100%;
+        width: auto;
+    }
+
+    #recordings-panel {
+        position: relative;
+        height: 85%;
+        width: 100%;
+    }
+
     #messages{
         justify-content: flex-start;
         align-items: flex-start;
         overflow-y:auto; 
         width: 100%;
         height: 82%;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 10px;
+        
     }
 
     #input {

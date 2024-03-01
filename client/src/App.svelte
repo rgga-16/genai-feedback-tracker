@@ -19,22 +19,23 @@
 			</li>
 		</ul>
 	</div>
-	<div id="default-tab-content">
-		<div class="hidden rounded-lg bg-white " id="capture" role="tabpanel" aria-labelledby="capture-tab">
+	<div id="default-tab-content" class="bordered" style="position:relative; height:92%; width:auto;" >
+		<div class="hidden rounded-lg bg-white tab-content" id="capture" role="tabpanel" aria-labelledby="capture-tab" > 
 			<Capture bind:recordings={recordings} />
 		</div>
 
 		
-		<div class="hidden rounded-lg bg-white " id="chatbot" role="tabpanel" aria-labelledby="chatbot-tab">
+		<div class="hidden rounded-lg bg-white tab-content" id="chatbot" role="tabpanel" aria-labelledby="chatbot-tab" >
 			<Chatbot bind:recordings={recordings} />
 		</div>
 	</div>
 </main>
 
 <style>
-	div#chatbot {
+
+	.tab-content{
 		height: 100%;
-		width:100%;
+		width:auto;
 	}
 
 </style>

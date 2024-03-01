@@ -89,6 +89,9 @@ main{
 
 .spaced {
 	gap: 1rem;
+}
+
+.padded {
 	padding: 1rem;
 }
 
@@ -99,4 +102,11 @@ main{
 .bordered {
 	border: 1px solid #ccc;
 	border-radius: 2px;
+}
+
+.logo {
+	width:5rem;
+	height:5rem;
+	align-items: center;
+	justify-content: center;
 }
