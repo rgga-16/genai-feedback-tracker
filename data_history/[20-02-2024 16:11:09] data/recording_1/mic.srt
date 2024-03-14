@@ -1,4 +1,0 @@
-﻿1
-00:00:00,700 --> 00:00:04,913
-Speaker 0: Hello, one, two, three, testing, one, two, three.
-
