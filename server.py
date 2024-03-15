@@ -119,7 +119,7 @@ def embed_transcript():
                 'embedding': embeddings
             })
         else:
-            TRANSCRIPT_DATABASE = TRANSCRIPT_DATABASE.append(pd.DataFrame({
+            TRANSCRIPT_DATABASE = TRANSCRIPT_DATABASE.concat(pd.DataFrame({
                 'text': text_chunks,
                 'embedding': embeddings
             }), ignore_index=True)
