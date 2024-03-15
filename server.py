@@ -231,9 +231,11 @@ if __name__ == "__main__":
 
     if os.path.exists(DATA_DIR) and os.listdir(DATA_DIR):
         src_dir = DATA_DIR
-        current_date = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
-        dest_dir = os.path.join(HISTORY_DIR, f"[{current_date}] data")
-        shutil.copytree(src_dir, dest_dir)
+        current_date = datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
+        dest_dir = os.path.join(HISTORY_DIR, f"[{current_date}]_data")
+        shutil.copytree(src_dir, dest_dir) #BUG: does not work if using Windows. Reformat filenaming.
+        # BUG: [WinError 123] The filename, directory name, or volume label syntax is incorrect: 
+        # 'C:\\Users\\r-gal\\OneDrive\\Documents\\Academics\\PhD\\project-2\\data_history\\[14-03-2024 16:01:39] data'
         emptydir(src_dir, delete_dirs=True)
 
     
