@@ -17,7 +17,8 @@
     let videoPath;
     let micPath; 
 
-    let files;
+    let files, file_input;
+    let is_loading=false;
 
     function viewTranscript(transcript) {
         alert(transcript);
@@ -266,7 +267,7 @@
                     let micSrc = await fetchAudio(micPath);
                     let transcript = await transcribeMic(micPath);
 
-                    // let frames = await extractFrames(videoPath, transcript);
+                    let frames = await extractFrames(videoPath, transcript);
 
                     let newRecording = {video: videoSrc, audio: micSrc, transcription: transcript};
                     recordings = [...recordings, newRecording];
@@ -301,6 +302,7 @@
             }
             // Clear the file input
             files=null;
+            file_input.value='';
         }
     }
 </script>
@@ -360,7 +362,8 @@
 
         <div class="column centered spaced bordered">
             <label >Upload your own video or audio: </label>
-            <input bind:files type="file" id="file_upload" accept="video/*, audio/*" on:change={()=>handleFilesUpload()}/>
+            <input bind:files bind:this={file_input} type="file" id="file_upload" accept="video/*, audio/*"/>
+            <button on:click={()=> {handleFilesUpload(); }} > Upload Files</button> 
         </div>
     </div>
 </div>

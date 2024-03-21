@@ -1,5 +1,8 @@
 <script>
+    import SvelteMarkdown from 'svelte-markdown';
+    
     let is_enabled = false; 
+    let is_loading = false;
 
     export let recordings = [];
     let selected_recordings = [];
@@ -75,6 +78,8 @@
 
 </script>
 
+
+
 <div id="chatbot-page" class="column centered spaced" style="position:relative; height:100%;">   
     {#if !(is_enabled)}
         <h3> <b> Recordings </b> </h3>
@@ -104,28 +109,25 @@
                         {/if}
                     </div>
                 {/each}
-                
             {:else}
                 <p class="centered"> No recordings added yet. Make or add your own recordings in the Capture Panel. </p>
             {/if}
         </div>
         <button disabled={selected_recordings.length <= 0} on:click|preventDefault={()=>startChatbot()}> Start Chatbot </button>
     {:else}
-        <h3> <b> Chatbot </b> </h3>
-        <div id="messages" class="column spaced bordered">
+        <div id="messages" class="column spaced">
             {#each messages as message, i}
                 <div id={message.role} class="column spaced">
                     <strong> {message.role} </strong>
-                    <p>{message.text}</p>
+                    <SvelteMarkdown source={message.text} />
                 </div>
             {/each}
-            
+            <div id="white-gap" class="padded"> </div>
         </div>
-        <div id="input" class="row centered spaced bordered">
+        <div id="input" class="row centered padded spaced bordered">
             <textarea bind:value="{inputMessage}" id="user" placeholder="Type a message..."></textarea>
             <button id="send" on:click|preventDefault={()=>sendMessage(inputMessage)}> Send </button>
         </div>
-            
     {/if}
 
     
@@ -153,6 +155,13 @@
         overflow-y:auto; 
         width: 100%;
         height: 82%;
+    }
+
+    #white-gap{
+        height: 30%;
+        width: 100%;
+        background-color: white;
+        color:white;
     }
 
     .grid {

@@ -144,23 +144,23 @@ def extract_frames_per_timestamp():
     timestamps = [(convert_to_ms(start), convert_to_ms(end)) for start, end in timestamps]
     timestamp_midpoints = [(int(round(start + end) / 2)) for start, end in timestamps]
     cap = cv2.VideoCapture(video_path)
-
     frames = []
-
     # BUG: Get the frames per second. But it's so slow!! How to make this better?
     frame_rate = cap.get(cv2.CAP_PROP_FPS)
     start_time = time.time()
 
-    
-    frames = extract_frames_by_timestamp(video_path, DATA_DIR, timestamp_midpoints, overwrite=False, every=25)
+    # frames = extract_frames_by_timestamp(video_path, DATA_DIR, timestamp_midpoints, overwrite=False, every=25)
 
-    # for i, (start, end) in enumerate(timestamps):   
-    #     midpoint = (start + end) / 2
-    #     cap.set(cv2.CAP_PROP_POS_MSEC, midpoint)
-    #     success, image = cap.read()
-    #     recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}") 
-    #     makedir(recording_dir)
-    #     frames.append({midpoint: image})
+    for i, (start, end) in enumerate(timestamps):   
+        intermediate_start = time.time()
+        midpoint = (start + end) / 2
+        cap.set(cv2.CAP_PROP_POS_MSEC, midpoint)
+        success, image = cap.read()
+        recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}") 
+        makedir(recording_dir)
+        frames.append({midpoint: image})
+        intermediate_end = time.time()
+        print(f"Time taken to extract frame {i+1}/{len(timestamps)}: {intermediate_end - intermediate_start} seconds")
     end_time = time.time()
 
     execution_time = end_time - start_time
@@ -233,9 +233,7 @@ if __name__ == "__main__":
         src_dir = DATA_DIR
         current_date = datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
         dest_dir = os.path.join(HISTORY_DIR, f"[{current_date}]_data")
-        shutil.copytree(src_dir, dest_dir) #BUG: does not work if using Windows. Reformat filenaming.
-        # BUG: [WinError 123] The filename, directory name, or volume label syntax is incorrect: 
-        # 'C:\\Users\\r-gal\\OneDrive\\Documents\\Academics\\PhD\\project-2\\data_history\\[14-03-2024 16:01:39] data'
+        shutil.copytree(src_dir, dest_dir) 
         emptydir(src_dir, delete_dirs=True)
 
     

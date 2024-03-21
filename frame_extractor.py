@@ -59,7 +59,6 @@ def extract_frames(video_path, frames_dir, overwrite=False, start=-1, end=-1, ev
 
     # load the VideoReader
     vr = VideoReader(video_path, ctx=cpu(0))  # can set to cpu or gpu .. ctx=gpu(0)
-
     if start < 0:  # if start isn't specified lets assume 0
         start = 0
     if end < 0:  # if end isn't specified assume the end of the video
@@ -70,7 +69,6 @@ def extract_frames(video_path, frames_dir, overwrite=False, start=-1, end=-1, ev
 
     if every > 25 and len(frames_list) < 1000:  # this is faster for every > 25 frames and can fit in memory
         frames = vr.get_batch(frames_list).asnumpy()
-
         for index, frame in zip(frames_list, frames):  # lets loop through the frames until the end
             save_path = os.path.join(frames_dir, video_filename, "{:010d}.jpg".format(index))  # create the save path
             if not os.path.exists(save_path) or overwrite:  # if it doesn't exist or we want to overwrite anyways
@@ -80,7 +78,6 @@ def extract_frames(video_path, frames_dir, overwrite=False, start=-1, end=-1, ev
     else:  # this is faster for every <=25 and consumes small memory
         for index in range(start, end):  # lets loop through the frames until the end
             frame = vr[index]  # read an image from the capture
-            
             if index % every == 0:  # if this is a frame we want to write out based on the 'every' argument
                 save_path = os.path.join(frames_dir, video_filename, "{:010d}.jpg".format(index))  # create the save path
                 if not os.path.exists(save_path) or overwrite:  # if it doesn't exist or we want to overwrite anyways
