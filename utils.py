@@ -1,4 +1,5 @@
 import os, shutil
+from skimage.metrics import structural_similarity as ssim
 
 def makedir(dir_path):
     try:
@@ -20,3 +21,4 @@ def emptydir(dir,delete_dirs=False):
                 shutil.rmtree(file_path)
         except Exception as e:
             print(f'Failed to delete {file_path}. Reason: {e}')
+
