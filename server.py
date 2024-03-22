@@ -162,11 +162,13 @@ def extract_frames_per_timestamp():
         recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}") 
         makedir(recording_dir)
 
-        save_path = os.path.join(recording_dir,f"frame_{i+1}.png")
-        
-        cv2.imwrite(save_path, image)
-
-        timestamp_frames.append({midpoint:save_path})
+        if image is not None:
+            save_path = os.path.join(recording_dir,f"frame_{i+1}.png")
+            timestamp_frames.append({midpoint:save_path})
+            cv2.imwrite(save_path, image)
+        else:
+            print(f"Frame extraction failed. Frame {i+1}/{len(timestamps)} not saved.")
+            timestamp_frames.append({midpoint:None})
 
         intermediate_end = time.time()
         print(f"Time taken to extract frame {i+1}/{len(timestamps)}: {intermediate_end - intermediate_start} seconds")
