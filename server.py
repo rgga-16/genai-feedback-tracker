@@ -102,6 +102,7 @@ def embed_transcript():
     global TRANSCRIPT_DATABASE
     form_data = request.get_json()
     transcripts = form_data["transcripts"]
+    timestamp_frames = form_data["frames"]
     for i in range(len(transcripts)):
         transcript = transcripts[i]
         dialogues = extract_lines_from_string(transcript)
@@ -123,6 +124,11 @@ def embed_transcript():
                 'text': text_chunks,
                 'embedding': embeddings
             }), ignore_index=True)
+        
+        recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}") 
+        makedir(recording_dir)
+        transcript_db_path = os.path.join(recording_dir, f"transcript.csv")
+        TRANSCRIPT_DATABASE.to_csv(transcript_db_path)
     return {"message": "Transcripts embedded"}
 
 def convert_to_ms(timestamp):
@@ -142,23 +148,26 @@ def extract_frames_per_timestamp():
     timestamps = re.findall(r'(\d{2}:\d{2}:\d{2},\d{3}) --> (\d{2}:\d{2}:\d{2},\d{3})', transcript)
 
     timestamps = [(convert_to_ms(start), convert_to_ms(end)) for start, end in timestamps]
-    timestamp_midpoints = [(int(round(start + end) / 2)) for start, end in timestamps]
     cap = cv2.VideoCapture(video_path)
-    frames = []
-    # BUG: Get the frames per second. But it's so slow!! How to make this better?
-    frame_rate = cap.get(cv2.CAP_PROP_FPS)
+
+    timestamp_frames = []
+
     start_time = time.time()
-
-    # frames = extract_frames_by_timestamp(video_path, DATA_DIR, timestamp_midpoints, overwrite=False, every=25)
-
     for i, (start, end) in enumerate(timestamps):   
+        timestamp=timestamps[i]
         intermediate_start = time.time()
         midpoint = (start + end) / 2
         cap.set(cv2.CAP_PROP_POS_MSEC, midpoint)
         success, image = cap.read()
         recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}") 
         makedir(recording_dir)
-        frames.append({midpoint: image})
+
+        save_path = os.path.join(recording_dir,f"frame_{i+1}.png")
+        
+        cv2.imwrite(save_path, image)
+
+        timestamp_frames.append({midpoint:save_path})
+
         intermediate_end = time.time()
         print(f"Time taken to extract frame {i+1}/{len(timestamps)}: {intermediate_end - intermediate_start} seconds")
     end_time = time.time()
@@ -166,7 +175,7 @@ def extract_frames_per_timestamp():
     execution_time = end_time - start_time
     print(f"Execution time: {execution_time} seconds")
     cap.release()
-    return {"frames": frames}
+    return {"timestamp_frames": timestamp_frames}
 
 @app.route("/chatbot_init_message", methods=["POST"])
 def get_initial_message():
