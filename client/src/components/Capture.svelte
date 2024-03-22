@@ -19,6 +19,8 @@
 
     let files, file_input;
     let is_loading=false;
+    let file_load_progress=0; 
+    let file_load_status = "";
 
     function viewTranscript(transcript) {
         alert(transcript);
@@ -177,6 +179,7 @@
     async function stopRecording() {
         is_recording=false;
         is_paused=false;
+        is_loading=true; 
 
         videoStream.getTracks().forEach(track => track.stop());
         micStream.getTracks().forEach(track => track.stop());
@@ -184,18 +187,26 @@
         videoPath = await sendVideoToServer(videoChunks); //Bug workaround: Do this for the first time because newly created vidblob is empty during first time.
         videoPath = await sendVideoToServer(videoChunks); 
         videoChunks = [];
+        
         let videoSrc = await fetchVideo(videoPath);
         
         micPath = await sendAudioToServer(micBlobs); 
         micBlobs = [];
         let micSrc = await fetchAudio(micPath);
 
+        file_load_status="Transcribing audio (this may take a while) ...";
+        file_load_progress=50;
         let transcript = await transcribeMic(micPath);
+        file_load_progress=80;
+        file_load_status="Extracting video frames from transcript timestamps...";
+        let timestamp_frames = await extractFrames(videoPath, transcript);
 
-        let newRecording = {video: videoSrc, audio: micSrc, transcription: transcript};
+        let newRecording = {video: videoSrc, audio: micSrc, transcription: transcript, timestamp_frames: timestamp_frames};
 
         recordings = [...recordings, newRecording];
         await incrementRecordNumber();
+        file_load_progress=100;
+        is_loading=false;
     }
 
     function pauseRecording() {
@@ -245,38 +256,45 @@
             throw new Error('Failed to extract frames');
         } else {
             const json = await response.json();
-            let frames = json["frames"];
+            let timestamp_frames = json["timestamp_frames"];
             return frames;
         }
     }
 
     async function handleFilesUpload() {
+        is_loading=true;
         if(files) {
             for (const file of files) {
                 if(file.type.includes('video')) {
                     let videoSrc = URL.createObjectURL(file);
+                    file_load_status="Retrieving audio...";
+                    file_load_progress=10;
                     [micPath, videoPath] = await extractAudioFromVideo(file);
-
                     console.log({micPath, videoPath});
-
                     if(!micPath) {
                         micPath = null;
                         videoPath = null;
                         throw new Error('Failed to extract audio from video');
                     } 
                     let micSrc = await fetchAudio(micPath);
+                    file_load_status="Transcribing audio (this may take a while) ...";
+                    file_load_progress=50;
                     let transcript = await transcribeMic(micPath);
+                    file_load_progress=80;
+                    file_load_status="Extracting video frames from transcript timestamps...";
+                    let timestamp_frames = await extractFrames(videoPath, transcript);
 
-                    let frames = await extractFrames(videoPath, transcript);
-
-                    let newRecording = {video: videoSrc, audio: micSrc, transcription: transcript};
+                    let newRecording = {video: videoSrc, audio: micSrc, transcription: transcript, timestamp_frames: timestamp_frames};
                     recordings = [...recordings, newRecording];
                     micPath=null;
                     videoPath=null;
                     await incrementRecordNumber();
+                    file_load_progress=100;
                 } else if(file.type.includes('audio')) {
                     let audioSrc = URL.createObjectURL(file);
                     // Save the audio file and get its path
+                    file_load_status="Retrieving audio...";
+                    file_load_progress=10;
                     const formData = new FormData();
                     formData.append('audio', file);
                     const response = await fetch('/download_mic', {
@@ -292,6 +310,8 @@
                     micPath = json["filepath"];
 
                     // Transcribe the audio
+                    file_load_status="Transcribing audio (this may take a while) ...";
+                    file_load_progress=50;
                     let transcript = await transcribeMic(micPath);
                     let newRecording = {video: null, audio: audioSrc, transcription: transcript};
                     recordings = [...recordings, newRecording];
@@ -304,6 +324,7 @@
             files=null;
             file_input.value='';
         }
+    is_loading=false;
     }
 </script>
 
@@ -331,6 +352,9 @@
                     {/if}
                 </div>
             {/each}
+        {:else if is_loading}
+            <label for="progress-bar">{file_load_status}</label>
+            <progress id="progress-bar" value={file_load_progress} max=100></progress>
         {:else}
             <p >No recordings made yet.</p>
         {/if}
@@ -362,7 +386,7 @@
 
         <div class="column centered spaced bordered">
             <label >Upload your own video or audio: </label>
-            <input bind:files bind:this={file_input} type="file" id="file_upload" accept="video/*, audio/*"/>
+            <input bind:files bind:this={file_input} type="file" id="file_upload" accept="video/*, audio/*" multiple/>
             <button on:click={()=> {handleFilesUpload(); }} > Upload Files</button> 
         </div>
     </div>
