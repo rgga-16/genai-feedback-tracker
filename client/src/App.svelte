@@ -1,41 +1,70 @@
 <script>
+	import { onMount } from 'svelte';
+
+	import Capture from './components/Capture.svelte';
+	import FeedbackSelector from './components/FeedbackSelector.svelte';
+	import FeedbackList from './components/FeedbackList.svelte';
+
+	let currentStep = 0;
+
 	let recordings;
-	import Capture from "./components/Capture.svelte";
-	import Chatbot from "./components/Chatbot.svelte";
+	let recording=null;
 
+	function next() {
+		if (currentStep < steps.length - 1) {
+		currentStep += 1;
+		}
+	}
 
+	function prev() {
+		if (currentStep > 0) {
+		currentStep -= 1;
+		}
+	}
 
-
+	
 </script>
 
-<main>
-	<div class="mb-4 border-b border-gray-200 dark:border-gray-700">
-		<ul class="flex flex-wrap -mb-px text-sm font-medium text-center w-full" id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist">
-			<li class="me-2" role="presentation">
-				<button class="inline-block p-4 border-b-2 rounded-t-lg" id="capture-tab" data-tabs-target="#capture" type="button" role="tab" aria-controls="capture" aria-selected="false">Capture</button>
-			</li>
-			<li class="me-2" role="presentation">
-				<button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="chatbot-tab" data-tabs-target="#chatbot" type="button" role="tab" aria-controls="chatbot" aria-selected="false">Chatbot</button>
-			</li>
-		</ul>
-	</div>
-	<div id="default-tab-content" class="bordered" style="position:relative; height:92%; width:auto;" >
-		<div class="hidden rounded-lg bg-white tab-content" id="capture" role="tabpanel" aria-labelledby="capture-tab" > 
-			<Capture bind:recordings={recordings} />
-		</div>
+<style>
+	.carousel-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		height: 95%;
+	}
 
-		
-		<div class="hidden rounded-lg bg-white tab-content" id="chatbot" role="tabpanel" aria-labelledby="chatbot-tab" >
-			<Chatbot bind:recordings={recordings} />
-		</div>
+	.navigation {
+		/* margin-top: 10px; */
+		height: 5%;
+	}
+
+	button {
+		margin: 0 10px;
+	}
+</style>
+
+<main>
+	<div class="carousel-container">
+		{#if currentStep===0}
+			<Capture bind:recordings={recordings} bind:selectedRecording={recording}/>
+		{:else if currentStep===1}
+			<FeedbackSelector bind:recording={recording}/>
+		{:else}
+			<FeedbackList />
+		{/if}
+	</div>
+	<div class="navigation centered spaced bordered">
+		{#if currentStep===0}
+			<button on:click={prev} disabled={currentStep === 0}>Previous</button>
+			<button on:click={next} disabled={recording === null}>Next</button>
+		{:else if currentStep===1}
+			<button on:click={prev} disabled={currentStep === 0}>Previous</button>
+			<button on:click={next} disabled={currentStep === steps.length - 1}>Next</button>
+		{:else}
+			<button on:click={prev} disabled={currentStep === 0}>Previous</button>
+			<button on:click={next} disabled={currentStep === steps.length - 1}>Next</button>
+		{/if}
 	</div>
 </main>
 
-<style>
-
-	.tab-content{
-		height: 100%;
-		width:auto;
-	}
-
-</style>
