@@ -1,17 +1,18 @@
 <script>
 	import { onMount } from 'svelte';
 
-	import Capture from './components/Capture.svelte';
 	import FeedbackSelector from './components/FeedbackSelector.svelte';
 	import FeedbackList from './components/FeedbackList.svelte';
 
 	let currentStep = 0;
+	let steps=2;
 
 	let recordings;
 	let recording=null;
+	
 
 	function next() {
-		if (currentStep < steps.length - 1) {
+		if (currentStep < steps - 1) {
 		currentStep += 1;
 		}
 	}
@@ -47,24 +48,14 @@
 <main>
 	<div class="carousel-container">
 		{#if currentStep===0}
-			<Capture bind:recordings={recordings} bind:selectedRecording={recording}/>
-		{:else if currentStep===1}
 			<FeedbackSelector bind:recording={recording}/>
 		{:else}
 			<FeedbackList />
 		{/if}
 	</div>
 	<div class="navigation centered spaced bordered">
-		{#if currentStep===0}
-			<button on:click={prev} disabled={currentStep === 0}>Previous</button>
-			<button on:click={next} disabled={recording === null}>Next</button>
-		{:else if currentStep===1}
-			<button on:click={prev} disabled={currentStep === 0}>Previous</button>
-			<button on:click={next} disabled={currentStep === steps.length - 1}>Next</button>
-		{:else}
-			<button on:click={prev} disabled={currentStep === 0}>Previous</button>
-			<button on:click={next} disabled={currentStep === steps.length - 1}>Next</button>
-		{/if}
+		<button on:click={prev} disabled={currentStep === 0}>Previous</button>
+		<button on:click={next} disabled={currentStep === steps.length - 1}>Next</button>
 	</div>
 </main>
 

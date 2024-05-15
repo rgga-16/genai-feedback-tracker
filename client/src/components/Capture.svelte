@@ -327,7 +327,8 @@
     <div id="recordings-panel" class="spaced padded bordered {recordings.length > 0 ? "grid" : "column centered"}" >
         {#if recordings.length > 0}
             {#each recordings as recording, i}
-                <label for="option_{i}" class="column centered spaced bordered padded" class:selected={recording===selectedRecording}>
+                <label for="option_{i}" class="recording column centered spaced bordered padded" class:selected={recording===selectedRecording}>
+                    <input type="radio" bind:group={selectedRecording} name="option_{i}" value={recording}>
                     <span> <strong> Recording {i+1} </strong></span>
                     {#if recording.video}
                         <video src={recording.video} controls>
@@ -338,12 +339,7 @@
                     {:else}
                         <span> No video and audio available </span>
                     {/if}
-                    <!-- {#if recording.transcription}
-                        <button on:click|preventDefault={()=>viewTranscript(recording.transcription)}> View Transcript </button>
-                    {:else}
-                        <span> No transcription available </span>
-                    {/if} -->
-                    <input type="radio" bind:group={selectedRecording} name="option_{i}" value={recording}>
+                    
                 </label>
             {/each}
         {:else if is_loading}
@@ -388,7 +384,7 @@
         <div class="column centered spaced">
             <label for="file_upload" >Upload your own video or audio recording: </label>
             <input name="file_upload" bind:files bind:this={file_input} type="file" id="file_upload" accept="video/*, audio/*" multiple/>
-            <button on:click={()=> {handleFilesUpload(); }} > Upload files</button> 
+            <button on:click={()=> {handleFilesUpload(); }} disabled={is_loading}> Upload files</button> 
         </div>
     </div>
 
@@ -442,14 +438,14 @@
         border: 0.25rem solid blue;
     }
 
-    #recording:hover {
+    .recording:hover {
         cursor:pointer;
         border: 0.25rem solid lightgray;
     }
 
-    input[type="radio"] {
+    /* .recording input[type="radio"] {
         opacity: 0;
         position: fixed;
         width:0; 
-    }
+    } */
 </style>
