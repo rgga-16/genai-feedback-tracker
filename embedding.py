@@ -6,44 +6,47 @@ from scipy import spatial
 
 EMBEDDING_MODEL = "text-embedding-3-small"
 
-def extract_lines_from_string(content, diarized=True):
-    pattern = re.compile(r'(\d+)\n(\d{2}:\d{2}:\d{2},\d{3}) --> (\d{2}:\d{2}:\d{2},\d{3})\n(.+?): (.+?)(?=\n\n\d+|\Z)', re.DOTALL)
-    matches = pattern.findall(content)
+def extract_lines_from_srt_string(content, diarized=True):
     result = []
-    for match in matches:
-        result.append({
-            'start_timestamp': match[1],
-            'end_timestamp': match[2],
-            'speaker': match[3],
-            'dialogue': match[4].replace('\n', ' ')
-        })
+    if diarized:
+        pattern = re.compile(r'(\d+)\n(\d{2}:\d{2}:\d{2},\d{3}) --> (\d{2}:\d{2}:\d{2},\d{3})\n(.+?): (.+?)(?=\n\n\d+|\Z)', re.DOTALL)
+        matches = pattern.findall(content)
+        for match in matches:
+            result.append({
+                'start_timestamp': match[1],
+                'end_timestamp': match[2],
+                'speaker': match[3],
+                'dialogue': match[4].replace('\n', ' ')
+            })
+    else:
+        pattern = re.compile(r'(\d+)\s+(\d{2}:\d{2}:\d{2},\d{3}) --> (\d{2}:\d{2}:\d{2},\d{3})\s+(.+?)\s+(?=\d+\s+\d{2}:\d{2}:\d{2},\d{3} -->|\Z)', re.DOTALL)
+        matches = pattern.findall(content)
+        for match in matches:
+            result.append({
+                'start_timestamp': match[1],
+                'end_timestamp': match[2],
+                'dialogue': match[3].replace('\n', ' ')
+            })
     return result
 
-def extract_lines_from_srt(file_path, diarized=True):
+def extract_lines_from_srt_file(file_path, diarized=True):
+    result = []
     with codecs.open(file_path, 'r', encoding='utf-8') as f:
         content = f.read()
-    pattern = re.compile(r'(\d+)\n(\d{2}:\d{2}:\d{2},\d{3}) --> (\d{2}:\d{2}:\d{2},\d{3})\n(.+?): (.+?)(?=\n\n\d+|\Z)', re.DOTALL)
-    matches = pattern.findall(content)
-    result = []
-    for match in matches:
-        result.append({
-            'start_timestamp': match[1],
-            'end_timestamp': match[2],
-            'speaker': match[3],
-            'dialogue': match[4].replace('\n', ' ')
-        })
+    result = extract_lines_from_srt_string(content, diarized)
+    f.close()
     return result
 
-def simplify_dialogues(dialogues):
+def simplify_transcript_list(transcript_list):
     simplified = []
-    for dialogue in dialogues:
-        if simplified and simplified[-1]['speaker'] == dialogue['speaker']:
+    for excerpt in transcript_list:
+        if simplified and simplified[-1]['speaker'] == excerpt['speaker']:
             # If the speaker is the same as the previous one, update the end timestamp and append the dialogue
-            simplified[-1]['end_timestamp'] = dialogue['end_timestamp']
-            simplified[-1]['dialogue'] += ' ' + dialogue['dialogue']
+            simplified[-1]['end_timestamp'] = excerpt['end_timestamp']
+            simplified[-1]['dialogue'] += ' ' + excerpt['dialogue']
         else:
             # If the speaker is different, append the current dialogue to the result list
-            simplified.append(dialogue)
+            simplified.append(excerpt)
     return simplified
 
 def convert_to_srt_string(dialogues):
