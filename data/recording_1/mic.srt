@@ -1,8 +1,0 @@
-﻿1
-00:00:00,380 --> 00:00:02,194
-Speaker 0: Hello testing one two three.
-
-2
-00:00:02,234 --> 00:00:02,976
-Speaker 0: testing one two three.
-
