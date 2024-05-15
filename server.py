@@ -97,6 +97,19 @@ def download_mic_recording():
         return {"message": "Mic recording saved", "filepath": filepath}
     return {"message": "Mic recording not saved"}
 
+@app.route("/transcript_to_list", methods=["POST"])
+def transcripts_to_list():
+    form_data = request.get_json()
+    transcript = form_data["transcript"]
+
+    transcript_list = extract_lines_from_srt_string(transcript)
+
+    if(len(transcript_list)>=500 and "speaker" in transcript_list[0]):
+        transcript_list = simplify_transcript_list(transcript_list)
+
+
+    return {"transcript_list": transcript_list}
+
 @app.route("/embed_transcripts", methods=["POST"])
 def embed_transcript():
     global TRANSCRIPT_DATABASE
@@ -105,10 +118,10 @@ def embed_transcript():
     timestamp_frames = form_data["frames"]
     for i in range(len(transcripts)):
         transcript = transcripts[i]
-        dialogues = extract_lines_from_string(transcript)
+        dialogues = extract_lines_from_srt_string(transcript)
         simplified_dialogues = dialogues
         if "speaker" in dialogues[0]:
-            simplified_dialogues = simplify_dialogues(dialogues)
+            simplified_dialogues = simplify_transcript_list(dialogues)
         srt = convert_to_srt_string(simplified_dialogues)
         text_chunks = divide_into_chunks(f"Transcript {i+1}",simplified_dialogues)
         embeddings = []
