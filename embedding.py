@@ -13,16 +13,19 @@ def extract_lines_from_srt_string(content, diarized=True):
         matches = pattern.findall(content)
         for match in matches:
             result.append({
+                'id': int(match[0]),
                 'start_timestamp': match[1],
                 'end_timestamp': match[2],
                 'speaker': match[3],
                 'dialogue': match[4].replace('\n', ' ')
             })
     else:
+        
         pattern = re.compile(r'(\d+)\s+(\d{2}:\d{2}:\d{2},\d{3}) --> (\d{2}:\d{2}:\d{2},\d{3})\s+(.+?)\s+(?=\d+\s+\d{2}:\d{2}:\d{2},\d{3} -->|\Z)', re.DOTALL)
         matches = pattern.findall(content)
         for match in matches:
             result.append({
+                'id': int(match[0]),
                 'start_timestamp': match[1],
                 'end_timestamp': match[2],
                 'dialogue': match[3].replace('\n', ' ')
@@ -114,10 +117,10 @@ def strings_ranked_by_relatedness(
 
 
 if __name__ == '__main__':
-    dialogues = extract_lines_from_srt('sample_recording/whisper_diarization/audio1751904076.srt')
+    dialogues = extract_lines_from_srt_file('sample_recording/whisper_diarization/audio1751904076.srt')
     simplified_dialogues = dialogues
     if "speaker" in dialogues[0]:
-        simplified_dialogues = simplify_dialogues(dialogues)
+        simplified_dialogues = simplify_transcript_list(dialogues)
     srt = convert_to_srt_string(simplified_dialogues)
 
     text_chunks = divide_into_chunks("Transcript 1",simplified_dialogues)
