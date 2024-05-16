@@ -4,8 +4,8 @@ import tiktoken
 
 
 client = OpenAI()
-model_name = "gpt-4-1106-preview"
-max_tokens=100000
+model_name = "gpt-3.5-turbo"
+max_tokens=16385
 encoding = tiktoken.get_encoding("cl100k_base")
 
 temperature=0.0
@@ -63,21 +63,15 @@ def check_and_trim_message_history():
     global max_tokens
     global model_name 
 
-    model_name_ = model_name
-    if(model_name=="gpt-4-1106-preview"):
-        model_name_="gpt-4"
-
-    if num_tokens_from_messages(message_history, model=model_name_) > max_tokens:
+    if num_tokens_from_messages(message_history, model=model_name) > max_tokens:
         print("Current number of tokens in message history exceeds the maximum number of tokens allowed. Trimming message history.")
-        while num_tokens_from_messages(message_history, model=model_name_) > max_tokens - offset:
+        while num_tokens_from_messages(message_history, model=model_name) > max_tokens - offset:
             del message_history[1] # Delete the 2nd message in the history. The first message is always the system prompt, which should not be deleted.
 
 def query(query,role="user", temp=temperature):
     global message_history
 
     # Retrieve n embeddings 
-    
-
     message_history.append({"role":role, "content":query})
     check_and_trim_message_history()
 
