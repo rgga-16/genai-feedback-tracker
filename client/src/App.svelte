@@ -7,8 +7,8 @@
 	let currentStep = 0;
 	let steps=2;
 
-	let recordings;
 	let recording=null;
+	let feedback_list;
 	
 
 	function next() {
@@ -48,7 +48,7 @@
 <main>
 	<div class="carousel-container">
 		{#if currentStep===0}
-			<FeedbackSelector bind:recording={recording}/>
+			<FeedbackSelector bind:recording={recording} bind:feedback_list={feedback_list}/>
 		{:else}
 			<FeedbackList />
 		{/if}
