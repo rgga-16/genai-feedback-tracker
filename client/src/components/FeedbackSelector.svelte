@@ -22,6 +22,8 @@
     let file_load_progress=0; 
     let file_load_status = "";
 
+    let html_break = "<br>";
+
     let premade_transcript =`
 1 
 00:00:00,000 --> 00:00:10,000 
@@ -484,9 +486,6 @@ Professor: Great. Let's move on to the next student's work. Thank you, Sarah.
     }
     ];
 
-
-    
-
     async function incrementRecordNumber() {
         let response = await fetch('/increment_record_number', {
             method: 'POST',
@@ -793,28 +792,19 @@ Professor: Great. Let's move on to the next student's work. Thank you, Sarah.
 </script>
 
 <div div class="row spaced" id="feedback-selector-page">
-    <div id="left-panel" class="column centered spaced" style="padding-bottom: 1rem;">
+    <div id="left-panel" class="column spaced" style="padding-bottom: 1rem;">
 
         <!-- #BUG: this div clips the transcript even if overflow-y is set.  -->
-        <div id="transcript-area" class="column bordered centered padded spaced" style="overflow-y:auto">
-            {#if recording && recording.transcript_list}
-                {#each recording.transcript_list as excerpt, index}
-                    <div class="row spaced" style="width: 100%; height: auto;">
-                        <span>{excerpt.start_timestamp} - {excerpt.end_timestamp}</span>
-                        <p>
-                            {excerpt.speaker ? excerpt.speaker+": " : ""}{excerpt.dialogue}
-                        </p>
-                    </div>
-                {/each}
-            {:else if premade_transcript_list}
-                {#each premade_transcript_list as excerpt, index}
-                    <div class="row spaced" style="width: 100%; height: auto;">
-                        <span>{excerpt.start_timestamp} - {excerpt.end_timestamp}</span>
-                        <p>
-                            {excerpt.speaker ? excerpt.speaker+": " : ""}{excerpt.dialogue}
-                        </p> 
-                    </div>
-                {/each}
+        <div id="transcript-area" class="column bordered spaced">
+            {#if recording && recording.transcript_list || premade_transcript_list}
+                <p class="spaced padded"> 
+                    {#each (recording && recording.transcript_list) || premade_transcript_list as excerpt, index}
+                        {#if index !== 0}
+                            <br>
+                        {/if}
+                        [{excerpt.start_timestamp} - {excerpt.end_timestamp}]<br>{excerpt.speaker ? `${excerpt.speaker}: ` : ""}{excerpt.dialogue}<br>
+                    {/each}
+                </p>
             {:else}
                 <span> No discussion transcript loaded. Please first record or upload your discussion. </span>
             {/if}
@@ -887,7 +877,7 @@ Professor: Great. Let's move on to the next student's work. Thank you, Sarah.
         </div>
     </div>
 
-    <div id="right-panel" class="column centered spaced" style="padding-bottom: 1rem;">
+    <div id="right-panel" class="column spaced" style="padding-bottom: 1rem;">
         <div id="media-player-area" class="bordered">
             {#if recording && recording.video}
                 <video src={recording.video} controls style="width: 100%; height: 100%;">
@@ -925,13 +915,12 @@ Professor: Great. Let's move on to the next student's work. Thank you, Sarah.
     }
 
     #transcript-area {
-        position: relative;
         width:100%;
         height:80%;
+        overflow-y: auto;
     }
 
     #transcript-buttons-area {
-        position: relative;
         width:100%;
         height:20%;
     }
