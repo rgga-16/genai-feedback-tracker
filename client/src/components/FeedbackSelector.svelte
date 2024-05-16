@@ -1,5 +1,6 @@
 <script>
     export let recording;
+    export let feedback_list;
 
     let is_recording=false;
     let is_paused=false;
@@ -785,10 +786,70 @@ Professor: Great. Let's move on to the next student's work. Thank you, Sarah.
         return transcript_list;
     }
 
+    async function autoDetectFeedback(transcript_list) {
+        let feedback_list = [];
+        console.log(transcript_list);
+        for (let i = 0; i < transcript_list.length; i++) {
+            let excerpt = transcript_list[i];
+            console.log(excerpt);
+            let input_dialogue=excerpt.dialogue;
+            // if(excerpt.speaker) {
+            //     input_dialogue = `${excerpt.speaker}: ${input_dialogue}`;
+            // }
 
+            const response = await fetch("/autodetect_feedback", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({transcript: input_dialogue})
+            });
+            if(!response.ok) {
+                throw new Error("Failed to detect feedback");
+            }
+            const json = await response.json();
+            let list = json["feedback_list"];
+            console.log(list);
+
+            // Add the excerpt id to each feedback
+            for(let j=0; j < list.length; j++) {
+                let feedback = list[j];
+                feedback.excerpt_id=excerpt.id;
+                feedback_list.push(feedback);
+            }
+        }
+        return feedback_list;   
+    }
+
+    function autoHighlightFeedback(feedback_list, transcript_list) {
+        for(let i=0; i < feedback_list.length; i++) {
+            let feedback=feedback_list[i];
+            let feedback_type = feedback.type;
+            if (feedback.type!="positive" && feedback.type!="critical") {
+                continue;
+            }
+            // let highlight_color = feedback_type === "positive" ? "green" : feedback_type === "critical" ? "red" : null;
+
+
+            let excerpt_id = feedback.excerpt_id;
+            let excerpt;
+            for(let j = 0; j < transcript_list.length; j++) {
+                let e = transcript_list[j];
+                if(e.id === excerpt_id) {
+                    excerpt = e;
+                    break;
+                }
+            }
+            
+            let dialogue = excerpt.dialogue;
+            let start_index = dialogue.indexOf(feedback.quote);
+            let end_index = start_index + feedback.quote.length;
+            let highlighted_dialogue = dialogue.slice(0, start_index) + `<span class="${feedback_type}">${feedback.quote}</span>` + dialogue.slice(end_index);
+            excerpt.dialogue = highlighted_dialogue;
+        }
     
-    
-    let feedback_list = [];
+    }
+
 </script>
 
 <div div class="row spaced" id="feedback-selector-page">
@@ -850,25 +911,38 @@ Professor: Great. Let's move on to the next student's work. Thank you, Sarah.
                         <button on:click={async () => {
                                     is_loading=true;
                                     await handleFilesUpload();
-                                    console.log(recording.transcript_list);
                                     is_loading=false;
                                 }} 
-                        disabled={is_loading}> Upload files</button> 
+                        disabled={is_loading || !files || files.length===0}> Upload files</button> 
                     </div>
                 </div>
             </div>
             <div id="feedback-highlight-panel" class ="column bordered spaced ">
                 <span style="font-weight: bold; text-decoration: underline; margin-left: 1rem;"> Step 2: Highlight feedback in the transcript.</span>
                 <div class="row centered spaced">
-                    <button class = "action-button"> 
+                    <button class = "action-button" 
+                        disabled={!recording || !recording.transcript_list || is_loading}
+                        on:click={async () => {
+                            is_loading=true;
+                            feedback_list =  await autoDetectFeedback(recording.transcript_list);
+                            autoHighlightFeedback(feedback_list, recording.transcript_list);
+                            console.log(feedback_list)
+                            console.log(recording.transcript_list)
+                            is_loading=false;
+                        }}
+                    > 
                         <img src="./logos/magnifying-glass-for-search-3-svgrepo-com.svg" alt="Auto-detect Feedback" class="logo">
                         Auto-detect
                     </button>
-                    <button class="action-button"> 
+                    <button class="action-button"
+                        disabled={!recording || !recording.transcript_list || is_loading}
+                    > 
                         <img src="./logos/highlight-svgrepo-com.svg" alt="Highlight Feedback" class="logo">
                         Highlight 
                     </button>
-                    <button class="action-button"> 
+                    <button class="action-button"
+                        disabled={!recording || !recording.transcript_list || is_loading}
+                    > 
                         <img src="./logos/delete-svgrepo-com.svg" alt="De-highlight Feedback" class="logo">
                         De-highlight
                     </button>
@@ -959,6 +1033,14 @@ Professor: Great. Let's move on to the next student's work. Thank you, Sarah.
         height: 100%;
         width: auto; 
         border: 0 none;
+    }
+
+    .positive {
+        background-color:lightgreen
+    }
+
+    .critical{
+        background-color:lightcoral
     }
 
 </style>

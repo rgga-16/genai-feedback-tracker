@@ -223,6 +223,15 @@ def message_chatbot():
 
     return {"chatbot_response": response}
 
+@app.route("/autodetect_feedback", methods=["POST"])
+def autodetect_feedback():
+    form_data = request.get_json()
+    # TODO: Input should be larger chunks of the transcript rather than individual lines
+    transcript = form_data["transcript"]
+    feedback_list = detect_feedback(transcript)
+
+    return {"feedback_list": feedback_list}
+
 
 @app.route("/extract_audio_from_video", methods=["POST"])
 def extract_audio_from_video():

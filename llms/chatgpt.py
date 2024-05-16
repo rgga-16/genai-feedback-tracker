@@ -1,6 +1,6 @@
 
 from openai import OpenAI  #If first time using this repo, set the environment variable "OPENAI_API_KEY", to your API key from OPENAI
-import tiktoken
+import tiktoken, ast
 
 
 client = OpenAI()
@@ -22,8 +22,6 @@ You can also provide suggestions, feedback, or advice to the user based on the c
 """
 
 message_history = [{"role":"system", "content":system_prompt}]
-
-
 
 # Code borrowed from https://github.com/openai/openai-cookbook/blob/main/examples/How_to_count_tokens_with_tiktoken.ipynb
 def num_tokens_from_messages(messages, model=model_name):
@@ -57,23 +55,19 @@ def num_tokens_from_messages(messages, model=model_name):
     num_tokens += 3  # every reply is primed with <|start|>assistant<|message|>
     return num_tokens
 
-def check_and_trim_message_history():
+def check_and_trim_message_history(message_history, model_name=model_name, max_tokens=max_tokens):
     offset=300
-    global message_history
-    global max_tokens
-    global model_name 
 
     if num_tokens_from_messages(message_history, model=model_name) > max_tokens:
         print("Current number of tokens in message history exceeds the maximum number of tokens allowed. Trimming message history.")
         while num_tokens_from_messages(message_history, model=model_name) > max_tokens - offset:
             del message_history[1] # Delete the 2nd message in the history. The first message is always the system prompt, which should not be deleted.
 
-def query(query,role="user", temp=temperature):
-    global message_history
+def query(query,role="user", temp=temperature, message_history=message_history):
 
     # Retrieve n embeddings 
     message_history.append({"role":role, "content":query})
-    check_and_trim_message_history()
+    check_and_trim_message_history(message_history, model_name)
 
     try:
         response = client.chat.completions.create(
@@ -125,13 +119,48 @@ def initial_query(transcripts):
     initial_response = query(initial_prompt)
     return initial_response
 
-def init():
+def detect_feedback(transcript):
+    feedback_list =[]
+    system_prompt = """
+        You are an expert documentor with experience in analyzing transcripts of conversations.
+        You are tasked to determine if the following transcript or excerpt of a transcript contains positive feedback, critical feedback, or no feedback.
+        If the transcript contains positive or critical feedback, quote which part of the transcript is the feedback. Otherwise, if there is no feedback, respond with 'none'.
+        Lastly, you have to respond in the form of a list of Python dictionaries with the following format:
 
-    return 
+        [{'type': 'positive'/'critical'/'none', 'quote': '<QUOTE>'}, ...]
+
+
+        Here is an example, given an input transcript:
+        Input transcript:
+        Designer: I really like the design of the interior. However, the color scheme could be improved. Furthermore, the layout is not very user-friendly.
+
+        You have to respond with the following output:
+        [{'type': 'positive', 'quote': 'I really like the design of the interior.'}, {'type': 'critical', 'quote': 'the color scheme could be improved.'}, {'type': 'critical', 'quote': 'the layout is not very user-friendly.'}]
+    """
+    message_history = [{"role":"system", "content":system_prompt}]
+
+    prompt=f"""
+    Determine if the following transcript or excerpt contains positive feedback, critical feedback, or no feedback. If the transcript contains positive or critical feedback, quote which part of the transcript is the feedback.
+    {transcript}
+    """
+    
+    response = query(prompt, message_history=message_history)
+
+    try:
+        feedback_list = ast.literal_eval(response)
+    except Exception as e:
+        #BUG: still throws many errors
+        print(f"Error: {e}")
+        feedback_list = [{"type": "error", "quote": f"Error: {e}"}]
+    return feedback_list
 
 
 if __name__ == "__main__":
-    # response = query(initial_prompt)
-    # print(response)
+    sample_transcript = """
+    Speaker 0: There, so the texture maps are still here. So to show the dragging and drop, wait hold on, I'll just... So let's say, what you can do is first you have to, let's say if I want to transfer onto the floor, I have to first select it first. So the blue highlight means that it was selected. And then if I drag this, I just simply drag here, and then I let go. It's a bit buggy but I have to click away to show the texture. That's how the texture map looks like. It doesn't look good. Another feature is, let's say you want to Because when it comes to oak wood, one thing that you're looking for is the kind of graining or additional details. So here in this box here, it brainstorms keywords that you can add to the input. So for example, if I brainstorm keywords for oak wood, Sorry, it doesn't have a loading spinner but it's loading. There you go. So there will be keywords that you can add to Oakwood that you could make it more specific. For example, plus green or whorls or distress marks. And then here, when you press generate material, it generates those with these keywords in mind. So let's say if you're making, let's say like a bamboo texture. Sorry, you can. also, there's a feature where you can add your own keywords, but it's not yet there. But so far it uses AI to help brainstorm so that you won't have to manually write it.
+    """
+
+    print(detect_feedback(sample_transcript))
+
     print()
 
