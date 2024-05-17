@@ -1,11 +1,11 @@
 
 from openai import OpenAI  #If first time using this repo, set the environment variable "OPENAI_API_KEY", to your API key from OPENAI
-import tiktoken, ast
+import tiktoken, ast, re
 
 
 client = OpenAI()
-model_name = "gpt-3.5-turbo"
-max_tokens=16385
+model_name = "gpt-4o"
+max_tokens=128000
 encoding = tiktoken.get_encoding("cl100k_base")
 
 temperature=0.0
@@ -34,7 +34,7 @@ def num_tokens_from_messages(messages, model=model_name):
     if model == "gpt-3.5-turbo" or model=="gpt-3.5-turbo-16k":
         print("Warning: gpt-3.5-turbo may change over time. Returning num tokens assuming gpt-3.5-turbo-0301.")
         return num_tokens_from_messages(messages, model="gpt-3.5-turbo-0301")
-    elif model == "gpt-4":
+    elif model == "gpt-4" or model=="gpt-4o":
         print("Warning: gpt-4 may change over time. Returning num tokens assuming gpt-4-0314.")
         return num_tokens_from_messages(messages, model="gpt-4-0314")
     elif model == "gpt-3.5-turbo-0301":
@@ -121,33 +121,57 @@ def initial_query(transcripts):
 
 def detect_feedback(transcript):
     feedback_list =[]
+    
     system_prompt = """
-        You are an expert documentor with experience in analyzing transcripts of conversations.
-        You are tasked to determine if the following transcript or excerpt of a transcript contains positive feedback, critical feedback, or no feedback.
+        You are an expert documentor with experience in analyzing transcripts of conversations in SRT format.
+        You are tasked to determine if the following transcript or excerpt of a transcript contains positive feedback, critical feedback, or no feedback, based on the context of the discussion.
         If the transcript contains positive or critical feedback, quote which part of the transcript is the feedback. Otherwise, if there is no feedback, respond with 'none'.
-        Lastly, you have to respond in the form of a list of Python dictionaries with the following format:
+        
+        Then, you have to also track the corresponding ID of the dialogue that contains the feedback, as well as the speaker's name who provided the feedback.
+        Lastly, you have to respond in the form of a Python list of dictionaries with the following format:
 
-        [{'type': 'positive'/'critical'/'none', 'quote': '<QUOTE>'}, ...]
+        [{'type': 'positive'/'critical'/'none', 'quote': '<QUOTE>', 'dialogue_id':'<ID>', 'speaker': '<SPEAKER NAME>'}, ...]
 
 
         Here is an example, given an input transcript:
         Input transcript:
-        Designer: I really like the design of the interior. However, the color scheme could be improved. Furthermore, the layout is not very user-friendly.
+        4 
+        00:00:30,000 --> 00:00:40,000 
+        Sarah: I used reclaimed wood for the flooring and bamboo for the furniture. The idea was to create a warm, inviting atmosphere while being eco-friendly. 
+        5 
+        00:00:40,000 --> 00:00:50,000 
+        Student 1: The use of bamboo is interesting. It reminds me of some modern Japanese interiors I've seen. 
+        6 
+        00:00:50,000 --> 00:01:00,000 
+        Professor: Yes, I see that influence. But I think the space could benefit from more contrast. Right now, it feels a bit too uniform. 
+        7 
+        00:01:00,000 --> 00:01:10,000 
+        Guest Professional 2: I agree. Maybe you could introduce some darker elements to create depth and dimension. What do you think about that? 
+
 
         You have to respond with the following output:
-        [{'type': 'positive', 'quote': 'I really like the design of the interior.'}, {'type': 'critical', 'quote': 'the color scheme could be improved.'}, {'type': 'critical', 'quote': 'the layout is not very user-friendly.'}]
+        [{'type': 'positive', 'quote': 'The use of bamboo is interesting. It reminds me of some modern Japanese interiors I've seen.', 'dialogue_id': '5', 'speaker': 'Student 1'}, 
+        {'type': 'critical', 'quote': 'But I think the space could benefit from more contrast. Right now, it feels a bit too uniform.', 'dialogue_id': '6', 'speaker': 'Professor'},
+        {'type': 'critical', 'quote': 'I agree. Maybe you could introduce some darker elements to create depth and dimension. What do you think about that?', 'dialogue_id': '7', 'speaker': 'Guest Professional 2'}], 
     """
     message_history = [{"role":"system", "content":system_prompt}]
 
+    if(num_tokens_from_messages(message_history) > max_tokens):
+        print("Warning: Number of tokens in message history exceeds the maximum number of tokens allowed.")
+        return [{"type": "error", "quote": f"Number of tokens in message history exceeds the maximum number of tokens allowed."}]
+
     prompt=f"""
-    Determine if the following transcript or excerpt contains positive feedback, critical feedback, or no feedback. If the transcript contains positive or critical feedback, quote which part of the transcript is the feedback.
     {transcript}
     """
     
-    response = query(prompt, message_history=message_history)
-
+    response = query(prompt, message_history=message_history, temp=0.0)
+    # Remove any unneeded characters before the [ and after the ] in response
+    response =  re.sub(r'^.*?(\[.*\]).*$', r'\1', response, flags=re.DOTALL)
+    print(f"Response: {response}")
     try:
         feedback_list = ast.literal_eval(response)
+        print(f"Feedback detected: {feedback_list}")
+        pass
     except Exception as e:
         #BUG: still throws many errors
         print(f"Error: {e}")

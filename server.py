@@ -220,7 +220,6 @@ def message_chatbot():
     full_query = message + question
 
     response =  query(full_query)
-
     return {"chatbot_response": response}
 
 @app.route("/autodetect_feedback", methods=["POST"])
