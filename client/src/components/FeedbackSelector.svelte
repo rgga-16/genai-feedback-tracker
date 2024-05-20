@@ -1,8 +1,11 @@
 <script>
     export let recording;
     export let feedback_list;
-
+    let positive_feedback = [];
+    let critical_feedback = []; 
     let transcript_str;
+
+    let videoPlayer; 
 
     let is_recording=false;
     let is_paused=false;
@@ -25,188 +28,7 @@
     let file_load_progress=0; 
     let file_load_status = "";
 
-    let premade_transcript_list = [
-    {
-        start_timestamp: "00:00:00,000",
-        end_timestamp: "00:00:10,000",
-        speaker: "Professor",
-        dialogue: "Alright, let's start with Sarah's 3D rendering. Sarah, could you give us a brief overview of your design concept?"
-    },
-    {
-        start_timestamp: "00:00:10,000",
-        end_timestamp: "00:00:20,000",
-        speaker: "Sarah",
-        dialogue: "Sure, my concept is based on creating a serene and airy living space that maximizes natural light and uses sustainable materials."
-    },
-    {
-        start_timestamp: "00:00:20,000",
-        end_timestamp: "00:00:30,000",
-        speaker: "Guest Professional 1",
-        dialogue: "I appreciate the focus on sustainability. Can you tell us more about the materials you chose and why?"
-    },
-    {
-        start_timestamp: "00:00:30,000",
-        end_timestamp: "00:00:40,000",
-        speaker: "Sarah",
-        dialogue: "I used reclaimed wood for the flooring and bamboo for the furniture. The idea was to create a warm, inviting atmosphere while being eco-friendly."
-    },
-    {
-        start_timestamp: "00:00:40,000",
-        end_timestamp: "00:00:50,000",
-        speaker: "Student 1",
-        dialogue: "The use of bamboo is interesting. It reminds me of some modern Japanese interiors I've seen."
-    },
-    {
-        start_timestamp: "00:00:50,000",
-        end_timestamp: "00:01:00,000",
-        speaker: "Professor",
-        dialogue: "Yes, I see that influence. But I think the space could benefit from more contrast. Right now, it feels a bit too uniform."
-    },
-    {
-        start_timestamp: "00:01:00,000",
-        end_timestamp: "00:01:10,000",
-        speaker: "Guest Professional 2",
-        dialogue: "I agree. Maybe you could introduce some darker elements to create depth and dimension. What do you think about that?"
-    },
-    {
-        start_timestamp: "00:01:10,000",
-        end_timestamp: "00:01:20,000",
-        speaker: "Sarah",
-        dialogue: "That's a good point. I was worried about making it too dark, but I see how it could add more interest."
-    },
-    {
-        start_timestamp: "00:01:20,000",
-        end_timestamp: "00:01:30,000",
-        speaker: "Student 2",
-        dialogue: "I think the lighting is really well done. It gives a very airy feel to the space."
-    },
-    {
-        start_timestamp: "00:01:30,000",
-        end_timestamp: "00:01:40,000",
-        speaker: "Professor",
-        dialogue: "Yes, the lighting is a strong point. But I would suggest rethinking the placement of the windows. They seem a bit too high."
-    },
-    {
-        start_timestamp: "00:01:40,000",
-        end_timestamp: "00:01:50,000",
-        speaker: "Guest Professional 1",
-        dialogue: "And I would definitely take away the coloring. I think it’s not working for the intent that you want and that you could just use blue Styrofoam."
-    },
-    {
-        start_timestamp: "00:01:50,000",
-        end_timestamp: "00:02:00,000",
-        speaker: "Sarah",
-        dialogue: "I see. I was trying to create a gradient effect, but maybe it's not coming through as I intended."
-    },
-    {
-        start_timestamp: "00:02:00,000",
-        end_timestamp: "00:02:10,000",
-        speaker: "Student 3",
-        dialogue: "It reminds me of a Scandinavian design, very minimalistic and clean."
-    },
-    {
-        start_timestamp: "00:02:10,000",
-        end_timestamp: "00:02:20,000",
-        speaker: "Guest Professional 2",
-        dialogue: "Yes, but Scandinavian designs often have a pop of color or a statement piece. Maybe you could incorporate something like that?"
-    },
-    {
-        start_timestamp: "00:02:20,000",
-        end_timestamp: "00:02:30,000",
-        speaker: "Professor",
-        dialogue: "Good suggestion. Also, consider the long-term vision. How will this space age over time? Will it still feel fresh and inviting?"
-    },
-    {
-        start_timestamp: "00:02:30,000",
-        end_timestamp: "00:02:40,000",
-        speaker: "Sarah",
-        dialogue: "That's a great point. I hadn't thought about the aging aspect."
-    },
-    {
-        start_timestamp: "00:02:40,000",
-        end_timestamp: "00:02:50,000",
-        speaker: "Guest Professional 1",
-        dialogue: "What made you put color on it with this?"
-    },
-    {
-        start_timestamp: "00:02:50,000",
-        end_timestamp: "00:03:00,000",
-        speaker: "Sarah",
-        dialogue: "I wanted to create a calming effect with soft blues and greens, but I can see how it might be too subtle."
-    },
-    {
-        start_timestamp: "00:03:00,000",
-        end_timestamp: "00:03:10,000",
-        speaker: "Student 4",
-        dialogue: "I think the furniture layout is very functional. It seems like a space where you could really relax."
-    },
-    {
-        start_timestamp: "00:03:10,000",
-        end_timestamp: "00:03:20,000",
-        speaker: "Professor",
-        dialogue: "Functional, yes, but it could be more dynamic. Maybe try experimenting with different furniture arrangements."
-    },
-    {
-        start_timestamp: "00:03:20,000",
-        end_timestamp: "00:03:30,000",
-        speaker: "Guest Professional 2",
-        dialogue: "And consider layering different textures. It could add more depth and interest to the space."
-    },
-    {
-        start_timestamp: "00:03:30,000",
-        end_timestamp: "00:03:40,000",
-        speaker: "Sarah",
-        dialogue: "Layering textures sounds like a good idea. I could try incorporating some textiles or different finishes."
-    },
-    {
-        start_timestamp: "00:03:40,000",
-        end_timestamp: "00:03:50,000",
-        speaker: "Student 5",
-        dialogue: "The open shelving is a nice touch. It makes the space feel more open and accessible."
-    },
-    {
-        start_timestamp: "00:03:50,000",
-        end_timestamp: "00:04:00,000",
-        speaker: "Professor",
-        dialogue: "Yes, but be careful with open shelving. It can easily become cluttered. Think about how you can maintain that clean look."
-    },
-    {
-        start_timestamp: "00:04:00,000",
-        end_timestamp: "00:04:10,000",
-        speaker: "Guest Professional 1",
-        dialogue: "I think we need to explore other ways of creating dimension. Maybe it is about materials? Maybe layering? Maybe it is about bunching?"
-    },
-    {
-        start_timestamp: "00:04:10,000",
-        end_timestamp: "00:04:20,000",
-        speaker: "Sarah",
-        dialogue: "I'll definitely experiment with those ideas. Thank you for the suggestions."
-    },
-    {
-        start_timestamp: "00:04:20,000",
-        end_timestamp: "00:04:30,000",
-        speaker: "Student 6",
-        dialogue: "The use of natural light is really effective. It gives the space a very welcoming feel."
-    },
-    {
-        start_timestamp: "00:04:30,000",
-        end_timestamp: "00:04:40,000",
-        speaker: "Professor",
-        dialogue: "Agreed, but I think the lighting could be improved. The current fixtures don't seem to complement the overall design."
-    },
-    {
-        start_timestamp: "00:04:40,000",
-        end_timestamp: "00:04:50,000",
-        speaker: "Guest Professional 2",
-        dialogue: "And I would suggest looking into different types of lighting fixtures. Maybe something more modern or industrial to contrast with the natural elements."
-    },
-    {
-        start_timestamp: "00:04:50,000",
-        end_timestamp: "00:05:00,000",
-        speaker: "Sarah",
-        dialogue: "That's a great idea. I'll look into some different options for lighting fixtures."
-    }
-    ];
+    let participants={};
 
     async function incrementRecordNumber() {
         let response = await fetch('/increment_record_number', {
@@ -533,14 +355,77 @@
         }
         const json = await response.json();
         feedback_list = json["feedback_list"];
-        console.log(feedback_list);
-
-
-        
+        segregateFeedback(feedback_list);
         return feedback_list;   
     }
 
-    function autoHighlightFeedback(feedback_list, transcript_list) {
+    function segregateFeedback(feedback_list) {
+        for(let i=0; i < feedback_list.length; i++) {
+            let feedback = feedback_list[i];
+            if(feedback.type === "positive") {
+                positive_feedback.push(feedback);
+                positive_feedback=positive_feedback;
+            } else if(feedback.type === "critical") {
+                critical_feedback.push(feedback);
+                critical_feedback=critical_feedback;
+            }
+        }
+    }
+
+    function removeFeedback() {
+        const selection = window.getSelection().toString();
+        if(selection) {
+            for(let i=0; i < feedback_list.length; i++) {
+                let feedback = feedback_list[i];
+                if(feedback.quote.includes(selection)) {
+
+                    let dialogue_id = parseInt(feedback.dialogue_id);
+                    let feedback_quote = feedback.quote;
+                    deHighlightFeedback(dialogue_id, feedback_quote);
+
+                    if(feedback.type==="positive") {
+                        for(let j=0; j < positive_feedback.length; j++) {
+                            if(positive_feedback[j].quote === feedback_quote) {
+                                positive_feedback.splice(j, 1);
+                                positive_feedback=positive_feedback;
+                                break;
+                            }
+                        }
+                    } else if(feedback.type==="critical") {
+                        for(let j=0; j < critical_feedback.length; j++) {
+                            if(critical_feedback[j].quote === feedback_quote) {
+                                critical_feedback.splice(j, 1);
+                                critical_feedback=critical_feedback;
+                                break;
+                            }
+                        }
+                    }
+                    feedback_list.splice(i, 1);
+                    feedback_list=feedback_list;
+                    break;
+                }
+            }
+        }
+    }
+
+    function deHighlightFeedback(dialogue_id, feedback_quote) {
+        for(let j = 0; j < recording.transcript_list.length; j++) {
+            let e = recording.transcript_list[j];
+            if(e.id === dialogue_id) {
+                let dialogue = e.dialogue;
+                let start_index = dialogue.indexOf(feedback_quote);
+                let end_index = start_index + feedback_quote.length;
+                // BUG: The highlight in the dialogue is not being removed
+                let highlighted_dialogue = dialogue.slice(0, start_index) + feedback_quote + dialogue.slice(end_index);
+                e.dialogue = highlighted_dialogue;
+                e.dialogue = e.dialogue;
+                break;
+            }
+        }
+        recording.transcript_list = recording.transcript_list;
+    }
+
+    function autoHighlightFeedback(feedback_list) {
         for(let i=0; i < feedback_list.length; i++) {
             let feedback=feedback_list[i];
             let feedback_type = feedback.type;
@@ -550,8 +435,8 @@
 
             let dialogue_id = parseInt(feedback.dialogue_id);
             let excerpt;
-            for(let j = 0; j < transcript_list.length; j++) {
-                let e = transcript_list[j];
+            for(let j = 0; j < recording.transcript_list.length; j++) {
+                let e = recording.transcript_list[j];
                 if(e.id === dialogue_id) {
                     excerpt = e;
                     break;
@@ -566,10 +451,11 @@
             let dialogue = excerpt.dialogue;
             let start_index = dialogue.indexOf(feedback.quote);
             let end_index = start_index + feedback.quote.length;
-            let highlighted_dialogue = dialogue.slice(0, start_index) + `<mark class="${feedback_type}">${feedback.quote}</mark>` + dialogue.slice(end_index);
+            let highlighted_dialogue = dialogue.slice(0, start_index) + `<mark class="${feedback_type}" style="background-color:${feedback_type === "positive" ? "lightgreen" : "lightcoral"};">${feedback.quote}</mark>` + dialogue.slice(end_index);
             excerpt.dialogue = highlighted_dialogue;
+            excerpt.dialogue = excerpt.dialogue;
         }
-        transcript_list = transcript_list;
+        recording.transcript_list = recording.transcript_list;
     }
 
     function displayTranscript(transcript_list, feedback_list) {
@@ -582,29 +468,109 @@
             let end = excerpt.end_timestamp;
             let speaker = excerpt.speaker;
             let dialogue = excerpt.dialogue;
-            // transcript_str += `${id}<br>${start} --> ${end}<br>${speaker}: ${dialogue}<br>`;
-            transcript_str += `${start} --> ${end}<br>${speaker}: ${dialogue} <br>`;
+            // transcript_str += `${id}<br>[${start} - ${end}]<br>${speaker}: ${dialogue}<br><br>`;
+            transcript_str += `[${start}] - [${end}]<br>${speaker}: ${dialogue} <br><br>`;
 
         }
         transcript_str = transcript_str;
+    }
+
+    function getParticipants(transcript_list) {
+        let participants_dict = {};
+        for (let i = 0; i < transcript_list.length; i++) {
+
+            let speaker = transcript_list[i].speaker;
+
+            if(Object.keys(participants_dict).includes(speaker)) {
+                participants_dict[speaker] += 1;
+            } else {
+                participants_dict[speaker] = 1;
+            }
+        }
+        return participants_dict;
+    }
+
+    function timeToSeconds(time) {
+        // time is in the format HH:MM:SS,MILISECONDS, e.g., 00:00:53,531
+        let timeArray = time.split(":");
+        let hours = parseInt(timeArray[0]);
+        let minutes = parseInt(timeArray[1]);
+        let seconds = parseInt(timeArray[2].split(",")[0]);
+        let milliseconds = parseInt(timeArray[2].split(",")[1]);
+
+        return hours*3600 + minutes*60 + seconds + milliseconds/1000;
+    }
+
+    function seekTo(time) {
+        videoPlayer.currentTime = timeToSeconds(time);
+        videoPlayer.play();
+    }
+
+    function findExcerptByQuote(transcript_list,quote) {
+        for(let i=0; i < transcript_list.length; i++) {
+            let excerpt = transcript_list[i];
+            if(excerpt.dialogue.includes(quote)) {
+                return excerpt;
+            }
+        }
+        return null;
+    }
+
+    function highlightPositive() { 
+        const selection = window.getSelection().toString();
+        if(selection) {
+            let feedback = {quote: selection, type: "positive"};
+            let excerpt_reference = findExcerptByQuote(recording.transcript_list, selection);
+            if(!excerpt_reference) {
+                console.log("Error: Corresponding transcript excerpt not found")
+                return;
+            }
+            feedback.dialogue_id = excerpt_reference.id;
+            feedback.speaker=excerpt_reference.speaker;
+            feedback_list.push(feedback);
+            feedback_list=feedback_list;
+            positive_feedback.push(feedback);
+            positive_feedback=positive_feedback;
+            autoHighlightFeedback([feedback]);
+            
+        }
+    }
+
+    function highlightCritical() {
+        const selection = window.getSelection().toString();
+        if(selection) {
+            let feedback = {quote: selection, type: "critical"};
+            let excerpt_reference = findExcerptByQuote(recording.transcript_list, selection);
+            if(!excerpt_reference) {
+                console.log("Error: Corresponding transcript excerpt not found")
+                return;
+            }
+            feedback.dialogue_id = excerpt_reference.id;
+            feedback.speaker=excerpt_reference.speaker;
+            feedback_list.push(feedback);
+            feedback_list=feedback_list;
+            critical_feedback.push(feedback);
+            critical_feedback=critical_feedback;
+            autoHighlightFeedback([feedback]);
+        }
+    }
+
+    function removeHighlight() {
+
     }
 </script>
 
 <div div class="row spaced" id="feedback-selector-page">
     <div id="left-panel" class="column spaced" style="padding-bottom: 1rem;">
 
-        <!-- #BUG: this div clips the transcript even if overflow-y is set.  -->
         <div id="transcript-area" class="column bordered spaced">
-            {#if recording && recording.transcript_list && transcript_str}
+            {#if recording && recording.transcript_list}
                 <p class="spaced padded"> 
-                    {@html transcript_str} 
-                    <!-- {#each (recording && recording.transcript_list) as excerpt, index}
-                        {#if index !== 0}
-                            <br>
-                        {/if}
-                        [{excerpt.start_timestamp} - {excerpt.end_timestamp}]<br>
-                        {excerpt.speaker ? `${excerpt.speaker}: ` : ""}{excerpt.dialogue}<br>
-                    {/each} -->
+                    {#each recording.transcript_list as excerpt, i}
+                        <span class="timestamp" on:click={() => seekTo(excerpt.start_timestamp)}>[{excerpt.start_timestamp}]</span> - <span class="timestamp" on:click={() => seekTo(excerpt.end_timestamp)}>[{excerpt.end_timestamp}]</span><br>
+                        {excerpt.speaker}: {@html excerpt.dialogue} <br><br>
+
+                    {/each}
                 </p>
             {:else}
                 <span> No discussion transcript loaded. Please first record or upload your discussion. </span>
@@ -638,7 +604,8 @@
                                 on:click={ async () => {
                                     is_loading=true;
                                     await stopRecording();
-                                    displayTranscript(recording.transcript_list, feedback_list);
+                                    participants = getParticipants(recording.transcript_list); 
+                                    // displayTranscript(recording.transcript_list, feedback_list);
                                     is_loading=false;
                                 }}
                                 disabled={!is_recording && !is_paused}>
@@ -654,7 +621,9 @@
                         <button on:click={async () => {
                                     is_loading=true;
                                     await handleFilesUpload();
-                                    displayTranscript(recording.transcript_list, feedback_list);
+                                    participants = getParticipants(recording.transcript_list); 
+                                    console.log(participants);
+                                    // displayTranscript(recording.transcript_list, feedback_list);
                                     is_loading=false;
                                 }} 
                         disabled={is_loading || !files || files.length===0}> Upload files</button> 
@@ -662,36 +631,41 @@
                 </div>
             </div>
             <div id="feedback-highlight-panel" class ="column bordered spaced ">
-                <span style="font-weight: bold; text-decoration: underline; margin-left: 1rem;"> Step 2: Highlight feedback in the transcript.</span>
+                <span style="font-weight: bold; text-decoration: underline; margin-left: 1rem;"> Step 2: Highlight feedback in the discussion's transcript.</span>
                 <div class="row centered spaced">
                     <button class = "action-button" 
                         disabled={!recording || !recording.transcript_list || is_loading}
                         on:click={async () => {
                             is_loading=true;
                             feedback_list =  await autoDetectFeedback(recording.transcript_list);
-                            console.log("feedback list", feedback_list)
-                            console.log("transcript list", recording.transcript_list)
-                            autoHighlightFeedback(feedback_list, recording.transcript_list);
-                            displayTranscript(recording.transcript_list, feedback_list);
-                            console.log(feedback_list)
-                            console.log(recording.transcript_list)
+                            autoHighlightFeedback(feedback_list);
+                            // displayTranscript(recording.transcript_list, feedback_list);
                             is_loading=false;
                         }}
                     > 
                         <img src="./logos/magnifying-glass-for-search-3-svgrepo-com.svg" alt="Auto-detect Feedback" class="logo">
-                        Auto-detect
+                        Auto-detect <br> Feedback
                     </button>
                     <button class="action-button"
-                        disabled={!recording || !recording.transcript_list || is_loading}
+                        disabled={!recording || !recording.transcript_list || is_loading || !window.getSelection()}
+                        on:click={highlightPositive}
                     > 
-                        <img src="./logos/highlight-svgrepo-com.svg" alt="Highlight Feedback" class="logo">
-                        Highlight 
+                        <img src="./logos/highlight-green-svgrepo-com.svg" alt="Highlight Positive Feedback" class="logo">
+                        Highlight <br> Positive
                     </button>
                     <button class="action-button"
-                        disabled={!recording || !recording.transcript_list || is_loading}
+                        disabled={!recording || !recording.transcript_list || is_loading || !window.getSelection()}
+                        on:click={highlightCritical}
+                    > 
+                        <img src="./logos/highlight-red-svgrepo-com.svg" alt="Highlight Critical Feedback" class="logo">
+                        Highlight <br> Critical 
+                    </button>
+                    <button class="action-button"
+                        disabled={!recording || !recording.transcript_list || is_loading || !window.getSelection()}
+                        on:click={removeFeedback}
                     > 
                         <img src="./logos/delete-svgrepo-com.svg" alt="De-highlight Feedback" class="logo">
-                        De-highlight
+                        Remove <br> Feedback
                     </button>
                 </div>
             </div>
@@ -701,18 +675,38 @@
     <div id="right-panel" class="column spaced" style="padding-bottom: 1rem;">
         <div id="media-player-area" class="bordered">
             {#if recording && recording.video}
-                <video src={recording.video} controls style="width: 100%; height: 100%;">
+                <video bind:this={videoPlayer} src={recording.video} controls style="width: 100%; height: 100%;">
                     <track kind="captions" src="blank.vtt" srclang="en">
                 </video>
             {:else if recording && recording.audio}
                 <audio src={recording.audio} controls style="width: 100%; height: auto;"></audio>
             {:else}
-                <video src="video.mp4" controls style="width: 100%; height: 100%;">
+                <video bind:this={videoPlayer} src="video.mp4" controls style="width: 100%; height: 100%;">
                     <track kind="captions" src="blank.vtt" srclang="en">
                 </video>
             {/if}
         </div>
-        <div id="feedback-details-area" class="bordered">
+        <div id="feedback-details-area" class="bordered padded spaced">
+            <h3 style="font-weight: bold; text-decoration: underline;"> Discussion Transcript Details </h3>
+
+            {#if recording && recording.video && recording.transcript_list}
+                <strong> Number of participants: {Object.keys(participants).length}</strong> <br>
+                <ul>
+                    {#each Object.entries(participants) as [pa,count]}
+                        <li> - {pa}: {count} utterances</li>
+                    {/each}
+                </ul>
+                <br>
+                {#if feedback_list}
+                    <strong> Number of feedback utterances: {feedback_list.length} </strong>
+                    <ul>
+                        <li> - Number of positive feedback: {positive_feedback.length}  </li>
+                        <li> - Number of critical feedback: {critical_feedback.length}</li>
+                    </ul>
+                {/if}
+            {/if}
+            
+
 
         </div>
 
@@ -790,6 +784,16 @@
     mark.critical{
         background-color:lightcoral;
         color: black;
+    }
+
+    mark:hover {
+        cursor: pointer;
+    }
+
+    span.timestamp:hover{
+        /* font-weight: bold; */
+        color: blue;
+        cursor: pointer;
     }
 
 </style>
