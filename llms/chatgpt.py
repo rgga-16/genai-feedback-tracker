@@ -125,13 +125,17 @@ def detect_feedback(transcript):
     system_prompt = """
         You are an expert documentor with experience in analyzing transcripts of conversations in SRT format.
         You are tasked to determine if the following transcript or excerpt of a transcript contains positive feedback, critical feedback, or no feedback, based on the context of the discussion.
-        If the transcript contains positive or critical feedback, quote which part of the transcript is the feedback. Otherwise, if there is no feedback, respond with 'none'.
+        If the transcript contains positive or critical feedback, quote which part of the transcript is the feedback.
+
+        Positive feedback includes comments that are supportive, encouraging, or complimentary.
+        Critical feedback includes comments that are constructive, evaluative, suggest areas for improvement, or are even harsh.
         
         Then, you have to also track the corresponding ID of the dialogue that contains the feedback, as well as the speaker's name who provided the feedback.
         Lastly, you have to respond in the form of a Python list of dictionaries with the following format:
 
-        [{'type': 'positive'/'critical'/'none', 'quote': '<QUOTE>', 'dialogue_id':'<ID>', 'speaker': '<SPEAKER NAME>'}, ...]
+        [{'type': 'positive'/'critical', 'quote': '<QUOTE>', 'dialogue_id':'<ID>', 'speaker': '<SPEAKER NAME>'}, ...]
 
+        If there is no feedback detected, return an empty list.
 
         Here is an example, given an input transcript:
         Input transcript:
@@ -173,7 +177,6 @@ def detect_feedback(transcript):
         print(f"Feedback detected: {feedback_list}")
         pass
     except Exception as e:
-        #BUG: still throws many errors
         print(f"Error: {e}")
         feedback_list = [{"type": "error", "quote": f"Error: {e}"}]
     return feedback_list
