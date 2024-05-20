@@ -8,7 +8,7 @@
 	let steps=2;
 
 	let recording=null;
-	let feedback_list;
+	let feedback_list=[];
 	
 
 	function next() {
