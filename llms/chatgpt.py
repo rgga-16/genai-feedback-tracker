@@ -178,7 +178,7 @@ def detect_feedback(transcript):
         pass
     except Exception as e:
         print(f"Error: {e}")
-        feedback_list = [{"type": "error", "quote": f"Error: {e}"}]
+        feedback_list = []
     return feedback_list
 
 
