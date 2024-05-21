@@ -7,7 +7,7 @@
 	let currentStep = 0;
 	let steps=2;
 
-	let recording=null;
+	let recording={};
 	let feedback_list=[];
 	
 
@@ -50,12 +50,13 @@
 		{#if currentStep===0}
 			<FeedbackSelector bind:recording={recording} bind:feedback_list={feedback_list}/>
 		{:else}
-			<FeedbackList />
+			<FeedbackList bind:feedback_list={feedback_list} bind:recording={recording}/>
 		{/if}
 	</div>
 	<div class="navigation centered spaced bordered">
 		<button on:click={prev} disabled={currentStep === 0}>Previous</button>
-		<button on:click={next} disabled={currentStep === steps.length - 1}>Next</button>
+		<button on:click={next} disabled={currentStep === steps.length - 1 || feedback_list.length <=0}>Next</button>
+		
 	</div>
 </main>
 
