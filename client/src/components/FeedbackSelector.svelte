@@ -1,9 +1,10 @@
 <script>
+    import {onMount} from 'svelte';
+    
     export let recording;
     export let feedback_list;
-    let positive_feedback = [];
-    let critical_feedback = []; 
-    let transcript_str;
+
+    let feedback_idx = 0; 
 
     let videoPlayer; 
 
@@ -27,8 +28,6 @@
     let is_loading=false;
     let file_load_progress=0; 
     let file_load_status = "";
-
-    let participants={};
 
     async function incrementRecordNumber() {
         let response = await fetch('/increment_record_number', {
@@ -318,7 +317,7 @@
             body: JSON.stringify({transcript: transcript})
         });
         if(!response.ok) {
-            throw new Error("Failed to receive initial message from ChatGPT");
+            throw new Error("Failed to convert transcript string to list of excerpts");
         }
 
         // 4) Send response back here to client
@@ -328,9 +327,7 @@
         return transcript_list;
     }
 
-    async function autoDetectFeedback(transcript_list) {
-        let feedback_list = [];
-
+    function convertTranscriptListToStr(transcript_list) {
         let transcript_str = "";
         for (let i = 0; i < transcript_list.length; i++) {
             let excerpt = transcript_list[i];
@@ -341,8 +338,14 @@
             let dialogue = excerpt.dialogue;
             transcript_str += `${id}\n${start} --> ${end}\n${speaker}: ${dialogue}\n\n`;
         }
-        // console.log(transcript_str);
+        return transcript_str;
+    }
+    
+    async function autoDetectFeedback() {
+        let feedback_list = [];
 
+        let transcript_str = convertTranscriptListToStr(recording.transcript_list);
+        
         const response = await fetch("/autodetect_feedback", {
             method: "POST",
             headers: {
@@ -355,22 +358,39 @@
         }
         const json = await response.json();
         feedback_list = json["feedback_list"];
-        segregateFeedback(feedback_list);
+
+
+        
+        
+
         return feedback_list;   
     }
 
-    function segregateFeedback(feedback_list) {
-        for(let i=0; i < feedback_list.length; i++) {
-            let feedback = feedback_list[i];
-            if(feedback.type === "positive") {
-                positive_feedback.push(feedback);
-                positive_feedback=positive_feedback;
-            } else if(feedback.type === "critical") {
-                critical_feedback.push(feedback);
-                critical_feedback=critical_feedback;
+    function addFeedback(type) {
+        const selection = window.getSelection().toString();
+        if(selection) {
+            let feedback = {quote: selection, type: type};
+            let excerpt_reference = findExcerptByQuote(recording.transcript_list, selection);
+            console.log(excerpt_reference);
+
+            if(!excerpt_reference) {
+                console.log("Error: Corresponding transcript excerpt not found")
+                alert("Error: Corresponding transcript excerpt not found. Feedback not added.");
+                return;
             }
+            feedback.dialogue_id = excerpt_reference.id;
+            feedback.speaker=excerpt_reference.speaker;
+            feedback_list.push(feedback);
+            feedback_list=feedback_list;
+
+            recording.transcript_list = recording.transcript_list;
+
+            autoHighlightFeedback([feedback]);
+        } else {
+            alert("Please highlight text in the transcript with your mouse to add as feedback.");
         }
     }
+
 
     function removeFeedback() {
         const selection = window.getSelection().toString();
@@ -381,27 +401,11 @@
 
                     let dialogue_id = parseInt(feedback.dialogue_id);
                     let feedback_quote = feedback.quote;
-                    deHighlightFeedback(dialogue_id, feedback_quote);
 
-                    if(feedback.type==="positive") {
-                        for(let j=0; j < positive_feedback.length; j++) {
-                            if(positive_feedback[j].quote === feedback_quote) {
-                                positive_feedback.splice(j, 1);
-                                positive_feedback=positive_feedback;
-                                break;
-                            }
-                        }
-                    } else if(feedback.type==="critical") {
-                        for(let j=0; j < critical_feedback.length; j++) {
-                            if(critical_feedback[j].quote === feedback_quote) {
-                                critical_feedback.splice(j, 1);
-                                critical_feedback=critical_feedback;
-                                break;
-                            }
-                        }
-                    }
                     feedback_list.splice(i, 1);
                     feedback_list=feedback_list;
+
+                    deHighlightFeedback(dialogue_id, feedback_quote);
                     break;
                 }
             }
@@ -413,16 +417,18 @@
             let e = recording.transcript_list[j];
             if(e.id === dialogue_id) {
                 let dialogue = e.dialogue;
-                let start_index = dialogue.indexOf(feedback_quote);
-                let end_index = start_index + feedback_quote.length;
+                let start_index = dialogue.indexOf("<mark");
+                let end_index = dialogue.indexOf("</mark>") + 7;
                 // BUG: The highlight in the dialogue is not being removed
                 let highlighted_dialogue = dialogue.slice(0, start_index) + feedback_quote + dialogue.slice(end_index);
+                console.log(highlighted_dialogue);
                 e.dialogue = highlighted_dialogue;
                 e.dialogue = e.dialogue;
+                recording.transcript_list = recording.transcript_list;
                 break;
             }
         }
-        recording.transcript_list = recording.transcript_list;
+        
     }
 
     function autoHighlightFeedback(feedback_list) {
@@ -453,42 +459,10 @@
             let end_index = start_index + feedback.quote.length;
             let highlighted_dialogue = dialogue.slice(0, start_index) + `<mark class="${feedback_type}" style="background-color:${feedback_type === "positive" ? "lightgreen" : "lightcoral"};">${feedback.quote}</mark>` + dialogue.slice(end_index);
             excerpt.dialogue = highlighted_dialogue;
-            excerpt.dialogue = excerpt.dialogue;
         }
         recording.transcript_list = recording.transcript_list;
     }
 
-    function displayTranscript(transcript_list, feedback_list) {
-        console.log("transcript list", transcript_list)
-        transcript_str = "";
-        for (let i = 0; i < transcript_list.length; i++) {
-            let excerpt = transcript_list[i];
-            let id = excerpt.id;
-            let start = excerpt.start_timestamp;
-            let end = excerpt.end_timestamp;
-            let speaker = excerpt.speaker;
-            let dialogue = excerpt.dialogue;
-            // transcript_str += `${id}<br>[${start} - ${end}]<br>${speaker}: ${dialogue}<br><br>`;
-            transcript_str += `[${start}] - [${end}]<br>${speaker}: ${dialogue} <br><br>`;
-
-        }
-        transcript_str = transcript_str;
-    }
-
-    function getParticipants(transcript_list) {
-        let participants_dict = {};
-        for (let i = 0; i < transcript_list.length; i++) {
-
-            let speaker = transcript_list[i].speaker;
-
-            if(Object.keys(participants_dict).includes(speaker)) {
-                participants_dict[speaker] += 1;
-            } else {
-                participants_dict[speaker] = 1;
-            }
-        }
-        return participants_dict;
-    }
 
     function timeToSeconds(time) {
         // time is in the format HH:MM:SS,MILISECONDS, e.g., 00:00:53,531
@@ -507,69 +481,69 @@
     }
 
     function findExcerptByQuote(transcript_list,quote) {
+        console.log(quote);
         for(let i=0; i < transcript_list.length; i++) {
             let excerpt = transcript_list[i];
-            if(excerpt.dialogue.includes(quote)) {
+            let excerpt_str = excerpt.dialogue;
+            if(excerpt.speaker){
+                excerpt_str = excerpt.speaker + ": " + excerpt_str;
+            }
+            if(excerpt_str.includes(quote)) {
                 return excerpt;
             }
         }
         return null;
     }
 
-    function highlightPositive() { 
-        const selection = window.getSelection().toString();
-        if(selection) {
-            let feedback = {quote: selection, type: "positive"};
-            let excerpt_reference = findExcerptByQuote(recording.transcript_list, selection);
-            if(!excerpt_reference) {
-                console.log("Error: Corresponding transcript excerpt not found")
-                return;
-            }
-            feedback.dialogue_id = excerpt_reference.id;
-            feedback.speaker=excerpt_reference.speaker;
-            feedback_list.push(feedback);
-            feedback_list=feedback_list;
-            positive_feedback.push(feedback);
-            positive_feedback=positive_feedback;
-            autoHighlightFeedback([feedback]);
-            
+    function focusOnFeedback(feedback) {
+        let dialogue_id = parseInt(feedback.dialogue_id);
+        let quoteElement = document.getElementById(dialogue_id);
+        if(quoteElement) {
+            quoteElement.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+        } else {
+            console.log("Error: Can't focus on feedback. Corresponding transcript excerpt not found.")
         }
-    }
-
-    function highlightCritical() {
-        const selection = window.getSelection().toString();
-        if(selection) {
-            let feedback = {quote: selection, type: "critical"};
-            let excerpt_reference = findExcerptByQuote(recording.transcript_list, selection);
-            if(!excerpt_reference) {
-                console.log("Error: Corresponding transcript excerpt not found")
-                return;
-            }
-            feedback.dialogue_id = excerpt_reference.id;
-            feedback.speaker=excerpt_reference.speaker;
-            feedback_list.push(feedback);
-            feedback_list=feedback_list;
-            critical_feedback.push(feedback);
-            critical_feedback=critical_feedback;
-            autoHighlightFeedback([feedback]);
-        }
-    }
-
-    function removeHighlight() {
-
     }
 </script>
 
 <div div class="row spaced" id="feedback-selector-page">
     <div id="left-panel" class="column spaced" style="padding-bottom: 1rem;">
-
         <div id="transcript-area" class="column bordered spaced">
+            <div id="traverse-feedback-area" class="bordered spaced" >
+                {#if feedback_list && feedback_list.length > 0}
+                    <span> {feedback_idx+1} of {feedback_list.length} feedback moments highlighted </span>
+                {:else}
+                    <span> No feedback moments highlighted. </span>
+                {/if}
+                <button disabled={!feedback_list || feedback_list.length <= 0} on:click={() => {
+                    if(feedback_idx > 0) {
+                        feedback_idx--;
+                    } else {
+                        feedback_idx = feedback_list.length - 1;
+                    }
+                    focusOnFeedback(feedback_list[feedback_idx]);
+                }}> 
+                    <img src="./logos/up-arrow-5-svgrepo-com.svg" alt="Prev feedback" class="logo" style="width: 1.5rem; height: 1.5rem;">
+                </button>
+                <button disabled={!feedback_list || feedback_list.length <= 0} on:click={() => {
+                    if(feedback_idx < feedback_list.length - 1) {
+                        feedback_idx++;
+                    } else {
+                        feedback_idx = 0;
+                    }
+                    focusOnFeedback(feedback_list[feedback_idx]);
+                }}> 
+                    <img src="./logos/down-arrow-5-svgrepo-com.svg" alt="Next feedback" class="logo" style="width: 1.5rem; height: 1.5rem;">  
+                </button>
+            </div>
             {#if recording && recording.transcript_list}
                 <p class="spaced padded"> 
                     {#each recording.transcript_list as excerpt, i}
                         <span class="timestamp" on:click={() => seekTo(excerpt.start_timestamp)}>[{excerpt.start_timestamp}]</span> - <span class="timestamp" on:click={() => seekTo(excerpt.end_timestamp)}>[{excerpt.end_timestamp}]</span><br>
-                        {excerpt.speaker}: {@html excerpt.dialogue} <br><br>
-
+                        {excerpt.speaker ? excerpt.speaker+":" : ""}  
+                        <span id={excerpt.id}>
+                            {@html excerpt.dialogue} 
+                        </span> <br><br>
                     {/each}
                 </p>
             {:else}
@@ -604,8 +578,7 @@
                                 on:click={ async () => {
                                     is_loading=true;
                                     await stopRecording();
-                                    participants = getParticipants(recording.transcript_list); 
-                                    // displayTranscript(recording.transcript_list, feedback_list);
+
                                     is_loading=false;
                                 }}
                                 disabled={!is_recording && !is_paused}>
@@ -621,12 +594,12 @@
                         <button on:click={async () => {
                                     is_loading=true;
                                     await handleFilesUpload();
-                                    participants = getParticipants(recording.transcript_list); 
-                                    console.log(participants);
-                                    // displayTranscript(recording.transcript_list, feedback_list);
+
                                     is_loading=false;
                                 }} 
-                        disabled={is_loading || !files || files.length===0}> Upload files</button> 
+                        disabled={is_loading || !files || files.length===0}> 
+                            Upload files
+                        </button> 
                     </div>
                 </div>
             </div>
@@ -637,9 +610,8 @@
                         disabled={!recording || !recording.transcript_list || is_loading}
                         on:click={async () => {
                             is_loading=true;
-                            feedback_list =  await autoDetectFeedback(recording.transcript_list);
+                            feedback_list =  await autoDetectFeedback();
                             autoHighlightFeedback(feedback_list);
-                            // displayTranscript(recording.transcript_list, feedback_list);
                             is_loading=false;
                         }}
                     > 
@@ -647,24 +619,24 @@
                         Auto-detect <br> Feedback
                     </button>
                     <button class="action-button"
-                        disabled={!recording || !recording.transcript_list || is_loading || !window.getSelection()}
-                        on:click={highlightPositive}
+                        disabled={!recording || !recording.transcript_list || is_loading}
+                        on:click={() => addFeedback("positive")}
                     > 
                         <img src="./logos/highlight-green-svgrepo-com.svg" alt="Highlight Positive Feedback" class="logo">
                         Highlight <br> Positive
                     </button>
                     <button class="action-button"
-                        disabled={!recording || !recording.transcript_list || is_loading || !window.getSelection()}
-                        on:click={highlightCritical}
+                        disabled={!recording || !recording.transcript_list || is_loading}
+                        on:click={() => addFeedback("critical")}
                     > 
                         <img src="./logos/highlight-red-svgrepo-com.svg" alt="Highlight Critical Feedback" class="logo">
                         Highlight <br> Critical 
                     </button>
                     <button class="action-button"
-                        disabled={!recording || !recording.transcript_list || is_loading || !window.getSelection()}
-                        on:click={removeFeedback}
+                        disabled={!recording || !recording.transcript_list || is_loading}
+                        on:click={() => removeFeedback()}
                     > 
-                        <img src="./logos/delete-svgrepo-com.svg" alt="De-highlight Feedback" class="logo">
+                        <img src="./logos/erase-svgrepo-com.svg" alt="De-highlight Feedback" class="logo">
                         Remove <br> Feedback
                     </button>
                 </div>
@@ -688,20 +660,26 @@
         </div>
         <div id="feedback-details-area" class="bordered padded spaced">
             <h3 style="font-weight: bold; text-decoration: underline;"> Discussion Transcript Details </h3>
-
-            {#if recording && recording.video && recording.transcript_list}
-                <strong> Number of participants: {Object.keys(participants).length}</strong> <br>
+            {#if recording && recording.transcript_list}
+                <strong> Number of participants: {Object.keys(recording.transcript_list.reduce((acc, cur) => {
+                    acc[cur.speaker] = true;
+                    return acc;
+                }, {})).length}</strong> <br>
                 <ul>
-                    {#each Object.entries(participants) as [pa,count]}
-                        <li> - {pa}: {count} utterances</li>
+                    {#each Object.entries(recording.transcript_list.reduce((acc, cur) => {
+                        acc[cur.speaker] = (acc[cur.speaker] || 0) + 1;
+                        return acc;
+                    }, {})) as [pa, count]}
+                        <!-- <li> - {pa}: {count} utterances</li> -->
+                        <li> - {pa} </li>
                     {/each}
                 </ul>
                 <br>
                 {#if feedback_list}
                     <strong> Number of feedback utterances: {feedback_list.length} </strong>
                     <ul>
-                        <li> - Number of positive feedback: {positive_feedback.length}  </li>
-                        <li> - Number of critical feedback: {critical_feedback.length}</li>
+                        <li> - Number of positive feedback: {feedback_list.filter(feedback => feedback.type === 'positive').length}</li>
+                        <li> - Number of critical feedback: {feedback_list.filter(feedback => feedback.type === 'critical').length}</li>
                     </ul>
                 {/if}
             {/if}
@@ -733,6 +711,20 @@
         width:100%;
         height:80%;
         overflow-y: auto;
+    }
+
+    #traverse-feedback-area {
+        align-self: flex-end; 
+        display: flex; 
+        padding: 0.5rem; 
+        position: sticky; 
+        top: 0; 
+        right: 0; 
+        z-index: 2; 
+        justify-content: right; 
+        text-align:right; 
+        width: 35%; 
+        background-color: #f0f0f0;
     }
 
     #transcript-buttons-area {
@@ -790,9 +782,14 @@
         cursor: pointer;
     }
 
+    span.timestamp {
+        color: blue;
+    }
+
     span.timestamp:hover{
         /* font-weight: bold; */
         color: blue;
+        text-decoration: underline;
         cursor: pointer;
     }
 
