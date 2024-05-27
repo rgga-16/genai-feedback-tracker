@@ -102,8 +102,8 @@ def transcripts_to_list():
     form_data = request.get_json()
     transcript = form_data["transcript"]
     transcript_list = extract_lines_from_srt_string(transcript)
-    if(len(transcript_list)>=500 and "speaker" in transcript_list[0]):
-        transcript_list = simplify_transcript_list(transcript_list)
+    # if(len(transcript_list)>=500 and "speaker" in transcript_list[0]):
+    #     transcript_list = simplify_transcript_list(transcript_list)
 
     return {"transcript_list": transcript_list}
 
