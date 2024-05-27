@@ -54,8 +54,14 @@
 		{/if}
 	</div>
 	<div class="navigation centered spaced bordered">
-		<button on:click={prev} disabled={currentStep === 0}>Previous</button>
-		<button on:click={next} disabled={currentStep === steps.length - 1 || feedback_list.length <=0}>Next</button>
+
+		{#if currentStep==0}
+			<button on:click={next} disabled={currentStep === steps.length - 1 || feedback_list.length <=0}>Next</button>
+		{:else if currentStep===1}
+			<button on:click={prev} disabled={currentStep === 0}>Previous</button>
+		{/if}
+
+		
 		
 	</div>
 </main>
