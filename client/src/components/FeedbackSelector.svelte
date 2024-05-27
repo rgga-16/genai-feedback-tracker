@@ -1,12 +1,13 @@
 <script>
     import {onMount} from 'svelte';
+    import {timeToSeconds, seekTo} from '../utils.js';
     
     export let recording;
     export let feedback_list;
 
     let feedback_idx = 0; 
 
-    let videoPlayer; 
+    let mediaPlayer; 
 
     let is_recording=false;
     let is_paused=false;
@@ -294,7 +295,7 @@
 
                     let transcript_list = await convertTranscriptToList(transcript);
 
-                    let newRecording = {video: null, audio: micSrc, transcript: transcript, transcript_list:transcript_list};
+                    let newRecording = {video: null, audio: audioSrc, transcript: transcript, transcript_list:transcript_list};
                     recording = newRecording;
                     micPath=null;
                     videoPath=null;
@@ -358,18 +359,13 @@
         }
         const json = await response.json();
         feedback_list = json["feedback_list"];
-
-
-        
-        
-
         return feedback_list;   
     }
 
     function addFeedback(type) {
         const selection = window.getSelection().toString();
         if(selection) {
-            let feedback = {quote: selection, type: type};
+            let feedback = {quote: selection, type: type, done:false, speaker:null, dialogue_id:null};
             let excerpt_reference = findExcerptByQuote(recording.transcript_list, selection);
             console.log(excerpt_reference);
 
@@ -464,21 +460,7 @@
     }
 
 
-    function timeToSeconds(time) {
-        // time is in the format HH:MM:SS,MILISECONDS, e.g., 00:00:53,531
-        let timeArray = time.split(":");
-        let hours = parseInt(timeArray[0]);
-        let minutes = parseInt(timeArray[1]);
-        let seconds = parseInt(timeArray[2].split(",")[0]);
-        let milliseconds = parseInt(timeArray[2].split(",")[1]);
-
-        return hours*3600 + minutes*60 + seconds + milliseconds/1000;
-    }
-
-    function seekTo(time) {
-        videoPlayer.currentTime = timeToSeconds(time);
-        videoPlayer.play();
-    }
+    
 
     function findExcerptByQuote(transcript_list,quote) {
         console.log(quote);
@@ -507,7 +489,7 @@
 </script>
 
 <div div class="row spaced" id="feedback-selector-page">
-    <div id="left-panel" class="column spaced" style="padding-bottom: 1rem;">
+    <div id="left-panel" class="column spaced" >
         <div id="transcript-area" class="column bordered spaced">
             <div id="traverse-feedback-area" class="bordered spaced" >
                 {#if feedback_list && feedback_list.length > 0}
@@ -539,7 +521,7 @@
             {#if recording && recording.transcript_list}
                 <p class="spaced padded"> 
                     {#each recording.transcript_list as excerpt, i}
-                        <span class="timestamp" on:click={() => seekTo(excerpt.start_timestamp)}>[{excerpt.start_timestamp}]</span> - <span class="timestamp" on:click={() => seekTo(excerpt.end_timestamp)}>[{excerpt.end_timestamp}]</span><br>
+                        <span class="timestamp" on:click={() => seekTo(excerpt.start_timestamp, mediaPlayer)}>[{excerpt.start_timestamp}]</span> - <span class="timestamp" on:click={() => seekTo(excerpt.end_timestamp, mediaPlayer)}>[{excerpt.end_timestamp}]</span><br>
                         {excerpt.speaker ? excerpt.speaker+":" : ""}  
                         <span id={excerpt.id}>
                             {@html excerpt.dialogue} 
@@ -644,16 +626,16 @@
         </div>
     </div>
 
-    <div id="right-panel" class="column spaced" style="padding-bottom: 1rem;">
-        <div id="media-player-area" class="bordered">
+    <div id="right-panel" class="column spaced" >
+        <div id="media-player-area" class="bordered centered">
             {#if recording && recording.video}
-                <video bind:this={videoPlayer} src={recording.video} controls style="width: 100%; height: 100%;">
+                <video bind:this={mediaPlayer} src={recording.video} controls style="width: 100%; height: 100%;">
                     <track kind="captions" src="blank.vtt" srclang="en">
                 </video>
             {:else if recording && recording.audio}
-                <audio src={recording.audio} controls style="width: 100%; height: auto;"></audio>
+                <audio bind:this={mediaPlayer} src={recording.audio} controls style="width: 100%; height: 100%;"></audio>
             {:else}
-                <video bind:this={videoPlayer} src="video.mp4" controls style="width: 100%; height: 100%;">
+                <video bind:this={mediaPlayer} src="video.mp4" controls style="width: 100%; height: 100%;">
                     <track kind="captions" src="blank.vtt" srclang="en">
                 </video>
             {/if}
@@ -705,6 +687,7 @@
         position: relative;
         height: 100%;
         width: 60%;
+        padding-bottom: 1rem;
     }
 
     #transcript-area {
@@ -748,6 +731,7 @@
         position: relative;
         height: 100%;
         width: 40%;
+        padding-bottom: 1rem;
     }
 
     #media-player-area {
