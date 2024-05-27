@@ -175,6 +175,8 @@ def detect_feedback(transcript):
     try:
         feedback_list = ast.literal_eval(response)
         print(f"Feedback detected: {feedback_list}")
+
+        feedback_list = [{**feedback, 'done': False} for feedback in feedback_list] # Add a 'done' key to each feedback item to track if it has been addressed
         pass
     except Exception as e:
         print(f"Error: {e}")
