@@ -52,6 +52,13 @@ def simplify_transcript_list(transcript_list):
             simplified.append(excerpt)
     return simplified
 
+def simplify_transript(transcript:str,diarized=True): 
+    transcript_list = extract_lines_from_srt_string(transcript,diarized)
+    simplifed_transcript_list = simplify_transcript_list(transcript_list)
+    simplified_transcript =  convert_to_srt_string(simplifed_transcript_list)
+
+    return simplified_transcript
+
 def convert_to_srt_string(dialogues):
     srt_format = ''
     for i, dialogue in enumerate(dialogues, start=1):
