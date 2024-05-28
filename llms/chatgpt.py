@@ -6,6 +6,7 @@ import tiktoken, ast, re
 client = OpenAI()
 model_name = "gpt-4o"
 max_tokens=128000
+max_output_tokens=4095
 encoding = tiktoken.get_encoding("cl100k_base")
 
 temperature=0.0
@@ -63,7 +64,7 @@ def check_and_trim_message_history(message_history, model_name=model_name, max_t
         while num_tokens_from_messages(message_history, model=model_name) > max_tokens - offset:
             del message_history[1] # Delete the 2nd message in the history. The first message is always the system prompt, which should not be deleted.
 
-def query(query,role="user", temp=temperature, message_history=message_history):
+def query(query,role="user", temp=temperature, max_output_tokens=max_output_tokens, message_history=message_history):
 
     # Retrieve n embeddings 
     message_history.append({"role":role, "content":query})
@@ -73,7 +74,8 @@ def query(query,role="user", temp=temperature, message_history=message_history):
         response = client.chat.completions.create(
             model=model_name,
             messages=message_history,
-            temperature=temp
+            temperature=temp,
+            max_tokens=max_output_tokens 
         )
         response_msg = response.choices[0].message.content
         message_history.append({"role":response.choices[0].message.role, "content":response_msg})
@@ -121,7 +123,6 @@ def initial_query(transcripts):
 
 def detect_feedback(transcript):
     feedback_list =[]
-    
     system_prompt = """
         You are an expert documentor with experience in analyzing transcripts of conversations in SRT format.
         You are tasked to determine if the following transcript or excerpt of a transcript contains positive feedback, critical feedback, or no feedback, based on the context of the discussion.
@@ -168,21 +169,45 @@ def detect_feedback(transcript):
     {transcript}
     """
     
-    response = query(prompt, message_history=message_history, temp=0.0)
+    response = query(prompt, message_history=message_history, max_output_tokens= max_output_tokens, temp=0.0)
     # Remove any unneeded characters before the [ and after the ] in response
     response =  re.sub(r'^.*?(\[.*\]).*$', r'\1', response, flags=re.DOTALL)
-    print(f"Response: {response}")
+    # print(f"Response: {response}")
     try:
         feedback_list = ast.literal_eval(response)
-        print(f"Feedback detected: {feedback_list}")
+        # print(f"Feedback detected: {feedback_list}")
 
         feedback_list = [{**feedback, 'done': False} for feedback in feedback_list] # Add a 'done' key to each feedback item to track if it has been addressed
+        feedback_list = [{'type': feedback['type'], 'quote': feedback['quote'], 'dialogue_id': int(feedback['dialogue_id']), 'speaker': feedback['speaker'], 'done': feedback['done']} for feedback in feedback_list] # Convert dialogue_id to int
+        feedback_list = [{**feedback,'task':None} for feedback in feedback_list] # Add a 'task' key to each feedback item to store the task associated with it
         pass
     except Exception as e:
         print(f"Error: {e}")
         feedback_list = []
     return feedback_list
 
+def positivise_feedback(quote, excerpt): 
+
+    system_prompt="""
+        Given a feedback quote, you are tasked to paraphrase the provided feedback quote to make it more positive and constructive.
+        You will also be given an excerpt from the conversation where the feedback was provided for context.
+        Your goal is to rephrase the feedback in a way that maintains the essence of the original feedback but presents it in a more positive and encouraging manner.
+        If you think the feedback is already positive and constructive, you can simply rephrase it to make it more concise or clearer.
+        If the feedback is already positive, constructive, concise, and clear, you can simply leave it as is.
+
+
+        Respond with the rephrased feedback quote only.
+    """
+
+    message_history = [{"role":"system", "content":system_prompt}]
+
+    prompt=f"""
+    Feedback Quote: {quote}
+    Excerpt: {excerpt}
+    """
+
+    positive_quote = query(prompt, message_history=message_history, max_output_tokens= max_output_tokens, temp=0.7)
+    return positive_quote
 
 if __name__ == "__main__":
     sample_transcript = """

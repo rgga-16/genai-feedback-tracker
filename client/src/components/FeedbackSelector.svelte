@@ -216,9 +216,11 @@
         let transcript = await transcribeMic(micPath);
         file_load_progress=80;
 
-        let transcript_list = await convertTranscriptToList(transcript);
+        let simplified_transcript = await simplifyTranscript(transcript);
+        let transcript_list = await convertTranscriptToList(simplified_transcript);
+        
 
-        let newRecording = {video: videoSrc, audio: micSrc, transcript: transcript, transcript_list : transcript_list};
+        let newRecording = {video: videoSrc, audio: micSrc, transcript: simplified_transcript, transcript_list : transcript_list};
         recording=newRecording;
         await incrementRecordNumber();
         file_load_progress=100;
@@ -261,9 +263,13 @@
                     // file_load_status="Extracting video frames from transcript timestamps...";
                     // let timestamp_frames = await extractFrames(videoPath, transcript);
 
-                    let transcript_list = await convertTranscriptToList(transcript);
 
-                    let newRecording = {video: videoSrc, audio: micSrc, transcript: transcript, transcript_list:transcript_list};
+
+                    let simplified_transcript = await simplifyTranscript(transcript);
+                    let transcript_list = await convertTranscriptToList(simplified_transcript);
+
+
+                    let newRecording = {video: videoSrc, audio: micSrc, transcript: simplified_transcript, transcript_list:transcript_list};
                     recording=newRecording;
                     micPath=null;
                     videoPath=null;
@@ -293,9 +299,10 @@
                     file_load_progress=50;
                     let transcript = await transcribeMic(micPath);
 
-                    let transcript_list = await convertTranscriptToList(transcript);
+                    let simplified_transcript = await simplifyTranscript(transcript);
+                    let transcript_list = await convertTranscriptToList(simplified_transcript);
 
-                    let newRecording = {video: null, audio: audioSrc, transcript: transcript, transcript_list:transcript_list};
+                    let newRecording = {video: null, audio: audioSrc, transcript: simplified_transcript, transcript_list:transcript_list};
                     recording = newRecording;
                     micPath=null;
                     videoPath=null;
@@ -306,7 +313,23 @@
             files=null;
             file_input.value='';
         }
+        console.log("Recording", recording);
     
+    }
+
+    async function simplifyTranscript(transcript) {
+        const response = await fetch("/simplify_transcript", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({transcript: transcript})
+        });
+        if(!response.ok) {
+            throw new Error("Failed to simplify transcript string");
+        }
+        const json = await response.json();
+        return json["simplified_transcript"];
     }
 
     async function convertTranscriptToList(transcript) {
@@ -337,15 +360,20 @@
             let end = excerpt.end_timestamp;
             let speaker = excerpt.speaker;
             let dialogue = excerpt.dialogue;
-            transcript_str += `${id}\n${start} --> ${end}\n${speaker}: ${dialogue}\n\n`;
+
+            if(excerpt.speaker){
+                transcript_str += `${id}\n${start} --> ${end}\n${speaker}: ${dialogue}\n\n`;
+            } else {
+                transcript_str += `${id}\n${start} --> ${end}\n${dialogue}\n\n`;
+            }
         }
         return transcript_str;
     }
     
-    async function autoDetectFeedback() {
+    async function autoDetectFeedback(transcript_list) {
         let feedback_list = [];
 
-        let transcript_str = convertTranscriptListToStr(recording.transcript_list);
+        let transcript_str = convertTranscriptListToStr(transcript_list);
         
         const response = await fetch("/autodetect_feedback", {
             method: "POST",
@@ -376,6 +404,7 @@
             }
             feedback.dialogue_id = excerpt_reference.id;
             feedback.speaker=excerpt_reference.speaker;
+            feedback.excerpt_reference=excerpt_reference;
             feedback_list.push(feedback);
             feedback_list=feedback_list;
 
@@ -417,7 +446,7 @@
                 let end_index = dialogue.indexOf("</mark>") + 7;
                 // BUG: The highlight in the dialogue is not being removed
                 let highlighted_dialogue = dialogue.slice(0, start_index) + feedback_quote + dialogue.slice(end_index);
-                console.log(highlighted_dialogue);
+                
                 e.dialogue = highlighted_dialogue;
                 e.dialogue = e.dialogue;
                 recording.transcript_list = recording.transcript_list;
@@ -460,7 +489,17 @@
     }
 
 
-    
+    function findExcerptByID(transcript_list,id) {
+        id=parseInt(id);
+        for(let i=0; i < transcript_list.length; i++) {
+            let excerpt = transcript_list[i];
+            if(excerpt.id === id) {
+                return excerpt;
+            }
+        }
+        console.log("Error: Can't find excerpt with id", id);
+        return null;
+    }
 
     function findExcerptByQuote(transcript_list,quote) {
         console.log(quote);
@@ -560,7 +599,6 @@
                                 on:click={ async () => {
                                     is_loading=true;
                                     await stopRecording();
-
                                     is_loading=false;
                                 }}
                                 disabled={!is_recording && !is_paused}>
@@ -576,7 +614,6 @@
                         <button on:click={async () => {
                                     is_loading=true;
                                     await handleFilesUpload();
-
                                     is_loading=false;
                                 }} 
                         disabled={is_loading || !files || files.length===0}> 
@@ -592,8 +629,31 @@
                         disabled={!recording || !recording.transcript_list || is_loading}
                         on:click={async () => {
                             is_loading=true;
-                            feedback_list =  await autoDetectFeedback();
+                            feedback_list=[];
+
+                            let list = recording.transcript_list;
+                            // Divide list into 4 equally sized chunks.
+                            let chunk_size = Math.ceil(list.length / 4);
+                            let chunk1 = list.slice(0, chunk_size);
+                            let chunk2 = list.slice(chunk_size, 2 * chunk_size);
+                            let chunk3 = list.slice(2 * chunk_size, 3 * chunk_size);
+                            let chunk4 = list.slice(3 * chunk_size, list.length);
+                            let chunks=[chunk1, chunk2, chunk3, chunk4];
+                            console.log(chunks);
+                            for(let i=0; i < chunks.length; i++) {
+                                feedback_list.push(...await autoDetectFeedback(chunks[i]));
+                                feedback_list=feedback_list;
+                            }
+
+                            for(let j = 0; j < feedback_list.length; j++) {
+                                let reference_id = feedback_list[j].dialogue_id;
+                                
+                                let excerpt = findExcerptByID(recording.transcript_list,reference_id);
+                                feedback_list[j].excerpt_reference=excerpt;
+                                feedback_list=feedback_list;
+                            }
                             autoHighlightFeedback(feedback_list);
+
                             is_loading=false;
                         }}
                     > 
@@ -665,11 +725,7 @@
                     </ul>
                 {/if}
             {/if}
-            
-
-
         </div>
-
     </div>
 
 

@@ -97,13 +97,19 @@ def download_mic_recording():
         return {"message": "Mic recording saved", "filepath": filepath}
     return {"message": "Mic recording not saved"}
 
+@app.route("/simplify_transcript", methods=["POST"])
+def simplify_transcript():
+    form_data = request.get_json()
+    transcript = form_data["transcript"]
+    simplified_transcript = simplify_transript(transcript)
+    pass
+    return {"simplified_transcript": simplified_transcript}
+
 @app.route("/transcript_to_list", methods=["POST"])
-def transcripts_to_list():
+def transcript_to_list():
     form_data = request.get_json()
     transcript = form_data["transcript"]
     transcript_list = extract_lines_from_srt_string(transcript)
-    # if(len(transcript_list)>=500 and "speaker" in transcript_list[0]):
-    #     transcript_list = simplify_transcript_list(transcript_list)
 
     return {"transcript_list": transcript_list}
 
@@ -231,6 +237,14 @@ def autodetect_feedback():
 
     return {"feedback_list": feedback_list}
 
+@app.route("/positively_paraphrase_feedback",methods=["POST"])
+def positively_paraphrase_feedback():
+    form_data = request.get_json()
+    feedback = form_data["feedback"]
+    excerpt= form_data["excerpt"]
+    paraphrased_feedback = positivise_feedback(feedback, excerpt)
+    return {"paraphrased_feedback": paraphrased_feedback}
+
 
 @app.route("/extract_audio_from_video", methods=["POST"])
 def extract_audio_from_video():
@@ -240,7 +254,7 @@ def extract_audio_from_video():
     file = request.files['file']
     if file.filename == '':
         return 'No selected file', 400
-    video_extensions = ('.mp4', '.avi', '.mov', '.mkv', '.webm', '.wav', '.flv', '.wmv', '.mpeg', '.mpg', '.3gp', '.m4v')  # Add more video extensions if needed
+    video_extensions = ('.mp4', '.avi', '.mov', '.mkv', '.webm', '.wav', '.flv', '.wmv', '.mpeg', '.mpg', '.3gp', '.m4v','.aac')  # Add more video extensions if needed
     if file and file.filename.lower().endswith(video_extensions):
         videopath = save_file(file)
         videoext = videopath.split('.')[-1]

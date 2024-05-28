@@ -1,4 +1,7 @@
 <script>
+    
+    import {timeToSeconds, seekTo} from '../utils.js';
+
     export let feedback_list;
     export let recording; 
 
@@ -7,15 +10,45 @@
     let selected_feedback; 
 
     let tabs = [
-        "Positive Feedback", "Critical Feedback"
+        "Critical Feedback", "Positive Feedback"
     ]
 
     function setActiveTab(index){
         activeTab=index;
     }
+
+    async function paraphrasePositively(feedback, excerpt) {
+        const response = await fetch("/positively_paraphrase_feedback", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({feedback: feedback, excerpt: excerpt})
+        });
+        if(!response.ok) {
+            throw new Error("Failed to detect feedback");
+        }
+        const json = await response.json();
+        let paraphrased_feedback = json["paraphrased_feedback"];
+        return paraphrased_feedback;   
+    }
+
+    function removeFeedback(feedback) {
+        feedback_list = feedback_list.filter(f => f !== feedback);
+        feedback_list=feedback_list;
+    }
+
+    function selectFeedback(feedback, event) {
+        selected_feedback = feedback;
+        event.stopPropagation(); // Prevents the event from bubbling up to the window
+    }
+
+    function deselectFeedback() {
+        selected_feedback = null;
+    }
 </script>
 
-<div id="feedback-list-page" class="spaced">
+<div id="feedback-list-page" class="spaced" on:window:click={deselectFeedback}>
     <div id="left-panel" >
         <div id="tabbed-area" class="bordered">
             <div id="tab-header" >
@@ -24,59 +57,78 @@
                 {/each}
 
             </div>
-            <div id="tab-content" class="padded">
+            <div id="tab-content" class="padded" style="overflow-y: auto;">
                 {#if activeTab===0}
-
-                
-
-                {:else if activeTab===1}
-                    <div class="column spaced">
+                    <div class="column" style="overflow-y: auto;">
                         <div class="feedback-header row" >
-                            <span style="width:10%;" class="bordered">
+                            <span style="width:10%;" class="centered">
                                 <strong>Time</strong>
                             </span>
-                            <span style="width:45%;" class="bordered">
+                            <span style="width:45%;" class="centered">
                                 <strong>Feedback</strong>
                             </span>
-                            <span style="width:15%;" class="bordered">
+                            <span style="width:15%;" class="centered">
                                 <strong>Speaker</strong>
                             </span>
-                            <span id="feedback-buttons" style="width:25%;" class="bordered">
+                            <span id="feedback-buttons" style="width:25%;" class="centered">
                                 <strong>Actions</strong>
                             </span>
-                            <span style="width:5%;" class="bordered">
+                            <span style="width:5%;" class="centered">
                                 <strong>Done?</strong>
                             </span>
                         </div>
                         {#each feedback_list as feedback, i}
                             {#if feedback.type==="critical"}
-                                <div class="feedback-row row bordered padded" class:selected={feedback===selected_feedback} on:click={() => {selected_feedback=feedback}}>
-                                    <span style="width:10%;" class="timestamp  centered" on:click={() => seekTo(excerpt.start_timestamp, mediaPlayer)}>
-                                        
-                                        [{recording.transcript_list.find(excerpt => excerpt.id=== feedback.dialogue_id).start_timestamp}]
+                                <div class="feedback-row row bordered padded" class:selected={feedback===selected_feedback} on:click={(event) => selectFeedback(feedback, event)}>
+                                    <span style="width:10%;" class="timestamp  centered" on:click={() => seekTo(feedback.excerpt_reference.start_timestamp, mediaPlayer)}>
+                                        {feedback.excerpt_reference.start_timestamp}
                                     </span>
-                                    <span style="width:45%;" class="">
-                                        {feedback.quote}
-                                    </span>
+                                    <div class="column spaced" style="width:45%;">
+                                        <span  class="">
+                                            {#if feedback.positivised_quote}
+                                                "{feedback.positivised_quote}"
+                                            {:else}
+                                                "{feedback.quote}"
+                                            {/if}
+                                            
+                                        </span>
+                                        <span>
+                                            <strong>Task: </strong> 
+                                            {#if feedback.task}
+                                                {feedback.task}
+                                            {:else}
+                                                (None created yet)
+                                            {/if}
+                                        </span>
+                                    </div>
+                                    
                                     <span style="width:15%;" class="centered">
                                         {feedback.speaker}
                                     </span>
-                                    <span id="feedback-buttons" style="width:25%;" class="">
+                                    <div id="feedback-buttons" style="width:25%;" class="centered spaced">
+                                        <button class="action-button" on:click={async () => { 
+                                            feedback.positivised_quote = await paraphrasePositively(feedback.quote, feedback.excerpt_reference.dialogue);
+                                            feedback_list = feedback_list;
                                         
-                                    </span>
-                                    <span style="width:5%;" class="">
+                                        }}>
+                                            <img src="./logos/positive-paraphrase.png" alt="Paraphrase positively" class="action-icon">
+                                        </button>
+                                        <button class="action-button" on:click={() => removeFeedback(feedback)} >
+                                            <img src="./logos/delete-svgrepo-com.svg" alt="Remove feedback" class="action-icon">
+                                        </button>
+                                    </div>
+                                    <span style="width:5%;" class="centered">
                                         
                                     </span>
                                 </div>
                             {/if}
                         {/each}
-                        
                     </div>
+                {:else if activeTab===1}
+                    
                 {/if}
 
             </div>
-
-
         </div>
 
     </div>
@@ -96,8 +148,16 @@
             {/if}
         </div>
 
-        <div id="feedback-details-area" class="bordered padded spaced column">
-            <span>Feedback details</span>
+        <div id="feedback-details-area" class="bordered padded spaced column" style="overflow-y: auto;">
+            {#if selected_feedback}
+                <span style="text-decoration: underline;"><strong> Feedback details </strong></span>
+                <p>
+                    <span><strong> Timestamp: </strong></span> <span class="timestamp" on:click={() => seekTo(selected_feedback.excerpt_reference.start_timestamp, mediaPlayer)}>[{selected_feedback.excerpt_reference.start_timestamp}]</span> - <span class="timestamp" on:click={() => seekTo(selected_feedback.excerpt_reference.end_timestamp, mediaPlayer)}>[{selected_feedback.excerpt_reference.end_timestamp}]</span><br>
+                    <span><strong> Excerpt: </strong> {@html selected_feedback.excerpt_reference.dialogue}  </span> 
+                </p>
+            {/if}
+            
+
 
         </div>
 
@@ -195,6 +255,28 @@
     #feedback-details-area{
         height:70%;
         width:100%;
+    }
+
+    span.timestamp {
+        color: blue;
+    }
+
+    span.timestamp:hover{
+        /* font-weight: bold; */
+        color: blue;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    .action-button{
+        height: 100%;
+        width: auto; 
+        border: 0 none;
+    }
+
+    .action-icon {
+        height: 3rem;
+        width: 3rem;
     }
 
     span.timestamp {
