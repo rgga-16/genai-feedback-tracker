@@ -66,6 +66,25 @@
         let task = json["task"];
         return task;   
     }
+
+    let sortKey = null;
+    let sortAscending = true;
+
+    function sortFeedbackList(key) {
+        if (sortKey === key) {
+            sortAscending = !sortAscending;
+        } else {
+            sortKey = key;
+            sortAscending = true;
+        }
+
+        feedback_list.sort((a, b) => {
+            if (a[key] < b[key]) return sortAscending ? -1 : 1;
+            if (a[key] > b[key]) return sortAscending ? 1 : -1;
+            return 0;
+        });
+        feedback_list = feedback_list;
+    }
 </script>
 
 <div id="feedback-list-page" class="spaced" on:window:click={deselectFeedback}>
@@ -84,17 +103,38 @@
                             <!-- <span style="width:10%;" class="centered">
                                 <strong>Time</strong>
                             </span> -->
-                            <span style="width:60%;" class="centered">
+                            <span style="width:60%;" class="centered row spaced">
                                 <strong>Feedback</strong>
+                                <button class="action-button" on:click={() => sortFeedbackList('quote')}>
+                                    {#if sortAscending && sortKey==='quote'}
+                                        <img style="height: 1rem; width: 1rem;" src="./logos/ascending-sort-svgrepo-com.svg" alt="Sort ascending" class="mini-icon">
+                                    {:else}
+                                        <img style="height: 1rem; width: 1rem;" src="./logos/descending-sort-svgrepo-com.svg" alt="Sort descending" class="mini-icon">
+                                    {/if}
+                                </button>
                             </span>
-                            <span style="width:15%;" class="centered">
+                            <span style="width:15%;" class="centered row spaced">
                                 <strong>Speaker</strong>
+                                <button class="action-button" on:click={() => sortFeedbackList('speaker')}>
+                                    {#if sortAscending && sortKey==='speaker'}
+                                        <img style="height: 1rem; width: 1rem;" src="./logos/ascending-sort-svgrepo-com.svg" alt="Sort ascending" class="mini-icon">
+                                    {:else}
+                                        <img style="height: 1rem; width: 1rem;" src="./logos/descending-sort-svgrepo-com.svg" alt="Sort descending" class="mini-icon">
+                                    {/if}
+                                </button>
                             </span>
-                            <span id="feedback-buttons" style="width:20%;" class="centered">
+                            <span id="feedback-buttons" style="width:15%;" class="centered row">
                                 <strong>Actions</strong>
                             </span>
-                            <span style="width:5%;" class="centered">
+                            <span style="width:10%;" class="centered row spaced">
                                 <strong>Done?</strong>
+                                <button class="action-button" on:click={() => sortFeedbackList('done')}>
+                                    {#if sortAscending && sortKey==='done'}
+                                        <img style="height: 1rem; width: 1rem;" src="./logos/ascending-sort-svgrepo-com.svg" alt="Sort ascending" class="mini-icon">
+                                    {:else}
+                                        <img style="height: 1rem; width: 1rem;" src="./logos/descending-sort-svgrepo-com.svg" alt="Sort descending" class="mini-icon">
+                                    {/if}
+                                </button>
                             </span>
                         </div>
                         {#each feedback_list as feedback, i}
@@ -136,7 +176,7 @@
                                     <span style="width:15%; " class="centered">
                                         {feedback.speaker}
                                     </span>
-                                    <div id="feedback-buttons" style="width:20%;" class="centered spaced">
+                                    <div id="feedback-buttons" style="width:15%;" class="centered spaced">
                                         <button class="action-button" on:click={async () => { 
                                             feedback.positivised_quote = await paraphrasePositively(feedback.quote, feedback.excerpt_reference.dialogue);
                                             showParaphrasedQuote(feedback, true);
@@ -148,7 +188,7 @@
                                             <img src="./logos/delete-svgrepo-com.svg" alt="Remove feedback" class="action-icon">
                                         </button>
                                     </div>
-                                    <span style="width:5%;" class="centered">
+                                    <span style="width:10%;" class="centered">
                                         <input type="checkbox" bind:checked={feedback.done} />
                                     </span>
                                 </div>
