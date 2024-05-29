@@ -395,7 +395,7 @@
         if(selection) {
             let feedback = {quote: selection, type: type, done:false, speaker:null, dialogue_id:null};
             let excerpt_reference = findExcerptByQuote(recording.transcript_list, selection);
-            console.log(excerpt_reference);
+            // console.log(excerpt_reference);
 
             if(!excerpt_reference) {
                 console.log("Error: Corresponding transcript excerpt not found")
@@ -639,20 +639,22 @@
                             let chunk3 = list.slice(2 * chunk_size, 3 * chunk_size);
                             let chunk4 = list.slice(3 * chunk_size, list.length);
                             let chunks=[chunk1, chunk2, chunk3, chunk4];
-                            console.log(chunks);
-                            for(let i=0; i < chunks.length; i++) {
-                                feedback_list.push(...await autoDetectFeedback(chunks[i]));
-                                feedback_list=feedback_list;
-                            }
 
+                            for(let i=0; i < chunks.length; i++) {
+                                let thing = await autoDetectFeedback(chunks[i]);
+                                feedback_list = feedback_list.concat(thing);
+                            }
+                            feedback_list=feedback_list;
+                            console.log(feedback_list);
                             for(let j = 0; j < feedback_list.length; j++) {
                                 let reference_id = feedback_list[j].dialogue_id;
-                                
                                 let excerpt = findExcerptByID(recording.transcript_list,reference_id);
                                 feedback_list[j].excerpt_reference=excerpt;
-                                feedback_list=feedback_list;
                             }
+                            feedback_list=feedback_list;
                             autoHighlightFeedback(feedback_list);
+                            console.log("Feedback: " + feedback_list[0]);
+                            ;
 
                             is_loading=false;
                         }}

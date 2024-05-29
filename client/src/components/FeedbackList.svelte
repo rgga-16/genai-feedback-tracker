@@ -17,13 +17,13 @@
         activeTab=index;
     }
 
-    async function paraphrasePositively(feedback, excerpt) {
+    async function paraphrasePositively(feedback_quote, excerpt) {
         const response = await fetch("/positively_paraphrase_feedback", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({feedback: feedback, excerpt: excerpt})
+            body: JSON.stringify({feedback: feedback_quote, excerpt: excerpt})
         });
         if(!response.ok) {
             throw new Error("Failed to detect feedback");
@@ -46,6 +46,26 @@
     function deselectFeedback() {
         selected_feedback = null;
     }
+
+    function showParaphrasedQuote(feedback,show=true) {
+        feedback.show_paraphrased = show;
+    }
+
+    async function generateTask(feedback_quote, excerpt) {
+        const response = await fetch("/generate_task", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({feedback: feedback_quote, excerpt: excerpt})
+        });
+        if(!response.ok) {
+            throw new Error("Failed to generate task");
+        }
+        const json = await response.json();
+        let task = json["task"];
+        return task;   
+    }
 </script>
 
 <div id="feedback-list-page" class="spaced" on:window:click={deselectFeedback}>
@@ -61,16 +81,16 @@
                 {#if activeTab===0}
                     <div class="column" style="overflow-y: auto;">
                         <div class="feedback-header row" >
-                            <span style="width:10%;" class="centered">
+                            <!-- <span style="width:10%;" class="centered">
                                 <strong>Time</strong>
-                            </span>
-                            <span style="width:45%;" class="centered">
+                            </span> -->
+                            <span style="width:60%;" class="centered">
                                 <strong>Feedback</strong>
                             </span>
                             <span style="width:15%;" class="centered">
                                 <strong>Speaker</strong>
                             </span>
-                            <span id="feedback-buttons" style="width:25%;" class="centered">
+                            <span id="feedback-buttons" style="width:20%;" class="centered">
                                 <strong>Actions</strong>
                             </span>
                             <span style="width:5%;" class="centered">
@@ -79,52 +99,76 @@
                         </div>
                         {#each feedback_list as feedback, i}
                             {#if feedback.type==="critical"}
-                                <div class="feedback-row row bordered padded" class:selected={feedback===selected_feedback} on:click={(event) => selectFeedback(feedback, event)}>
-                                    <span style="width:10%;" class="timestamp  centered" on:click={() => seekTo(feedback.excerpt_reference.start_timestamp, mediaPlayer)}>
+                                <div class="feedback-row row bordered padded" class:done={feedback.done} class:selected={feedback===selected_feedback} on:click={(event) => selectFeedback(feedback, event)}>
+                                    <!-- <span style="width:10%;" class="clickable  centered" on:click={() => seekTo(feedback.excerpt_reference.start_timestamp, mediaPlayer)}>
                                         {feedback.excerpt_reference.start_timestamp}
-                                    </span>
-                                    <div class="column spaced" style="width:45%;">
+                                    </span> -->
+                                    <div class="column" style="width:60%;">
                                         <span  class="">
-                                            {#if feedback.positivised_quote}
-                                                "{feedback.positivised_quote}"
+                                            {#if feedback.positivised_quote && feedback.show_paraphrased}
+                                                <strong>(Paraphrased Feedback)</strong> "{feedback.positivised_quote}" <span class="clickable" on:click={() => showParaphrasedQuote(feedback, false)}>(View original quote)</span>
                                             {:else}
-                                                "{feedback.quote}"
+                                                "{feedback.quote}" {#if feedback.positivised_quote && !feedback.show_paraphrased } <span class="clickable" on:click={() => showParaphrasedQuote(feedback, true)}>(View paraphrased quote)</span> {/if}
                                             {/if}
-                                            
                                         </span>
                                         <span>
                                             <strong>Task: </strong> 
                                             {#if feedback.task}
                                                 {feedback.task}
+                                                <button class="action-button" on:click={async () => {
+                                                    feedback.task = await generateTask(feedback.quote, feedback.excerpt_reference.dialogue);
+                                                    feedback_list = feedback_list;
+                                                }}>
+                                                    <img src="./logos/ai-create-task.png" alt="Generate Task" class="mini-icon">
+                                                </button>
                                             {:else}
                                                 (None created yet)
+                                                <button class="action-button" on:click={async () => {
+                                                    feedback.task = await generateTask(feedback.quote, feedback.excerpt_reference.dialogue);
+                                                    feedback_list = feedback_list;
+                                                }}>
+                                                    <img src="./logos/ai-add.png" alt="Generate Task" class="mini-icon">
+                                                </button>
                                             {/if}
                                         </span>
                                     </div>
                                     
-                                    <span style="width:15%;" class="centered">
+                                    <span style="width:15%; " class="centered">
                                         {feedback.speaker}
                                     </span>
-                                    <div id="feedback-buttons" style="width:25%;" class="centered spaced">
+                                    <div id="feedback-buttons" style="width:20%;" class="centered spaced">
                                         <button class="action-button" on:click={async () => { 
                                             feedback.positivised_quote = await paraphrasePositively(feedback.quote, feedback.excerpt_reference.dialogue);
+                                            showParaphrasedQuote(feedback, true);
                                             feedback_list = feedback_list;
-                                        
                                         }}>
-                                            <img src="./logos/positive-paraphrase.png" alt="Paraphrase positively" class="action-icon">
+                                            <img src="./logos/ai-positive-paraphrase.png" alt="Paraphrase positively" class="action-icon">
                                         </button>
                                         <button class="action-button" on:click={() => removeFeedback(feedback)} >
                                             <img src="./logos/delete-svgrepo-com.svg" alt="Remove feedback" class="action-icon">
                                         </button>
                                     </div>
                                     <span style="width:5%;" class="centered">
-                                        
+                                        <input type="checkbox" bind:checked={feedback.done} />
                                     </span>
                                 </div>
                             {/if}
                         {/each}
                     </div>
                 {:else if activeTab===1}
+                    <div class="grid">
+                        {#each feedback_list as feedback, i}
+                            {#if feedback.type==="positive"}
+                                <div class="positive-feedback-note" class:selected={feedback===selected_feedback} on:click={(event) => selectFeedback(feedback, event)}>
+                                    <p>
+                                        "{feedback.quote}" 
+                                    </p>
+                                    <br>
+                                    <span> - {feedback.speaker} </span>
+                                </div>
+                            {/if}
+                        {/each}
+                    </div>
                     
                 {/if}
 
@@ -148,13 +192,34 @@
             {/if}
         </div>
 
-        <div id="feedback-details-area" class="bordered padded spaced column" style="overflow-y: auto;">
+        <div id="selected-feedback-area" class="bordered spaced column" >
+            <span style="text-decoration: underline; margin-left: 1rem; margin-top: 1rem;" class=""><strong> Feedback details </strong></span>
             {#if selected_feedback}
-                <span style="text-decoration: underline;"><strong> Feedback details </strong></span>
-                <p>
-                    <span><strong> Timestamp: </strong></span> <span class="timestamp" on:click={() => seekTo(selected_feedback.excerpt_reference.start_timestamp, mediaPlayer)}>[{selected_feedback.excerpt_reference.start_timestamp}]</span> - <span class="timestamp" on:click={() => seekTo(selected_feedback.excerpt_reference.end_timestamp, mediaPlayer)}>[{selected_feedback.excerpt_reference.end_timestamp}]</span><br>
-                    <span><strong> Excerpt: </strong> {@html selected_feedback.excerpt_reference.dialogue}  </span> 
-                </p>
+                <div id="feedback-details" class="column padded" style="overflow-y: auto;">
+                    <p>
+                        <span class="clickable" on:click={() => seekTo(selected_feedback.excerpt_reference.start_timestamp, mediaPlayer)}>[{selected_feedback.excerpt_reference.start_timestamp}]</span> - <span class="clickable" on:click={() => seekTo(selected_feedback.excerpt_reference.end_timestamp, mediaPlayer)}>[{selected_feedback.excerpt_reference.end_timestamp}]</span>
+                        <br>
+                        <span>{@html selected_feedback.excerpt_reference.dialogue}</span> 
+                    </p>
+                </div>
+                <div id="feedback-action-buttons" class="row spaced bordered centered" style="border-left:none; border-right:none; border-bottom:none;">
+                    <button class="action-button centered column" on:click={async () => { 
+                            selected_feedback.positivised_quote = await paraphrasePositively(selected_feedback.quote, selected_feedback.excerpt_reference.dialogue);
+                            showParaphrasedQuote(selected_feedback, true);
+                            feedback_list = feedback_list;
+                        }}>
+                        <img src="./logos/ai-positive-paraphrase.png" alt="Paraphrase positively" class="action-icon">
+                        Paraphrase positively
+                    </button>
+                    <button class="padded">
+                        Chatbot
+                    </button>
+                    <button class="action-button" on:click={() => removeFeedback(selected_feedback)}>
+                        <img src="./logos/delete-svgrepo-com.svg" alt="Remove feedback" class="action-icon">
+                        Delete
+                    </button>
+                    
+                </div>
             {/if}
             
 
@@ -230,13 +295,11 @@
     }
 
     .feedback-row:hover {
-        background: #ccc; 
         border: 2px solid #000000;
         cursor:pointer;
     }
 
     .feedback-row.selected{
-        background: #ccc; 
         border: 2px solid #000000;
     }
 
@@ -248,12 +311,22 @@
     }
 
     #media-player-area{
-        height:30%;
+        height:40%;
         width:100%;
     }
 
-    #feedback-details-area{
-        height:70%;
+    #selected-feedback-area{
+        height:60%;
+        width:100%;
+    }
+
+    #feedback-details{
+        height:80%;
+        width:100%;
+    }
+
+    #feedback-action-buttons{
+        height:20%;
         width:100%;
     }
 
@@ -279,16 +352,52 @@
         width: 3rem;
     }
 
-    span.timestamp {
+    .mini-icon {
+        height: 1.5rem;
+        width: 1.5rem;
+    }
+
+    span.clickable {
         color: blue;
     }
 
-    span.timestamp:hover{
+    span.clickable:hover{
         /* font-weight: bold; */
         color: blue;
         text-decoration: underline;
         cursor: pointer;
     }
+
+
+    .done {
+        background-color: #ccc;
+        opacity: 0.5;
+        text-decoration: line-through; /* Add this line to strikeout the text */
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .positive-feedback-note {
+        background-color: #d4edda;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .positive-feedback-note:hover {
+        border: 2px solid #000000;
+        cursor:pointer;
+    }
+
+    .positive-feedback-note.selected{
+        border: 2px solid #000000;
+    }
+    
+    
 
     
 
