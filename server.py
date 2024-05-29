@@ -268,6 +268,15 @@ def extract_audio_from_video():
     else:
         return {"message":'Invalid file type'}
 
+@app.route("/generate_task", methods=["POST"])
+def generate_task():
+    form_data = request.get_json()
+    feedback = form_data["feedback"]
+    excerpt= form_data["excerpt"]
+    task = generate_task_from_feedback(feedback, excerpt)
+    return {"task": task}
+
+
 if __name__ == "__main__":
     HISTORY_DIR = os.path.join(CWD, "data_history"); makedir(HISTORY_DIR)
     DATA_DIR = os.path.join(CWD, "data"); makedir(DATA_DIR)

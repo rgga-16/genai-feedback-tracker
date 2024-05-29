@@ -180,6 +180,7 @@ def detect_feedback(transcript):
         feedback_list = [{**feedback, 'done': False} for feedback in feedback_list] # Add a 'done' key to each feedback item to track if it has been addressed
         feedback_list = [{'type': feedback['type'], 'quote': feedback['quote'], 'dialogue_id': int(feedback['dialogue_id']), 'speaker': feedback['speaker'], 'done': feedback['done']} for feedback in feedback_list] # Convert dialogue_id to int
         feedback_list = [{**feedback,'task':None} for feedback in feedback_list] # Add a 'task' key to each feedback item to store the task associated with it
+        feedback_list = [{**feedback,'show_paraphrased':False} for feedback in feedback_list] # Add a 'show_paraphrased' key to each feedback item to track if the paraphrased feedback is shown or not.
         pass
     except Exception as e:
         print(f"Error: {e}")
@@ -187,13 +188,12 @@ def detect_feedback(transcript):
     return feedback_list
 
 def positivise_feedback(quote, excerpt): 
-
     system_prompt="""
         Given a feedback quote, you are tasked to paraphrase the provided feedback quote to make it more positive and constructive.
         You will also be given an excerpt from the conversation where the feedback was provided for context.
         Your goal is to rephrase the feedback in a way that maintains the essence of the original feedback but presents it in a more positive and encouraging manner.
-        If you think the feedback is already positive and constructive, you can simply rephrase it to make it more concise or clearer.
-        If the feedback is already positive, constructive, concise, and clear, you can simply leave it as is.
+        If you think the feedback is already positive and constructive, but long, you can simply rephrase it to make it shorter.
+        If the feedback is already positive, constructive, and short, you can simply leave it as is.
 
 
         Respond with the rephrased feedback quote only.
@@ -208,6 +208,26 @@ def positivise_feedback(quote, excerpt):
 
     positive_quote = query(prompt, message_history=message_history, max_output_tokens= max_output_tokens, temp=0.7)
     return positive_quote
+
+def generate_task_from_feedback(feedback_quote, excerpt):
+    system_prompt="""
+        Given a feedback quote, you are tasked to generate a task based on the feedback provided.
+        You will also be given an excerpt from the conversation where the feedback was provided for context.
+        The task should be actionable, specific, related to the feedback given, and should be 1 sentence as much as possible.
+
+        Respond with the rephrased feedback quote only.
+    """
+
+    message_history = [{"role":"system", "content":system_prompt}]
+
+    prompt=f"""
+    Feedback Quote: {feedback_quote}
+    Excerpt: {excerpt}
+    """
+
+    task = query(prompt, message_history=message_history, max_output_tokens= max_output_tokens, temp=0.7)
+
+    return task
 
 if __name__ == "__main__":
     sample_transcript = """
