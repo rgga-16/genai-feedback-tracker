@@ -94,15 +94,23 @@ for page in pages:
         conversations = []
     training_data.extend(conversations)
 
+    # Write the training_data as a .jsonl file. If the file exists, simply append to it.
+    if(len(training_data) > 0):
+        with open("./finetuning/training_data.jsonl", "a") as f:
+            for conversation in training_data:
+                string = f"\"messages\": [{conversation}]"
+                final_string = "{" + string + "}\n"
+                f.write(final_string)
 
-print(training_data)
 
-# Write the training_data as a .jsonl file
-with open("./finetuning/training_data.jsonl", "w") as f:
-    for conversation in training_data:
-        string = f"\"messages\": [{conversation}]"
-        final_string = "{" + string + "}\n"
-        f.write(final_string)
+
+
+
+# with open("./finetuning/training_data.jsonl", "w") as f:
+#     for conversation in training_data:
+#         string = f"\"messages\": [{conversation}]"
+#         final_string = "{" + string + "}\n"
+#         f.write(final_string)
 
 
 pass
