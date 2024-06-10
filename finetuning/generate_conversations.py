@@ -7,6 +7,7 @@ from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain import hub
+from tqdm import tqdm
 
 client = OpenAI()
 FINETUNE_MODEL="gpt-3.5-turbo"
@@ -78,7 +79,7 @@ pages = loader.load_and_split(text_splitter=text_splitter)
 
 training_data = []
 
-for page in pages:
+for page in tqdm(pages):
     messages = []
     messages.append({"role":"system","content":"Don't make assumptions about what values to plug into functions. Ask for clarification if a user request is ambiguous."})
     messages.append({"role": "user", "content": f"Generate examples of conversations between you and the user about the content of this page below. The resulting conversation between the assistant and user should call convertToTrainingData. \n\n{page.page_content}"})
