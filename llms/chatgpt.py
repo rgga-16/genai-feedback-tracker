@@ -194,8 +194,6 @@ def positivise_feedback(quote, excerpt):
         Your goal is to rephrase the feedback in a way that maintains the essence of the original feedback but presents it in a more positive and encouraging manner.
         If you think the feedback is already positive and constructive, but long, you can simply rephrase it to make it shorter.
         If the feedback is already positive, constructive, and short, you can simply leave it as is.
-
-
         Respond with the rephrased feedback quote only.
     """
 
