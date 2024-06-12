@@ -71,9 +71,9 @@ def chat_completion_request(messages, tools=None, tool_choice=None, model="gpt-4
         print(f"Exception: {e}")
         return e
 
-textbooks = ["The Interior Design Reference & Specification Book.pdf", "Interior Design Illustrated.pdf"]
+textbooks = ["The Interior Design Reference & Specification Book.pdf", "Interior Design Illustrated.pdf", "Planning And Designers Handbook.pdf", "Time-Saver Standards for Interior Design and Space Planning.pdf"]
 
-loader = PyPDFLoader("./finetuning/textbooks/Interior Design Illustrated.pdf")
+loader = PyPDFLoader("./finetuning/textbooks/Time-Saver Standards for Interior Design and Space Planning.pdf")
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=4000, chunk_overlap=800,add_start_index=True)
 pages = loader.load_and_split(text_splitter=text_splitter)
 
@@ -122,4 +122,3 @@ for i in tqdm(range(len(pages))):
 
 
 
-pass
