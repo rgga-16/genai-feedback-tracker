@@ -6,8 +6,11 @@ from collections import defaultdict
 data_path = "./finetuning/cleaned/The Interior Design Reference & Specification Book/train.jsonl"
 
 # Load the dataset
+dataset=[]
 with open(data_path, 'r', encoding='utf-8') as f:
-    dataset = [json.loads(line) for line in f]
+    for line in f:
+        sample = json.loads(line)
+        dataset.append(sample)  
 
 # Initial dataset stats
 print("Num examples:", len(dataset))
@@ -54,7 +57,7 @@ if format_errors:
 else:
     print("No errors found")
 
-    encoding = tiktoken.get_encoding("cl100k_base")
+encoding = tiktoken.get_encoding("cl100k_base")
 
 # not exact!
 # simplified from https://github.com/openai/openai-cookbook/blob/main/examples/How_to_count_tokens_with_tiktoken.ipynb
@@ -127,3 +130,4 @@ n_billing_tokens_in_dataset = sum(min(MAX_TOKENS_PER_EXAMPLE, length) for length
 print(f"Dataset has ~{n_billing_tokens_in_dataset} tokens that will be charged for during training")
 print(f"By default, you'll train for {n_epochs} epochs on this dataset")
 print(f"By default, you'll be charged for ~{n_epochs * n_billing_tokens_in_dataset} tokens")
+# See https://openai.com/pricing to estimate total costs.
