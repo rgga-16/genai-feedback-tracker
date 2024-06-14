@@ -3,7 +3,7 @@ import tiktoken # for token counting
 import numpy as np
 from collections import defaultdict
 
-data_path = "./finetuning/cleaned/The Interior Design Reference & Specification Book/train.jsonl"
+data_path = "./finetuning/cleaned/Planning And Designers Handbook/train_page_86to172.jsonl"
 
 # Load the dataset
 dataset=[]
