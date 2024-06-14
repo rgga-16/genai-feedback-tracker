@@ -44,6 +44,9 @@ def num_tokens_from_messages(messages, model=model_name):
     elif model == "gpt-4-0314":
         tokens_per_message = 3
         tokens_per_name = 1
+    elif model.startswith("ft:"):
+        print("Warning: gpt-3.5-turbo may change over time. Returning num tokens assuming gpt-3.5-turbo-0301.")
+        return num_tokens_from_messages(messages, model="gpt-3.5-turbo-0301")
     else:
         raise NotImplementedError(f"""num_tokens_from_messages() is not implemented for model {model}. See https://github.com/openai/openai-python/blob/main/chatml.md for information on how messages are converted to tokens.""")
     num_tokens = 0
@@ -64,7 +67,7 @@ def check_and_trim_message_history(message_history, model_name=model_name, max_t
         while num_tokens_from_messages(message_history, model=model_name) > max_tokens - offset:
             del message_history[1] # Delete the 2nd message in the history. The first message is always the system prompt, which should not be deleted.
 
-def query(query,role="user", temp=temperature, max_output_tokens=max_output_tokens, message_history=message_history):
+def query(query,role="user", model_name=model_name, temp=temperature, max_output_tokens=max_output_tokens, message_history=message_history):
 
     # Retrieve n embeddings 
     message_history.append({"role":role, "content":query})
@@ -228,11 +231,11 @@ def generate_task_from_feedback(feedback_quote, excerpt):
     return task
 
 if __name__ == "__main__":
-    sample_transcript = """
-    Speaker 0: There, so the texture maps are still here. So to show the dragging and drop, wait hold on, I'll just... So let's say, what you can do is first you have to, let's say if I want to transfer onto the floor, I have to first select it first. So the blue highlight means that it was selected. And then if I drag this, I just simply drag here, and then I let go. It's a bit buggy but I have to click away to show the texture. That's how the texture map looks like. It doesn't look good. Another feature is, let's say you want to Because when it comes to oak wood, one thing that you're looking for is the kind of graining or additional details. So here in this box here, it brainstorms keywords that you can add to the input. So for example, if I brainstorm keywords for oak wood, Sorry, it doesn't have a loading spinner but it's loading. There you go. So there will be keywords that you can add to Oakwood that you could make it more specific. For example, plus green or whorls or distress marks. And then here, when you press generate material, it generates those with these keywords in mind. So let's say if you're making, let's say like a bamboo texture. Sorry, you can. also, there's a feature where you can add your own keywords, but it's not yet there. But so far it uses AI to help brainstorm so that you won't have to manually write it.
-    """
-
-    print(detect_feedback(sample_transcript))
+    message_history = [{"role":"system", "content":"You are a helpful assistant."}]
+    while(True):
+        message = input("User: ")
+        response = query(message,model_name="ft:gpt-3.5-turbo-0125:personal:int-des:9Zfe0znW",temp=1.0)
+        print(f"Assistant: {response}")
 
     print()
 
