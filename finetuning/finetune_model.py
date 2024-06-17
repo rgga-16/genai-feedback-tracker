@@ -9,18 +9,30 @@ base_model = "gpt-3.5-turbo"
 
 if __name__ == "__main__":
     client = OpenAI()
-    # file_response = client.files.create (
-    #     file= open("./finetuning/cleaned/The Interior Design Reference & Specification Book/train.jsonl","rb"),
+
+    # file_response = client.files.create ( # Add train file to fine-tune
+    #     file= open("./finetuning/dataset/train.jsonl","rb"),
     #     purpose="fine-tune"
     # )
-    # file_id = file_response.id
+    # train_id = file_response.id
 
-    # client.fine_tuning.jobs.create(
-    #     training_file=file_id,
+    # file_response = client.files.create ( # Add train file to fine-tune
+    #     file= open("./finetuning/dataset/val.jsonl","rb"),
+    #     purpose="fine-tune"
+    # )
+    # val_id = file_response.id
+
+    # print(client.files.list()) # List files
+
+    # print(client.files.delete('file-8mnlB1V74D3LnZyy7ieluN2P')) #Delete a file
+
+    # client.fine_tuning.jobs.create( # Create fine-tuning job
+    #     training_file=train_id,
+    #     validation_file=val_id,
     #     model=base_model,
     #     seed=42,
-    #     suffix="int-des",
+    #     suffix="int-des-full",
     # )
-    fine_tune_jobs = client.fine_tuning.jobs.list()
-    print(fine_tune_jobs)
+
+    print(client.fine_tuning.jobs.list()) # List fine-tuning jobs
     
