@@ -3,12 +3,13 @@ import tiktoken # for token counting
 import numpy as np
 from collections import defaultdict
 
-data_path = "./finetuning/cleaned/Planning And Designers Handbook/train_page_86to172.jsonl"
+data_path = "./finetuning/cleaned/Planning And Designers Handbook/train.jsonl"
 
 # Load the dataset
 dataset=[]
 with open(data_path, 'r', encoding='utf-8') as f:
     for line in f:
+        # print(line)
         sample = json.loads(line)
         dataset.append(sample)  
 
