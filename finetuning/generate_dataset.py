@@ -90,9 +90,10 @@ for i in tqdm(range(len(pages))):
                     You are an assistant who is an expert on interior design, and the user is a practicing interior design student. 
                     Pretend the user is working on a interior design project, and the project is a work-in-progress. Furthermore, the project has also been receiving feedback from teachers on how to improve it. Thus the user should ask questions related to their project like "What is the best way to do W?", "How do I do X?", "What are some examples of Y?", or "My teacher gave this feedback Z. Based on the feedback I received, how can I improve my project?".
                     The assistant should provide answers like explanations, examples, and clarifications to these questions by referring to the text. Furthermore, these answers should be short and concise.
+                    Lastly, when answering, don't make any explicit references to pages, chapters, figures, tables, or books in the text.
                     Be creative and generate a variety of questions and answers.
                     The conversation should have at least 2 exchanges between the user and assistant. Feel free to generate more than 2 exchanges in a conversation.
-                    If the text contains irrelevant content like table of contents, index, acknowledgements, etc., return an empty array. 
+                    If the text contains irrelevant content like table of contents, index, acknowledgements, references, etc., return an empty array. 
                     The resulting conversation between the assistant and user should call convertToTrainingData. \n\n
                     Text:
                     {page.page_content}"""})
