@@ -64,13 +64,13 @@ def query(query, model_name, temp, max_output_tokens, message_history,role="user
     return response_msg
 
 
-finetuned_model = "ft:gpt-3.5-turbo-0125:im-lab:int-des:9ZuJ98O6"
+finetuned_model = "ft:gpt-3.5-turbo-0125:im-lab:int-des-full:9b2qf12W"
 max_tokens=16000
 
 if __name__ == "__main__":
     client = OpenAI()
 
-    message_history = [{"role":"system", "content":"You are a helpful assistant."}]
+    message_history = [{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
     while(True):
         message = input("User: ")
         response = query(message,model_name=finetuned_model,temp=1.0,max_output_tokens=256,message_history=message_history,role="user")
