@@ -402,6 +402,7 @@
                 alert("Error: Corresponding transcript excerpt not found. Feedback not added.");
                 return;
             }
+            feedback.id = feedback_list.length+1;
             feedback.dialogue_id = excerpt_reference.id;
             feedback.speaker=excerpt_reference.speaker;
             feedback.excerpt_reference=excerpt_reference;

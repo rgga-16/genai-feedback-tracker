@@ -179,7 +179,10 @@ def detect_feedback(transcript):
     try:
         feedback_list = ast.literal_eval(response)
         # print(f"Feedback detected: {feedback_list}")
-
+        
+        
+        feedback_list = [{**feedback, 'id': i+1} for i, feedback in enumerate(feedback_list)] # Add a 'id' key to each feedback item to track the index of the feedback item.
+    
         feedback_list = [{**feedback, 'done': False} for feedback in feedback_list] # Add a 'done' key to each feedback item to track if it has been addressed
         feedback_list = [{'type': feedback['type'], 'quote': feedback['quote'], 'dialogue_id': int(feedback['dialogue_id']), 'speaker': feedback['speaker'], 'done': feedback['done']} for feedback in feedback_list] # Convert dialogue_id to int
         feedback_list = [{**feedback,'task':None} for feedback in feedback_list] # Add a 'task' key to each feedback item to store the task associated with it

@@ -2132,6 +2132,7 @@
 	// let feedback_list=[];
 	let feedback_list= [
     {
+        "id":1,
         "dialogue_id": 36,
         "done": false,
         "quote": "First of all, I think this is a very, very well-written paper, very logical, follows in terms of the way you conducted the process of this evaluation, what the limitations are, are some of the finer details of the project.",
@@ -2147,6 +2148,7 @@
         }
     },
     {
+        "id":2,
         "dialogue_id": 37,
         "done": false,
         "quote": "Your writing is actually very good, very logical, very, very good.",
@@ -2162,6 +2164,7 @@
         }
     },
     {
+        "id":3,
         "dialogue_id": 38,
         "done": false,
         "quote": "I want to point out some points to you with some questions that you may be able to answer to make this a better paper.",
@@ -2177,6 +2180,7 @@
         }
     },
     {
+        "id":4,
         "dialogue_id": 41,
         "done": false,
         "quote": "I wouldn't put in a word like tedious, because it means then, well if it's tedious, don't do it.",
@@ -2192,6 +2196,7 @@
         }
     },
     {
+        "id":5,
         "dialogue_id": 42,
         "done": false,
         "quote": "If you think your job, or if you think a design life cycle is tedious, then maybe you're not the person to do it.",
@@ -2207,6 +2212,7 @@
         }
     },
     {
+        "id":6,
         "dialogue_id": 52,
         "done": false,
         "quote": "So why not say the product meets technical and safety specifications?",
@@ -2222,6 +2228,7 @@
         }
     },
     {
+        "id":7,
         "dialogue_id": 54,
         "done": false,
         "quote": "So this is why I'm saying, you know, your writing is very, very good. Then you've got this word, out of expertise, knowledge, generalized. Generalized knowledge. Because, you know, if you've got expert knowledge and general knowledge and no knowledge. So this would be generalized knowledge. Because that person's not an expert, they've just got general knowledge.",
@@ -2237,6 +2244,7 @@
         }
     },
     {
+        "id":8,
         "dialogue_id": 64,
         "done": false,
         "quote": "So you come to me and go to your friends, yeah? So... Again, you then switch to... Ah, wait a minute. Okay, you've got the word... I've just changed the language a bit to make it a bit better. You've got verifying them, just say subsequent verification. Right, right. Just makes it sound better, okay? You've got stakeholders, then you've got users. So I put a question mark there.",
@@ -2252,6 +2260,7 @@
         }
     },
     {
+        "id":9,
         "dialogue_id": 101,
         "done": false,
         "quote": "So when I read the rest of the paper, I'm looking for the answers to these two questions. That's all. And then you've got, You've got goals and aims. Again, asking for, requesting, same thing. I'm not sure. I'm sure I know what to say anymore.",
@@ -2267,6 +2276,7 @@
         }
     },
     {
+        "id":10,
         "dialogue_id": 118,
         "done": false,
         "quote": "So it's quite important to define. grounded theory is. It does two things. One, it tells the reader what it is, because the reader might not know. And two, it demonstrates that you know what it is as the writer. So just one sentence, grounded theory is, and the benefits of grounded theory are. So in other words, why grounded theory?",
@@ -2282,6 +2292,7 @@
         }
     },
     {
+        "id":11,
         "dialogue_id": 143,
         "done": false,
         "quote": "So you need to explain that before you move on to the results, because without that foundation of coding then everything else is unreliable. Even though when I read your scripts, it made sense and I can understand why you did it, but at the same time, when I read your conclusion and transcripts that support your conclusion, somebody in the audience may put their hand up and say that's bias. You may be biased. In other words, you are cherry picking. You are picking out information to suit your outcome. Whereas what you should be doing is looking at the information and from the information determine that outcome. But what you could be accused of here is that the outcome has already been decided by you subconsciously, but you've kind of looked for the transcripts to match that. I'm not saying you did that, but that's what you could be accused of. It's not a big accusation, of course, but it's just that somebody may take issue with that. So you don't have to change anything there. I think what you need to do is just justify how you've done this thematic analysis. Even if you keep everything else the same, that's fine. But when you do it, you may change.",
@@ -2297,6 +2308,7 @@
         }
     },
     {
+        "id":12,
         "dialogue_id": 144,
         "done": false,
         "quote": "I don't think you'll change, because I think your discussion is actually very focused and very good.",
@@ -2312,6 +2324,7 @@
         }
     },
     {
+        "id":13,
         "dialogue_id": 149,
         "done": false,
         "quote": "Yeah, and then, okay, your results. you know, your discussion, it's all very good, sorry, the overview of the results is all very good, and then when it came to the discussion I think this is what you've got to decide yourself.",
@@ -2326,7 +2339,8 @@
             "start_timestamp": "00:27:54,744"
         }
     },
-    {
+    {   
+        "id":14,
         "dialogue_id": 150,
         "done": false,
         "quote": "In your discussion you said the aim of the study. But in the previous section there were two aims. So I actually personally, I like the fact that you've got it written down as one aim. You've connected the two into one. I like that. And I think it makes it more focused.",
@@ -2341,7 +2355,8 @@
             "start_timestamp": "00:28:09,015"
         }
     },
-    {
+    {   
+        "id":15,
         "dialogue_id": 259,
         "done": false,
         "quote": "I'm not saying it's a bad paper. I think it's a great paper. But I think if you've got time to enhance it, you could make it into a much better paper.",
@@ -2356,7 +2371,8 @@
             "start_timestamp": "00:48:16,148"
         }
     },
-    {
+    {   
+        "id":16,
         "dialogue_id": 279,
         "done": false,
         "quote": "I think this is an excellent pilot study, but for, it's a pilot study, but for your real research project, you need to widen the scope of your awareness of the literature and the problems beyond the seven students, the seven participants.",
@@ -2372,6 +2388,7 @@
         }
     },
     {
+        "id":17,
         "dialogue_id": 298,
         "done": false,
         "quote": "What I'm trying to do is give you information to make it much better.",
