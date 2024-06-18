@@ -9,6 +9,8 @@
     let activeTab=0;  
     let selected_feedback; 
 
+    let active_chatbots = [];
+
     let tabs = [
         "Critical Feedback", "Positive Feedback"
     ]
@@ -94,15 +96,14 @@
                 {#each tabs as tab, i}
                     <button class="tab" on:click={()=>setActiveTab(i)} class:active={i===activeTab} class:right-bordered={i<tabs.length-1} >{tab}</button>
                 {/each}
-
             </div>
             <div id="tab-content" class="padded" style="overflow-y: auto;">
                 {#if activeTab===0}
                     <div class="column" style="overflow-y: auto;">
                         <div class="feedback-header row" >
-                            <!-- <span style="width:10%;" class="centered">
-                                <strong>Time</strong>
-                            </span> -->
+                            <span style="width:3%;" class="centered">
+                                <strong>ID</strong>
+                            </span>
                             <span style="width:60%;" class="centered row spaced">
                                 <strong>Feedback</strong>
                                 <button class="action-button" on:click={() => sortFeedbackList('quote')}>
@@ -126,7 +127,7 @@
                             <span id="feedback-buttons" style="width:15%;" class="centered row">
                                 <strong>Actions</strong>
                             </span>
-                            <span style="width:10%;" class="centered row spaced">
+                            <span style="width:7%;" class="centered row spaced">
                                 <strong>Done?</strong>
                                 <button class="action-button" on:click={() => sortFeedbackList('done')}>
                                     {#if sortAscending && sortKey==='done'}
@@ -140,9 +141,9 @@
                         {#each feedback_list as feedback, i}
                             {#if feedback.type==="critical"}
                                 <div class="feedback-row row bordered padded" class:done={feedback.done} class:selected={feedback===selected_feedback} on:click={(event) => selectFeedback(feedback, event)}>
-                                    <!-- <span style="width:10%;" class="clickable  centered" on:click={() => seekTo(feedback.excerpt_reference.start_timestamp, mediaPlayer)}>
-                                        {feedback.excerpt_reference.start_timestamp}
-                                    </span> -->
+                                    <span style="width:3%;">
+                                        <strong> {feedback.id} </strong>
+                                    </span>
                                     <div class="column" style="width:60%;">
                                         <span  class="">
                                             {#if feedback.positivised_quote && feedback.show_paraphrased}
@@ -188,7 +189,7 @@
                                             <img src="./logos/delete-svgrepo-com.svg" alt="Remove feedback" class="action-icon">
                                         </button>
                                     </div>
-                                    <span style="width:10%;" class="centered">
+                                    <span style="width:7%;" class="centered">
                                         <input type="checkbox" bind:checked={feedback.done} />
                                     </span>
                                 </div>
@@ -209,7 +210,6 @@
                             {/if}
                         {/each}
                     </div>
-                    
                 {/if}
 
             </div>
@@ -251,14 +251,15 @@
                         <img src="./logos/ai-positive-paraphrase.png" alt="Paraphrase positively" class="action-icon">
                         Paraphrase positively
                     </button>
-                    <button class="padded">
-                        Chatbot
+                    <button class="padded" on:click={() => {
+                        
+                    }}>
+                        Start Chatbot
                     </button>
                     <button class="action-button" on:click={() => removeFeedback(selected_feedback)}>
                         <img src="./logos/delete-svgrepo-com.svg" alt="Remove feedback" class="action-icon">
                         Delete
                     </button>
-                    
                 </div>
             {/if}
             
@@ -282,7 +283,7 @@
     #left-panel{
         position:relative;
         height:100%;
-        width:70%;
+        width:60%;
         padding-bottom: 1rem;
     }
 
@@ -346,7 +347,7 @@
     #right-panel{
         position:relative;
         height:100%;
-        width:30%;
+        width:40%;
         padding-bottom: 1rem;
     }
 
