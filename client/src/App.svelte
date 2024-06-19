@@ -2145,7 +2145,8 @@
             "id": 36,
             "speaker": "Speaker 0",
             "start_timestamp": "00:06:12,364"
-        }
+        },
+        "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
     },
     {
         "id":2,
@@ -2161,7 +2162,8 @@
             "id": 37,
             "speaker": "Speaker 2",
             "start_timestamp": "00:06:44,696"
-        }
+        },
+        "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
     },
     {
         "id":3,
@@ -2177,7 +2179,8 @@
             "id": 38,
             "speaker": "Speaker 0",
             "start_timestamp": "00:06:50,538"
-        }
+        },
+        "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
     },
     {
         "id":4,
@@ -2193,7 +2196,8 @@
             "id": 41,
             "speaker": "Speaker 2",
             "start_timestamp": "00:07:14,053"
-        }
+        },
+        "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
     },
     {
         "id":5,
@@ -2209,7 +2213,8 @@
             "id": 42,
             "speaker": "Speaker 0",
             "start_timestamp": "00:07:43,798"
-        }
+        },
+        "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
     },
     {
         "id":6,
@@ -2225,7 +2230,8 @@
             "id": 52,
             "speaker": "Speaker 0",
             "start_timestamp": "00:09:54,838"
-        }
+        },
+        "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
     },
     {
         "id":7,
@@ -2241,7 +2247,8 @@
             "id": 54,
             "speaker": "Speaker 0",
             "start_timestamp": "00:10:12,813"
-        }
+        },
+        "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
     },
     {
         "id":8,
@@ -2257,7 +2264,8 @@
             "id": 64,
             "speaker": "Speaker 0",
             "start_timestamp": "00:13:42,661"
-        }
+        },
+        "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
     },
     {
         "id":9,
@@ -2273,7 +2281,8 @@
             "id": 101,
             "speaker": "Speaker 0",
             "start_timestamp": "00:18:41,722"
-        }
+        },
+        "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
     },
     {
         "id":10,
@@ -2289,7 +2298,8 @@
             "id": 118,
             "speaker": "Speaker 0",
             "start_timestamp": "00:21:05,791"
-        }
+        },
+        "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
     },
     {
         "id":11,
@@ -2305,7 +2315,8 @@
             "id": 143,
             "speaker": "Speaker 0",
             "start_timestamp": "00:25:03,509"
-        }
+        },
+        "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
     },
     {
         "id":12,
@@ -2321,7 +2332,8 @@
             "id": 144,
             "speaker": "Speaker 2",
             "start_timestamp": "00:26:58,081"
-        }
+        },
+        "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
     },
     {
         "id":13,
@@ -2337,7 +2349,8 @@
             "id": 149,
             "speaker": "Speaker 0",
             "start_timestamp": "00:27:54,744"
-        }
+        },
+        "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
     },
     {   
         "id":14,
@@ -2353,7 +2366,8 @@
             "id": 150,
             "speaker": "Speaker 2",
             "start_timestamp": "00:28:09,015"
-        }
+        },
+        "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
     },
     {   
         "id":15,
@@ -2369,7 +2383,8 @@
             "id": 259,
             "speaker": "Speaker 0",
             "start_timestamp": "00:48:16,148"
-        }
+        },
+        "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
     },
     {   
         "id":16,
@@ -2385,7 +2400,8 @@
             "id": 279,
             "speaker": "Speaker 0",
             "start_timestamp": "00:52:04,891"
-        }
+        },
+        "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
     },
     {
         "id":17,
@@ -2401,7 +2417,8 @@
             "id": 298,
             "speaker": "Speaker 0",
             "start_timestamp": "00:57:25,503"
-        }
+        },
+        "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
     }
 ];
 	

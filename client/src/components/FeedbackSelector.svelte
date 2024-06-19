@@ -406,6 +406,7 @@
             feedback.dialogue_id = excerpt_reference.id;
             feedback.speaker=excerpt_reference.speaker;
             feedback.excerpt_reference=excerpt_reference;
+            feedback.messages =[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}];
             feedback_list.push(feedback);
             feedback_list=feedback_list;
 

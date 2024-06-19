@@ -182,7 +182,7 @@ def detect_feedback(transcript):
         
         
         feedback_list = [{**feedback, 'id': i+1} for i, feedback in enumerate(feedback_list)] # Add a 'id' key to each feedback item to track the index of the feedback item.
-    
+        feedback_list = [{**feedback,'chatbot_messages': [{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]} for feedback in feedback_list] # Add a 'messages' key to each feedback item to store the messages associated with it
         feedback_list = [{**feedback, 'done': False} for feedback in feedback_list] # Add a 'done' key to each feedback item to track if it has been addressed
         feedback_list = [{'type': feedback['type'], 'quote': feedback['quote'], 'dialogue_id': int(feedback['dialogue_id']), 'speaker': feedback['speaker'], 'done': feedback['done']} for feedback in feedback_list] # Convert dialogue_id to int
         feedback_list = [{**feedback,'task':None} for feedback in feedback_list] # Add a 'task' key to each feedback item to store the task associated with it
