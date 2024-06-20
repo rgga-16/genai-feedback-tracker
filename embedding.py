@@ -2,6 +2,7 @@ import openai
 import re, codecs
 import pandas as pd
 from scipy import spatial 
+import ast
 
 
 EMBEDDING_MODEL = "text-embedding-3-small"
@@ -20,7 +21,6 @@ def extract_lines_from_srt_string(content, diarized=True):
                 'dialogue': match[4].replace('\n', ' ')
             })
     else:
-        
         pattern = re.compile(r'(\d+)\s+(\d{2}:\d{2}:\d{2},\d{3}) --> (\d{2}:\d{2}:\d{2},\d{3})\s+(.+?)\s+(?=\d+\s+\d{2}:\d{2}:\d{2},\d{3} -->|\Z)', re.DOTALL)
         matches = pattern.findall(content)
         for match in matches:
@@ -68,15 +68,15 @@ def convert_to_srt_string(dialogues):
             srt_format += f"{i}\n{dialogue['start_timestamp']} --> {dialogue['end_timestamp']}\n{dialogue['dialogue']}\n\n"
     return srt_format[:-2] # Remove the last two newlines
 
-def divide_into_chunks(transcript_title, dialogues, max_chunk_size=512):
+def divide_into_chunks(dialogues,max_chunk_size=512):
     chunks = []
     chunk = ''
     for dialogue in dialogues:
         # Add the dialogue to the chunk
         if "speaker" in dialogue:
-            string = f"{transcript_title} - {dialogue['start_timestamp']} --> {dialogue['end_timestamp']}\n{dialogue['speaker']}: {dialogue['dialogue']}\n"
+            string = f"{dialogue['start_timestamp']} --> {dialogue['end_timestamp']}\n{dialogue['speaker']}: {dialogue['dialogue']}\n"
         else:
-            string = f"{transcript_title} - {dialogue['start_timestamp']} --> {dialogue['end_timestamp']}\n{dialogue['dialogue']}\n"
+            string = f"{dialogue['start_timestamp']} --> {dialogue['end_timestamp']}\n{dialogue['dialogue']}\n"
         
         new_chunk = chunk + string if chunk else string 
 
@@ -113,9 +113,15 @@ def strings_ranked_by_relatedness(
         model=EMBEDDING_MODEL,
     )
     query_embedding = query_embedding_response.data[0].embedding
-    strings_and_relatedness = [
-        (row["text"], relatedness_fn(query_embedding, row["embedding"])) for i,row in df.iterrows()
-    ]
+    strings_and_relatedness = []
+
+    for i, row in df.iterrows():
+        embedding = row["embedding"]
+        if type(embedding)==str:
+            embedding = ast.literal_eval(embedding)
+        relatedness = relatedness_fn(query_embedding, embedding)
+        text= row["text"]
+        strings_and_relatedness.append((text, relatedness))
 
     strings_and_relatedness.sort(key=lambda x: x[1], reverse=True)
     strings,relatednesses = zip(*strings_and_relatedness)
@@ -124,7 +130,7 @@ def strings_ranked_by_relatedness(
 
 
 if __name__ == '__main__':
-    dialogues = extract_lines_from_srt_file('sample_recording/whisper_diarization/audio1751904076.srt')
+    dialogues = extract_lines_from_srt_file('./sample_recording/whisper_diarization/audio1751904076.srt')
     simplified_dialogues = dialogues
     if "speaker" in dialogues[0]:
         simplified_dialogues = simplify_transcript_list(dialogues)

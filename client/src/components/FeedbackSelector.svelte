@@ -193,6 +193,24 @@
         micRecorder.resume();
     }
 
+    async function embedTranscriptList(transcript_list) {
+        const response = await fetch("/embed_transcript", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({transcript: transcript_list})
+        });
+        if(!response.ok) {
+            throw new Error("Failed to embed transcript list");
+        }
+
+
+        // TEST THIS FUNCTION!
+
+
+    }
+
     async function stopRecording() {
         is_recording=false;
         is_paused=false;
@@ -218,6 +236,7 @@
 
         let simplified_transcript = await simplifyTranscript(transcript);
         let transcript_list = await convertTranscriptToList(simplified_transcript);
+        await embedTranscriptList(transcript_list);
         
 
         let newRecording = {video: videoSrc, audio: micSrc, transcript: simplified_transcript, transcript_list : transcript_list};
@@ -267,6 +286,7 @@
 
                     let simplified_transcript = await simplifyTranscript(transcript);
                     let transcript_list = await convertTranscriptToList(simplified_transcript);
+                    await embedTranscriptList(transcript_list);
 
 
                     let newRecording = {video: videoSrc, audio: micSrc, transcript: simplified_transcript, transcript_list:transcript_list};
@@ -301,6 +321,7 @@
 
                     let simplified_transcript = await simplifyTranscript(transcript);
                     let transcript_list = await convertTranscriptToList(simplified_transcript);
+                    await embedTranscriptList(transcript_list);
 
                     let newRecording = {video: null, audio: audioSrc, transcript: simplified_transcript, transcript_list:transcript_list};
                     recording = newRecording;
@@ -387,6 +408,7 @@
         }
         const json = await response.json();
         feedback_list = json["feedback_list"];
+        console.log(feedback_list);
         return feedback_list;   
     }
 
@@ -406,7 +428,7 @@
             feedback.dialogue_id = excerpt_reference.id;
             feedback.speaker=excerpt_reference.speaker;
             feedback.excerpt_reference=excerpt_reference;
-            feedback.messages =[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}];
+            feedback.chatbot_messages =[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}];
             feedback_list.push(feedback);
             feedback_list=feedback_list;
 

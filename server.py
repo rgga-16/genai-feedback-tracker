@@ -1,5 +1,5 @@
 from flask import Flask, send_from_directory, request, send_file
-import os, shutil, subprocess, cv2, imagehash
+import os, shutil, subprocess, cv2, imagehash, ast
 from PIL import Image
 
 from datetime import datetime
@@ -15,6 +15,7 @@ CWD = os.getcwd()
 RECORD_I = 0
 TRANSCRIPT_DATABASE = None
 DATA_DIR = os.path.join(CWD, "data"); makedir(DATA_DIR)
+TRANSCRIPT_DB_PATH = None 
 
 app = Flask(__name__)
 
@@ -113,39 +114,34 @@ def transcript_to_list():
 
     return {"transcript_list": transcript_list}
 
-@app.route("/embed_transcripts", methods=["POST"])
+@app.route("/embed_transcript", methods=["POST"])
 def embed_transcript():
-    global TRANSCRIPT_DATABASE
+
+    global TRANSCRIPT_DB_PATH
     form_data = request.get_json()
-    transcripts = form_data["transcripts"]
-    timestamp_frames = form_data["frames"]
-    for i in range(len(transcripts)):
-        transcript = transcripts[i]
-        dialogues = extract_lines_from_srt_string(transcript)
-        simplified_dialogues = dialogues
-        if "speaker" in dialogues[0]:
-            simplified_dialogues = simplify_transcript_list(dialogues)
-        srt = convert_to_srt_string(simplified_dialogues)
-        text_chunks = divide_into_chunks(f"Transcript {i+1}",simplified_dialogues)
-        embeddings = []
-        for chunk in text_chunks:
-            embeddings.extend(convert_to_embedding(chunk))
-        if TRANSCRIPT_DATABASE is None:
-            TRANSCRIPT_DATABASE = pd.DataFrame({
-                'text': text_chunks,
-                'embedding': embeddings
-            })
-        else:
-            TRANSCRIPT_DATABASE = TRANSCRIPT_DATABASE.concat(pd.DataFrame({
-                'text': text_chunks,
-                'embedding': embeddings
-            }), ignore_index=True)
-        
-        recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}") 
-        makedir(recording_dir)
-        transcript_db_path = os.path.join(recording_dir, f"transcript.csv")
-        TRANSCRIPT_DATABASE.to_csv(transcript_db_path)
+    transcript = form_data["transcript"]
+
+    embeddings = []
+
+    transcript_text = convert_to_srt_string(transcript)
+    text_chunks = divide_into_chunks(transcript,max_chunk_size=512)
+
+    for chunk in text_chunks:
+        embeddings.extend(convert_to_embedding(chunk))
+    
+    transcript_database = pd.DataFrame({
+        'text': text_chunks,
+        'embedding': embeddings
+    })
+    transcript_database['embedding'] = transcript_database['embedding'].apply(ast.literal_eval)
+    
+    recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}") 
+    makedir(recording_dir)
+    TRANSCRIPT_DB_PATH = os.path.join(recording_dir, f"transcript.csv")
+    transcript_database.to_csv(TRANSCRIPT_DB_PATH)
     return {"message": "Transcripts embedded"}
+
+
 
 def convert_to_ms(timestamp):
     h, m, s = map(str, timestamp.split(':'))
@@ -205,27 +201,31 @@ def get_initial_message():
 @app.route("/message_chatbot", methods=["POST"])
 def message_chatbot():
     form_data = request.get_json()
-    user_query = form_data["message"]
+    message = form_data["message"]
+    message_history = form_data["message_history"]
 
-    n_rows = TRANSCRIPT_DATABASE.shape[0]
-    top_n = round(0.25*n_rows)
+    transcript_database = pd.read_csv(TRANSCRIPT_DB_PATH)
+
+    n_rows = transcript_database.shape[0]
+    top_n = round(0.10*n_rows)
 
     strings, relatednesses = strings_ranked_by_relatedness(
-        user_query, 
-        TRANSCRIPT_DATABASE,
+        message, 
+        transcript_database,
         top_n=top_n
     )
 
-    transcript_instruction = "Use the following transcript excerpts as references to answer the subsequent query. If the query is not related to any of the transcripts, ignore this instruction, inform the user that the query is not related to the transcripts, and answer the query as best as possible."
+    transcript_instruction = """
+    Use the following transcript excerpts as references to answer the subsequent query. 
+    If the query is not related to any of the transcripts, ignore this instruction, and answer the query as best as possible based on your own knowledge as an interior design expert.
+    """
 
-    question = f"\n\n Query: {user_query}\n"
-    message = f"{transcript_instruction}\nTranscript excerpts:\n"
+    full_query = f"{transcript_instruction}\n\n Query: {message}\nTranscript excerpts:\n"
     for string in strings:
-        message += f"{string}\n"
-    
-    full_query = message + question
+        full_query += f"{string}\n"
 
-    response =  query(full_query)
+
+    response =  query(full_query, model_name="ft:gpt-3.5-turbo-0125:im-lab:int-des-full:9b2qf12W", temp=0.0, max_output_tokens=max_output_tokens, message_history=message_history)
     return {"chatbot_response": response}
 
 @app.route("/autodetect_feedback", methods=["POST"])
@@ -290,3 +290,36 @@ if __name__ == "__main__":
 
     
     app.run(debug=True)
+
+
+
+# Code dump
+
+    # for i in range(len(transcripts)):
+    #     transcript = transcripts[i]
+    #     dialogues = extract_lines_from_srt_string(transcript)
+    #     simplified_dialogues = dialogues
+    #     if "speaker" in dialogues[0]:
+    #         simplified_dialogues = simplify_transcript_list(dialogues)
+    #     srt = convert_to_srt_string(simplified_dialogues)
+    #     text_chunks = divide_into_chunks(f"Transcript {i+1}",simplified_dialogues)
+    #     embeddings = []
+
+    #     for chunk in text_chunks:
+    #         embeddings.extend(convert_to_embedding(chunk))
+    #     if TRANSCRIPT_DATABASE is None:
+    #         TRANSCRIPT_DATABASE = pd.DataFrame({
+    #             'text': text_chunks,
+    #             'embedding': embeddings
+    #         })
+    #     else:
+    #         TRANSCRIPT_DATABASE = TRANSCRIPT_DATABASE.concat(pd.DataFrame({
+    #             'text': text_chunks,
+    #             'embedding': embeddings
+    #         }), ignore_index=True)
+        
+    #     recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}") 
+    #     makedir(recording_dir)
+    #     transcript_db_path = os.path.join(recording_dir, f"transcript.csv")
+    #     TRANSCRIPT_DATABASE.to_csv(transcript_db_path)
+    # return {"message": "Transcripts embedded"}

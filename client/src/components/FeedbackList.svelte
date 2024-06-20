@@ -1,4 +1,6 @@
 <script>
+  import { prevent_default } from 'svelte/internal';
+
     
     import {timeToSeconds, seekTo} from '../utils.js';
 
@@ -114,11 +116,28 @@
             alert("Please enter a message.");
             return;
         }
-
         selected_feedback.chatbot_messages.push({role: "user", content: inputMessage});
+
+        const response = await fetch("/message_chatbot", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({message_history: selected_feedback.chatbot_messages, message: inputMessage})
+        });
+        if(!response.ok) {
+            throw new Error("Failed to send message");
+        }
+        const json = await response.json();
+        let chatbot_response = json["chatbot_response"];
+
+        
+        selected_feedback.chatbot_messages.push({role: "assistant", content: chatbot_response});
         selected_feedback.chatbot_messages = selected_feedback.chatbot_messages;
         feedback_list = feedback_list;
         console.log(feedback_list)
+
+        
         
     }
 </script>
@@ -135,9 +154,9 @@
                 {#if activeTab===0}
                     <div class="column" style="overflow-y: auto;">
                         <div class="feedback-header row" >
-                            <span style="width:3%;" class="centered">
+                            <!-- <span style="width:3%;" class="centered">
                                 <strong>ID</strong>
-                            </span>
+                            </span> -->
                             <span style="width:60%;" class="centered row spaced">
                                 <strong>Feedback</strong>
                                 <button class="action-button" on:click={() => sortFeedbackList('quote')}>
@@ -161,7 +180,7 @@
                             <span id="feedback-buttons" style="width:15%;" class="centered row">
                                 <strong>Actions</strong>
                             </span>
-                            <span style="width:7%;" class="centered row spaced">
+                            <span style="width:10%;" class="centered row spaced">
                                 <strong>Done?</strong>
                                 <button class="action-button" on:click={() => sortFeedbackList('done')}>
                                     {#if sortAscending && sortKey==='done'}
@@ -175,9 +194,9 @@
                         {#each feedback_list as feedback, i}
                             {#if feedback.type==="critical"}
                                 <div class="feedback-row row bordered padded" class:done={feedback.done} class:selected={feedback===selected_feedback} on:click={(event) => selectFeedback(feedback, event)}>
-                                    <span style="width:3%;">
+                                    <!-- <span style="width:3%;">
                                         <strong> {feedback.id} </strong>
-                                    </span>
+                                    </span> -->
                                     <div class="column" style="width:60%;">
                                         <span  class="">
                                             {#if feedback.positivised_quote && feedback.show_paraphrased}
@@ -223,7 +242,7 @@
                                             <img src="./logos/delete-svgrepo-com.svg" alt="Remove feedback" class="action-icon">
                                         </button>
                                     </div>
-                                    <span style="width:7%;" class="centered">
+                                    <span style="width:10%;" class="centered">
                                         <input type="checkbox" bind:checked={feedback.done} />
                                     </span>
                                 </div>
@@ -341,11 +360,12 @@
                                 </div>
                             </div>
                             <div id="chatbot-input" class="row spaced centered" >
-                                <textarea bind:value="{inputMessage}" style="width:100%;height:100%;" placeholder="Type your message here..." id="textarea"></textarea>
+                                <!--  -->
+                                <textarea bind:value="{inputMessage}" style="width:100%;height:100%;" on:keydown="{e => e.key==='Enter' && sendMessage(inputMessage)}"  placeholder="Type your message here..." id="textarea"></textarea>
                                 <button class="action-button centered column" on:click|preventDefault={async () => { 
-                                    await sendMessage(inputMessage);
-                                    inputMessage = "";
-                                }}>
+                                        await sendMessage(inputMessage);
+                                        inputMessage = "";
+                                    }}>
                                     <img src="./logos/send-svgrepo-com.svg" alt="Send" class="action-icon">
                                 </button>
                             </div>
