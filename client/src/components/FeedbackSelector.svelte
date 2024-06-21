@@ -1,6 +1,6 @@
 <script>
     import {onMount} from 'svelte';
-    import {timeToSeconds, seekTo} from '../utils.js';
+    import {timeToSeconds, seekTo, focusOnFeedback} from '../utils.js';
     
     export let recording;
     export let feedback_list;
@@ -204,11 +204,6 @@
         if(!response.ok) {
             throw new Error("Failed to embed transcript list");
         }
-
-
-        // TEST THIS FUNCTION!
-
-
     }
 
     async function stopRecording() {
@@ -540,15 +535,14 @@
         return null;
     }
 
-    function focusOnFeedback(feedback) {
-        let dialogue_id = parseInt(feedback.dialogue_id);
-        let quoteElement = document.getElementById(dialogue_id);
-        if(quoteElement) {
-            quoteElement.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
-        } else {
-            console.log("Error: Can't focus on feedback. Corresponding transcript excerpt not found.")
+    
+
+    onMount(async () => {
+        if(recording && recording.transcript_list) {
+            await embedTranscriptList(recording.transcript_list);
+            console.log("Transcript list embedded");
         }
-    }
+    });
 </script>
 
 <div div class="row spaced" id="feedback-selector-page">
@@ -753,6 +747,7 @@
             {/if}
         </div>
     </div>
+    
 
 
 
