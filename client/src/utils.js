@@ -16,3 +16,13 @@ export function seekTo(time, videoPlayer) {
     videoPlayer.currentTime = timeToSeconds(time);
     videoPlayer.play();
 }
+
+export function focusOnFeedback(feedback) {
+    let dialogue_id = parseInt(feedback.dialogue_id);
+    let quoteElement = document.getElementById(dialogue_id);
+    if(quoteElement) {
+        quoteElement.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+    } else {
+        console.log("Error: Can't focus on feedback. Corresponding transcript excerpt not found.")
+    }
+}
