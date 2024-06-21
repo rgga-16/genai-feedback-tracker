@@ -7,2785 +7,1659 @@
 	let currentStep = 0;
 	let steps=2;
 
-	let recording={};
-// 	let recording={
-//     "video": null,
-//     "audio": "blob:http://127.0.0.1:5000/e584c5ef-d146-4feb-b00e-d400823c7cc1",
-//     "transcript":`
-//         1 
-//         00:00:00,000 --> 00:00:10,000 
-//         Professor: Alright, let's start with Sarah's 3D rendering. Sarah, could you give us a brief overview of your design concept? 
-
-//         2 
-//         00:00:10,000 --> 00:00:20,000 
-//         Sarah: Sure, my concept is based on creating a serene and airy living space that maximizes natural light and uses sustainable materials. 
-
-//         3 
-//         00:00:20,000 --> 00:00:30,000 
-//         Guest Professional 1: I appreciate the focus on sustainability. Can you tell us more about the materials you chose and why? 
-
-//         4 
-//         00:00:30,000 --> 00:00:40,000 
-//         Sarah: I used reclaimed wood for the flooring and bamboo for the furniture. The idea was to create a warm, inviting atmosphere while being eco-friendly. 
-
-//         5 
-//         00:00:40,000 --> 00:00:50,000 
-//         Student 1: The use of bamboo is interesting. It reminds me of some modern Japanese interiors I've seen. 
-
-//         6 
-//         00:00:50,000 --> 00:01:00,000 
-//         Professor: Yes, I see that influence. But I think the space could benefit from more contrast. Right now, it feels a bit too uniform. 
-
-//         7 
-//         00:01:00,000 --> 00:01:10,000 
-//         Guest Professional 2: I agree. Maybe you could introduce some darker elements to create depth and dimension. What do you think about that? 
-
-//         8 
-//         00:01:10,000 --> 00:01:20,000 
-//         Sarah: That's a good point. I was worried about making it too dark, but I see how it could add more interest. 
-
-//         9 
-//         00:01:20,000 --> 00:01:30,000 
-//         Student 2: I think the lighting is really well done. It gives a very airy feel to the space. 
-
-//         10 
-//         00:01:30,000 --> 00:01:40,000 
-//         Professor: Yes, the lighting is a strong point. But I would suggest rethinking the placement of the windows. They seem a bit too high. 
-
-//         11 
-//         00:01:40,000 --> 00:01:50,000 
-//         Guest Professional 1: And I would definitely take away the coloring. I think it’s not working for the intent that you want and that you could just use blue Styrofoam. 
-
-//         12 
-//         00:01:50,000 --> 00:02:00,000 
-//         Sarah: I see. I was trying to create a gradient effect, but maybe it's not coming through as I intended. 
-
-//         13 
-//         00:02:00,000 --> 00:02:10,000 
-//         Student 3: It reminds me of a Scandinavian design, very minimalistic and clean. 
-
-//         14 
-//         00:02:10,000 --> 00:02:20,000 
-//         Guest Professional 2: Yes, but Scandinavian designs often have a pop of color or a statement piece. Maybe you could incorporate something like that? 
-
-//         15 
-//         00:02:20,000 --> 00:02:30,000 
-//         Professor: Good suggestion. Also, consider the long-term vision. How will this space age over time? Will it still feel fresh and inviting? 
-
-//         16 
-//         00:02:30,000 --> 00:02:40,000 
-//         Sarah: That's a great point. I hadn't thought about the aging aspect. 
-
-//         17 
-//         00:02:40,000 --> 00:02:50,000 
-//         Guest Professional 1: What made you put color on it with this? 
-
-//         18 
-//         00:02:50,000 --> 00:03:00,000 
-//         Sarah: I wanted to create a calming effect with soft blues and greens, but I can see how it might be too subtle. 
-
-//         19 
-//         00:03:00,000 --> 00:03:10,000 
-//         Student 4: I think the furniture layout is very functional. It seems like a space where you could really relax. 
-
-//         20 
-//         00:03:10,000 --> 00:03:20,000 
-//         Professor: Functional, yes, but it could be more dynamic. Maybe try experimenting with different furniture arrangements. 
-
-//         21 
-//         00:03:20,000 --> 00:03:30,000 
-//         Guest Professional 2: And consider layering different textures. It could add more depth and interest to the space.
-
-//         22 
-//         00:03:30,000 --> 00:03:40,000 
-//         Sarah: Layering textures sounds like a good idea. I could try incorporating some textiles or different finishes.
-
-//         23 
-//         00:03:40,000 --> 00:03:50,000 
-//         Student 5: The open shelving is a nice touch. It makes the space feel more open and accessible. 
-
-//         24 
-//         00:03:50,000 --> 00:04:00,000 
-//         Professor: Yes, but be careful with open shelving. It can easily become cluttered. Think about how you can maintain that clean look.  
-
-//         25 
-//         00:04:00,000 --> 00:04:10,000 
-//         Guest Professional 1: I think we need to explore other ways of creating dimension. Maybe it is about materials? Maybe layering? Maybe it is about bunching?  
+	// let recording={};
+	let recording={
+        "video": null,
+        "audio": "blob:http://127.0.0.1:5000/e584c5ef-d146-4feb-b00e-d400823c7cc1",
+        "transcript":`
+            1 
+            00:00:00,000 --> 00:00:10,000 
+            Professor: Alright, let's start with Sarah's 3D rendering. Sarah, could you give us a brief overview of your design concept? 
+
+            2 
+            00:00:10,000 --> 00:00:20,000 
+            Sarah: Sure, my concept is based on creating a serene and airy living space that maximizes natural light and uses sustainable materials. 
+
+            3 
+            00:00:20,000 --> 00:00:30,000 
+            Guest Professional 1: I appreciate the focus on sustainability. Can you tell us more about the materials you chose and why? 
+
+            4 
+            00:00:30,000 --> 00:00:40,000 
+            Sarah: I used reclaimed wood for the flooring and bamboo for the furniture. The idea was to create a warm, inviting atmosphere while being eco-friendly. 
+
+            5 
+            00:00:40,000 --> 00:00:50,000 
+            Student 1: The use of bamboo is interesting. It reminds me of some modern Japanese interiors I've seen. 
+
+            6 
+            00:00:50,000 --> 00:01:00,000 
+            Professor: Yes, I see that influence. But I think the space could benefit from more contrast. Right now, it feels a bit too uniform. 
+
+            7 
+            00:01:00,000 --> 00:01:10,000 
+            Guest Professional 2: I agree. Maybe you could introduce some darker elements to create depth and dimension. What do you think about that? 
+
+            8 
+            00:01:10,000 --> 00:01:20,000 
+            Sarah: That's a good point. I was worried about making it too dark, but I see how it could add more interest. 
+
+            9 
+            00:01:20,000 --> 00:01:30,000 
+            Student 2: I think the lighting is really well done. It gives a very airy feel to the space. 
+
+            10 
+            00:01:30,000 --> 00:01:40,000 
+            Professor: Yes, the lighting is a strong point. But I would suggest rethinking the placement of the windows. They seem a bit too high. 
+
+            11 
+            00:01:40,000 --> 00:01:50,000 
+            Guest Professional 1: And I would definitely take away the coloring. I think it’s not working for the intent that you want and that you could just use blue Styrofoam. 
+
+            12 
+            00:01:50,000 --> 00:02:00,000 
+            Sarah: I see. I was trying to create a gradient effect, but maybe it's not coming through as I intended. 
+
+            13 
+            00:02:00,000 --> 00:02:10,000 
+            Student 3: It reminds me of a Scandinavian design, very minimalistic and clean. 
+
+            14 
+            00:02:10,000 --> 00:02:20,000 
+            Guest Professional 2: Yes, but Scandinavian designs often have a pop of color or a statement piece. Maybe you could incorporate something like that? 
+
+            15 
+            00:02:20,000 --> 00:02:30,000 
+            Professor: Good suggestion. Also, consider the long-term vision. How will this space age over time? Will it still feel fresh and inviting? 
+
+            16 
+            00:02:30,000 --> 00:02:40,000 
+            Sarah: That's a great point. I hadn't thought about the aging aspect. 
+
+            17 
+            00:02:40,000 --> 00:02:50,000 
+            Guest Professional 1: What made you put color on it with this? 
+
+            18 
+            00:02:50,000 --> 00:03:00,000 
+            Sarah: I wanted to create a calming effect with soft blues and greens, but I can see how it might be too subtle. 
+
+            19 
+            00:03:00,000 --> 00:03:10,000 
+            Student 4: I think the furniture layout is very functional. It seems like a space where you could really relax. 
+
+            20 
+            00:03:10,000 --> 00:03:20,000 
+            Professor: Functional, yes, but it could be more dynamic. Maybe try experimenting with different furniture arrangements. 
+
+            21 
+            00:03:20,000 --> 00:03:30,000 
+            Guest Professional 2: And consider layering different textures. It could add more depth and interest to the space.
+
+            22 
+            00:03:30,000 --> 00:03:40,000 
+            Sarah: Layering textures sounds like a good idea. I could try incorporating some textiles or different finishes.
+
+            23 
+            00:03:40,000 --> 00:03:50,000 
+            Student 5: The open shelving is a nice touch. It makes the space feel more open and accessible. 
+
+            24 
+            00:03:50,000 --> 00:04:00,000 
+            Professor: Yes, but be careful with open shelving. It can easily become cluttered. Think about how you can maintain that clean look.  
+
+            25 
+            00:04:00,000 --> 00:04:10,000 
+            Guest Professional 1: I think we need to explore other ways of creating dimension. Maybe it is about materials? Maybe layering? Maybe it is about bunching?  
 
-//         26 
-//         00:04:10,000 --> 00:04:20,000 
-//         Sarah: I'll definitely experiment with those ideas. Thank you for the suggestions.  
+            26 
+            00:04:10,000 --> 00:04:20,000 
+            Sarah: I'll definitely experiment with those ideas. Thank you for the suggestions.  
 
-//         27 
-//         00:04:20,000 --> 00:04:30,000 
-//         Student 6: The use of natural light is really effective. It gives the space a very welcoming feel.  
+            27 
+            00:04:20,000 --> 00:04:30,000 
+            Student 6: The use of natural light is really effective. It gives the space a very welcoming feel.  
 
-//         28 
-//         00:04:30,000 --> 00:04:40,000 
-//         Professor: Agreed, but I think the lighting could be improved. The current fixtures don't seem to complement the overall design.  
+            28 
+            00:04:30,000 --> 00:04:40,000 
+            Professor: Agreed, but I think the lighting could be improved. The current fixtures don't seem to complement the overall design.  
 
-//         29 
-//         00:04:40,000 --> 00:04:50,000 
-//         Guest Professional 2: And I would suggest looking into different types of lighting fixtures. Maybe something more modern or industrial to contrast with the natural elements.
+            29 
+            00:04:40,000 --> 00:04:50,000 
+            Guest Professional 2: And I would suggest looking into different types of lighting fixtures. Maybe something more modern or industrial to contrast with the natural elements.
 
-//         30 
-//         00:04:50,000 --> 00:05:00,000 
-//         Sarah: That's a great idea. I'll look into some different lighting options.  
+            30 
+            00:04:50,000 --> 00:05:00,000 
+            Sarah: That's a great idea. I'll look into some different lighting options.  
 
-//         31 
-//         00:05:00,000 --> 00:05:10,000 
-//         Student 7: The color palette is very soothing. It makes the space feel very calm and peaceful.  
+            31 
+            00:05:00,000 --> 00:05:10,000 
+            Student 7: The color palette is very soothing. It makes the space feel very calm and peaceful.  
 
-//         32 
-//         00:05:10,000 --> 00:05:20,000 
-//         Professor: Yes, but as mentioned earlier, it could use more contrast. Maybe introduce some bolder colors in small accents.  
+            32 
+            00:05:10,000 --> 00:05:20,000 
+            Professor: Yes, but as mentioned earlier, it could use more contrast. Maybe introduce some bolder colors in small accents.  
 
-//         33 
-//         00:05:20,000 --> 00:05:30,000 
-//         Guest Professional 1: And think about the flow of the space. How do people move through it? Are there any areas that feel cramped or awkward?  
+            33 
+            00:05:20,000 --> 00:05:30,000 
+            Guest Professional 1: And think about the flow of the space. How do people move through it? Are there any areas that feel cramped or awkward?  
 
-//         34 
-//         00:05:30,000 --> 00:05:40,000 
-//         Sarah: I'll take another look at the layout and see if there are any areas that need more space.  
+            34 
+            00:05:30,000 --> 00:05:40,000 
+            Sarah: I'll take another look at the layout and see if there are any areas that need more space.  
 
-//         35 
-//         00:05:40,000 --> 00:05:50,000 
-//         Student 8: The use of plants is a nice touch. It adds a bit of life to the space.  
+            35 
+            00:05:40,000 --> 00:05:50,000 
+            Student 8: The use of plants is a nice touch. It adds a bit of life to the space.  
 
-//         36 
-//         00:05:50,000 --> 00:06:00,000 
-//         Professor: Yes, but be mindful of maintenance. Some plants require a lot of care. Choose ones that are easy to maintain.  
+            36 
+            00:05:50,000 --> 00:06:00,000 
+            Professor: Yes, but be mindful of maintenance. Some plants require a lot of care. Choose ones that are easy to maintain.  
 
-//         37 
-//         00:06:00,000 --> 00:06:10,000 
-//         Guest Professional 2: And consider the placement of the plants. They should enhance the space, not clutter it.  
+            37 
+            00:06:00,000 --> 00:06:10,000 
+            Guest Professional 2: And consider the placement of the plants. They should enhance the space, not clutter it.  
 
-//         38 
-//         00:06:10,000 --> 00:06:20,000 
-//         Sarah: I'll make sure to choose low-maintenance plants and place them strategically.  
+            38 
+            00:06:10,000 --> 00:06:20,000 
+            Sarah: I'll make sure to choose low-maintenance plants and place them strategically.  
 
-//         39 
-//         00:06:20,000 --> 00:06:30,000 
-//         Student 9: The overall design feels very cohesive. Everything seems to work well together.
+            39 
+            00:06:20,000 --> 00:06:30,000 
+            Student 9: The overall design feels very cohesive. Everything seems to work well together.
 
-//         40 
-//         00:06:30,000 --> 00:06:40,000 
-//         Professor: Cohesive, yes, but don't be afraid to take some risks. Sometimes a bold choice can really elevate a design. 
+            40 
+            00:06:30,000 --> 00:06:40,000 
+            Professor: Cohesive, yes, but don't be afraid to take some risks. Sometimes a bold choice can really elevate a design. 
 
-//         41 
-//         00:06:40,000 --> 00:06:50,000 
-//         Guest Professional 1: And speaking of risks, have you considered incorporating any unique or unconventional elements? 
+            41 
+            00:06:40,000 --> 00:06:50,000 
+            Guest Professional 1: And speaking of risks, have you considered incorporating any unique or unconventional elements? 
 
-//         42 
-//         00:06:50,000 --> 00:07:00,000 
-//         Sarah: I was thinking about adding a statement piece, like a large piece of art or a unique light fixture. 
+            42 
+            00:06:50,000 --> 00:07:00,000 
+            Sarah: I was thinking about adding a statement piece, like a large piece of art or a unique light fixture. 
 
-//         43 
-//         00:07:00,000 --> 00:07:10,000 
-//         Student 10: That could be interesting. It might add a focal point to the space. 
+            43 
+            00:07:00,000 --> 00:07:10,000 
+            Student 10: That could be interesting. It might add a focal point to the space. 
 
-//         44 
-//         00:07:10,000 --> 00:07:20,000 
-//         Professor: Yes, a focal point could really help anchor the design. Just make sure it complements the overall aesthetic. 
+            44 
+            00:07:10,000 --> 00:07:20,000 
+            Professor: Yes, a focal point could really help anchor the design. Just make sure it complements the overall aesthetic. 
 
-//         45 
-//         00:07:20,000 --> 00:07:30,000 
-//         Guest Professional 2: And think about how it interacts with the other elements in the room. It should enhance, not overpower. 
+            45 
+            00:07:20,000 --> 00:07:30,000 
+            Guest Professional 2: And think about how it interacts with the other elements in the room. It should enhance, not overpower. 
 
-//         46 
-//         00:07:30,000 --> 00:07:40,000 
-//         Sarah: I'll definitely consider that. Thank you for the feedback. 
+            46 
+            00:07:30,000 --> 00:07:40,000 
+            Sarah: I'll definitely consider that. Thank you for the feedback. 
 
-//         47 
-//         00:07:40,000 --> 00:07:50,000 
-//         Student 11: The use of mirrors is clever. It makes the space feel larger and more open. 
+            47 
+            00:07:40,000 --> 00:07:50,000 
+            Student 11: The use of mirrors is clever. It makes the space feel larger and more open. 
 
-//         48 
-//         00:07:50,000 --> 00:08:00,000 
-//         Professor: Mirrors are a great tool, but be careful not to overdo it. Too many mirrors can make a space feel disorienting. 
+            48 
+            00:07:50,000 --> 00:08:00,000 
+            Professor: Mirrors are a great tool, but be careful not to overdo it. Too many mirrors can make a space feel disorienting. 
 
-//         49 
-//         00:08:00,000 --> 00:08:10,000 
-//         Guest Professional 1: And think about the placement of the mirrors. They should reflect something interesting, not just another wall. 
+            49 
+            00:08:00,000 --> 00:08:10,000 
+            Guest Professional 1: And think about the placement of the mirrors. They should reflect something interesting, not just another wall. 
 
-//         50 
-//         00:08:10,000 --> 00:08:20,000 
-//         Sarah: I'll make sure to place them thoughtfully. Thank you for the advice. 
+            50 
+            00:08:10,000 --> 00:08:20,000 
+            Sarah: I'll make sure to place them thoughtfully. Thank you for the advice. 
 
-//         51 
-//         00:08:20,000 --> 00:08:30,000 
-//         Student 12: The choice of furniture is very comfortable-looking. It seems like a space where you could really relax. 
+            51 
+            00:08:20,000 --> 00:08:30,000 
+            Student 12: The choice of furniture is very comfortable-looking. It seems like a space where you could really relax. 
 
-//         52 
-//         00:08:30,000 --> 00:08:40,000 
-//         Professor: Comfort is important, but also consider the scale of the furniture. Some pieces look a bit oversized for the space. 
+            52 
+            00:08:30,000 --> 00:08:40,000 
+            Professor: Comfort is important, but also consider the scale of the furniture. Some pieces look a bit oversized for the space. 
 
-//         53 
-//         00:08:40,000 --> 00:08:50,000 
-//         Guest Professional 2: And think about the balance between form and function. The furniture should be both beautiful and practical. 
+            53 
+            00:08:40,000 --> 00:08:50,000 
+            Guest Professional 2: And think about the balance between form and function. The furniture should be both beautiful and practical. 
 
-//         54 
-//         00:08:50,000 --> 00:09:00,000 
-//         Sarah: I'll take another look at the furniture choices and see if I can find a better balance. 
+            54 
+            00:08:50,000 --> 00:09:00,000 
+            Sarah: I'll take another look at the furniture choices and see if I can find a better balance. 
 
-//         55 
-//         00:09:00,000 --> 00:09:10,000 
-//         Student 13: The overall layout is very intuitive. It seems like a space that would be easy to navigate. 
+            55 
+            00:09:00,000 --> 00:09:10,000 
+            Student 13: The overall layout is very intuitive. It seems like a space that would be easy to navigate. 
 
-//         56 
-//         00:09:10,000 --> 00:09:20,000 
-//         Professor: Intuitive, yes, but consider the flow of traffic. Are there any bottlenecks or areas that might feel cramped? 
+            56 
+            00:09:10,000 --> 00:09:20,000 
+            Professor: Intuitive, yes, but consider the flow of traffic. Are there any bottlenecks or areas that might feel cramped? 
 
-//         57 
-//         00:09:20,000 --> 00:09:30,000 
-//         Guest Professional 1: And think about how the space will be used. Are there enough areas for different activities, like reading, entertaining, or working? 
+            57 
+            00:09:20,000 --> 00:09:30,000 
+            Guest Professional 1: And think about how the space will be used. Are there enough areas for different activities, like reading, entertaining, or working? 
 
-//         58 
-//         00:09:30,000 --> 00:09:40,000 
-//         Sarah: I'll make sure to consider the different uses of the space and adjust the layout accordingly. 
+            58 
+            00:09:30,000 --> 00:09:40,000 
+            Sarah: I'll make sure to consider the different uses of the space and adjust the layout accordingly. 
 
-//         59 
-//         00:09:40,000 --> 00:09:50,000 
-//         Student 14: The use of natural materials is very appealing. It gives the space a warm, inviting feel. 
+            59 
+            00:09:40,000 --> 00:09:50,000 
+            Student 14: The use of natural materials is very appealing. It gives the space a warm, inviting feel. 
 
-//         60 
-//         00:09:50,000 --> 00:10:00,000 
-//         Professor: Natural materials are great, but be mindful of how they age. Some materials might require more maintenance over time. 
+            60 
+            00:09:50,000 --> 00:10:00,000 
+            Professor: Natural materials are great, but be mindful of how they age. Some materials might require more maintenance over time. 
 
-//         61 
-//         00:10:00,000 --> 00:10:10,000 
-//         Guest Professional 2: And consider mixing natural materials with more modern elements. It could create an interesting contrast.
+            61 
+            00:10:00,000 --> 00:10:10,000 
+            Guest Professional 2: And consider mixing natural materials with more modern elements. It could create an interesting contrast.
 
-//         62 
-//         00:10:10,000 --> 00:10:20,000 
-//         Sarah: I'll definitely explore that idea. Thank you for the suggestion. 
+            62 
+            00:10:10,000 --> 00:10:20,000 
+            Sarah: I'll definitely explore that idea. Thank you for the suggestion. 
 
-//         63 
-//         00:10:20,000 --> 00:10:30,000 
-//         Student 15: The overall design feels very balanced. It seems like a space where everything has its place. 
+            63 
+            00:10:20,000 --> 00:10:30,000 
+            Student 15: The overall design feels very balanced. It seems like a space where everything has its place. 
 
-//         64 
-//         00:10:30,000 --> 00:10:40,000 
-//         Professor: Balance is important, but don't be afraid to play with asymmetry. Sometimes a bit of imbalance can make a design more dynamic. 
+            64 
+            00:10:30,000 --> 00:10:40,000 
+            Professor: Balance is important, but don't be afraid to play with asymmetry. Sometimes a bit of imbalance can make a design more dynamic. 
 
-//         65 
-//         00:10:40,000 --> 00:10:50,000 
-//         Guest Professional 1: And think about how you can create focal points. What elements do you want to draw attention to? 
+            65 
+            00:10:40,000 --> 00:10:50,000 
+            Guest Professional 1: And think about how you can create focal points. What elements do you want to draw attention to? 
 
-//         66 
-//         00:10:50,000 --> 00:11:00,000 
-//         Sarah: I'll experiment with some asymmetrical elements and see how it affects the overall design. 
-
-//         67 
-//         00:11:00,000 --> 00:11:10,000 
-//         Student 16: The use of color is very soothing. It makes the space feel very calm and peaceful. 
-
-//         68 
-//         00:11:10,000 --> 00:11:20,000 
-//         Professor: Soothing, yes, but as mentioned earlier, it could use more contrast. Maybe introduce some bolder colors in small accents. 
-
-//         69 
-//         00:11:20,000 --> 00:11:30,000 
-//         Guest Professional 2: And think about how the colors interact with the lighting. Different lighting can change the way colors appear. 
-
-//         70 
-//         00:11:30,000 --> 00:11:40,000 
-//         Sarah: I'll make sure to consider the lighting when choosing colors. Thank you for the feedback. 
-
-//         71 
-//         00:11:40,000 --> 00:11:50,000 
-//         Student 17: The overall design feels very cohesive. Everything seems to work well together. 
-
-//         72 
-//         00:11:50,000 --> 00:12:00,000 
-//         Professor: Cohesive, yes, but don't be afraid to take some risks. Sometimes a bold choice can really elevate a design. 
-
-//         73 
-//         00:12:00,000 --> 00:12:10,000 
-//         Guest Professional 1: And speaking of risks, have you considered incorporating any unique or unconventional elements? 
-
-//         74 
-//         00:12:10,000 --> 00:12:20,000 
-//         Sarah: I was thinking about adding a statement piece, like a large piece of art or a unique light fixture. 
-
-//         75 
-//         00:12:20,000 --> 00:12:30,000 
-//         Student 18: That could be interesting. It might add a focal point to the space. 
-
-//         76 
-//         00:12:30,000 --> 00:12:40,000 
-//         Professor: Yes, a focal point could really help anchor the design. Just make sure it complements the overall aesthetic. 
-
-//         77 
-//         00:12:40,000 --> 00:12:50,000 
-//         Guest Professional 2: And think about how it interacts with the other elements in the room. It should enhance, not overpower. 
-
-//         78 
-//         00:12:50,000 --> 00:13:00,000 
-//         Sarah: I'll definitely consider that. Thank you for the feedback. 
-
-//         79 
-//         00:13:00,000 --> 00:13:10,000 
-//         Student 19: The use of mirrors is clever. It makes the space feel larger and more open. 
-
-//         80 
-//         00:13:10,000 --> 00:13:20,000 
-//         Professor: Mirrors are a great tool, but be careful not to overdo it. Too many mirrors can make a space feel disorienting. 
-
-//         81 
-//         00:13:20,000 --> 00:13:30,000 
-//         Guest Professional 1: And think about the placement of the mirrors. They should reflect something interesting, not just another wall. 
-
-//         82 
-//         00:13:30,000 --> 00:13:40,000 
-//         Sarah: I'll make sure to place them thoughtfully. Thank you for the advice. 
-
-//         83 
-//         00:13:40,000 --> 00:13:50,000 
-//         Student 20: The choice of furniture is very comfortable-looking. It seems like a space where you could really relax. 
-
-//         84 
-//         00:13:50,000 --> 00:14:00,000 
-//         Professor: Comfort is important, but also consider the scale of the furniture. Some pieces look a bit oversized for the space. 
-
-//         85 
-//         00:14:00,000 --> 00:14:10,000 
-//         Guest Professional 2: And think about the balance between form and function. The furniture should be both beautiful and practical. 
-
-//         86 
-//         00:14:10,000 --> 00:14:20,000 
-//         Sarah: I'll take another look at the furniture choices and see if I can find a better balance. 
-
-//         87 
-//         00:14:20,000 --> 00:14:30,000 
-//         Professor: Alright, I think we've covered a lot of ground. Sarah, you've received some excellent feedback. Take some time to digest it and see how you can incorporate it into your design. 
-//         88 
-//         00:14:30,000 --> 00:14:40,000 
-//         Guest Professional 1: Yes, you've done a great job so far. Keep pushing yourself and exploring new ideas. 
-
-//         89 
-//         00:14:40,000 --> 00:14:50,000 
-//         Guest Professional 2: And remember, design is an iterative process. Don't be afraid to make changes and try new things. 
-
-//         90 
-//         00:14:50,000 --> 00:15:00,000 
-//         Sarah: Thank you all for the feedback. I really appreciate it and will definitely take it into consideration as I move forward with my design. 
-
-//         91 
-//         00:15:00,000 --> 00:15:10,000 
-//         Professor: Great. Let's move on to the next student's work. Thank you, Sarah.
-//     `,
-//     "transcript_list": [
-//         {
-//             "dialogue": "Alright, let's start with Sarah's 3D rendering. Sarah, could you give us a brief overview of your design concept? ",
-//             "end_timestamp": "00:00:10,000 ",
-//             "id": 1,
-//             "speaker": "Professor",
-//             "start_timestamp": "00:00:00,000"
-//         },
-//         {
-//             "dialogue": "Sure, my concept is based on creating a serene and airy living space that maximizes natural light and uses sustainable materials. ",
-//             "end_timestamp": "00:00:20,000 ",
-//             "id": 2,
-//             "speaker": "Sarah",
-//             "start_timestamp": "00:00:10,000"
-//         },
-//         {
-//             "dialogue": "Yeah, yeah, RG Five Hundred is a Suzuki model.",
-//             "end_timestamp": "00:00:41,973",
-//             "id": 3,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:00:39,312"
-//         },
-//         {
-//             "dialogue": "I did not know that.",
-//             "end_timestamp": "00:00:43,014",
-//             "id": 4,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:00:42,333"
-//         },
-//         {
-//             "dialogue": "Yeah, there you go, so RG, great. How do I call you, Dwight? Michael, Michael's fine. Michael, okay. Now, how long have you been at Fun?",
-//             "end_timestamp": "00:00:52,078",
-//             "id": 5,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:00:43,074"
-//         },
-//         {
-//             "dialogue": "I've been here for...",
-//             "end_timestamp": "00:00:53,139",
-//             "id": 6,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:00:52,098"
-//         },
-//         {
-//             "dialogue": "More than one year now. It's my second year.",
-//             "end_timestamp": "00:00:59,197",
-//             "id": 7,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:00:57,136"
-//         },
-//         {
-//             "dialogue": "I arrived here last year on November, two thousand twenty one. Right. Because the pandemic, I haven't really seen.",
-//             "end_timestamp": "00:01:08,821",
-//             "id": 8,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:00:59,837"
-//         },
-//         {
-//             "dialogue": "I've never met you before, so that's quite unusual.",
-//             "end_timestamp": "00:01:11,933",
-//             "id": 9,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:01:09,471"
-//         },
-//         {
-//             "dialogue": "I usually go to all the student presentations. Yeah, I think I was, as of November, I think I was the only international student who was new, I was the only new international student who was here. a lot of the students are starting to come back, which is great. Yeah, the borders opened up again. Yeah, yeah.",
-//             "end_timestamp": "00:01:41,357",
-//             "id": 10,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:01:11,953"
-//         },
-//         {
-//             "dialogue": "My son goes to a university in Tokyo and it's an international university called International Christian University. and about forty percent of the students are international students. so in his first year during the pandemic the only students he met were Japanese. he's like i've come to this international university and there's no international students because the borders are closed. yeah and of course all the existing international students want nothing to do with the first years. yeah because he's like new.",
-//             "end_timestamp": "00:02:13,001",
-//             "id": 11,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:01:41,778"
-//         },
-//         {
-//             "dialogue": "But when it opened for that university, bit by bit, they were letting students in. Now, we said it's back to normal.",
-//             "end_timestamp": "00:02:24,721",
-//             "id": 12,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:02:15,034"
-//         },
-//         {
-//             "dialogue": "The excelling point of the university is that it's international curriculum, American, basically, curriculum. And it's very dynamic.",
-//             "end_timestamp": "00:02:37,590",
-//             "id": 13,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:02:26,402"
-//         },
-//         {
-//             "dialogue": "He loves it now.",
-//             "end_timestamp": "00:02:39,071",
-//             "id": 14,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:02:38,130"
-//         },
-//         {
-//             "dialogue": "He says it's great. Yeah, it's good to hear that.",
-//             "end_timestamp": "00:02:42,052",
-//             "id": 15,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:02:39,111"
-//         },
-//         {
-//             "dialogue": "I understand how that feels, like being the only international student here. Yeah, the big selling point, and I'm telling you, experience being a farmer, was the fact that it was an international university.",
-//             "end_timestamp": "00:02:55,776",
-//             "id": 16,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:02:42,293"
-//         },
-//         {
-//             "dialogue": "There's no students there, and you're on Zoom.",
-//             "end_timestamp": "00:02:58,977",
-//             "id": 17,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:02:55,796"
-//         },
-//         {
-//             "dialogue": "I'm like, What am I paying for? Absolutely not. I'm not a big fan.",
-//             "end_timestamp": "00:03:03,523",
-//             "id": 18,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:02:59,398"
-//         },
-//         {
-//             "dialogue": "I like the blended idea. I like to teach content online, but interaction and this kind of communication, even face-to-face.",
-//             "end_timestamp": "00:03:28,492",
-//             "id": 19,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:03:15,502"
-//         },
-//         {
-//             "dialogue": "Zoom is not good enough. Yeah, I'm not a fan of Zoom either.",
-//             "end_timestamp": "00:03:32,215",
-//             "id": 20,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:03:29,013"
-//         },
-//         {
-//             "dialogue": "Staring at lots of little titles or faces on my computer screen, I thought, no, I'm not doing this. This is rubbish. Yeah, it's not that immersive. And on the other hand, I was paying for my son to go to university to be one of those kids on Zoom.",
-//             "end_timestamp": "00:03:50,046",
-//             "id": 21,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:03:32,836"
-//         },
-//         {
-//             "dialogue": "So I was like, I don't like it as a teacher. I don't like it as a fee-paying father.",
-//             "end_timestamp": "00:03:55,969",
-//             "id": 22,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:03:50,887"
-//         },
-//         {
-//             "dialogue": "And my son doesn't like it as a student.",
-//             "end_timestamp": "00:03:58,530",
-//             "id": 23,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:03:55,989"
-//         },
-//         {
-//             "dialogue": "It's just all bad. Yeah, it was pretty bad. Yeah, it was pretty bad. There we go. OK, there we go.",
-//             "end_timestamp": "00:04:05,833",
-//             "id": 24,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:03:59,810"
-//         },
-//         {
-//             "dialogue": "OK. Now, thank you for sending this. Thanks for coming. Of course.",
-//             "end_timestamp": "00:04:10,275",
-//             "id": 25,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:04:06,413"
-//         },
-//         {
-//             "dialogue": "Think of me as, imagine you're at an international conference. Let's say you're on a plane. in England, and you're presenting in England, and most of the people are, say, from Europe, most likely. You know, you probably get some from Asia, some from Americas, some from Africa, possibly. But, you know, English, European conference, you mostly get European-English people, yeah? Yeah. So, when you present there, you'll have a different kind of personality will be observing you and giving you comments, questions, and maybe criticism, which you may not get in, say, Asia.",
-//             "end_timestamp": "00:05:00,648",
-//             "id": 26,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:04:18,762"
-//         },
-//         {
-//             "dialogue": "I used to work in Malaysia, I used to work in Singapore, I now work in Japan, so I know how things are in Asia.",
-//             "end_timestamp": "00:05:08,411",
-//             "id": 27,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:05:01,328"
-//         },
-//         {
-//             "dialogue": "Now, I will tell you, from Singapore and Malaysian and Japanese, the Singaporeans are very critical, and I love that.",
-//             "end_timestamp": "00:05:14,614",
-//             "id": 28,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:05:08,431"
-//         },
-//         {
-//             "dialogue": "They don't like your work, they'll say it.",
-//             "end_timestamp": "00:05:18,035",
-//             "id": 29,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:05:16,134"
-//         },
-//         {
-//             "dialogue": "Malaysians, kind of a bit more polite, should we say? Japanese, they don't say anything. cautious in what they say, so you don't get much criticism, feedback in Japan compared to what you would get in Singapore, compared to what you would get in somewhere like England.",
-//             "end_timestamp": "00:05:38,562",
-//             "id": 30,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:05:19,036"
-//         },
-//         {
-//             "dialogue": "What I'm trying to say is that I will give you some critical feedback, but it's not a criticism, it's the kind of feedback that you may be getting if you presented this at a conference in England.",
-//             "end_timestamp": "00:05:52,257",
-//             "id": 31,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:05:40,831"
-//         },
-//         {
-//             "dialogue": "So that's the way I go through things.",
-//             "end_timestamp": "00:05:56,359",
-//             "id": 32,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:05:54,898"
-//         },
-//         {
-//             "dialogue": "I think it's good.",
-//             "end_timestamp": "00:05:57,340",
-//             "id": 33,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:05:56,699"
-//         },
-//         {
-//             "dialogue": "It says, look, these are the challenges that you need to face.",
-//             "end_timestamp": "00:06:03,842",
-//             "id": 34,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:06:00,121"
-//         },
-//         {
-//             "dialogue": "If you can overcome these, you'll have no problem. But you won't know that until you are confronted with those challenges.",
-//             "end_timestamp": "00:06:12,103",
-//             "id": 35,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:06:04,662"
-//         },
-//         {
-//             "dialogue": "That is true. OK, so first of all, I will say, I made a comment here. First of all, I think this is a very, very well-written paper, very logical, follows in terms of the way you conducted the process of this evaluation, what the limitations are, are some of the finer details of the project.",
-//             "end_timestamp": "00:06:44,556",
-//             "id": 36,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:06:12,364"
-//         },
-//         {
-//             "dialogue": "Not your writing. Your writing is actually very good, very logical, very, very good.",
-//             "end_timestamp": "00:06:50,058",
-//             "id": 37,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:06:44,696"
-//         },
-//         {
-//             "dialogue": "So I want to point out some points to you with some questions that you may be able to answer to make this a better paper.",
-//             "end_timestamp": "00:06:57,340",
-//             "id": 38,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:06:50,538"
-//         },
-//         {
-//             "dialogue": "I'll give an overall summary there, and I've got a couple of recommendations, and then you can ask me some questions.",
-//             "end_timestamp": "00:07:07,828",
-//             "id": 39,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:07:01,623"
-//         },
-//         {
-//             "dialogue": "Now, because it's in PDF, what I normally do with a Word document, I usually use track changes.",
-//             "end_timestamp": "00:07:12,932",
-//             "id": 40,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:07:07,848"
-//         },
-//         {
-//             "dialogue": "But with a PDF, it's a bit problematic to do that, even though I've got Adobe Pro, Acrobat Pro, so I did it by pencil. So I tried to read my writing. a few, starting off with the very first line, okay, I wouldn't put in a word like tedious, because it means then, well if it's tedious, don't do it.",
-//             "end_timestamp": "00:07:42,117",
-//             "id": 41,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:07:14,053"
-//         },
-//         {
-//             "dialogue": "If you think your job, or if you think a design life cycle is tedious, then maybe you're not the person to do it.",
-//             "end_timestamp": "00:07:52,113",
-//             "id": 42,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:07:43,798"
-//         },
-//         {
-//             "dialogue": "Because a design life cycle for some people is very positive. It's a challenge and people like that challenge. And then it's not tedious.",
-//             "end_timestamp": "00:08:06,009",
-//             "id": 43,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:07:52,754"
-//         },
-//         {
-//             "dialogue": "It's actually completely opposite for some people. So you mentioned the word challenging later on. Let's put it straight in the beginning, shall we?",
-//             "end_timestamp": "00:08:15,117",
-//             "id": 44,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:08:06,850"
-//         },
-//         {
-//             "dialogue": "It's an iterative and challenging process because you've got the word challenge there. Straight away, it's challenging. Challenge could be positive. I think challenges are positive. If you see a barrier, it's an opportunity.",
-//             "end_timestamp": "00:08:30,049",
-//             "id": 45,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:08:15,617"
-//         },
-//         {
-//             "dialogue": "That wall is an opportunity, not a barrier.",
-//             "end_timestamp": "00:08:33,051",
-//             "id": 46,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:08:30,289"
-//         },
-//         {
-//             "dialogue": "So it's a challenge.",
-//             "end_timestamp": "00:08:34,712",
-//             "id": 47,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:08:33,431"
-//         },
-//         {
-//             "dialogue": "Great, okay, then I looked at what are you trying to do? Okay, you found in your summary of the abstract, yes, you've got a summary of all the key points that you found in your research. So a great abstract, I completely understand what this paper's going to tell me. Okay. So they come down, industrial sort, underline several stages, fantastic, fantastic. When I come across my first acronym, you need to write it out. Computer Aided Design, bracket CAD, later on, CAD. So just something there.",
-//             "end_timestamp": "00:09:12,684",
-//             "id": 48,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:08:35,533"
-//         },
-//         {
-//             "dialogue": "First mention, write it out in full.",
-//             "end_timestamp": "00:09:15,165",
-//             "id": 49,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:09:12,984"
-//         },
-//         {
-//             "dialogue": "Again, tedious, challenging. Yeah, OK. So in this sentence here, it looks like this. Okay, that phrase there, carry loads and endure drops from specific heights, kind of, it doesn't really flow from what you said before.",
-//             "end_timestamp": "00:09:47,989",
-//             "id": 50,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:09:16,206"
-//         },
-//         {
-//             "dialogue": "So why not say the product meets technical and safety specifications?",
-//             "end_timestamp": "00:09:52,211",
-//             "id": 51,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:09:48,469"
-//         },
-//         {
-//             "dialogue": "So carry loads and maybe specific guides are probably technical and safety specifications. So why not change that to that? Because it's kind of not in context with what you're saying before.",
-//             "end_timestamp": "00:10:09,650",
-//             "id": 52,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:09:54,838"
-//         },
-//         {
-//             "dialogue": "It sounds like a very concrete example.",
-//             "end_timestamp": "00:10:12,532",
-//             "id": 53,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:10:10,190"
-//         },
-//         {
-//             "dialogue": "Yeah, you're kind of being generalized there and specific there, suddenly. So if you make it generalized, you've probably got that phrase there. So this is why I'm saying, you know, your writing is very, very good. Then you've got this word, out of expertise, knowledge, generalized. Generalized knowledge. Because, you know, if you've got expert knowledge and general knowledge and no knowledge. So this would be generalized knowledge. Because that person's not an expert, they've just got general knowledge.",
-//             "end_timestamp": "00:10:50,046",
-//             "id": 54,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:10:12,813"
-//         },
-//         {
-//             "dialogue": "Right, but I think what I wanted to say here was it's – yeah, it's – I wouldn't say it's general knowledge, but it's knowledge that is specific to another domain. that's not in their domain. What would the right term for that – what would the right term would be for that?",
-//             "end_timestamp": "00:11:08,428",
-//             "id": 55,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:10:51,201"
-//         },
-//         {
-//             "dialogue": "Like in this case, for example, I mentioned that, well, I didn't really cite it specifically, maybe in the related work here, but in this study, what I was trying to say was that engineers had limited access to knowledge that was, not knowledge that pertains to manufacturing.",
-//             "end_timestamp": "00:11:30,044",
-//             "id": 56,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:11:09,288"
-//         },
-//         {
-//             "dialogue": "So...",
-//             "end_timestamp": "00:11:31,085",
-//             "id": 57,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:11:30,845"
-//         },
-//         {
-//             "dialogue": "Okay, so how about access to knowledge outside their expertise? Right, yeah, yeah. Yeah, yeah, that's outside. Do you want to make a view, right? Oh, right, yeah. You've got a pen? Knowledge outside their expertise.",
-//             "end_timestamp": "00:11:50,362",
-//             "id": 58,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:11:34,908"
-//         },
-//         {
-//             "dialogue": "Okay, I got it, I see what you've done. Okay, and then I just...",
-//             "end_timestamp": "00:12:02,853",
-//             "id": 59,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:11:50,382"
-//         },
-//         {
-//             "dialogue": "So you've got your research goals, one and two. Okay, two questions, very, very clear. And I'll come back to this later, because in your conclusion, you only had one. I'll come back to that later. So, let's start this one. Okay, must meet each of their requirements, just change it to specific requirements.",
-//             "end_timestamp": "00:12:33,316",
-//             "id": 60,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:12:09,651"
-//         },
-//         {
-//             "dialogue": "Okay, that's straightforward.",
-//             "end_timestamp": "00:12:34,256",
-//             "id": 61,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:12:33,336"
-//         },
-//         {
-//             "dialogue": "Just a little, maybe a typo, you've got a question mark, question mark there, that's probably a development, yeah. Yeah, I've got stakeholder, what have I got? Yeah, okay, this reference here to they're, I wasn't sure what you meant. Because you've got sue and lue, however you say that, they're refers to them. But actually when I read it again, they're refers to stakeholders. So there's a confusion because this is what we call a backward reference in, for what the word is, but there's a single backward reference. So thea is backward reference into the subject, which is these. In actual fact, it's these, which is a different kind of reference, exophoric reference. So you need to write the word in. But that's only because you write it many times, so you know who theas are. So when I read it for the first time, That's why you give your paper to your friend to read.",
-//             "end_timestamp": "00:13:38,760",
-//             "id": 62,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:12:34,496"
-//         },
-//         {
-//             "dialogue": "Exactly, that's why I consulted. Yeah, that's right.",
-//             "end_timestamp": "00:13:42,641",
-//             "id": 63,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:13:39,160"
-//         },
-//         {
-//             "dialogue": "So you come to me and go to your friends, yeah? So... Again, you then switch to... Ah, wait a minute. Okay, you've got the word... I've just changed the language a bit to make it a bit better. You've got verifying them, just say subsequent verification. Right, right. Just makes it sound better, okay? You've got stakeholders, then you've got users. So I put a question mark there.",
-//             "end_timestamp": "00:14:14,028",
-//             "id": 64,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:13:42,661"
-//         },
-//         {
-//             "dialogue": "Do you mean stakeholders? Because suddenly users have appeared. I don't know who these users are. Right. I think when",
-//             "end_timestamp": "00:14:21,415",
-//             "id": 65,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:14:14,108"
-//         },
-//         {
-//             "dialogue": "I meant users,",
-//             "end_timestamp": "00:14:22,376",
-//             "id": 66,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:14:21,475"
-//         },
-//         {
-//             "dialogue": "I meant like customers",
-//             "end_timestamp": "00:14:25,539",
-//             "id": 67,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:14:22,436"
-//         },
-//         {
-//             "dialogue": "who have been invited",
-//             "end_timestamp": "00:14:26,700",
-//             "id": 68,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:14:25,739"
-//         },
-//         {
-//             "dialogue": "for",
-//             "end_timestamp": "00:14:27,300",
-//             "id": 69,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:14:27,120"
-//         },
-//         {
-//             "dialogue": "for",
-//             "end_timestamp": "00:14:32,200",
-//             "id": 70,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:14:31,600"
-//         },
-//         {
-//             "dialogue": "this assessment. But the people that you get to assess design, are the people involved in the design?",
-//             "end_timestamp": "00:14:39,403",
-//             "id": 71,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:14:32,540"
-//         },
-//         {
-//             "dialogue": "In this study that I cited, no, they invited outside customers, like the survey of customers.",
-//             "end_timestamp": "00:14:49,066",
-//             "id": 72,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:14:41,103"
-//         },
-//         {
-//             "dialogue": "So when I said customers, I wrote the word users. So these are actually Oh, I see. So the designers there are bringing in outside people who are possible users of the device to give us a... Okay, I get it. I understand now.",
-//             "end_timestamp": "00:15:11,833",
-//             "id": 73,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:14:49,486"
-//         },
-//         {
-//             "dialogue": "Or maybe I should...",
-//             "end_timestamp": "00:15:12,974",
-//             "id": 74,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:15:12,373"
-//         },
-//         {
-//             "dialogue": "No, no, no, it's just me. Don't worry. That's fine. I see what you mean. now, because I'm not familiar with these papers, and I didn't check them, so... I understand.",
-//             "end_timestamp": "00:15:24,677",
-//             "id": 75,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:15:14,194"
-//         },
-//         {
-//             "dialogue": "No, I'm sure it's fine.",
-//             "end_timestamp": "00:15:25,898",
-//             "id": 76,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:15:25,178"
-//         },
-//         {
-//             "dialogue": "Again, just to rub this a bit better, I've taken that out, put in it, instead of raised, put the word reported, that's all. It's just stylistic more than anything else.",
-//             "end_timestamp": "00:15:40,939",
-//             "id": 77,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:15:27,664"
-//         },
-//         {
-//             "dialogue": "So instead of raised, You raise a point, you raise a motion, but actually these people are reporting information. You raise a concern, you report information. It's kind of slightly different, yeah. Okay, so it's more on, yeah, this is more appropriate to use. This is more appropriate, you report something.",
-//             "end_timestamp": "00:16:03,083",
-//             "id": 78,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:15:41,620"
-//         },
-//         {
-//             "dialogue": "You certainly raise something, but then a synonym of raise is pointed out, highlighted, which you don't mean there, you just mean reported.",
-//             "end_timestamp": "00:16:13,788",
-//             "id": 79,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:16:03,123"
-//         },
-//         {
-//             "dialogue": "So when you say the rays, you don't really use that when you're stating the results of a study that you're citing?",
-//             "end_timestamp": "00:16:25,258",
-//             "id": 80,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:16:14,693"
-//         },
-//         {
-//             "dialogue": "I don't want to say no, because it's not true. I think if you wanted to emphasize",
-//             "end_timestamp": "00:16:38,305",
-//             "id": 81,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:16:25,278"
-//         },
-//         {
-//             "dialogue": "something, contrast something with the previous research,",
-//             "end_timestamp": "00:16:44,419",
-//             "id": 82,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:16:38,365"
-//         },
-//         {
-//             "dialogue": "that would be possible, but probably emphasising",
-//             "end_timestamp": "00:16:46,820",
-//             "id": 83,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:16:44,439"
-//         },
-//         {
-//             "dialogue": "with your daughter, you know, that if you talk",
-//             "end_timestamp": "00:16:50,162",
-//             "id": 84,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:16:46,840"
-//         },
-//         {
-//             "dialogue": "about research that such and such raise the concern or raise the point that, you know, and then you're highlighting something",
-//             "end_timestamp": "00:16:59,571",
-//             "id": 85,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:16:50,182"
-//         },
-//         {
-//             "dialogue": "in addition,",
-//             "end_timestamp": "00:17:00,311",
-//             "id": 86,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:16:59,711"
-//         },
-//         {
-//             "dialogue": "which is",
-//             "end_timestamp": "00:17:01,772",
-//             "id": 87,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:17:01,352"
-//         },
-//         {
-//             "dialogue": "a level",
-//             "end_timestamp": "00:17:03,853",
-//             "id": 88,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:17:01,792"
-//         },
-//         {
-//             "dialogue": "above what you previously reported. Right. It's like, this is a little bit more important than that. Okay, okay. That's, but in this material, you're not, you're giving everything an equal status.",
-//             "end_timestamp": "00:17:13,377",
-//             "id": 89,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:17:04,093"
-//         },
-//         {
-//             "dialogue": "Ah, okay. So it raises, like, pinpointing on something very specific. Yeah, yeah, highlighted, pinpointed, I like that, yeah. I see. Yeah. But again, it's just, It's just the use of synonyms in a way, but that's better. I understand. Okay. Keeps going, I'll get more critical for later on. Address determined, it's a synonym, I don't know. Right, now here we go.",
-//             "end_timestamp": "00:17:40,934",
-//             "id": 90,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:17:14,178"
-//         },
-//         {
-//             "dialogue": "So, okay, so at the end of this part, which was two point one, you know, this is kind of like a, but related work leading up to your research question.",
-//             "end_timestamp": "00:17:51,617",
-//             "id": 91,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:17:40,994"
-//         },
-//         {
-//             "dialogue": "Fine.",
-//             "end_timestamp": "00:17:52,677",
-//             "id": 92,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:17:52,417"
-//         },
-//         {
-//             "dialogue": "So, this was your first aim, yeah?",
-//             "end_timestamp": "00:17:57,198",
-//             "id": 93,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:17:53,917"
-//         },
-//         {
-//             "dialogue": "So in this study, we aim to...",
-//             "end_timestamp": "00:18:02,605",
-//             "id": 94,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:17:59,102"
-//         },
-//         {
-//             "dialogue": "Fine, but when I read it further, you've actually got two aims, two questions.",
-//             "end_timestamp": "00:18:09,250",
-//             "id": 95,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:18:02,685"
-//         },
-//         {
-//             "dialogue": "Yeah, that's true.",
-//             "end_timestamp": "00:18:10,731",
-//             "id": 96,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:18:09,370"
-//         },
-//         {
-//             "dialogue": "So let's call this your first one, okay? That's your first aim. So in this study, our first aim is to... Then I read the second part. In this study, our second aim, or the second aim of this study is to... So you're making it very specific now, you've got two aims.",
-//             "end_timestamp": "00:18:31,621",
-//             "id": 97,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:18:10,992"
-//         },
-//         {
-//             "dialogue": "This one and this one.",
-//             "end_timestamp": "00:18:33,181",
-//             "id": 98,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:18:32,221"
-//         },
-//         {
-//             "dialogue": "Because I had to go back and thought, that's your aim there, but you've got an aim here, what's happening?",
-//             "end_timestamp": "00:18:38,402",
-//             "id": 99,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:18:34,141"
-//         },
-//         {
-//             "dialogue": "And then I went back, ah, I see.",
-//             "end_timestamp": "00:18:41,702",
-//             "id": 100,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:18:39,042"
-//         },
-//         {
-//             "dialogue": "You see what I mean? As a reader, I shouldn't do that. You've got to make it clear, one aim there, one aim there. So when I read the rest of the paper, I'm looking for the answers to these two questions. That's all. And then you've got, You've got goals and aims. Again, asking for, requesting, same thing. I'm not sure. I'm sure I know what to say anymore.",
-//             "end_timestamp": "00:19:16,189",
-//             "id": 101,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:18:41,722"
-//         },
-//         {
-//             "dialogue": "Is it male and female or men and women?",
-//             "end_timestamp": "00:19:32,287",
-//             "id": 102,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:19:27,159"
-//         },
-//         {
-//             "dialogue": "Well, I don't know. This is an area I'm a bit, you know, I've been in Japan too long.",
-//             "end_timestamp": "00:19:35,852",
-//             "id": 103,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:19:32,487"
-//         },
-//         {
-//             "dialogue": "If I went to America, maybe I'm not allowed to say that anymore.",
-//             "end_timestamp": "00:19:39,157",
-//             "id": 104,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:19:35,912"
-//         },
-//         {
-//             "dialogue": "I don't know anymore. Let's call it male and female, shall we?",
-//             "end_timestamp": "00:19:42,863",
-//             "id": 105,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:19:39,177"
-//         },
-//         {
-//             "dialogue": "Yeah, I think that would be better. Yeah.",
-//             "end_timestamp": "00:19:45,149",
-//             "id": 106,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:19:43,328"
-//         },
-//         {
-//             "dialogue": "Where is this going to be presented?",
-//             "end_timestamp": "00:19:47,509",
-//             "id": 107,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:19:45,769"
-//         },
-//         {
-//             "dialogue": "It's going to be presented in CHI.",
-//             "end_timestamp": "00:19:50,330",
-//             "id": 108,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:19:47,529"
-//         },
-//         {
-//             "dialogue": "CHI, it's a Human-Computer Interaction Conference.",
-//             "end_timestamp": "00:19:53,571",
-//             "id": 109,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:19:51,110"
-//         },
-//         {
-//             "dialogue": "Which city?",
-//             "end_timestamp": "00:19:54,171",
-//             "id": 110,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:19:53,651"
-//         },
-//         {
-//             "dialogue": "They'll be held in Hamburg.",
-//             "end_timestamp": "00:19:56,392",
-//             "id": 111,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:19:54,511"
-//         },
-//         {
-//             "dialogue": "Oh, Germany. No, I'm saying this is going to be presented in Los Angeles.",
-//             "end_timestamp": "00:20:01,833",
-//             "id": 112,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:19:57,112"
-//         },
-//         {
-//             "dialogue": "You might have a bit of an issue with what's going on at the moment. OK.",
-//             "end_timestamp": "00:20:06,695",
-//             "id": 113,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:20:01,873"
-//         },
-//         {
-//             "dialogue": "then you're, you know, because you're researching now, you're thinking, OK, you've got to be specific.",
-//             "end_timestamp": "00:20:13,890",
-//             "id": 114,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:20:09,025"
-//         },
-//         {
-//             "dialogue": "So most of the participants were from the Philippines. Actually, no. Tell me how many were from the Philippines. Yeah. OK. You've got to be dead right. All right. Six were. One wasn't. So one's Japanese, rather than most. Yeah.",
-//             "end_timestamp": "00:20:29,004",
-//             "id": 115,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:20:14,310"
-//         },
-//         {
-//             "dialogue": "Right. Now, this is where it gets a little bit. Yeah, you put in information there that either A, you need to explain to the reader, or B, you don't know. So this information there, I'm not sure if the reader's supposed to know, or maybe you don't know what it is. I don't know from this.",
-//             "end_timestamp": "00:20:55,940",
-//             "id": 116,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:20:29,804"
-//         },
-//         {
-//             "dialogue": "So you say, using grounded theory, fine. You're assuming that everybody knows grounded theory.",
-//             "end_timestamp": "00:21:04,025",
-//             "id": 117,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:20:56,241"
-//         },
-//         {
-//             "dialogue": "So it's quite important to define. grounded theory is. It does two things. One, it tells the reader what it is, because the reader might not know. And two, it demonstrates that you know what it is as the writer. So just one sentence, grounded theory is, and the benefits of grounded theory are. So in other words, why grounded theory?",
-//             "end_timestamp": "00:21:31,036",
-//             "id": 118,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:21:05,791"
-//         },
-//         {
-//             "dialogue": "Why not some other approach?",
-//             "end_timestamp": "00:21:33,477",
-//             "id": 119,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:21:31,396"
-//         },
-//         {
-//             "dialogue": "Why not do a survey? You know, qualitative data in that respect. Get some quantitative feedback. So you're using grounded theory, which is fine. Tell us what it is and why you used it.",
-//             "end_timestamp": "00:21:48,684",
-//             "id": 120,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:21:34,477"
-//         },
-//         {
-//             "dialogue": "Just a couple of sentences.",
-//             "end_timestamp": "00:21:51,485",
-//             "id": 121,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:21:49,584"
-//         },
-//         {
-//             "dialogue": "Same with, right, now, you quoted the transcripts. There's a red flag, code. What code did you use? So again, this is where you've got to explain what code you used and how the process of that code. Because in research, if you're going to code something, you must have a system of coding. You must have criteria for coding text, for coding what people write, basically.",
-//             "end_timestamp": "00:22:34,741",
-//             "id": 122,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:21:52,045"
-//         },
-//         {
-//             "dialogue": "Okay, so here, do I have to specify the criteria?",
-//             "end_timestamp": "00:22:43,066",
-//             "id": 123,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:22:39,825"
-//         },
-//         {
-//             "dialogue": "Yeah, I've got an example here for you. Yes, you could specify the criteria. Secondly, who checked it? Who did the coding and who checked your coding? How many people were involved? What was the inter-reliability rate? So",
-//             "end_timestamp": "00:23:01,491",
-//             "id": 124,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:22:43,346"
-//         },
-//         {
-//             "dialogue": "when you look at coding transcripts,",
-//             "end_timestamp": "00:23:03,532",
-//             "id": 125,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:23:01,871"
-//         },
-//         {
-//             "dialogue": "and you look at grounded",
-//             "end_timestamp": "00:23:05,412",
-//             "id": 126,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:23:04,112"
-//         },
-//         {
-//             "dialogue": "theory and qualitative research, and you look under the section coding transcripts, you'll find, this is actually quite common, that needs to be done, that you've got to decide",
-//             "end_timestamp": "00:23:16,515",
-//             "id": 127,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:23:05,452"
-//         },
-//         {
-//             "dialogue": "what the coding is, who checked",
-//             "end_timestamp": "00:23:19,256",
-//             "id": 128,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:23:16,535"
-//         },
-//         {
-//             "dialogue": "that coding, you then coded all the transcripts, you need a second person to code the transcripts, and then the two of you have got to get together and compare your results.",
-//             "end_timestamp": "00:23:30,459",
-//             "id": 129,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:23:19,296"
-//         },
-//         {
-//             "dialogue": "And that's called an inter-reliability rate. Oh, so that's how it works. That's how it works. And the more people you get coding, the better. So for example, when I was in Singapore, we'd have educational researchers with PhD students.",
-//             "end_timestamp": "00:23:44,975",
-//             "id": 130,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:23:31,547"
-//         },
-//         {
-//             "dialogue": "We'd be videotaping teachers teaching.",
-//             "end_timestamp": "00:23:48,858",
-//             "id": 131,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:23:45,776"
-//         },
-//         {
-//             "dialogue": "They'd come back, we'd have them transcribe all the videos.",
-//             "end_timestamp": "00:23:54,061",
-//             "id": 132,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:23:49,878"
-//         },
-//         {
-//             "dialogue": "And then we'd have thousands and thousands of lines of text, transcript, and these three or four or five or six researchers would then discuss a coding scheme. We've come up with a coding scheme, we've decided the coding scheme, fine. Now they go away and they assign parts of the transcript to each code. Right then, they come together and then they compare all their results. And if all",
-//             "end_timestamp": "00:24:28,351",
-//             "id": 133,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:23:54,541"
-//         },
-//         {
-//             "dialogue": "their results are too different,",
-//             "end_timestamp": "00:24:29,671",
-//             "id": 134,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:24:28,371"
-//         },
-//         {
-//             "dialogue": "they've got to",
-//             "end_timestamp": "00:24:30,491",
-//             "id": 135,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:24:30,171"
-//         },
-//         {
-//             "dialogue": "go back and start again",
-//             "end_timestamp": "00:24:31,492",
-//             "id": 136,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:24:30,531"
-//         },
-//         {
-//             "dialogue": "and do another, either do the coding,",
-//             "end_timestamp": "00:24:33,913",
-//             "id": 137,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:24:32,072"
-//         },
-//         {
-//             "dialogue": "the",
-//             "end_timestamp": "00:24:34,553",
-//             "id": 138,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:24:34,413"
-//         },
-//         {
-//             "dialogue": "criteria",
-//             "end_timestamp": "00:24:35,654",
-//             "id": 139,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:24:34,953"
-//         },
-//         {
-//             "dialogue": "selection",
-//             "end_timestamp": "00:24:36,554",
-//             "id": 140,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:24:36,094"
-//         },
-//         {
-//             "dialogue": "again, maybe narrow it down, widen it, probably narrow it down, then go back and then decide what part of the transcript goes with this code. And then they go back and do it again. And then until they get an inter-reliability rate of ninety percent, And then you say, okay, now we can analyze this data. Oh, so that's how coding works.",
-//             "end_timestamp": "00:25:00,968",
-//             "id": 141,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:24:36,594"
-//         },
-//         {
-//             "dialogue": "That's how coding works, yeah.",
-//             "end_timestamp": "00:25:03,409",
-//             "id": 142,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:25:00,988"
-//         },
-//         {
-//             "dialogue": "So, we've done it, myself and two colleagues here have done it, we did it two years ago during the pandemic, and we called it thematic analysis, which is explain that process. so you can use our paper as an example of the process of coding and how we came up, because we did something similar. So you need to explain that before you move on to the results, because without that foundation of coding then everything else is unreliable. Even though when I read your scripts, it made sense and I can understand why you did it, but at the same time, when I read your conclusion and transcripts that support your conclusion, somebody in the audience may put their hand up and say that's bias. You may be biased. In other words, you are cherry picking. You are picking out information to suit your outcome. Whereas what you should be doing is looking at the information and from the information determine that outcome. But what you could be accused of here is that the outcome has already been decided by you subconsciously, but you've kind of looked for the transcripts to match that. I'm not saying you did that, but that's what you could be accused of. It's not a big accusation, of course, but it's just that somebody may take issue with that. So you don't have to change anything there. I think what you need to do is just justify how you've done this thematic analysis. Even if you keep everything else the same, that's fine. But when you do it, you may change.",
-//             "end_timestamp": "00:26:58,041",
-//             "id": 143,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:25:03,509"
-//         },
-//         {
-//             "dialogue": "I don't think you'll change, because I think your discussion is actually very focused and very good.",
-//             "end_timestamp": "00:27:02,125",
-//             "id": 144,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:26:58,081"
-//         },
-//         {
-//             "dialogue": "But I think without this there, it seems very, well, you've already determined what you wanted to do, what you've decided at the end, based on whether the students get, whether these six Filipino designers, one Japanese designer, give that information anyway.",
-//             "end_timestamp": "00:27:22,664",
-//             "id": 145,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:27:02,145"
-//         },
-//         {
-//             "dialogue": "See what I mean? Because, hey, don't keep going. So think about that. So I'll come back, I'll show you my, okay? So there's my questions there. That, I think, is personally a kind of a weak part of this project, and that's your justification of the method.",
-//             "end_timestamp": "00:27:40,651",
-//             "id": 146,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:27:24,406"
-//         },
-//         {
-//             "dialogue": "Yeah, okay, so that's it. So as you can see now, from there on, look, the question, are there, this is, yeah.",
-//             "end_timestamp": "00:27:50,654",
-//             "id": 147,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:27:41,771"
-//         },
-//         {
-//             "dialogue": "Yeah, and then, okay, your results.",
-//             "end_timestamp": "00:27:53,775",
-//             "id": 148,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:27:51,394"
-//         },
-//         {
-//             "dialogue": "you know, your discussion, it's all very good, sorry, the overview of the results is all very good, and then when it came to the discussion I think this is what you've got to decide yourself.",
-//             "end_timestamp": "00:28:08,795",
-//             "id": 149,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:27:54,744"
-//         },
-//         {
-//             "dialogue": "In your discussion you said the aim of the study. But in the previous section there were two aims. So I actually personally, I like the fact that you've got it written down as one aim. You've connected the two into one. I like that. And I think it makes it more focused.",
-//             "end_timestamp": "00:28:28,774",
-//             "id": 150,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:28:09,015"
-//         },
-//         {
-//             "dialogue": "So what you could do at the end of What you could do, you've got aim one, aim two there. What you could do is possibly add another sentence saying the aim of this study is to...",
-//             "end_timestamp": "00:28:41,413",
-//             "id": 151,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:28:28,814"
-//         },
-//         {
-//             "dialogue": "Just copy that. Just copy that there. Right.",
-//             "end_timestamp": "00:28:47,815",
-//             "id": 152,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:28:43,294"
-//         },
-//         {
-//             "dialogue": "Yeah, so copy that, put it there, and then this matches this.",
-//             "end_timestamp": "00:28:52,216",
-//             "id": 153,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:28:47,975"
-//         },
-//         {
-//             "dialogue": "So your literature review output with the aim matches the introduction of the discussion aim. They are exactly the same.",
-//             "end_timestamp": "00:29:04,296",
-//             "id": 154,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:28:54,068"
-//         },
-//         {
-//             "dialogue": "At the moment you've got one, two, and then you've got one, so they're not the same.",
-//             "end_timestamp": "00:29:08,320",
-//             "id": 155,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:29:04,817"
-//         },
-//         {
-//             "dialogue": "Okay, so what you're saying is, instead of having two here...",
-//             "end_timestamp": "00:29:13,822",
-//             "id": 156,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:29:10,501"
-//         },
-//         {
-//             "dialogue": "So what you do, you put one there, and you put another new paragraph, which is one sentence. Overall, the aim of the study is two.",
-//             "end_timestamp": "00:29:24,065",
-//             "id": 157,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:29:13,842"
-//         },
-//         {
-//             "dialogue": "In summary, or something like that, the aim of the study is two, and then write it down as one sentence.",
-//             "end_timestamp": "00:29:30,547",
-//             "id": 158,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:29:25,665"
-//         },
-//         {
-//             "dialogue": "Or you have to change that to two. It's up to you. So you either want one aim like this, which connect the two together, or you have two separate aims. that you've done there, but that has to be really, really good. Because this has to match this. Okay? Because then the rest of it then, you know, you discuss. Yeah, and then you... So discuss, okay so you discuss. and then like I say this section is very good, I thought the first section was a little short, the successful based on target demographics. Yeah, it's very good.",
-//             "end_timestamp": "00:30:12,983",
-//             "id": 159,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:29:32,067"
-//         },
-//         {
-//             "dialogue": "I just wonder if you could explain this section a little bit more, maybe with an example.",
-//             "end_timestamp": "00:30:19,544",
-//             "id": 160,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:30:13,003"
-//         },
-//         {
-//             "dialogue": "I think you need like four to five more lines there.",
-//             "end_timestamp": "00:30:23,145",
-//             "id": 161,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:30:19,564"
-//         },
-//         {
-//             "dialogue": "I don't know what word count you're limited to. So if you could maybe explain that a bit more with examples. That would help me because I'm not familiar with the research, so I kind of needed an example there. Which in this one, I was very clear, you're very clear there.",
-//             "end_timestamp": "00:30:46,158",
-//             "id": 162,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:30:23,845"
-//         },
-//         {
-//             "dialogue": "And at the end of reading this, I thought, well, you've come to the end now, come to your conclusion, you've come to the end of your discussion, so what are you actually recommending?",
-//             "end_timestamp": "00:30:58,843",
-//             "id": 163,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:30:48,799"
-//         },
-//         {
-//             "dialogue": "So, in summary, or incrementally, before you write the conclusion, what are you actually recommending at the end of your discussion?",
-//             "end_timestamp": "00:31:17,854",
-//             "id": 164,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:31:08,907"
-//         },
-//         {
-//             "dialogue": "Okay, so, at the end of the discussion, I have to put a summary of what other things I recommend?",
-//             "end_timestamp": "00:31:25,661",
-//             "id": 165,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:31:20,356"
-//         },
-//         {
-//             "dialogue": "Yeah. To round it up, because you've got Section V.I, Section V.II, Okay, you know, what's next?",
-//             "end_timestamp": "00:31:39,439",
-//             "id": 166,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:31:25,921"
-//         },
-//         {
-//             "dialogue": "And then you put like a space, and then you can, you know, on the five point, five point, no, just put a space and one or two lines about what you're recommending.",
-//             "end_timestamp": "00:31:49,808",
-//             "id": 167,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:31:39,639"
-//         },
-//         {
-//             "dialogue": "Because you do recommend from doing all this, you know, the development of what, is it a database or something? Because I had a question at the end, you see. So this is all good, this is all good, really, really good, because at the end, You said, we then plan to develop a prototype focusing on changing material.",
-//             "end_timestamp": "00:32:09,868",
-//             "id": 168,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:31:50,068"
-//         },
-//         {
-//             "dialogue": "What's that? Yeah, I'm sorry about that. When I submitted the draft, I forgot to finish the sentence.",
-//             "end_timestamp": "00:32:18,124",
-//             "id": 169,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:32:12,862"
-//         },
-//         {
-//             "dialogue": "Yeah, it says here that this was a pilot study that I did before developing a system that aims to address the challenges that I raised up here.",
-//             "end_timestamp": "00:32:30,010",
-//             "id": 170,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:32:19,285"
-//         },
-//         {
-//             "dialogue": "Yeah, this was supposed to be a plan to develop a prototype focused specifically on changing materials of a for product design, but I'm not sure if that sentence is needed.",
-//             "end_timestamp": "00:32:45,476",
-//             "id": 171,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:32:30,210"
-//         },
-//         {
-//             "dialogue": "Probably not, because it's kind of really out of sync with everything that's gone before, because you say you're going to develop there, and I was thinking, well, wait a minute, you're recommending something there which I'm not quite sure, but then you're designing a prototype. So see where that confusion is.",
-//             "end_timestamp": "00:33:06,128",
-//             "id": 172,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:32:46,257"
-//         },
-//         {
-//             "dialogue": "Maybe the recommendation of the prototype should go there, I don't know.",
-//             "end_timestamp": "00:33:09,149",
-//             "id": 173,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:33:06,549"
-//         },
-//         {
-//             "dialogue": "So that was unclear to me. So think about that, okay? And then finally, that's an odd one, number twenty.",
-//             "end_timestamp": "00:33:19,493",
-//             "id": 174,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:33:09,870"
-//         },
-//         {
-//             "dialogue": "What's that?",
-//             "end_timestamp": "00:33:20,153",
-//             "id": 175,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:33:19,673"
-//         },
-//         {
-//             "dialogue": "I've never seen anything like that before. This was a huge collaborative project.",
-//             "end_timestamp": "00:33:24,774",
-//             "id": 176,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:33:20,213"
-//         },
-//         {
-//             "dialogue": "That's mad.",
-//             "end_timestamp": "00:33:25,835",
-//             "id": 177,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:33:25,034"
-//         },
-//         {
-//             "dialogue": "yeah that's mad because you've got it's there.",
-//             "end_timestamp": "00:33:29,933",
-//             "id": 178,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:33:27,190"
-//         },
-//         {
-//             "dialogue": "there that's the title and it stops there.",
-//             "end_timestamp": "00:33:33,736",
-//             "id": 179,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:33:29,953"
-//         },
-//         {
-//             "dialogue": "no that's number nineteen.",
-//             "end_timestamp": "00:33:34,957",
-//             "id": 180,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:33:34,037"
-//         },
-//         {
-//             "dialogue": "sorry that's just really odd.",
-//             "end_timestamp": "00:33:37,660",
-//             "id": 181,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:33:34,977"
-//         },
-//         {
-//             "dialogue": "yeah i don't know what to do. i've never seen anything like that. um i would probably I don't know. You have to check the journal and see what happens. See if you can find an example in the conference proceedings or a similar journal. that has something like this.",
-//             "end_timestamp": "00:34:12,628",
-//             "id": 182,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:33:38,200"
-//         },
-//         {
-//             "dialogue": "My intuition is it might be just the first name, et al. Because I think that's kind of ridiculous.",
-//             "end_timestamp": "00:34:21,856",
-//             "id": 183,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:34:14,090"
-//         },
-//         {
-//             "dialogue": "But I don't know what the general convention is on that one. Because I'm just thinking, if it's a report, and you have lots and lots of people in a report, You wouldn't put all their names on the front page, would you?",
-//             "end_timestamp": "00:34:38,755",
-//             "id": 184,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:34:21,976"
-//         },
-//         {
-//             "dialogue": "You'd put one person or two people. You can't imagine all these people writing this project. I don't think",
-//             "end_timestamp": "00:34:54,648",
-//             "id": 185,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:34:39,136"
-//         },
-//         {
-//             "dialogue": "this meant these were",
-//             "end_timestamp": "00:34:57,670",
-//             "id": 186,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:34:56,728"
-//         },
-//         {
-//             "dialogue": "authors who wrote the paper. So I hope all that kind of feedback is useful for you. What I've done is I've summarized what I've just said in a note there, okay? And I'll send you this in an email later.",
-//             "end_timestamp": "00:35:10,495",
-//             "id": 187,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:34:57,790"
-//         },
-//         {
-//             "dialogue": "okay so it's very well written and everything i've just said i've written down there.",
-//             "end_timestamp": "00:35:30,129",
-//             "id": 188,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:35:26,323"
-//         },
-//         {
-//             "dialogue": "and regarding thematic analysis this is a paper i wrote with two colleagues up here on uh during the pandemic and we used We use thematic analysis, and this is a justification. This has become our analytical framework, which is thematic analysis. And you can see the steps that we went through.",
-//             "end_timestamp": "00:36:00,040",
-//             "id": 189,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:35:30,830"
-//         },
-//         {
-//             "dialogue": "When we got all the students' feedback and transcripts, and we put them all together into a huge document, we then went through these. three of us went through these steps in order to determine what the themes were that came out of this research.",
-//             "end_timestamp": "00:36:20,941",
-//             "id": 190,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:36:00,060"
-//         },
-//         {
-//             "dialogue": "It's slightly different from yours, but at the same time I'm showing you that there's a method to, you know, doing this kind of grounded theory.",
-//             "end_timestamp": "00:36:33,244",
-//             "id": 191,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:36:21,981"
-//         },
-//         {
-//             "dialogue": "And that's what we did.",
-//             "end_timestamp": "00:36:35,084",
-//             "id": 192,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:36:34,364"
-//         },
-//         {
-//             "dialogue": "And then you can see, you can see how You can see the themes that came out together, you can see the percentage of examples. So we got a theme, we defined the theme, and then we looked for examples that represented the definitions of these themes. So we worked from basically nothing.",
-//             "end_timestamp": "00:37:00,457",
-//             "id": 193,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:36:35,144"
-//         },
-//         {
-//             "dialogue": "But we used the data to determine what the themes were. We didn't go in with themes. We went through our data, we found the themes. By going through this process, we determined what the themes were.",
-//             "end_timestamp": "00:37:13,717",
-//             "id": 194,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:37:02,426"
-//         },
-//         {
-//             "dialogue": "Then we went back to the data and looked for examples. Oh, okay. So it's a back and forth process.",
-//             "end_timestamp": "00:37:20,042",
-//             "id": 195,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:37:14,538"
-//         },
-//         {
-//             "dialogue": "Right. Yeah, that constant back and forth, which is what this is exploring.",
-//             "end_timestamp": "00:37:24,585",
-//             "id": 196,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:37:20,222"
-//         },
-//         {
-//             "dialogue": "So you've built up the themes from the ground up.",
-//             "end_timestamp": "00:37:27,767",
-//             "id": 197,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:37:25,946"
-//         },
-//         {
-//             "dialogue": "That's what we did. Yeah.",
-//             "end_timestamp": "00:37:28,887",
-//             "id": 198,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:37:28,067"
-//         },
-//         {
-//             "dialogue": "Grounded themes. You build themes from the ground up. So what we did is instead of deciding what the, we didn't know what the themes were because all we got was feedback from the students during the pandemic of using an online system. Right. With lots of",
-//             "end_timestamp": "00:37:42,896",
-//             "id": 199,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:37:28,907"
-//         },
-//         {
-//             "dialogue": "directed",
-//             "end_timestamp": "00:37:44,144",
-//             "id": 200,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:37:43,604"
-//         },
-//         {
-//             "dialogue": "and open-ended questions and then particularly from the open-ended",
-//             "end_timestamp": "00:37:49,126",
-//             "id": 201,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:37:44,164"
-//         },
-//         {
-//             "dialogue": "questions we encouraged them to type their answers and we got long answers and then from those very long answers we then put them all together",
-//             "end_timestamp": "00:38:00,329",
-//             "id": 202,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:37:49,166"
-//         },
-//         {
-//             "dialogue": "in one huge text file and then we went through it and we tried to pull out different common themes, like motivation, for example,",
-//             "end_timestamp": "00:38:10,324",
-//             "id": 203,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:38:00,349"
-//         },
-//         {
-//             "dialogue": "maybe",
-//             "end_timestamp": "00:38:10,865",
-//             "id": 204,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:38:10,364"
-//         },
-//         {
-//             "dialogue": "one motivation was grading, and students were motivated",
-//             "end_timestamp": "00:38:14,032",
-//             "id": 205,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:38:10,945"
-//         },
-//         {
-//             "dialogue": "by the grade that they wanted. Yeah, assessments.",
-//             "end_timestamp": "00:38:18,201",
-//             "id": 206,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:38:14,112"
-//         },
-//         {
-//             "dialogue": "There was a lot of mention about students were concerned about their grade.",
-//             "end_timestamp": "00:38:23,025",
-//             "id": 207,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:38:18,281"
-//         },
-//         {
-//             "dialogue": "So that came up quite a lot. So, you know, excluding this reference to a formalized achievement metrics such as course grade or GPA score. That was mentioned a lot because they were very worried about being online and how it would affect their GPA. So that was a common theme right across this group. That was a theme, and we looked for examples that fit with that theme.",
-//             "end_timestamp": "00:38:46,860",
-//             "id": 208,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:38:23,925"
-//         },
-//         {
-//             "dialogue": "In the end, we came up with five themes, or six themes.",
-//             "end_timestamp": "00:38:50,902",
-//             "id": 209,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:38:47,921"
-//         },
-//         {
-//             "dialogue": "Not five, that's four.",
-//             "end_timestamp": "00:38:55,564",
-//             "id": 210,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:38:52,042"
-//         },
-//         {
-//             "dialogue": "Okay, we cut it down to four. But I think if you want to have a look at the way we developed it, the analytical framework, that might help you think about how you're going to explain your your process. It might help you, I think it might.",
-//             "end_timestamp": "00:39:13,823",
-//             "id": 211,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:38:55,604"
-//         },
-//         {
-//             "dialogue": "About this, you mentioned you involved six PhD students? This was just the three of us. When I was in Singapore, before I came to Japan, we did research on, I was a teacher trainer, so what can I do? We'd get our students, which are BA pre-service teachers, and in the practicum, they would go out to schools and teach, practice. So, the schools we would go to is that we'd take video cameras and we could videotape the teachers teaching the kids, and the kids, you know, everything.",
-//             "end_timestamp": "00:39:52,240",
-//             "id": 212,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:39:15,704"
-//         },
-//         {
-//             "dialogue": "So everything was captured, professional mics hanging from the ceiling, good cameras, and then good audio pickups. Then they come back. and then those PhD students, they were doing a PhD in education. And they all had different theses to work on. But generally, their job, their paid job, was to transcribe and then basically Either A, they come up with their own coding scheme or B, they would use a Ministry of Education standardised coding scheme.",
-//             "end_timestamp": "00:40:34,899",
-//             "id": 213,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:39:52,300"
-//         },
-//         {
-//             "dialogue": "we prefer that they come up with their own coding scheme because they then did a lot more thematic analysis. If they use the standardised Ministry of Education coding scheme, then there's not much thinking going on, they're just looking for examples. Whereas to deep dive into the data, it's better for the student to come up with their own coding themes from the data. So when they're initially coding the data, it's up to them on how they interpret it at first?",
-//             "end_timestamp": "00:41:09,825",
-//             "id": 214,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:40:36,947"
-//         },
-//         {
-//             "dialogue": "It's up to them as they're going through it. See, when you're watching teachers teach, you may see things like, OK, maybe there's, say, three parts to a lesson.",
-//             "end_timestamp": "00:41:23,259",
-//             "id": 215,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:41:10,366"
-//         },
-//         {
-//             "dialogue": "There'll be a performance practice presentation.",
-//             "end_timestamp": "00:41:26,643",
-//             "id": 216,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:41:23,319"
-//         },
-//         {
-//             "dialogue": "There'll be a presentation.",
-//             "end_timestamp": "00:41:27,684",
-//             "id": 217,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:41:26,663"
-//         },
-//         {
-//             "dialogue": "the kids are practising something, then you've got performance, where the students then are performing to the teacher or to other students to display what they've learnt.",
-//             "end_timestamp": "00:41:43,522",
-//             "id": 218,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:41:30,917"
-//         },
-//         {
-//             "dialogue": "So you've got presentation, practice, performance.",
-//             "end_timestamp": "00:41:46,683",
-//             "id": 219,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:41:43,822"
-//         },
-//         {
-//             "dialogue": "And within those three parts of a lesson, things will be happening where the teacher may be presenting you to the PowerPoint, giving information, The teacher may ask a student a question.",
-//             "end_timestamp": "00:42:01,604",
-//             "id": 220,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:41:46,763"
-//         },
-//         {
-//             "dialogue": "The teacher may say, how many?",
-//             "end_timestamp": "00:42:05,426",
-//             "id": 221,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:42:01,624"
-//         },
-//         {
-//             "dialogue": "So we get group interaction.",
-//             "end_timestamp": "00:42:07,367",
-//             "id": 222,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:42:05,666"
-//         },
-//         {
-//             "dialogue": "One to one, what do you say? Or Jimmy, what do you say?",
-//             "end_timestamp": "00:42:11,369",
-//             "id": 223,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:42:08,088"
-//         },
-//         {
-//             "dialogue": "Jane, what do you think?",
-//             "end_timestamp": "00:42:12,690",
-//             "id": 224,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:42:11,549"
-//         },
-//         {
-//             "dialogue": "So it's one to one. What question? Is that right? What's the answer? Give me the answer. So you've got different, asks a question, demands an answer, makes a statement, what's the answer, give me an answer. It's very different. That's the way of teaching. Yeah, so you've got all these different ways of interacting with the kids as a presenter. Then you've got practice, what the students when they're practicing.",
-//             "end_timestamp": "00:42:42,394",
-//             "id": 225,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:42:13,010"
-//         },
-//         {
-//             "dialogue": "In the closed practice, maybe it's a worksheet that the kids are working on together or on their own. What's going on there? So lots and lots of things happening that the teachers can write little codes for in a lesson. And that's it.",
-//             "end_timestamp": "00:42:58,300",
-//             "id": 226,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:42:43,274"
-//         },
-//         {
-//             "dialogue": "And then they've determined from watching the video you know, the different codes and different actions. Then they get the transcript and they see how the transcript would fit these, and if they've got like twenty or thirty, can they narrow it down to say five or six?",
-//             "end_timestamp": "00:43:13,161",
-//             "id": 227,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:42:58,561"
-//         },
-//         {
-//             "dialogue": "So that's what coding does, we narrowed it down to four. But you can start off with a lot. So you could start off by looking at your transcripts and coming up with, let's say you've got forty answers, you could potentially have forty different codes.",
-//             "end_timestamp": "00:43:31,841",
-//             "id": 228,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:43:15,383"
-//         },
-//         {
-//             "dialogue": "But then you think away a bit. This answer, this answer, this answer is quite similar to a particular theme about, and then you could decide what that theme is.",
-//             "end_timestamp": "00:43:42,508",
-//             "id": 229,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:43:32,422"
-//         },
-//         {
-//             "dialogue": "And you say, OK, so that's one of my codes, those sorts, we could go there.",
-//             "end_timestamp": "00:43:46,911",
-//             "id": 230,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:43:42,528"
-//         },
-//         {
-//             "dialogue": "But what's he saying? What's he saying?",
-//             "end_timestamp": "00:43:48,532",
-//             "id": 231,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:43:46,991"
-//         },
-//         {
-//             "dialogue": "That's quite similar. What's that?",
-//             "end_timestamp": "00:43:51,774",
-//             "id": 232,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:43:49,432"
-//         },
-//         {
-//             "dialogue": "Is there a set number of times you have to define your themes?",
-//             "end_timestamp": "00:44:00,442",
-//             "id": 233,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:43:55,758"
-//         },
-//         {
-//             "dialogue": "I remember when I did this with... First of all, it was myself and Michiko.",
-//             "end_timestamp": "00:44:08,408",
-//             "id": 234,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:44:01,983"
-//         },
-//         {
-//             "dialogue": "We did it together. We did it.",
-//             "end_timestamp": "00:44:09,830",
-//             "id": 235,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:44:08,448"
-//         },
-//         {
-//             "dialogue": "We went through it three times.",
-//             "end_timestamp": "00:44:12,572",
-//             "id": 236,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:44:11,571"
-//         },
-//         {
-//             "dialogue": "And we were quite happy. Then we brought in our third researcher, which was the first author, Damien. He came in, then. Then he coded it his way and compared his...",
-//             "end_timestamp": "00:44:26,537",
-//             "id": 237,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:44:15,751"
-//         },
-//         {
-//             "dialogue": "So me and Richard compared with ourselves.",
-//             "end_timestamp": "00:44:28,378",
-//             "id": 238,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:44:26,817"
-//         },
-//         {
-//             "dialogue": "We did that three times, because we had too many. We wanted to narrow it down. We got it down to five.",
-//             "end_timestamp": "00:44:35,141",
-//             "id": 239,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:44:28,418"
-//         },
-//         {
-//             "dialogue": "Damien came in. He went through it. He came up with four themes. When we all three of us came together then, so that would be the one, two, seven, two, let's say we went through it. Let's say we went through the old text three or four times, we ended up with four themes. There's no hard and fast rule. and you've got to do it with at least one other person.",
-//             "end_timestamp": "00:45:02,943",
-//             "id": 240,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:44:35,702"
-//         },
-//         {
-//             "dialogue": "Oh, so a minimum of two people? You've got to have a minimum of two people, yeah, because you need that inter-reliability rate, because you can't depend on yourself, because then you're introducing bias.",
-//             "end_timestamp": "00:45:14,825",
-//             "id": 241,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:45:03,823"
-//         },
-//         {
-//             "dialogue": "Yeah, that's true. Every time I go back to the transcripts, I always come up with different codes and different themes each time.",
-//             "end_timestamp": "00:45:22,946",
-//             "id": 242,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:45:15,165"
-//         },
-//         {
-//             "dialogue": "But when you do it many times, you'll end up...",
-//             "end_timestamp": "00:45:25,427",
-//             "id": 243,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:45:23,826"
-//         },
-//         {
-//             "dialogue": "confirmatory bias.",
-//             "end_timestamp": "00:45:30,832",
-//             "id": 244,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:45:29,512"
-//         },
-//         {
-//             "dialogue": "In other words, you might be going back to something, and your bias might be confirming your original answer. But if you get somebody else looking at it, they say, what are you talking about?",
-//             "end_timestamp": "00:45:42,021",
-//             "id": 245,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:45:30,933"
-//         },
-//         {
-//             "dialogue": "That's not it. What's this?",
-//             "end_timestamp": "00:45:43,042",
-//             "id": 246,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:45:42,041"
-//         },
-//         {
-//             "dialogue": "And then you look at it three times, you then have this confirmatory bias, that you're confirming what you already think, you need to bring in a second person to overcome that.",
-//             "end_timestamp": "00:45:58,281",
-//             "id": 247,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:45:44,162"
-//         },
-//         {
-//             "dialogue": "So you need somebody else to, ideally, I don't know if you have time, but ideally you need another person to go through the text, to go through the process that you're going through. and then you come together and match them together, which is why, I don't know if you're doing this on your own, which is why it's really important to work together.",
-//             "end_timestamp": "00:46:20,430",
-//             "id": 248,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:46:00,542"
-//         },
-//         {
-//             "dialogue": "Ideally would it be like another PhD student? It'd be somebody working in the same area as you. You need somebody who's familiar with industrial design and design. And certainly another PhD student, absolutely. You need somebody of your level.",
-//             "end_timestamp": "00:46:45,660",
-//             "id": 249,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:46:22,172"
-//         },
-//         {
-//             "dialogue": "Or maybe somebody just finishing their Masters.",
-//             "end_timestamp": "00:46:51,882",
-//             "id": 250,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:46:48,621"
-//         },
-//         {
-//             "dialogue": "Would it be strange if we ask another faculty member?",
-//             "end_timestamp": "00:46:57,663",
-//             "id": 251,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:46:51,922"
-//         },
-//         {
-//             "dialogue": "Because I don't know any PhD students right now who are experts in this field. no but i wouldn't. i wouldn't bring",
-//             "end_timestamp": "00:47:06,470",
-//             "id": 252,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:46:57,703"
-//         },
-//         {
-//             "dialogue": "a faculty member into it because then",
-//             "end_timestamp": "00:47:08,594",
-//             "id": 253,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:47:06,530"
-//         },
-//         {
-//             "dialogue": "you've got the",
-//             "end_timestamp": "00:47:09,155",
-//             "id": 254,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:47:08,614"
-//         },
-//         {
-//             "dialogue": "You've got the hierarchical structure then, because then you can't disagree. Yeah, that's true.",
-//             "end_timestamp": "00:47:16,393",
-//             "id": 255,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:47:11,330"
-//         },
-//         {
-//             "dialogue": "You then have authority to bias. The authority will trump what you think. You can't argue about this. That is true. You need to find a friend.",
-//             "end_timestamp": "00:47:32,162",
-//             "id": 256,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:47:17,934"
-//         },
-//         {
-//             "dialogue": "A friend who's working in in design, user interface design, designer products, industrial design, product design. Somebody who's preferably an academic rather than a general designer from outside the industry, because they don't have the same thinking process. As an academic, you might be a designer, but you've got your academic head on for this.",
-//             "end_timestamp": "00:47:58,468",
-//             "id": 257,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:47:32,182"
-//         },
-//         {
-//             "dialogue": "And that's how you've got to approach it. So you've got preferably a lot of fellow If you've got time to do it.",
-//             "end_timestamp": "00:48:15,988",
-//             "id": 258,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:47:59,188"
-//         },
-//         {
-//             "dialogue": "I'm not saying it's a bad paper. I think it's a great paper. But I think if you've got time to enhance it, you could make it into a much better paper.",
-//             "end_timestamp": "00:48:23,610",
-//             "id": 259,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:48:16,148"
-//         },
-//         {
-//             "dialogue": "Thank you. Thank you for your comments. They're actually really awesome.",
-//             "end_timestamp": "00:48:26,910",
-//             "id": 260,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:48:24,050"
-//         },
-//         {
-//             "dialogue": "Two things I want to bring up. I've got to go. We've got ten minutes. You didn't reference, I'm not surprised anymore, but you know about this book?",
-//             "end_timestamp": "00:48:38,622",
-//             "id": 261,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:48:27,310"
-//         },
-//         {
-//             "dialogue": "Don Norman? I think I did. You did, yeah, because when you talk about the design process, there was no mention of the double diamond. I'm a big fan of the double diamond design process. Yeah.",
-//             "end_timestamp": "00:48:55,132",
-//             "id": 262,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:48:39,542"
-//         },
-//         {
-//             "dialogue": "The divergence.",
-//             "end_timestamp": "00:48:56,373",
-//             "id": 263,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:48:55,552"
-//         },
-//         {
-//             "dialogue": "Yeah, divergence converges, yeah. I didn't check your references but I'll be familiar with that.",
-//             "end_timestamp": "00:49:02,616",
-//             "id": 264,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:48:56,493"
-//         },
-//         {
-//             "dialogue": "The other one you said something about, you said something. either it's problematic or it's never been done before, you know when you're interviewing people about their design and interactions, that was kind of a limitation, people's design problems and challenges. and I'm surprised because If you were my student, you're not, but if you were my student, okay, I'd give you this book, and I'd say, take a look at all these UX, computer, software, and industrial product designers. These are interviews with lots and lots of people, okay, very short about their projects, and then here they talk about the challenges. And if you were my student, as part of your background, I'd get you to go through this, and for each one, I'd get you to tell me... Larry Tesla, Doug Engelbart, he invented the mouse.",
-//             "end_timestamp": "00:50:14,728",
-//             "id": 265,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:49:03,056"
-//         },
-//         {
-//             "dialogue": "Yeah. And I think also the Ethernet board.",
-//             "end_timestamp": "00:50:18,151",
-//             "id": 266,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:50:15,209"
-//         },
-//         {
-//             "dialogue": "McCain, oh yeah, the mouse.",
-//             "end_timestamp": "00:50:20,813",
-//             "id": 267,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:50:18,732"
-//         },
-//         {
-//             "dialogue": "Okay, what were his challenges?",
-//             "end_timestamp": "00:50:22,395",
-//             "id": 268,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:50:20,833"
-//         },
-//         {
-//             "dialogue": "Next slide. Bill Atkinson, he invented the Macintosh computer. What were his challenges? These are the famous people.",
-//             "end_timestamp": "00:50:34,805",
-//             "id": 269,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:50:24,316"
-//         },
-//         {
-//             "dialogue": "The Palm, the Palm pilot there, the Palm PDA.",
-//             "end_timestamp": "00:50:37,207",
-//             "id": 270,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:50:34,845"
-//         },
-//         {
-//             "dialogue": "What were their challenges?",
-//             "end_timestamp": "00:50:39,788",
-//             "id": 271,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:50:38,908"
-//         },
-//         {
-//             "dialogue": "So I get them to go through all these people, all these chapters, and just write down what challenges they had.",
-//             "end_timestamp": "00:50:47,251",
-//             "id": 272,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:50:39,968"
-//         },
-//         {
-//             "dialogue": "And I think that might help you provide a wider context to the challenges beyond the six, seven people that you interviewed. Because my guess is, my intuition, is that the challenges that your participants commented upon were probably commented upon in the seventies by these people who invented the mouse and the desktop and the Mac in the seventies, eighties and nineties. Because at the end of the day, the product design today The problems are probably no different to the problems that were designed thirty years ago. So, I'm not saying do it, I'm saying if you want",
-//             "end_timestamp": "00:51:31,873",
-//             "id": 273,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:50:47,271"
-//         },
-//         {
-//             "dialogue": "to, not for this, but if you want to, you know,",
-//             "end_timestamp": "00:51:34,393",
-//             "id": 274,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:51:31,913"
-//         },
-//         {
-//             "dialogue": "you're doing your doctorate, I think as part of your doctorate, to step away",
-//             "end_timestamp": "00:51:39,454",
-//             "id": 275,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:51:34,413"
-//         },
-//         {
-//             "dialogue": "and to look further afield,",
-//             "end_timestamp": "00:51:41,595",
-//             "id": 276,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:51:39,554"
-//         },
-//         {
-//             "dialogue": "I would suggest there needs to be a section in your paper, in your project, that introduces problems that have been",
-//             "end_timestamp": "00:51:51,865",
-//             "id": 277,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:51:42,555"
-//         },
-//         {
-//             "dialogue": "recognized by designers from overseas and what they are. Would it help if I also cite that textbook in this?",
-//             "end_timestamp": "00:52:04,091",
-//             "id": 278,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:51:51,925"
-//         },
-//         {
-//             "dialogue": "Well, I think what you'd have to do, I would say, Not for what you've done there, no, because I think you're being, there you're very specific about what you're doing. I'd say this is like a pilot study. I think this is an excellent pilot study, but for, it's a pilot study, but for your real research project, you need to widen the scope of your awareness of the literature and the problems beyond the seven students, the seven participants. I would suggest you need to go through something like this, you know you could search the internet but look it's all in one book, it's all there. So this is not for this, this is for your, like I said if I were your supervisor I would ask you to do that for your PhD writing.",
-//             "end_timestamp": "00:52:58,775",
-//             "id": 279,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:52:04,891"
-//         },
-//         {
-//             "dialogue": "There would have to be a section that would essentially be this.",
-//             "end_timestamp": "00:53:02,419",
-//             "id": 280,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:52:59,096"
-//         },
-//         {
-//             "dialogue": "Yeah, to get the bigger picture.",
-//             "end_timestamp": "00:53:05,891",
-//             "id": 281,
-//             "speaker": "Speaker 1",
-//             "start_timestamp": "00:53:03,649"
-//         },
-//         {
-//             "dialogue": "To get the bigger picture, yeah. Because when you get the bigger picture, this may put this into context. Or it may say that there are similarities, or they may say there are differences. And if there are differences, I think there's only two Japanese people in here. All these are mostly American, yeah? There's one guy, Japanese, Hiroshi Ishii, Maeda.",
-//             "end_timestamp": "00:53:33,314",
-//             "id": 282,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:53:06,252"
-//         },
-//         {
-//             "dialogue": "No, Maeda's not Japanese. Maeda's Japanese, but he's American Japanese. There's a guy who worked on the Apple company, Sakai.",
-//             "end_timestamp": "00:53:41,136",
-//             "id": 283,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:53:33,714"
-//         },
-//         {
-//             "dialogue": "Yeah, there's a few Japanese in it. Takeshi Natsuno.",
-//             "end_timestamp": "00:53:44,477",
-//             "id": 284,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:53:41,436"
-//         },
-//         {
-//             "dialogue": "There's quite a few Japanese in it. Oh, I didn't realize.",
-//             "end_timestamp": "00:53:46,318",
-//             "id": 285,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:53:44,497"
-//         },
-//         {
-//             "dialogue": "But I know on the Apple project in the '' the nineties, there was a couple of Japanese who bought it. What are the problems there? Could the problem be based on Filipino and one Japanese person's experience? Are these problems unique to the Filipinos? That's what I might say. You might say, OK, you've got more on Filipinos, so therefore it's not an international problem. It's a problem with designers in the Philippines, which is not true, I know. But the fact that you've only interviewed six Filipinos and one Japanese makes it kind of like, well, it's not a worldwide problem, is it? Doesn't sound like it. It sounds like it's just a Filipino-Japanese problem. Which is the criticism of all Western research, because the Western research comes out of America, therefore it's an American problem.",
-//             "end_timestamp": "00:54:43,307",
-//             "id": 286,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:53:46,758"
-//         },
-//         {
-//             "dialogue": "What's it going to do with us in Asia?",
-//             "end_timestamp": "00:54:44,629",
-//             "id": 287,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:54:43,347"
-//         },
-//         {
-//             "dialogue": "So if you want to generalise it more, then take something like this, which is multi-national, and come up with problems which then say, well actually the problems that these six Filipinos and one Japanese have are actually quite similar to the problems that all these multi-nationals have as well.",
-//             "end_timestamp": "00:55:03,978",
-//             "id": 288,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:54:46,692"
-//         },
-//         {
-//             "dialogue": "So their problems are not unique to the Philippines and Japan. I think what you're trying to say is that this could be a way to contribute to the challenges in a way that we're trying to address problems that are in Asia, outside the Western area? What you're doing is you're contextualizing.",
-//             "end_timestamp": "00:55:34,563",
-//             "id": 289,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:55:04,738"
-//         },
-//         {
-//             "dialogue": "You've got the problems which you've identified, which are applicable not only to designers in Asia and Japan, but applicable to designers worldwide, including Singapore, Malaysia, which are also part of Asia, but also America, Europe, Australia, and Africa. For example, which is why I think if you put it then in a broader context, this would provide that broader context. By connecting it to that. If there is a connection, yes, by connecting that, because there may not be a connection. After doing this, you might find that these problems are unique to Filipinos only.",
-//             "end_timestamp": "00:56:10,803",
-//             "id": 290,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:55:35,044"
-//         },
-//         {
-//             "dialogue": "Yes, that's true. At the moment, they are.",
-//             "end_timestamp": "00:56:13,465",
-//             "id": 291,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:56:11,184"
-//         },
-//         {
-//             "dialogue": "They are unique to those seven people, because you've only transcribed interviews from seven people. So they're not unique to me from England because I wasn't interviewed.",
-//             "end_timestamp": "00:56:27,753",
-//             "id": 292,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:56:14,786"
-//         },
-//         {
-//             "dialogue": "So how are you going to put that now into a more generalized context? What we have to do is either interview people from around the world, which is possible using the internet and creating Google Forms and contacting designers overseas and asking them to fill out your form. Yeah, that's possible. Get their nationality, get their gender, I guess. And, or, you know, take it from information that's readily available.",
-//             "end_timestamp": "00:56:57,455",
-//             "id": 293,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:56:27,873"
-//         },
-//         {
-//             "dialogue": "This book is in the library, I believe. This is mine, but this book is in the Farm Library. Do you have a phone?",
-//             "end_timestamp": "00:57:09,894",
-//             "id": 294,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:57:01,778"
-//         },
-//         {
-//             "dialogue": "You can take a picture of me if you want. Actually, I think I have a copy of that.",
-//             "end_timestamp": "00:57:15,037",
-//             "id": 295,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:57:09,914"
-//         },
-//         {
-//             "dialogue": "Yeah, it's quite famous, you know. These two are my two design bibles, you know.",
-//             "end_timestamp": "00:57:21,901",
-//             "id": 296,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:57:15,097"
-//         },
-//         {
-//             "dialogue": "Yeah. All right, got it. OK.",
-//             "end_timestamp": "00:57:25,082",
-//             "id": 297,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:57:21,941"
-//         },
-//         {
-//             "dialogue": "OK? Yeah. Great. It's two-thirty, I've got to go. I hope that was helpful for you. Like I say, I'm not being critical. I think it's really good. What I'm trying to do is give you information to make it much better.",
-//             "end_timestamp": "00:57:41,842",
-//             "id": 298,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:57:25,503"
-//         },
-//         {
-//             "dialogue": "Thank you, thank you. It was actually really helpful, especially with describing how you did the coding. Yeah, this is stuff that your supervisor should be telling you, but maybe they're not familiar with that.",
-//             "end_timestamp": "00:57:57,395",
-//             "id": 299,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:57:41,862"
-//         },
-//         {
-//             "dialogue": "which is why I printed that paper for you. But yeah, come back any time. Book another session, or if you want to chat to Kudo Sensei or Damien Rivers. I want to get a different perspective, because they are in different backgrounds to me. Please do so.",
-//             "end_timestamp": "00:58:16,638",
-//             "id": 300,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:57:58,342"
-//         },
-//         {
-//             "dialogue": "I'll book another session when you want to do this again. Yeah, got it.",
-//             "end_timestamp": "00:58:21,322",
-//             "id": 301,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:58:16,878"
-//         },
-//         {
-//             "dialogue": "Thank you very much. That's OK. Great. I enjoyed that.  ",
-//             "end_timestamp": "00:58:23,043",
-//             "id": 302,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:58:21,342"
-//         }
-//     ]
-// };
-	let feedback_list=[];
-
-//     let feedback_list= [
-//     {
-//         "id":1,
-//         "dialogue_id": 36,
-//         "done": false,
-//         "quote": "First of all, I think this is a very, very well-written paper, very logical, follows in terms of the way you conducted the process of this evaluation, what the limitations are, are some of the finer details of the project.",
-//         "speaker": "Speaker 0",
-//         "task": null,
-//         "type": "positive",
-//         "excerpt_reference": {
-//             "dialogue": "That is true. OK, so first of all, I will say, I made a comment here. <mark class=\"positive\" style=\"background-color:lightgreen;\">First of all, I think this is a very, very well-written paper, very logical, follows in terms of the way you conducted the process of this evaluation, what the limitations are, are some of the finer details of the project.</mark>",
-//             "end_timestamp": "00:06:44,556",
-//             "id": 36,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:06:12,364"
-//         },
-//         "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
-//     },
-//     {
-//         "id":2,
-//         "dialogue_id": 37,
-//         "done": false,
-//         "quote": "Your writing is actually very good, very logical, very, very good.",
-//         "speaker": "Speaker 2",
-//         "task": null,
-//         "type": "positive",
-//         "excerpt_reference": {
-//             "dialogue": "Not your writing. <mark class=\"positive\" style=\"background-color:lightgreen;\">Your writing is actually very good, very logical, very, very good.</mark>",
-//             "end_timestamp": "00:06:50,058",
-//             "id": 37,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:06:44,696"
-//         },
-//         "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
-//     },
-//     {
-//         "id":3,
-//         "dialogue_id": 38,
-//         "done": false,
-//         "quote": "I want to point out some points to you with some questions that you may be able to answer to make this a better paper.",
-//         "speaker": "Speaker 0",
-//         "task": null,
-//         "type": "critical",
-//         "excerpt_reference": {
-//             "dialogue": "So <mark class=\"critical\" style=\"background-color:lightcoral;\">I want to point out some points to you with some questions that you may be able to answer to make this a better paper.</mark>",
-//             "end_timestamp": "00:06:57,340",
-//             "id": 38,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:06:50,538"
-//         },
-//         "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
-//     },
-//     {
-//         "id":4,
-//         "dialogue_id": 41,
-//         "done": false,
-//         "quote": "I wouldn't put in a word like tedious, because it means then, well if it's tedious, don't do it.",
-//         "speaker": "Speaker 0",
-//         "task": null,
-//         "type": "critical",
-//         "excerpt_reference": {
-//             "dialogue": "But with a PDF, it's a bit problematic to do that, even though I've got Adobe Pro, Acrobat Pro, so I did it by pencil. So I tried to read my writing. a few, starting off with the very first line, okay, <mark class=\"critical\" style=\"background-color:lightcoral;\">I wouldn't put in a word like tedious, because it means then, well if it's tedious, don't do it.</mark>",
-//             "end_timestamp": "00:07:42,117",
-//             "id": 41,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:07:14,053"
-//         },
-//         "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
-//     },
-//     {
-//         "id":5,
-//         "dialogue_id": 42,
-//         "done": false,
-//         "quote": "If you think your job, or if you think a design life cycle is tedious, then maybe you're not the person to do it.",
-//         "speaker": "Speaker 0",
-//         "task": null,
-//         "type": "critical",
-//         "excerpt_reference": {
-//             "dialogue": "<mark class=\"critical\" style=\"background-color:lightcoral;\">If you think your job, or if you think a design life cycle is tedious, then maybe you're not the person to do it.</mark>",
-//             "end_timestamp": "00:07:52,113",
-//             "id": 42,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:07:43,798"
-//         },
-//         "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
-//     },
-//     {
-//         "id":6,
-//         "dialogue_id": 52,
-//         "done": false,
-//         "quote": "So why not say the product meets technical and safety specifications?",
-//         "speaker": "Speaker 0",
-//         "task": null,
-//         "type": "critical",
-//         "excerpt_reference": {
-//             "dialogue": "So carry loads and maybe specific guides are probably technical and safety specifications. So why not change that to that? Because it's kind of not in context with what you're saying before<mark class=\"critical\" style=\"background-color:lightcoral;\">So why not say the product meets technical and safety specifications?</mark>safety specifications. So why not change that to that? Because it's kind of not in context with what you're saying before.",
-//             "end_timestamp": "00:10:09,650",
-//             "id": 52,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:09:54,838"
-//         },
-//         "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
-//     },
-//     {
-//         "id":7,
-//         "dialogue_id": 54,
-//         "done": false,
-//         "quote": "So this is why I'm saying, you know, your writing is very, very good. Then you've got this word, out of expertise, knowledge, generalized. Generalized knowledge. Because, you know, if you've got expert knowledge and general knowledge and no knowledge. So this would be generalized knowledge. Because that person's not an expert, they've just got general knowledge.",
-//         "speaker": "Speaker 0",
-//         "task": null,
-//         "type": "critical",
-//         "excerpt_reference": {
-//             "dialogue": "Yeah, you're kind of being generalized there and specific there, suddenly. So if you make it generalized, you've probably got that phrase there. <mark class=\"critical\" style=\"background-color:lightcoral;\">So this is why I'm saying, you know, your writing is very, very good. Then you've got this word, out of expertise, knowledge, generalized. Generalized knowledge. Because, you know, if you've got expert knowledge and general knowledge and no knowledge. So this would be generalized knowledge. Because that person's not an expert, they've just got general knowledge.</mark>",
-//             "end_timestamp": "00:10:50,046",
-//             "id": 54,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:10:12,813"
-//         },
-//         "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
-//     },
-//     {
-//         "id":8,
-//         "dialogue_id": 64,
-//         "done": false,
-//         "quote": "So you come to me and go to your friends, yeah? So... Again, you then switch to... Ah, wait a minute. Okay, you've got the word... I've just changed the language a bit to make it a bit better. You've got verifying them, just say subsequent verification. Right, right. Just makes it sound better, okay? You've got stakeholders, then you've got users. So I put a question mark there.",
-//         "speaker": "Speaker 0",
-//         "task": null,
-//         "type": "critical",
-//         "excerpt_reference": {
-//             "dialogue": "<mark class=\"critical\" style=\"background-color:lightcoral;\">So you come to me and go to your friends, yeah? So... Again, you then switch to... Ah, wait a minute. Okay, you've got the word... I've just changed the language a bit to make it a bit better. You've got verifying them, just say subsequent verification. Right, right. Just makes it sound better, okay? You've got stakeholders, then you've got users. So I put a question mark there.</mark>",
-//             "end_timestamp": "00:14:14,028",
-//             "id": 64,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:13:42,661"
-//         },
-//         "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
-//     },
-//     {
-//         "id":9,
-//         "dialogue_id": 101,
-//         "done": false,
-//         "quote": "So when I read the rest of the paper, I'm looking for the answers to these two questions. That's all. And then you've got, You've got goals and aims. Again, asking for, requesting, same thing. I'm not sure. I'm sure I know what to say anymore.",
-//         "speaker": "Speaker 0",
-//         "task": null,
-//         "type": "critical",
-//         "excerpt_reference": {
-//             "dialogue": "You see what I mean? As a reader, I shouldn't do that. You've got to make it clear, one aim there, one aim there. <mark class=\"critical\" style=\"background-color:lightcoral;\">So when I read the rest of the paper, I'm looking for the answers to these two questions. That's all. And then you've got, You've got goals and aims. Again, asking for, requesting, same thing. I'm not sure. I'm sure I know what to say anymore.</mark>",
-//             "end_timestamp": "00:19:16,189",
-//             "id": 101,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:18:41,722"
-//         },
-//         "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
-//     },
-//     {
-//         "id":10,
-//         "dialogue_id": 118,
-//         "done": false,
-//         "quote": "So it's quite important to define. grounded theory is. It does two things. One, it tells the reader what it is, because the reader might not know. And two, it demonstrates that you know what it is as the writer. So just one sentence, grounded theory is, and the benefits of grounded theory are. So in other words, why grounded theory?",
-//         "speaker": "Speaker 0",
-//         "task": null,
-//         "type": "critical",
-//         "excerpt_reference": {
-//             "dialogue": "<mark class=\"critical\" style=\"background-color:lightcoral;\">So it's quite important to define. grounded theory is. It does two things. One, it tells the reader what it is, because the reader might not know. And two, it demonstrates that you know what it is as the writer. So just one sentence, grounded theory is, and the benefits of grounded theory are. So in other words, why grounded theory?</mark>",
-//             "end_timestamp": "00:21:31,036",
-//             "id": 118,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:21:05,791"
-//         },
-//         "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
-//     },
-//     {
-//         "id":11,
-//         "dialogue_id": 143,
-//         "done": false,
-//         "quote": "So you need to explain that before you move on to the results, because without that foundation of coding then everything else is unreliable. Even though when I read your scripts, it made sense and I can understand why you did it, but at the same time, when I read your conclusion and transcripts that support your conclusion, somebody in the audience may put their hand up and say that's bias. You may be biased. In other words, you are cherry picking. You are picking out information to suit your outcome. Whereas what you should be doing is looking at the information and from the information determine that outcome. But what you could be accused of here is that the outcome has already been decided by you subconsciously, but you've kind of looked for the transcripts to match that. I'm not saying you did that, but that's what you could be accused of. It's not a big accusation, of course, but it's just that somebody may take issue with that. So you don't have to change anything there. I think what you need to do is just justify how you've done this thematic analysis. Even if you keep everything else the same, that's fine. But when you do it, you may change.",
-//         "speaker": "Speaker 0",
-//         "task": null,
-//         "type": "critical",
-//         "excerpt_reference": {
-//             "dialogue": "So, we've done it, myself and two colleagues here have done it, we did it two years ago during the pandemic, and we called it thematic analysis, which is explain that process. so you can use our paper as an example of the process of coding and how we came up, because we did something similar. <mark class=\"critical\" style=\"background-color:lightcoral;\">So you need to explain that before you move on to the results, because without that foundation of coding then everything else is unreliable. Even though when I read your scripts, it made sense and I can understand why you did it, but at the same time, when I read your conclusion and transcripts that support your conclusion, somebody in the audience may put their hand up and say that's bias. You may be biased. In other words, you are cherry picking. You are picking out information to suit your outcome. Whereas what you should be doing is looking at the information and from the information determine that outcome. But what you could be accused of here is that the outcome has already been decided by you subconsciously, but you've kind of looked for the transcripts to match that. I'm not saying you did that, but that's what you could be accused of. It's not a big accusation, of course, but it's just that somebody may take issue with that. So you don't have to change anything there. I think what you need to do is just justify how you've done this thematic analysis. Even if you keep everything else the same, that's fine. But when you do it, you may change.</mark>",
-//             "end_timestamp": "00:26:58,041",
-//             "id": 143,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:25:03,509"
-//         },
-//         "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
-//     },
-//     {
-//         "id":12,
-//         "dialogue_id": 144,
-//         "done": false,
-//         "quote": "I don't think you'll change, because I think your discussion is actually very focused and very good.",
-//         "speaker": "Speaker 2",
-//         "task": null,
-//         "type": "positive",
-//         "excerpt_reference": {
-//             "dialogue": "<mark class=\"positive\" style=\"background-color:lightgreen;\">I don't think you'll change, because I think your discussion is actually very focused and very good.</mark>",
-//             "end_timestamp": "00:27:02,125",
-//             "id": 144,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:26:58,081"
-//         },
-//         "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
-//     },
-//     {
-//         "id":13,
-//         "dialogue_id": 149,
-//         "done": false,
-//         "quote": "Yeah, and then, okay, your results. you know, your discussion, it's all very good, sorry, the overview of the results is all very good, and then when it came to the discussion I think this is what you've got to decide yourself.",
-//         "speaker": "Speaker 0",
-//         "task": null,
-//         "type": "positive",
-//         "excerpt_reference": {
-//             "dialogue": "you know, your discussion, it's all very good, sorry, the overview of the results is all very good, and then when it came to the discussion I think this is what you've got to decide yourself<mark class=\"positive\" style=\"background-color:lightgreen;\">Yeah, and then, okay, your results. you know, your discussion, it's all very good, sorry, the overview of the results is all very good, and then when it came to the discussion I think this is what you've got to decide yourself.</mark>",
-//             "end_timestamp": "00:28:08,795",
-//             "id": 149,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:27:54,744"
-//         },
-//         "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
-//     },
-//     {   
-//         "id":14,
-//         "dialogue_id": 150,
-//         "done": false,
-//         "quote": "In your discussion you said the aim of the study. But in the previous section there were two aims. So I actually personally, I like the fact that you've got it written down as one aim. You've connected the two into one. I like that. And I think it makes it more focused.",
-//         "speaker": "Speaker 0",
-//         "task": null,
-//         "type": "positive",
-//         "excerpt_reference": {
-//             "dialogue": "<mark class=\"positive\" style=\"background-color:lightgreen;\">In your discussion you said the aim of the study. But in the previous section there were two aims. So I actually personally, I like the fact that you've got it written down as one aim. You've connected the two into one. I like that. And I think it makes it more focused.</mark>",
-//             "end_timestamp": "00:28:28,774",
-//             "id": 150,
-//             "speaker": "Speaker 2",
-//             "start_timestamp": "00:28:09,015"
-//         },
-//         "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
-//     },
-//     {   
-//         "id":15,
-//         "dialogue_id": 259,
-//         "done": false,
-//         "quote": "I'm not saying it's a bad paper. I think it's a great paper. But I think if you've got time to enhance it, you could make it into a much better paper.",
-//         "speaker": "Speaker 0",
-//         "task": null,
-//         "type": "positive",
-//         "excerpt_reference": {
-//             "dialogue": "<mark class=\"positive\" style=\"background-color:lightgreen;\">I'm not saying it's a bad paper. I think it's a great paper. But I think if you've got time to enhance it, you could make it into a much better paper.</mark>",
-//             "end_timestamp": "00:48:23,610",
-//             "id": 259,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:48:16,148"
-//         },
-//         "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
-//     },
-//     {   
-//         "id":16,
-//         "dialogue_id": 279,
-//         "done": false,
-//         "quote": "I think this is an excellent pilot study, but for, it's a pilot study, but for your real research project, you need to widen the scope of your awareness of the literature and the problems beyond the seven students, the seven participants.",
-//         "speaker": "Speaker 0",
-//         "task": null,
-//         "type": "critical",
-//         "excerpt_reference": {
-//             "dialogue": "Well, I think what you'd have to do, I would say, Not for what you've done there, no, because I think you're being, there you're very specific about what you're doing. I'd say this is like a pilot study. <mark class=\"critical\" style=\"background-color:lightcoral;\">I think this is an excellent pilot study, but for, it's a pilot study, but for your real research project, you need to widen the scope of your awareness of the literature and the problems beyond the seven students, the seven participants.</mark> I would suggest you need to go through something like this, you know you could search the internet but look it's all in one book, it's all there. So this is not for this, this is for your, like I said if I were your supervisor I would ask you to do that for your PhD writing.",
-//             "end_timestamp": "00:52:58,775",
-//             "id": 279,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:52:04,891"
-//         },
-//         "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
-//     },
-//     {
-//         "id":17,
-//         "dialogue_id": 298,
-//         "done": false,
-//         "quote": "What I'm trying to do is give you information to make it much better.",
-//         "speaker": "Speaker 0",
-//         "task": null,
-//         "type": "critical",
-//         "excerpt_reference": {
-//             "dialogue": "OK? Yeah. Great. It's two-thirty, I've got to go. I hope that was helpful for you. Like I say, I'm not being critical. I think it's really good. <mark class=\"critical\" style=\"background-color:lightcoral;\">What I'm trying to do is give you information to make it much better.</mark>",
-//             "end_timestamp": "00:57:41,842",
-//             "id": 298,
-//             "speaker": "Speaker 0",
-//             "start_timestamp": "00:57:25,503"
-//         },
-//         "chatbot_messages":[{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
-//     }
-// ];
+            66 
+            00:10:50,000 --> 00:11:00,000 
+            Sarah: I'll experiment with some asymmetrical elements and see how it affects the overall design. 
+
+            67 
+            00:11:00,000 --> 00:11:10,000 
+            Student 16: The use of color is very soothing. It makes the space feel very calm and peaceful. 
+
+            68 
+            00:11:10,000 --> 00:11:20,000 
+            Professor: Soothing, yes, but as mentioned earlier, it could use more contrast. Maybe introduce some bolder colors in small accents. 
+
+            69 
+            00:11:20,000 --> 00:11:30,000 
+            Guest Professional 2: And think about how the colors interact with the lighting. Different lighting can change the way colors appear. 
+
+            70 
+            00:11:30,000 --> 00:11:40,000 
+            Sarah: I'll make sure to consider the lighting when choosing colors. Thank you for the feedback. 
+
+            71 
+            00:11:40,000 --> 00:11:50,000 
+            Student 17: The overall design feels very cohesive. Everything seems to work well together. 
+
+            72 
+            00:11:50,000 --> 00:12:00,000 
+            Professor: Cohesive, yes, but don't be afraid to take some risks. Sometimes a bold choice can really elevate a design. 
+
+            73 
+            00:12:00,000 --> 00:12:10,000 
+            Guest Professional 1: And speaking of risks, have you considered incorporating any unique or unconventional elements? 
+
+            74 
+            00:12:10,000 --> 00:12:20,000 
+            Sarah: I was thinking about adding a statement piece, like a large piece of art or a unique light fixture. 
+
+            75 
+            00:12:20,000 --> 00:12:30,000 
+            Student 18: That could be interesting. It might add a focal point to the space. 
+
+            76 
+            00:12:30,000 --> 00:12:40,000 
+            Professor: Yes, a focal point could really help anchor the design. Just make sure it complements the overall aesthetic. 
+
+            77 
+            00:12:40,000 --> 00:12:50,000 
+            Guest Professional 2: And think about how it interacts with the other elements in the room. It should enhance, not overpower. 
+
+            78 
+            00:12:50,000 --> 00:13:00,000 
+            Sarah: I'll definitely consider that. Thank you for the feedback. 
+
+            79 
+            00:13:00,000 --> 00:13:10,000 
+            Student 19: The use of mirrors is clever. It makes the space feel larger and more open. 
+
+            80 
+            00:13:10,000 --> 00:13:20,000 
+            Professor: Mirrors are a great tool, but be careful not to overdo it. Too many mirrors can make a space feel disorienting. 
+
+            81 
+            00:13:20,000 --> 00:13:30,000 
+            Guest Professional 1: And think about the placement of the mirrors. They should reflect something interesting, not just another wall. 
+
+            82 
+            00:13:30,000 --> 00:13:40,000 
+            Sarah: I'll make sure to place them thoughtfully. Thank you for the advice. 
+
+            83 
+            00:13:40,000 --> 00:13:50,000 
+            Student 20: The choice of furniture is very comfortable-looking. It seems like a space where you could really relax. 
+
+            84 
+            00:13:50,000 --> 00:14:00,000 
+            Professor: Comfort is important, but also consider the scale of the furniture. Some pieces look a bit oversized for the space. 
+
+            85 
+            00:14:00,000 --> 00:14:10,000 
+            Guest Professional 2: And think about the balance between form and function. The furniture should be both beautiful and practical. 
+
+            86 
+            00:14:10,000 --> 00:14:20,000 
+            Sarah: I'll take another look at the furniture choices and see if I can find a better balance. 
+
+            87 
+            00:14:20,000 --> 00:14:30,000 
+            Professor: Alright, I think we've covered a lot of ground. Sarah, you've received some excellent feedback. Take some time to digest it and see how you can incorporate it into your design. 
+            88 
+            00:14:30,000 --> 00:14:40,000 
+            Guest Professional 1: Yes, you've done a great job so far. Keep pushing yourself and exploring new ideas. 
+
+            89 
+            00:14:40,000 --> 00:14:50,000 
+            Guest Professional 2: And remember, design is an iterative process. Don't be afraid to make changes and try new things. 
+
+            90 
+            00:14:50,000 --> 00:15:00,000 
+            Sarah: Thank you all for the feedback. I really appreciate it and will definitely take it into consideration as I move forward with my design. 
+
+            91 
+            00:15:00,000 --> 00:15:10,000 
+            Professor: Great. Let's move on to the next student's work. Thank you, Sarah.
+        `,
+        "transcript_list": [
+            {
+                "dialogue": "Alright, let's start with Sarah's 3D rendering. Sarah, could you give us a brief overview of your design concept? ",
+                "end_timestamp": "00:00:10,000 ",
+                "id": 1,
+                "speaker": "Professor",
+                "start_timestamp": "00:00:00,000"
+            },
+            {
+                "dialogue": "Sure, my concept is based on creating a serene and airy living space that maximizes natural light and uses sustainable materials. ",
+                "end_timestamp": "00:00:20,000 ",
+                "id": 2,
+                "speaker": "Sarah",
+                "start_timestamp": "00:00:10,000"
+            },
+            {
+                "dialogue": "I appreciate the focus on sustainability. Can you tell us more about the materials you chose and why?",
+                "end_timestamp": "00:00:30,000",
+                "id": 3,
+                "speaker": "Guest Professional 1",
+                "start_timestamp": "00:00:20,000"
+            },
+            {
+                "dialogue": "I used reclaimed wood for the flooring and bamboo for the furniture. The idea was to create a warm, inviting atmosphere while being eco-friendly. ",
+                "end_timestamp": "00:00:43,014",
+                "id": 4,
+                "speaker": "Sarah",
+                "start_timestamp": "00:00:42,333"
+            },
+            {
+                "dialogue": "The use of bamboo is interesting. It reminds me of some modern Japanese interiors I've seen. ",
+                "end_timestamp": "00:00:52,078",
+                "id": 5,
+                "speaker": "Student 1",
+                "start_timestamp": "00:00:43,074"
+            },
+            {
+                "dialogue": "Yes, I see that influence. But I think the space could benefit from more contrast. Right now, it feels a bit too uniform. ",
+                "end_timestamp": "00:00:53,139",
+                "id": 6,
+                "speaker": "Professor",
+                "start_timestamp": "00:00:52,098"
+            },
+            {
+                "dialogue": "I agree. Maybe you could introduce some darker elements to create depth and dimension. What do you think about that? ",
+                "end_timestamp": "00:00:59,197",
+                "id": 7,
+                "speaker": "Guest Professional 2",
+                "start_timestamp": "00:00:57,136"
+            },
+            {
+                "dialogue": "That's a good point. I was worried about making it too dark, but I see how it could add more interest. ",
+                "end_timestamp": "00:01:08,821",
+                "id": 8,
+                "speaker": "Sarah",
+                "start_timestamp": "00:00:59,837"
+            },
+            {
+                "dialogue": "I think the lighting is really well done. It gives a very airy feel to the space. ",
+                "end_timestamp": "00:01:11,933",
+                "id": 9,
+                "speaker": "Student 2",
+                "start_timestamp": "00:01:09,471"
+            },
+            {
+                "dialogue": "Yes, the lighting is a strong point. But I would suggest rethinking the placement of the windows. They seem a bit too high.",
+                "end_timestamp": "00:01:41,357",
+                "id": 10,
+                "speaker": "Professor",
+                "start_timestamp": "00:01:11,953"
+            },
+            {
+                "dialogue": "And I would definitely take away the coloring. I think it’s not working for the intent that you want and that you could just use blue Styrofoam. ",
+                "end_timestamp": "00:02:13,001",
+                "id": 11,
+                "speaker": "Guest Professional 1",
+                "start_timestamp": "00:01:41,778"
+            },
+            {
+                "dialogue": "I see. I was trying to create a gradient effect, but maybe it's not coming through as I intended. ",
+                "end_timestamp": "00:02:24,721",
+                "id": 12,
+                "speaker": "Sarah",
+                "start_timestamp": "00:02:15,034"
+            },
+            {
+                "dialogue": "It reminds me of a Scandinavian design, very minimalistic and clean.",
+                "end_timestamp": "00:02:37,590",
+                "id": 13,
+                "speaker": "Student 3",
+                "start_timestamp": "00:02:26,402"
+            },
+            {
+                "dialogue": "Yes, but Scandinavian designs often have a pop of color or a statement piece. Maybe you could incorporate something like that? ",
+                "end_timestamp": "00:02:39,071",
+                "id": 14,
+                "speaker": "Guest Professional 2",
+                "start_timestamp": "00:02:38,130"
+            },
+            {
+                "dialogue": "Good suggestion. Also, consider the long-term vision. How will this space age over time? Will it still feel fresh and inviting? ",
+                "end_timestamp": "00:02:42,052",
+                "id": 15,
+                "speaker": "Professor",
+                "start_timestamp": "00:02:39,111"
+            },
+            {
+                "dialogue": "That's a great point. I hadn't thought about the aging aspect. ",
+                "end_timestamp": "00:02:55,776",
+                "id": 16,
+                "speaker": "Sarah",
+                "start_timestamp": "00:02:42,293"
+            },
+            {
+                "dialogue": "What made you put color on it with this? ",
+                "end_timestamp": "00:02:58,977",
+                "id": 17,
+                "speaker": "Guest Professional 1",
+                "start_timestamp": "00:02:55,796"
+            },
+            {
+                "dialogue": "I think the furniture layout is very functional. It seems like a space where you could really relax. ",
+                "end_timestamp": "00:03:03,523",
+                "id": 18,
+                "speaker": "Student 4",
+                "start_timestamp": "00:02:59,398"
+            },
+            {
+                "dialogue": "Functional, yes, but it could be more dynamic. Maybe try experimenting with different furniture arrangements. ",
+                "end_timestamp": "00:03:28,492",
+                "id": 19,
+                "speaker": "Professor",
+                "start_timestamp": "00:03:15,502"
+            },
+            {
+                "dialogue": "And consider layering different textures. It could add more depth and interest to the space.",
+                "end_timestamp": "00:03:32,215",
+                "id": 20,
+                "speaker": "Guest Professional 2",
+                "start_timestamp": "00:03:29,013"
+            },
+            {
+                "dialogue": "Layering textures sounds like a good idea. I could try incorporating some textiles or different finishes.",
+                "end_timestamp": "00:03:50,046",
+                "id": 21,
+                "speaker": "Sarah",
+                "start_timestamp": "00:03:32,836"
+            },
+            {
+                "dialogue": "The open shelving is a nice touch. It makes the space feel more open and accessible. ",
+                "end_timestamp": "00:03:55,969",
+                "id": 22,
+                "speaker": "Student 5",
+                "start_timestamp": "00:03:50,887"
+            },
+            {
+                "dialogue": "Yes, but be careful with open shelving. It can easily become cluttered. Think about how you can maintain that clean look.  ",
+                "end_timestamp": "00:03:58,530",
+                "id": 23,
+                "speaker": "Professor",
+                "start_timestamp": "00:03:55,989"
+            },
+            {
+                "dialogue": "I think we need to explore other ways of creating dimension. Maybe it is about materials? Maybe layering? Maybe it is about bunching?",
+                "end_timestamp": "00:04:05,833",
+                "id": 24,
+                "speaker": "Guest Professional 1",
+                "start_timestamp": "00:03:59,810"
+            },
+            {
+                "dialogue": "I'll definitely experiment with those ideas. Thank you for the suggestions.",
+                "end_timestamp": "00:04:10,275",
+                "id": 25,
+                "speaker": "Sarah",
+                "start_timestamp": "00:04:06,413"
+            },
+            {
+                "dialogue": "The use of natural light is really effective. It gives the space a very welcoming feel.",
+                "end_timestamp": "00:05:00,648",
+                "id": 26,
+                "speaker": "Student 6",
+                "start_timestamp": "00:04:18,762"
+            },
+            {
+                "dialogue": "Agreed, but I think the lighting could be improved. The current fixtures don't seem to complement the overall design.  ",
+                "end_timestamp": "00:05:08,411",
+                "id": 27,
+                "speaker": "Professor",
+                "start_timestamp": "00:05:01,328"
+            },
+            {
+                "dialogue": "And I would suggest looking into different types of lighting fixtures. Maybe something more modern or industrial to contrast with the natural elements.",
+                "end_timestamp": "00:05:14,614",
+                "id": 28,
+                "speaker": "Guest Professional 2",
+                "start_timestamp": "00:05:08,431"
+            },
+            {
+                "dialogue": "That's a great idea. I'll look into some different lighting options.  ",
+                "end_timestamp": "00:05:18,035",
+                "id": 29,
+                "speaker": "Sarah",
+                "start_timestamp": "00:05:16,134"
+            },
+            {
+                "dialogue": "The color palette is very soothing. It makes the space feel very calm and peaceful.  ",
+                "end_timestamp": "00:05:38,562",
+                "id": 30,
+                "speaker": "Student 7",
+                "start_timestamp": "00:05:19,036"
+            },
+            {
+                "dialogue": "Yes, but as mentioned earlier, it could use more contrast. Maybe introduce some bolder colors in small accents.",
+                "end_timestamp": "00:05:52,257",
+                "id": 31,
+                "speaker": "Professor",
+                "start_timestamp": "00:05:40,831"
+            },
+            {
+                "dialogue": "And think about the flow of the space. How do people move through it? Are there any areas that feel cramped or awkward?  ",
+                "end_timestamp": "00:05:56,359",
+                "id": 32,
+                "speaker": "Guest Professional 1",
+                "start_timestamp": "00:05:54,898"
+            },
+            {
+                "dialogue": "I'll take another look at the layout and see if there are any areas that need more space.  ",
+                "end_timestamp": "00:05:57,340",
+                "id": 33,
+                "speaker": "Sarah",
+                "start_timestamp": "00:05:56,699"
+            },
+            {
+                "dialogue": "The use of plants is a nice touch. It adds a bit of life to the space.",
+                "end_timestamp": "00:06:03,842",
+                "id": 34,
+                "speaker": "Student 8",
+                "start_timestamp": "00:06:00,121"
+            },
+            {
+                "dialogue": "Yes, but be mindful of maintenance. Some plants require a lot of care. Choose ones that are easy to maintain.",
+                "end_timestamp": "00:06:12,103",
+                "id": 35,
+                "speaker": "Professor",
+                "start_timestamp": "00:06:04,662"
+            },
+            {
+                "dialogue": "And consider the placement of the plants. They should enhance the space, not clutter it.",
+                "end_timestamp": "00:06:44,556",
+                "id": 36,
+                "speaker": "Guest Professional 2",
+                "start_timestamp": "00:06:12,364"
+            },
+            {
+                "dialogue": "I'll make sure to choose low-maintenance plants and place them strategically.",
+                "end_timestamp": "00:06:50,058",
+                "id": 37,
+                "speaker": "Sarah",
+                "start_timestamp": "00:06:44,696"
+            },
+            {
+                "dialogue": "The overall design feels very cohesive. Everything seems to work well together.",
+                "end_timestamp": "00:06:57,340",
+                "id": 38,
+                "speaker": "Student 9",
+                "start_timestamp": "00:06:50,538"
+            },
+            {
+                "dialogue": "Cohesive, yes, but don't be afraid to take some risks. Sometimes a bold choice can really elevate a design. ",
+                "end_timestamp": "00:07:07,828",
+                "id": 39,
+                "speaker": "Professor",
+                "start_timestamp": "00:07:01,623"
+            },
+            {
+                "dialogue": "And speaking of risks, have you considered incorporating any unique or unconventional elements? ",
+                "end_timestamp": "00:07:12,932",
+                "id": 40,
+                "speaker": "Guest Professional 1",
+                "start_timestamp": "00:07:07,848"
+            },
+            {
+                "dialogue": "I was thinking about adding a statement piece, like a large piece of art or a unique light fixture.",
+                "end_timestamp": "00:07:42,117",
+                "id": 41,
+                "speaker": "Sarah",
+                "start_timestamp": "00:07:14,053"
+            },
+            {
+                "dialogue": "That could be interesting. It might add a focal point to the space.",
+                "end_timestamp": "00:07:52,113",
+                "id": 42,
+                "speaker": "Student 10",
+                "start_timestamp": "00:07:43,798"
+            },
+            {
+                "dialogue": " Yes, a focal point could really help anchor the design. Just make sure it complements the overall aesthetic. ",
+                "end_timestamp": "00:08:06,009",
+                "id": 43,
+                "speaker": "Professor",
+                "start_timestamp": "00:07:52,754"
+            },
+            {
+                "dialogue": "And think about how it interacts with the other elements in the room. It should enhance, not overpower. ",
+                "end_timestamp": "00:08:15,117",
+                "id": 44,
+                "speaker": "Guest Professional 2",
+                "start_timestamp": "00:08:06,850"
+            },
+            {
+                "dialogue": "I'll definitely consider that. Thank you for the feedback.",
+                "end_timestamp": "00:08:30,049",
+                "id": 45,
+                "speaker": "Sarah",
+                "start_timestamp": "00:08:15,617"
+            },
+            {
+                "dialogue": "The use of mirrors is clever. It makes the space feel larger and more open. ",
+                "end_timestamp": "00:08:33,051",
+                "id": 46,
+                "speaker": "Student 11",
+                "start_timestamp": "00:08:30,289"
+            },
+            {
+                "dialogue": "Mirrors are a great tool, but be careful not to overdo it. Too many mirrors can make a space feel disorienting.",
+                "end_timestamp": "00:08:34,712",
+                "id": 47,
+                "speaker": "Professor",
+                "start_timestamp": "00:08:33,431"
+            },
+            {
+                "dialogue": "And think about the placement of the mirrors. They should reflect something interesting, not just another wall. ",
+                "end_timestamp": "00:09:12,684",
+                "id": 48,
+                "speaker": "Guest Professional 1",
+                "start_timestamp": "00:08:35,533"
+            },
+            {
+                "dialogue": "I'll make sure to place them thoughtfully. Thank you for the advice. ",
+                "end_timestamp": "00:09:15,165",
+                "id": 49,
+                "speaker": "Sarah",
+                "start_timestamp": "00:09:12,984"
+            },
+            {
+                "dialogue": "The choice of furniture is very comfortable-looking. It seems like a space where you could really relax. ",
+                "end_timestamp": "00:09:47,989",
+                "id": 50,
+                "speaker": "Student 12",
+                "start_timestamp": "00:09:16,206"
+            },
+            {
+                "dialogue": "Comfort is important, but also consider the scale of the furniture. Some pieces look a bit oversized for the space. ",
+                "end_timestamp": "00:09:52,211",
+                "id": 51,
+                "speaker": "Professor",
+                "start_timestamp": "00:09:48,469"
+            },
+            {
+                "dialogue": "I'll take another look at the furniture choices and see if I can find a better balance. ",
+                "end_timestamp": "00:10:09,650",
+                "id": 52,
+                "speaker": "Sarah",
+                "start_timestamp": "00:09:54,838"
+            },
+            {
+                "dialogue": "Alright, I think we've covered a lot of ground. Sarah, you've received some excellent feedback. Take some time to digest it and see how you can incorporate it into your design",
+                "end_timestamp": "00:10:12,532",
+                "id": 53,
+                "speaker": "Professor",
+                "start_timestamp": "00:10:10,190"
+            },
+            {
+                "dialogue": "Yes, you've done a great job so far. Keep pushing yourself and exploring new ideas. ",
+                "end_timestamp": "00:10:50,046",
+                "id": 54,
+                "speaker": "Guest Professional 1",
+                "start_timestamp": "00:10:12,813"
+            },
+            {
+                "dialogue": "And remember, design is an iterative process. Don't be afraid to make changes and try new things. ",
+                "end_timestamp": "00:11:08,428",
+                "id": 55,
+                "speaker": "Guest Professional 2",
+                "start_timestamp": "00:10:51,201"
+            },
+            {
+                "dialogue": "Thank you all for the feedback. I really appreciate it and will definitely take it into consideration as I move forward with my design. ",
+                "end_timestamp": "00:11:30,044",
+                "id": 56,
+                "speaker": "Sarah",
+                "start_timestamp": "00:11:09,288"
+            },
+            {
+                "dialogue": "Great. Let's move on to the next student's work. Thank you, Sarah.",
+                "end_timestamp": "00:11:31,085",
+                "id": 57,
+                "speaker": "Professor",
+                "start_timestamp": "00:11:30,845"
+            },
+        ]
+    };
 	
+
+
+
+    // let feedback_list=[];
+
+    let feedback_list = [
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 5,
+            "done": false,
+            "quote": "The use of bamboo is interesting. It reminds me of some modern Japanese interiors I've seen.",
+            "show_paraphrased": false,
+            "speaker": "Student 1",
+            "task": null,
+            "type": "positive",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"positive\" style=\"background-color:lightgreen;\">The use of bamboo is interesting. It reminds me of some modern Japanese interiors I've seen.</mark> ",
+                "end_timestamp": "00:00:52,078",
+                "id": 5,
+                "speaker": "Student 1",
+                "start_timestamp": "00:00:43,074"
+            },
+            "id":1,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 6,
+            "done": false,
+            "quote": "But I think the space could benefit from more contrast. Right now, it feels a bit too uniform.",
+            "show_paraphrased": false,
+            "speaker": "Professor",
+            "task": null,
+            "type": "critical",
+            "excerpt_reference": {
+                "dialogue": "Yes, I see that influence. <mark class=\"critical\" style=\"background-color:lightcoral;\">But I think the space could benefit from more contrast. Right now, it feels a bit too uniform.</mark> ",
+                "end_timestamp": "00:00:53,139",
+                "id": 6,
+                "speaker": "Professor",
+                "start_timestamp": "00:00:52,098"
+            },
+            "id":2,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 7,
+            "done": false,
+            "quote": "I agree. Maybe you could introduce some darker elements to create depth and dimension. What do you think about that?",
+            "show_paraphrased": false,
+            "speaker": "Guest Professional 2",
+            "task": null,
+            "type": "critical",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"critical\" style=\"background-color:lightcoral;\">I agree. Maybe you could introduce some darker elements to create depth and dimension. What do you think about that?</mark> ",
+                "end_timestamp": "00:00:59,197",
+                "id": 7,
+                "speaker": "Guest Professional 2",
+                "start_timestamp": "00:00:57,136"
+            },
+            "id":3,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 9,
+            "done": false,
+            "quote": "I think the lighting is really well done. It gives a very airy feel to the space.",
+            "show_paraphrased": false,
+            "speaker": "Student 2",
+            "task": null,
+            "type": "positive",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"positive\" style=\"background-color:lightgreen;\">I think the lighting is really well done. It gives a very airy feel to the space.</mark> ",
+                "end_timestamp": "00:01:11,933",
+                "id": 9,
+                "speaker": "Student 2",
+                "start_timestamp": "00:01:09,471"
+            },
+            "id":4,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 10,
+            "done": false,
+            "quote": "Yes, the lighting is a strong point.",
+            "show_paraphrased": false,
+            "speaker": "Professor",
+            "task": null,
+            "type": "positive",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"positive\" style=\"background-color:lightgreen;\">Yes, the lighting is a strong point.</mark> <mark class=\"critical\" style=\"background-color:lightcoral;\">But I would suggest rethinking the placement of the windows. They seem a bit too high.</mark>",
+                "end_timestamp": "00:01:41,357",
+                "id": 10,
+                "speaker": "Professor",
+                "start_timestamp": "00:01:11,953"
+            },
+            "id":5,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 10,
+            "done": false,
+            "quote": "But I would suggest rethinking the placement of the windows. They seem a bit too high.",
+            "show_paraphrased": false,
+            "speaker": "Professor",
+            "task": null,
+            "type": "critical",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"positive\" style=\"background-color:lightgreen;\">Yes, the lighting is a strong point.</mark> <mark class=\"critical\" style=\"background-color:lightcoral;\">But I would suggest rethinking the placement of the windows. They seem a bit too high.</mark>",
+                "end_timestamp": "00:01:41,357",
+                "id": 10,
+                "speaker": "Professor",
+                "start_timestamp": "00:01:11,953"
+            },
+            "id":6,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 11,
+            "done": false,
+            "quote": "And I would definitely take away the coloring. I think it’s not working for the intent that you want and that you could just use blue Styrofoam.",
+            "show_paraphrased": false,
+            "speaker": "Guest Professional 1",
+            "task": null,
+            "type": "critical",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"critical\" style=\"background-color:lightcoral;\">And I would definitely take away the coloring. I think it’s not working for the intent that you want and that you could just use blue Styrofoam.</mark> ",
+                "end_timestamp": "00:02:13,001",
+                "id": 11,
+                "speaker": "Guest Professional 1",
+                "start_timestamp": "00:01:41,778"
+            },
+            "id":7,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 13,
+            "done": false,
+            "quote": "It reminds me of a Scandinavian design, very minimalistic and clean.",
+            "show_paraphrased": false,
+            "speaker": "Student 3",
+            "task": null,
+            "type": "positive",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"positive\" style=\"background-color:lightgreen;\">It reminds me of a Scandinavian design, very minimalistic and clean.</mark>",
+                "end_timestamp": "00:02:37,590",
+                "id": 13,
+                "speaker": "Student 3",
+                "start_timestamp": "00:02:26,402"
+            },
+            "id":8,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 14,
+            "done": false,
+            "quote": "Yes, but Scandinavian designs often have a pop of color or a statement piece. Maybe you could incorporate something like that?",
+            "show_paraphrased": false,
+            "speaker": "Guest Professional 2",
+            "task": null,
+            "type": "critical",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"critical\" style=\"background-color:lightcoral;\">Yes, but Scandinavian designs often have a pop of color or a statement piece. Maybe you could incorporate something like that?</mark> ",
+                "end_timestamp": "00:02:39,071",
+                "id": 14,
+                "speaker": "Guest Professional 2",
+                "start_timestamp": "00:02:38,130"
+            },
+            "id":9,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 15,
+            "done": false,
+            "quote": "Good suggestion. Also, consider the long-term vision. How will this space age over time? Will it still feel fresh and inviting?",
+            "show_paraphrased": false,
+            "speaker": "Professor",
+            "task": null,
+            "type": "critical",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"critical\" style=\"background-color:lightcoral;\">Good suggestion. Also, consider the long-term vision. How will this space age over time? Will it still feel fresh and inviting?</mark> ",
+                "end_timestamp": "00:02:42,052",
+                "id": 15,
+                "speaker": "Professor",
+                "start_timestamp": "00:02:39,111"
+            },
+            "id":10,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 18,
+            "done": false,
+            "quote": "I think the furniture layout is very functional. It seems like a space where you could really relax.",
+            "show_paraphrased": false,
+            "speaker": "Student 4",
+            "task": null,
+            "type": "positive",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"positive\" style=\"background-color:lightgreen;\">I think the furniture layout is very functional. It seems like a space where you could really relax.</mark> ",
+                "end_timestamp": "00:03:03,523",
+                "id": 18,
+                "speaker": "Student 4",
+                "start_timestamp": "00:02:59,398"
+            },
+            "id":11,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 19,
+            "done": false,
+            "quote": "Functional, yes, but it could be more dynamic. Maybe try experimenting with different furniture arrangements.",
+            "show_paraphrased": false,
+            "speaker": "Professor",
+            "task": null,
+            "type": "critical",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"critical\" style=\"background-color:lightcoral;\">Functional, yes, but it could be more dynamic. Maybe try experimenting with different furniture arrangements.</mark> ",
+                "end_timestamp": "00:03:28,492",
+                "id": 19,
+                "speaker": "Professor",
+                "start_timestamp": "00:03:15,502"
+            },
+            "id":12,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 20,
+            "done": false,
+            "quote": "And consider layering different textures. It could add more depth and interest to the space.",
+            "show_paraphrased": false,
+            "speaker": "Guest Professional 2",
+            "task": null,
+            "type": "critical",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"critical\" style=\"background-color:lightcoral;\">And consider layering different textures. It could add more depth and interest to the space.</mark>",
+                "end_timestamp": "00:03:32,215",
+                "id": 20,
+                "speaker": "Guest Professional 2",
+                "start_timestamp": "00:03:29,013"
+            },
+            "id":13,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 22,
+            "done": false,
+            "quote": "The open shelving is a nice touch. It makes the space feel more open and accessible.",
+            "show_paraphrased": false,
+            "speaker": "Student 5",
+            "task": null,
+            "type": "positive",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"positive\" style=\"background-color:lightgreen;\">The open shelving is a nice touch. It makes the space feel more open and accessible.</mark> ",
+                "end_timestamp": "00:03:55,969",
+                "id": 22,
+                "speaker": "Student 5",
+                "start_timestamp": "00:03:50,887"
+            },
+            "id":14,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 23,
+            "done": false,
+            "quote": "Yes, but be careful with open shelving. It can easily become cluttered. Think about how you can maintain that clean look.",
+            "show_paraphrased": false,
+            "speaker": "Professor",
+            "task": null,
+            "type": "critical",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"critical\" style=\"background-color:lightcoral;\">Yes, but be careful with open shelving. It can easily become cluttered. Think about how you can maintain that clean look.</mark>  ",
+                "end_timestamp": "00:03:58,530",
+                "id": 23,
+                "speaker": "Professor",
+                "start_timestamp": "00:03:55,989"
+            },
+            "id":15,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 24,
+            "done": false,
+            "quote": "I think we need to explore other ways of creating dimension. Maybe it is about materials? Maybe layering? Maybe it is about bunching?",
+            "show_paraphrased": false,
+            "speaker": "Guest Professional 1",
+            "task": null,
+            "type": "critical",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"critical\" style=\"background-color:lightcoral;\">I think we need to explore other ways of creating dimension. Maybe it is about materials? Maybe layering? Maybe it is about bunching?</mark>",
+                "end_timestamp": "00:04:05,833",
+                "id": 24,
+                "speaker": "Guest Professional 1",
+                "start_timestamp": "00:03:59,810"
+            },
+            "id":16,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 26,
+            "done": false,
+            "quote": "The use of natural light is really effective. It gives the space a very welcoming feel.",
+            "show_paraphrased": false,
+            "speaker": "Student 6",
+            "task": null,
+            "type": "positive",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"positive\" style=\"background-color:lightgreen;\">The use of natural light is really effective. It gives the space a very welcoming feel.</mark>",
+                "end_timestamp": "00:05:00,648",
+                "id": 26,
+                "speaker": "Student 6",
+                "start_timestamp": "00:04:18,762"
+            },
+            "id":17,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 27,
+            "done": false,
+            "quote": "Agreed, but I think the lighting could be improved. The current fixtures don't seem to complement the overall design.",
+            "show_paraphrased": false,
+            "speaker": "Professor",
+            "task": null,
+            "type": "critical",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"critical\" style=\"background-color:lightcoral;\">Agreed, but I think the lighting could be improved. The current fixtures don't seem to complement the overall design.</mark>  ",
+                "end_timestamp": "00:05:08,411",
+                "id": 27,
+                "speaker": "Professor",
+                "start_timestamp": "00:05:01,328"
+            },
+            "id":18,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 28,
+            "done": false,
+            "quote": "And I would suggest looking into different types of lighting fixtures. Maybe something more modern or industrial to contrast with the natural elements.",
+            "show_paraphrased": false,
+            "speaker": "Guest Professional 2",
+            "task": null,
+            "type": "critical",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"critical\" style=\"background-color:lightcoral;\">And I would suggest looking into different types of lighting fixtures. Maybe something more modern or industrial to contrast with the natural elements.</mark>",
+                "end_timestamp": "00:05:14,614",
+                "id": 28,
+                "speaker": "Guest Professional 2",
+                "start_timestamp": "00:05:08,431"
+            },
+            "id":19,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 30,
+            "done": false,
+            "quote": "The color palette is very soothing. It makes the space feel very calm and peaceful.",
+            "show_paraphrased": false,
+            "speaker": "Student 7",
+            "task": null,
+            "type": "positive",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"positive\" style=\"background-color:lightgreen;\">The color palette is very soothing. It makes the space feel very calm and peaceful.</mark>  ",
+                "end_timestamp": "00:05:38,562",
+                "id": 30,
+                "speaker": "Student 7",
+                "start_timestamp": "00:05:19,036"
+            },
+            "id":20,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 31,
+            "done": false,
+            "quote": "Yes, but as mentioned earlier, it could use more contrast. Maybe introduce some bolder colors in small accents.",
+            "show_paraphrased": false,
+            "speaker": "Professor",
+            "task": null,
+            "type": "critical",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"critical\" style=\"background-color:lightcoral;\">Yes, but as mentioned earlier, it could use more contrast. Maybe introduce some bolder colors in small accents.</mark>",
+                "end_timestamp": "00:05:52,257",
+                "id": 31,
+                "speaker": "Professor",
+                "start_timestamp": "00:05:40,831"
+            },
+            "id":21,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 32,
+            "done": false,
+            "quote": "And think about the flow of the space. How do people move through it? Are there any areas that feel cramped or awkward?",
+            "show_paraphrased": false,
+            "speaker": "Guest Professional 1",
+            "task": null,
+            "type": "critical",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"critical\" style=\"background-color:lightcoral;\">And think about the flow of the space. How do people move through it? Are there any areas that feel cramped or awkward?</mark>  ",
+                "end_timestamp": "00:05:56,359",
+                "id": 32,
+                "speaker": "Guest Professional 1",
+                "start_timestamp": "00:05:54,898"
+            },
+            "id":22,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 34,
+            "done": false,
+            "quote": "The use of plants is a nice touch. It adds a bit of life to the space.",
+            "show_paraphrased": false,
+            "speaker": "Student 8",
+            "task": null,
+            "type": "positive",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"positive\" style=\"background-color:lightgreen;\">The use of plants is a nice touch. It adds a bit of life to the space.</mark>",
+                "end_timestamp": "00:06:03,842",
+                "id": 34,
+                "speaker": "Student 8",
+                "start_timestamp": "00:06:00,121"
+            },
+            "id":23,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 35,
+            "done": false,
+            "quote": "Yes, but be mindful of maintenance. Some plants require a lot of care. Choose ones that are easy to maintain.",
+            "show_paraphrased": false,
+            "speaker": "Professor",
+            "task": null,
+            "type": "critical",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"critical\" style=\"background-color:lightcoral;\">Yes, but be mindful of maintenance. Some plants require a lot of care. Choose ones that are easy to maintain.</mark>",
+                "end_timestamp": "00:06:12,103",
+                "id": 35,
+                "speaker": "Professor",
+                "start_timestamp": "00:06:04,662"
+            },
+            "id":24,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 36,
+            "done": false,
+            "quote": "And consider the placement of the plants. They should enhance the space, not clutter it.",
+            "show_paraphrased": false,
+            "speaker": "Guest Professional 2",
+            "task": null,
+            "type": "critical",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"critical\" style=\"background-color:lightcoral;\">And consider the placement of the plants. They should enhance the space, not clutter it.</mark>",
+                "end_timestamp": "00:06:44,556",
+                "id": 36,
+                "speaker": "Guest Professional 2",
+                "start_timestamp": "00:06:12,364"
+            },
+            "id":25,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 38,
+            "done": false,
+            "quote": "The overall design feels very cohesive. Everything seems to work well together.",
+            "show_paraphrased": false,
+            "speaker": "Student 9",
+            "task": null,
+            "type": "positive",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"positive\" style=\"background-color:lightgreen;\">The overall design feels very cohesive. Everything seems to work well together.</mark>",
+                "end_timestamp": "00:06:57,340",
+                "id": 38,
+                "speaker": "Student 9",
+                "start_timestamp": "00:06:50,538"
+            },
+            "id":26,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 39,
+            "done": false,
+            "quote": "Cohesive, yes, but don't be afraid to take some risks. Sometimes a bold choice can really elevate a design.",
+            "show_paraphrased": false,
+            "speaker": "Professor",
+            "task": null,
+            "type": "critical",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"critical\" style=\"background-color:lightcoral;\">Cohesive, yes, but don't be afraid to take some risks. Sometimes a bold choice can really elevate a design.</mark> ",
+                "end_timestamp": "00:07:07,828",
+                "id": 39,
+                "speaker": "Professor",
+                "start_timestamp": "00:07:01,623"
+            },
+            "id":27,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 40,
+            "done": false,
+            "quote": "And speaking of risks, have you considered incorporating any unique or unconventional elements?",
+            "show_paraphrased": false,
+            "speaker": "Guest Professional 1",
+            "task": null,
+            "type": "critical",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"critical\" style=\"background-color:lightcoral;\">And speaking of risks, have you considered incorporating any unique or unconventional elements?</mark> ",
+                "end_timestamp": "00:07:12,932",
+                "id": 40,
+                "speaker": "Guest Professional 1",
+                "start_timestamp": "00:07:07,848"
+            },
+            "id":28,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 42,
+            "done": false,
+            "quote": "That could be interesting. It might add a focal point to the space.",
+            "show_paraphrased": false,
+            "speaker": "Student 10",
+            "task": null,
+            "type": "positive",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"positive\" style=\"background-color:lightgreen;\">That could be interesting. It might add a focal point to the space.</mark>",
+                "end_timestamp": "00:07:52,113",
+                "id": 42,
+                "speaker": "Student 10",
+                "start_timestamp": "00:07:43,798"
+            },
+            "id":29,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 43,
+            "done": false,
+            "quote": "Yes, a focal point could really help anchor the design. Just make sure it complements the overall aesthetic.",
+            "show_paraphrased": false,
+            "speaker": "Professor",
+            "task": null,
+            "type": "positive",
+            "excerpt_reference": {
+                "dialogue": " <mark class=\"positive\" style=\"background-color:lightgreen;\">Yes, a focal point could really help anchor the design. Just make sure it complements the overall aesthetic.</mark> ",
+                "end_timestamp": "00:08:06,009",
+                "id": 43,
+                "speaker": "Professor",
+                "start_timestamp": "00:07:52,754"
+            },
+            "id":30,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 44,
+            "done": false,
+            "quote": "And think about how it interacts with the other elements in the room. It should enhance, not overpower.",
+            "show_paraphrased": false,
+            "speaker": "Guest Professional 2",
+            "task": null,
+            "type": "critical",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"critical\" style=\"background-color:lightcoral;\">And think about how it interacts with the other elements in the room. It should enhance, not overpower.</mark> ",
+                "end_timestamp": "00:08:15,117",
+                "id": 44,
+                "speaker": "Guest Professional 2",
+                "start_timestamp": "00:08:06,850"
+            },
+            "id":31,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 46,
+            "done": false,
+            "quote": "The use of mirrors is clever. It makes the space feel larger and more open.",
+            "show_paraphrased": false,
+            "speaker": "Student 11",
+            "task": null,
+            "type": "positive",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"positive\" style=\"background-color:lightgreen;\">The use of mirrors is clever. It makes the space feel larger and more open.</mark> ",
+                "end_timestamp": "00:08:33,051",
+                "id": 46,
+                "speaker": "Student 11",
+                "start_timestamp": "00:08:30,289"
+            },
+            "id":32,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 47,
+            "done": false,
+            "quote": "Mirrors are a great tool, but be careful not to overdo it. Too many mirrors can make a space feel disorienting.",
+            "show_paraphrased": false,
+            "speaker": "Professor",
+            "task": null,
+            "type": "critical",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"critical\" style=\"background-color:lightcoral;\">Mirrors are a great tool, but be careful not to overdo it. Too many mirrors can make a space feel disorienting.</mark>",
+                "end_timestamp": "00:08:34,712",
+                "id": 47,
+                "speaker": "Professor",
+                "start_timestamp": "00:08:33,431"
+            },
+            "id":33,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 48,
+            "done": false,
+            "quote": "And think about the placement of the mirrors. They should reflect something interesting, not just another wall.",
+            "show_paraphrased": false,
+            "speaker": "Guest Professional 1",
+            "task": null,
+            "type": "critical",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"critical\" style=\"background-color:lightcoral;\">And think about the placement of the mirrors. They should reflect something interesting, not just another wall.</mark> ",
+                "end_timestamp": "00:09:12,684",
+                "id": 48,
+                "speaker": "Guest Professional 1",
+                "start_timestamp": "00:08:35,533"
+            },
+            "id":34,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 50,
+            "done": false,
+            "quote": "The choice of furniture is very comfortable-looking. It seems like a space where you could really relax.",
+            "show_paraphrased": false,
+            "speaker": "Student 12",
+            "task": null,
+            "type": "positive",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"positive\" style=\"background-color:lightgreen;\">The choice of furniture is very comfortable-looking. It seems like a space where you could really relax.</mark> ",
+                "end_timestamp": "00:09:47,989",
+                "id": 50,
+                "speaker": "Student 12",
+                "start_timestamp": "00:09:16,206"
+            },
+            "id":35,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 51,
+            "done": false,
+            "quote": "Comfort is important, but also consider the scale of the furniture. Some pieces look a bit oversized for the space.",
+            "show_paraphrased": false,
+            "speaker": "Professor",
+            "task": null,
+            "type": "critical",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"critical\" style=\"background-color:lightcoral;\">Comfort is important, but also consider the scale of the furniture. Some pieces look a bit oversized for the space.</mark> ",
+                "end_timestamp": "00:09:52,211",
+                "id": 51,
+                "speaker": "Professor",
+                "start_timestamp": "00:09:48,469"
+            },
+            "id":36,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 54,
+            "done": false,
+            "quote": "Yes, you've done a great job so far. Keep pushing yourself and exploring new ideas.",
+            "show_paraphrased": false,
+            "speaker": "Guest Professional 1",
+            "task": null,
+            "type": "positive",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"positive\" style=\"background-color:lightgreen;\">Yes, you've done a great job so far. Keep pushing yourself and exploring new ideas.</mark> ",
+                "end_timestamp": "00:10:50,046",
+                "id": 54,
+                "speaker": "Guest Professional 1",
+                "start_timestamp": "00:10:12,813"
+            },
+            "id":37,
+        },
+        {
+            "chatbot_messages": [
+                {
+                    "content": "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. ",
+                    "role": "system"
+                }
+            ],
+            "dialogue_id": 55,
+            "done": false,
+            "quote": "And remember, design is an iterative process. Don't be afraid to make changes and try new things.",
+            "show_paraphrased": false,
+            "speaker": "Guest Professional 2",
+            "task": null,
+            "type": "positive",
+            "excerpt_reference": {
+                "dialogue": "<mark class=\"positive\" style=\"background-color:lightgreen;\">And remember, design is an iterative process. Don't be afraid to make changes and try new things.</mark> ",
+                "end_timestamp": "00:11:08,428",
+                "id": 55,
+                "speaker": "Guest Professional 2",
+                "start_timestamp": "00:10:51,201"
+            },
+            "id":38,
+        }
+    ]
+
 
 	function next() {
 		if (currentStep < steps - 1) {
