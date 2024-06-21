@@ -133,7 +133,10 @@ def embed_transcript():
         'text': text_chunks,
         'embedding': embeddings
     })
-    transcript_database['embedding'] = transcript_database['embedding'].apply(ast.literal_eval)
+
+    if(type(transcript_database['embedding'][0]) == str):
+        pass
+        transcript_database['embedding'] = transcript_database['embedding'].apply(ast.literal_eval)
     
     recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}") 
     makedir(recording_dir)
@@ -217,6 +220,7 @@ def message_chatbot():
 
     transcript_instruction = """
     Use the following transcript excerpts as references to answer the subsequent query. 
+    If your answer is based on a specific excerpt, please mention the speaker and the timestamp of the excerpt, or the timestamp if there is no speaker mentioned.
     If the query is not related to any of the transcripts, ignore this instruction, and answer the query as best as possible based on your own knowledge as an interior design expert.
     """
 
@@ -224,7 +228,7 @@ def message_chatbot():
     for string in strings:
         full_query += f"{string}\n"
 
-
+    
     response =  query(full_query, model_name="ft:gpt-3.5-turbo-0125:im-lab:int-des-full:9b2qf12W", temp=0.0, max_output_tokens=max_output_tokens, message_history=message_history)
     return {"chatbot_response": response}
 
