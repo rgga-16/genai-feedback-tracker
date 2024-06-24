@@ -778,9 +778,6 @@
         ]
     };
 	
-
-
-
     // let feedback_list=[];
 
     let feedback_list = [
@@ -1697,6 +1694,7 @@
 
 <main>
 	<div class="carousel-container">
+        
 		{#if currentStep===0}
 			<FeedbackSelector bind:recording={recording} bind:feedback_list={feedback_list}/>
 		{:else}

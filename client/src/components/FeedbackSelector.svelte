@@ -26,9 +26,9 @@
     let micPath; 
 
     let files, file_input;
+
     let is_loading=false;
-    let file_load_progress=0; 
-    let file_load_status = "";
+    let load_status = "";
 
     async function incrementRecordNumber() {
         let response = await fetch('/increment_record_number', {
@@ -210,10 +210,12 @@
         is_recording=false;
         is_paused=false;
         
-
+        
         videoStream.getTracks().forEach(track => track.stop());
         micStream.getTracks().forEach(track => track.stop());
 
+        load_status="Saving video and audio ...";
+        setLoadingProgress("ld-bar-transcript",20);
         videoPath = await sendVideoToServer(videoChunks); //Bug workaround: Do this for the first time because newly created vidblob is empty during first time.
         videoPath = await sendVideoToServer(videoChunks); 
         videoChunks = [];
@@ -224,20 +226,25 @@
         micBlobs = [];
         let micSrc = await fetchAudio(micPath);
 
-        file_load_status="Transcribing audio (this may take a while) ...";
-        file_load_progress=50;
+        load_status="Transcribing audio (this may take a while) ...";
+        setLoadingProgress("ld-bar-transcript",40);
         let transcript = await transcribeMic(micPath);
-        file_load_progress=80;
 
+        load_status="Cleaning transcript..."
+        setLoadingProgress("ld-bar-transcript",60);
         let simplified_transcript = await simplifyTranscript(transcript);
         let transcript_list = await convertTranscriptToList(simplified_transcript);
-        await embedTranscriptList(transcript_list);
-        
 
+        load_status="Saving transcript as a database..."
+        setLoadingProgress("ld-bar-transcript",80);
+        await embedTranscriptList(transcript_list);
+
+        load_status="Done!"
+        setLoadingProgress("ld-bar-transcript",100);
+        await new Promise(resolve => setTimeout(resolve, 500));
         let newRecording = {video: videoSrc, audio: micSrc, transcript: simplified_transcript, transcript_list : transcript_list};
         recording=newRecording;
         await incrementRecordNumber();
-        file_load_progress=100;
     }
 
     async function extractAudioFromVideo(videoFile) {
@@ -261,8 +268,8 @@
             for (const file of files) {
                 if(file.type.includes('video')) {
                     let videoSrc = URL.createObjectURL(file);
-                    file_load_status="Retrieving audio...";
-                    file_load_progress=10;
+                    load_status="Uploading video...";
+                    setLoadingProgress("ld-bar-transcript",20);
                     [micPath, videoPath] = await extractAudioFromVideo(file);
                     if(!micPath) {
                         micPath = null;
@@ -270,31 +277,35 @@
                         throw new Error('Failed to extract audio from video');
                     } 
                     let micSrc = await fetchAudio(micPath);
-                    file_load_status="Transcribing audio (this may take a while) ...";
-                    file_load_progress=50;
+
+                    load_status="Transcribing audio (this may take a while) ...";
+                    setLoadingProgress("ld-bar-transcript",40);
                     let transcript = await transcribeMic(micPath);
-                    file_load_progress=80;
-                    // file_load_status="Extracting video frames from transcript timestamps...";
+
+                    load_status="Cleaning transcript...";
+                    setLoadingProgress("ld-bar-transcript",60);
+                    // load_status="Extracting video frames from transcript timestamps...";
                     // let timestamp_frames = await extractFrames(videoPath, transcript);
-
-
-
                     let simplified_transcript = await simplifyTranscript(transcript);
                     let transcript_list = await convertTranscriptToList(simplified_transcript);
+
+                    load_status="Saving transcript as a database..."
+                    setLoadingProgress("ld-bar-transcript",80);
                     await embedTranscriptList(transcript_list);
 
-
+                    load_status="Done!"
+                    setLoadingProgress("ld-bar-transcript",100);
+                    await new Promise(resolve => setTimeout(resolve, 500));
                     let newRecording = {video: videoSrc, audio: micSrc, transcript: simplified_transcript, transcript_list:transcript_list};
                     recording=newRecording;
                     micPath=null;
                     videoPath=null;
                     await incrementRecordNumber();
-                    file_load_progress=100;
                 } else if(file.type.includes('audio')) {
                     let audioSrc = URL.createObjectURL(file);
                     // Save the audio file and get its path
-                    file_load_status="Retrieving audio...";
-                    file_load_progress=10;
+                    load_status="Uploading audio...";
+                    setLoadingProgress("ld-bar-transcript",20);
                     const formData = new FormData();
                     formData.append('audio', file);
                     const response = await fetch('/download_mic', {
@@ -310,14 +321,22 @@
                     micPath = json["filepath"];
 
                     // Transcribe the audio
-                    file_load_status="Transcribing audio (this may take a while) ...";
-                    file_load_progress=50;
+                    load_status="Transcribing audio (this may take a while) ...";
+                    setLoadingProgress("ld-bar-transcript",40);
                     let transcript = await transcribeMic(micPath);
 
+                    load_status="Cleaning transcript...";
+                    setLoadingProgress("ld-bar-transcript",60);
                     let simplified_transcript = await simplifyTranscript(transcript);
                     let transcript_list = await convertTranscriptToList(simplified_transcript);
+
+                    load_status="Saving transcript as a database..."
+                    setLoadingProgress("ld-bar-transcript",80);
                     await embedTranscriptList(transcript_list);
 
+                    load_status="Done!"
+                    setLoadingProgress("ld-bar-transcript",100);
+                    await new Promise(resolve => setTimeout(resolve, 500));
                     let newRecording = {video: null, audio: audioSrc, transcript: simplified_transcript, transcript_list:transcript_list};
                     recording = newRecording;
                     micPath=null;
@@ -535,6 +554,11 @@
         return null;
     }
 
+    function setLoadingProgress(loadbar_id, value) {
+        var bar = document.getElementById(loadbar_id).ldBar;
+        bar.set(value);
+    }
+
     
 
     onMount(async () => {
@@ -548,6 +572,13 @@
 <div div class="row spaced" id="feedback-selector-page">
     <div id="left-panel" class="column spaced" >
         <div id="transcript-area" class="column bordered spaced">
+
+            <div class="overlay centered padded" class:invisible={is_loading===false}> 
+                <div id="ld-bar-transcript" class="ldBar centered column" data-preset="circle" data-value=0 style="width:100%; height: 20%;">
+                    {load_status}
+                </div>
+            </div>
+
             <div id="traverse-feedback-area" class="bordered spaced" >
                 {#if feedback_list && feedback_list.length > 0}
                     <span> {feedback_idx+1} of {feedback_list.length} feedback moments highlighted </span>
@@ -647,6 +678,7 @@
                         disabled={!recording || !recording.transcript_list || is_loading}
                         on:click={async () => {
                             is_loading=true;
+                            setLoadingProgress("ld-bar-transcript",0); 
                             feedback_list=[];
 
                             let list = recording.transcript_list;
@@ -658,9 +690,11 @@
                             let chunk4 = list.slice(3 * chunk_size, list.length);
                             let chunks=[chunk1, chunk2, chunk3, chunk4];
 
+                            load_status="Detecting feedback in transcript ...";
                             for(let i=0; i < chunks.length; i++) {
                                 let thing = await autoDetectFeedback(chunks[i]);
                                 feedback_list = feedback_list.concat(thing);
+                                setLoadingProgress("ld-bar-transcript",(i+1) * 20); 
                             }
                             feedback_list=feedback_list;
                             console.log(feedback_list);
@@ -670,11 +704,14 @@
                                 feedback_list[j].excerpt_reference=excerpt;
                             }
                             feedback_list=feedback_list;
+                            load_status="Highlighting feedback ..."
                             autoHighlightFeedback(feedback_list);
+                            await new Promise(resolve => setTimeout(resolve, 500));
+                            setLoadingProgress("ld-bar-transcript",100); 
                             console.log("Feedback: " + feedback_list[0]);
-                            ;
-
                             is_loading=false;
+                            setLoadingProgress("ld-bar-transcript",0); 
+                            load_status="";
                         }}
                     > 
                         <img src="./logos/magnifying-glass-for-search-3-svgrepo-com.svg" alt="Auto-detect Feedback" class="logo">
@@ -852,6 +889,21 @@
         color: blue;
         text-decoration: underline;
         cursor: pointer;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.75); /* Semi-transparent black */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 1.5rem;
+        z-index: 3;
     }
 
 </style>
