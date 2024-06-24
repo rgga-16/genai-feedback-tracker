@@ -124,7 +124,7 @@ def embed_transcript():
     embeddings = []
 
     transcript_text = convert_to_srt_string(transcript)
-    text_chunks = divide_into_chunks(transcript,max_chunk_size=512)
+    text_chunks = divide_into_chunks(transcript,max_chunk_size=256)
 
     for chunk in text_chunks:
         embeddings.extend(convert_to_embedding(chunk))
