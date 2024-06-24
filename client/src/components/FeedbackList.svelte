@@ -346,6 +346,7 @@
                         {/each}
                         <div class="assistant padded" style="height:50%;">
                             <p> <strong> assistant: </strong>  </p>
+                            <!-- WIP -->
                             <div id="ld-bar-chatbot" class="ldBar centered column" data-preset="bubble" data-value=50 style="width:100%; height: 80%; z-index: 3;">
                                 hello 
                             </div>
