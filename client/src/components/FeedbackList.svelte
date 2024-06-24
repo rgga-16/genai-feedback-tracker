@@ -28,6 +28,9 @@
         "Transcript", "Chatbot"
     ]
 
+    let is_loading=false; 
+    let load_status = "";
+
 
 
     async function paraphrasePositively(feedback_quote, excerpt) {
@@ -341,6 +344,12 @@
                                 </div>
                             {/if}
                         {/each}
+                        <div class="assistant padded" style="height:50%;">
+                            <p> <strong> assistant: </strong>  </p>
+                            <div id="ld-bar-chatbot" class="ldBar centered column" data-preset="bubble" data-value=50 style="width:100%; height: 80%; z-index: 3;">
+                                hello 
+                            </div>
+                        </div>
                         <div style="height: 20px; width: 100%; background-color:white; color:white; cursor: default;"> 
                             <p>Lorem ipsum dolor sit amet. Eos libero voluptatem sit excepturi rerum vel porro odio est eligendi voluptatibus. At mollitia quam ea dolorum quae aut nemo ipsum est asperiores quibusdam est voluptatem accusamus. Ut eligendi porro quo autem illum non voluptatem rerum et nobis nisi est molestiae facilis quo magni perferendis.
                             Ea Quis molestiae cum minus consequatur At velit internos et omnis neque qui nihil consequatur et acc</p>
