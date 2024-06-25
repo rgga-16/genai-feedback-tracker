@@ -1,6 +1,7 @@
 from flask import Flask, send_from_directory, request, send_file
 import os, shutil, subprocess, cv2, imagehash, ast
 from PIL import Image
+import rag 
 
 from datetime import datetime
 
@@ -16,6 +17,8 @@ RECORD_I = 0
 TRANSCRIPT_DATABASE = None
 DATA_DIR = os.path.join(CWD, "data"); makedir(DATA_DIR)
 TRANSCRIPT_DB_PATH = None 
+DOCUMENT_DB = None
+DOCUMENT_DB_PATH = os.path.join(DATA_DIR, f"document_db.csv")
 
 app = Flask(__name__)
 
@@ -135,7 +138,6 @@ def embed_transcript():
     })
 
     if(type(transcript_database['embedding'][0]) == str):
-        pass
         transcript_database['embedding'] = transcript_database['embedding'].apply(ast.literal_eval)
     
     recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}") 
@@ -208,28 +210,45 @@ def message_chatbot():
     message_history = form_data["message_history"]
 
     transcript_database = pd.read_csv(TRANSCRIPT_DB_PATH)
-
     n_rows = transcript_database.shape[0]
     top_n = round(0.10*n_rows)
-
-    strings, relatednesses = strings_ranked_by_relatedness(
+    transcript_excerpts, relatednesses = strings_ranked_by_relatedness(
         message, 
         transcript_database,
         top_n=top_n
     )
+    transcript_excerpts_string = "\n".join(transcript_excerpts)
 
-    transcript_instruction = """
-    Use the following transcript excerpts as references to answer the subsequent query. 
-    If your answer is based on a specific excerpt, please mention the speaker and the timestamp of the excerpt, or the timestamp if there is no speaker mentioned.
-    If the query is not related to any of the transcripts, ignore this instruction, and answer the query as best as possible based on your own knowledge as an interior design expert.
+    document_database = pd.read_csv(DOCUMENT_DB_PATH)
+    n_rows = document_database.shape[0]
+    top_n = round(0.10*n_rows)
+    document_excerpts, relatednesses = strings_ranked_by_relatedness(
+        message, 
+        document_database,
+        top_n=top_n
+    )
+    document_excerpts_string = "\n".join(document_excerpts)
+
+
+    instruction = f"""
+    Please provide a response to the following query.
+    Query: {message}
+
+    You have the following transcript excerpts and document excerpts to refer to, with a higher priority given to the transcript excerpts.
+    Here are the top related transcript excerpts: 
+    {transcript_excerpts_string}
+    If your answer is based on a specific transcript excerpt, please mention the speaker and the timestamp of the excerpt, or the timestamp if there is no speaker mentioned.
+    
+    If the query is not related to any of the transcripts, then refer to the document excerpts.
+    Here are the top related document excerpts:
+    {document_excerpts_string}
+    If your answer is based on a specific document excerpt, please mention the page number of the excerpt and the reference (e.g. book) name.
+
+    If the query is not related to any of the transcripts or documents, ignore this instruction, and answer the query as best as possible based on your own knowledge as an interior design expert.
     """
 
-    full_query = f"{transcript_instruction}\n\n Query: {message}\nTranscript excerpts:\n"
-    for string in strings:
-        full_query += f"{string}\n"
-
     
-    response =  query(full_query, model_name="ft:gpt-3.5-turbo-0125:im-lab:int-des-full:9b2qf12W", temp=0.0, max_output_tokens=max_output_tokens, message_history=message_history)
+    response =  query(instruction, model_name="ft:gpt-3.5-turbo-0125:im-lab:int-des-full:9b2qf12W", temp=0.0, max_output_tokens=max_output_tokens, message_history=message_history)
     return {"chatbot_response": response}
 
 @app.route("/autodetect_feedback", methods=["POST"])
@@ -281,9 +300,11 @@ def generate_task():
     return {"task": task}
 
 
+
 if __name__ == "__main__":
     HISTORY_DIR = os.path.join(CWD, "data_history"); makedir(HISTORY_DIR)
     DATA_DIR = os.path.join(CWD, "data"); makedir(DATA_DIR)
+    
 
     if os.path.exists(DATA_DIR) and os.listdir(DATA_DIR):
         src_dir = DATA_DIR
@@ -291,7 +312,9 @@ if __name__ == "__main__":
         dest_dir = os.path.join(HISTORY_DIR, f"[{current_date}]_data")
         shutil.copytree(src_dir, dest_dir) 
         emptydir(src_dir, delete_dirs=True)
+    
 
+    
     
     app.run(debug=True)
 
