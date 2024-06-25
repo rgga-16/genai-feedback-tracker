@@ -18,7 +18,7 @@ TRANSCRIPT_DATABASE = None
 DATA_DIR = os.path.join(CWD, "data"); makedir(DATA_DIR)
 TRANSCRIPT_DB_PATH = None 
 DOCUMENT_DB = None
-DOCUMENT_DB_PATH = os.path.join(DATA_DIR, f"document_db.csv")
+DOCUMENT_DB_PATH = os.path.join(CWD,"finetuning", f"document_db.csv")
 
 app = Flask(__name__)
 
@@ -211,7 +211,7 @@ def message_chatbot():
 
     transcript_database = pd.read_csv(TRANSCRIPT_DB_PATH)
     n_rows = transcript_database.shape[0]
-    top_n = round(0.10*n_rows)
+    top_n = 5
     transcript_excerpts, relatednesses = strings_ranked_by_relatedness(
         message, 
         transcript_database,
@@ -221,7 +221,7 @@ def message_chatbot():
 
     document_database = pd.read_csv(DOCUMENT_DB_PATH)
     n_rows = document_database.shape[0]
-    top_n = round(0.10*n_rows)
+    top_n = 5
     document_excerpts, relatednesses = strings_ranked_by_relatedness(
         message, 
         document_database,

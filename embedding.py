@@ -119,6 +119,8 @@ def strings_ranked_by_relatedness(
         embedding = row["embedding"]
         if type(embedding)==str:
             embedding = ast.literal_eval(embedding)
+        if type(embedding)==list and len(embedding)==1:
+            embedding = embedding[0]
         relatedness = relatedness_fn(query_embedding, embedding)
         text= row["text"]
         strings_and_relatedness.append((text, relatedness))
