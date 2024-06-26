@@ -220,6 +220,8 @@ def message_chatbot():
     global TRANSCRIPT_DB
     global DOCUMENT_DB
 
+    # image_url is a data URL
+
     if(image_url):
         image_data = image_url.split(',')[1]  # Remove the data URL prefix
         with open('screenshot.png', 'wb') as f:
