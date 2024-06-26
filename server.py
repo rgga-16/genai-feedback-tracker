@@ -1,7 +1,7 @@
 from flask import Flask, send_from_directory, request, send_file
 import os, shutil, subprocess, cv2, imagehash, ast
 from PIL import Image
-import rag 
+import time , base64
 
 from datetime import datetime
 
@@ -14,11 +14,17 @@ import time
 
 CWD = os.getcwd()
 RECORD_I = 0
-TRANSCRIPT_DATABASE = None
+TRANSCRIPT_DB = None
 DATA_DIR = os.path.join(CWD, "data"); makedir(DATA_DIR)
 TRANSCRIPT_DB_PATH = None 
-DOCUMENT_DB = None
+
 DOCUMENT_DB_PATH = os.path.join(CWD,"finetuning", f"document_db.csv")
+DOCUMENT_DB = pd.read_csv(DOCUMENT_DB_PATH)
+if(type(DOCUMENT_DB['embedding'][0]) == str):
+    DOCUMENT_DB['embedding'] = DOCUMENT_DB['embedding'].apply(ast.literal_eval)
+    print('parsing string to list')
+    DOCUMENT_DB.to_csv(DOCUMENT_DB_PATH)
+    print("Saving document db with parsed embeddings")
 
 app = Flask(__name__)
 
@@ -121,6 +127,7 @@ def transcript_to_list():
 def embed_transcript():
 
     global TRANSCRIPT_DB_PATH
+    global TRANSCRIPT_DB
     form_data = request.get_json()
     transcript = form_data["transcript"]
 
@@ -132,18 +139,19 @@ def embed_transcript():
     for chunk in text_chunks:
         embeddings.extend(convert_to_embedding(chunk))
     
-    transcript_database = pd.DataFrame({
+    TRANSCRIPT_DB = pd.DataFrame({
         'text': text_chunks,
         'embedding': embeddings
     })
 
-    if(type(transcript_database['embedding'][0]) == str):
-        transcript_database['embedding'] = transcript_database['embedding'].apply(ast.literal_eval)
+    if(type(TRANSCRIPT_DB['embedding'][0]) == str):
+        TRANSCRIPT_DB['embedding'] = TRANSCRIPT_DB['embedding'].apply(ast.literal_eval)
+        print("parsing string to list")
     
     recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}") 
     makedir(recording_dir)
     TRANSCRIPT_DB_PATH = os.path.join(recording_dir, f"transcript.csv")
-    transcript_database.to_csv(TRANSCRIPT_DB_PATH)
+    TRANSCRIPT_DB.to_csv(TRANSCRIPT_DB_PATH)
     return {"message": "Transcripts embedded"}
 
 
@@ -208,28 +216,44 @@ def message_chatbot():
     form_data = request.get_json()
     message = form_data["message"]
     message_history = form_data["message_history"]
+    image_url = form_data.get("image_url", None)
+    global TRANSCRIPT_DB
+    global DOCUMENT_DB
 
-    transcript_database = pd.read_csv(TRANSCRIPT_DB_PATH)
-    n_rows = transcript_database.shape[0]
-    top_n = 5
+    if(image_url):
+        image_data = image_url.split(',')[1]  # Remove the data URL prefix
+        with open('screenshot.png', 'wb') as f:
+            f.write(base64.b64decode(image_data))
+        f.close()
+        with open('screenshot.png', 'rb') as f:
+            image_data2 = base64.b64encode(f.read()).decode('utf-8')
+        pass
+
+    start_document_db = time.time()
+    n_rows = TRANSCRIPT_DB.shape[0]
+    top_n = 3
     transcript_excerpts, relatednesses = strings_ranked_by_relatedness(
         message, 
-        transcript_database,
+        TRANSCRIPT_DB,
         top_n=top_n
     )
     transcript_excerpts_string = "\n".join(transcript_excerpts)
+    end_document_db = time.time()
+    print(f"Time taken to search transcript db: {end_document_db - start_document_db} seconds")
 
-    document_database = pd.read_csv(DOCUMENT_DB_PATH)
-    n_rows = document_database.shape[0]
-    top_n = 5
+    start_document_db = time.time()
+    n_rows = DOCUMENT_DB.shape[0]
+    top_n = 3
     document_excerpts, relatednesses = strings_ranked_by_relatedness(
         message, 
-        document_database,
+        DOCUMENT_DB,
         top_n=top_n
     )
     document_excerpts_string = "\n".join(document_excerpts)
+    end_document_db = time.time()
+    print(f"Time taken to search document db: {end_document_db - start_document_db} seconds")
 
-
+    start_query = time.time()
     instruction = f"""
     Please provide a response to the following query.
     Query: {message}
@@ -246,9 +270,10 @@ def message_chatbot():
 
     If the query is not related to any of the transcripts or documents, ignore this instruction, and answer the query as best as possible based on your own knowledge as an interior design expert.
     """
-
-    
-    response =  query(instruction, model_name="ft:gpt-3.5-turbo-0125:im-lab:int-des-full:9b2qf12W", temp=0.0, max_output_tokens=max_output_tokens, message_history=message_history)
+    # response =  query(instruction, model_name="gpt-4o", temp=1.0, max_output_tokens=max_output_tokens, message_history=message_history)
+    response =  query(instruction, model_name="ft:gpt-3.5-turbo-0125:im-lab:int-des-full:9b2qf12W", temp=1.0, max_output_tokens=max_output_tokens, message_history=message_history)
+    end_query = time.time()
+    print(f"Time taken to query chatbot: {end_query - start_query} seconds")
     return {"chatbot_response": response}
 
 @app.route("/autodetect_feedback", methods=["POST"])
@@ -334,13 +359,13 @@ if __name__ == "__main__":
 
     #     for chunk in text_chunks:
     #         embeddings.extend(convert_to_embedding(chunk))
-    #     if TRANSCRIPT_DATABASE is None:
-    #         TRANSCRIPT_DATABASE = pd.DataFrame({
+    #     if TRANSCRIPT_DB is None:
+    #         TRANSCRIPT_DB = pd.DataFrame({
     #             'text': text_chunks,
     #             'embedding': embeddings
     #         })
     #     else:
-    #         TRANSCRIPT_DATABASE = TRANSCRIPT_DATABASE.concat(pd.DataFrame({
+    #         TRANSCRIPT_DB = TRANSCRIPT_DB.concat(pd.DataFrame({
     #             'text': text_chunks,
     #             'embedding': embeddings
     #         }), ignore_index=True)
@@ -348,5 +373,5 @@ if __name__ == "__main__":
     #     recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}") 
     #     makedir(recording_dir)
     #     transcript_db_path = os.path.join(recording_dir, f"transcript.csv")
-    #     TRANSCRIPT_DATABASE.to_csv(transcript_db_path)
+    #     TRANSCRIPT_DB.to_csv(transcript_db_path)
     # return {"message": "Transcripts embedded"}

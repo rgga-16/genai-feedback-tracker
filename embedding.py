@@ -2,7 +2,15 @@ import openai
 import re, codecs
 import pandas as pd
 from scipy import spatial 
-import ast
+import ast, time
+import numpy as np
+
+def cosine_similarity(a, b):
+    a_np = np.array(a,dtype=np.float64)
+    b_np = np.array(b,dtype=np.float64)
+    cosine_similarity = np.dot(a_np, b_np) / (np.linalg.norm(a_np) * np.linalg.norm(b_np))
+
+    return cosine_similarity
 
 
 EMBEDDING_MODEL = "text-embedding-3-small"
@@ -104,29 +112,52 @@ def convert_to_embedding(text, model_name=EMBEDDING_MODEL):
 def strings_ranked_by_relatedness(
         query:str, 
         df:pd.DataFrame,
-        relatedness_fn = lambda x,y: 1 - spatial.distance.cosine(x,y),
+        relatedness_fn = cosine_similarity,
         top_n:int=10
     ):
+    query=query.replace('\n',' ')
+    df_clone=df.copy()
 
+    start_time = time.time()
     query_embedding_response = openai.embeddings.create(
         input=query,
         model=EMBEDDING_MODEL,
     )
     query_embedding = query_embedding_response.data[0].embedding
+    print(f"Time taken to calculate query embedding: {time.time()-start_time}")
+
+
     strings_and_relatedness = []
-
-    for i, row in df.iterrows():
-        embedding = row["embedding"]
-        if type(embedding)==str:
-            embedding = ast.literal_eval(embedding)
-        if type(embedding)==list and len(embedding)==1:
-            embedding = embedding[0]
-        relatedness = relatedness_fn(query_embedding, embedding)
-        text= row["text"]
-        strings_and_relatedness.append((text, relatedness))
-
+    start_time = time.time()
+    if(type(df_clone['embedding'][0]) == str):
+        df_clone['embedding'] = df_clone['embedding'].apply(ast.literal_eval)
+        print('parsing string to list')
+        pass
+    if(type(df_clone['embedding'][0]) == list and len(df_clone['embedding'][0])==1):
+        df_clone['embedding'] = df_clone['embedding'].apply(lambda x: x[0])
+        print('converting list of list to list')
+        pass
+    print(f"Time taken to convert embeddings to list: {time.time()-start_time}")
+    
+    # Test speed
+    start_time=time.time()
+    df_clone['similarities'] = df_clone['embedding'].apply(lambda x: relatedness_fn(x,query_embedding))
+    strings_and_relatedness = list(zip(df_clone['text'],df_clone['similarities']))
     strings_and_relatedness.sort(key=lambda x: x[1], reverse=True)
+    print(f"Time taken to calculate similarities using vectorization: {time.time()-start_time}")
+
+    # # Test speed
+    # start_time=time.time()
+    # strings_and_relatedness2 = [
+    #     (row["text"], relatedness_fn(query_embedding, row["embedding"])) for i,row in df_clone.iterrows()
+    # ]
+    # strings_and_relatedness2.sort(key=lambda x: x[1], reverse=True)
+    # print(f"Time taken to calculate similarities normally: {time.time()-start_time}")
+
+    # strings_and_relatedness.sort(key=lambda x: x[1], reverse=True)
+    start_time = time.time()
     strings,relatednesses = zip(*strings_and_relatedness)
+    print(f"Time taken to unzip strings and relatednesses: {time.time()-start_time}")
 
     return strings[:top_n], relatednesses[:top_n]
 
