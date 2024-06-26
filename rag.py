@@ -9,7 +9,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 import pandas as pd
 import ast, os
-
+from tqdm import tqdm
 
 from embedding import convert_to_embedding, strings_ranked_by_relatedness
 from utils import makedir
@@ -53,7 +53,7 @@ def load_document(path, remove_pages, extract_images):
 def embed_document(texts):
     embeddings = []
     for text in texts:
-        embeddings.append(convert_to_embedding(text))
+        embeddings.extend(convert_to_embedding(text))
     return embeddings
 
 
@@ -63,7 +63,8 @@ def create_document_db():
     if os.path.exists(DOCUMENT_DB_PATH):
         return print("Document database already exists")
     print("Creating document database")
-    for file in FILES:
+    
+    for file in tqdm(FILES):
         texts = load_document(file["path"], file["remove_pages"], file["extract_images"])
         embeddings = embed_document(texts)
 
@@ -74,6 +75,8 @@ def create_document_db():
     
     if(type(document_db['embedding'][0]) == str):
         document_db['embedding'] =document_db['embedding'].apply(ast.literal_eval)
+    if(type(document_db['embedding'][0]) == list and len(document_db['embedding'][0])==1):
+        document_db['embedding'] = document_db['embedding'].apply(lambda x: x[0])
     
     
     document_db.to_csv(DOCUMENT_DB_PATH)
@@ -82,8 +85,15 @@ def create_document_db():
 
 
 if __name__ == "__main__":
-
     create_document_db()
+    # DOCUMENT_DB_PATH = os.path.join(CWD,"finetuning", f"document_db.csv")
+    
+    # document_db = pd.read_csv(DOCUMENT_DB_PATH)
+    # embedding_col = document_db['embedding']
+    # embedding_col_type = type(embedding_col[0])
+
+    # document_db['embedding'] = document_db['embedding'].apply(lambda x: x[0])
+    # document_db.to_csv(DOCUMENT_DB_PATH)
     pass
         
     
