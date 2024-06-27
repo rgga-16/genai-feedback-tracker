@@ -215,23 +215,12 @@ def get_initial_message():
 def message_chatbot():
     form_data = request.get_json()
     message = form_data["message"]
-    message_history = form_data["message_history"]
-    image_url = form_data.get("image_url", None)
+
+    image_data = form_data.get("image_data", None)
     global TRANSCRIPT_DB
     global DOCUMENT_DB
+    start_query = time.time()
 
-    # image_url is a data URL
-
-    if(image_url):
-        image_data = image_url.split(',')[1]  # Remove the data URL prefix
-        with open('screenshot.png', 'wb') as f:
-            f.write(base64.b64decode(image_data))
-        f.close()
-        with open('screenshot.png', 'rb') as f:
-            image_data2 = base64.b64encode(f.read()).decode('utf-8')
-        pass
-
-    start_document_db = time.time()
     n_rows = TRANSCRIPT_DB.shape[0]
     top_n = 3
     transcript_excerpts, relatednesses = strings_ranked_by_relatedness(
@@ -240,10 +229,7 @@ def message_chatbot():
         top_n=top_n
     )
     transcript_excerpts_string = "\n".join(transcript_excerpts)
-    end_document_db = time.time()
-    print(f"Time taken to search transcript db: {end_document_db - start_document_db} seconds")
 
-    start_document_db = time.time()
     n_rows = DOCUMENT_DB.shape[0]
     top_n = 3
     document_excerpts, relatednesses = strings_ranked_by_relatedness(
@@ -252,28 +238,59 @@ def message_chatbot():
         top_n=top_n
     )
     document_excerpts_string = "\n".join(document_excerpts)
-    end_document_db = time.time()
-    print(f"Time taken to search document db: {end_document_db - start_document_db} seconds")
 
-    start_query = time.time()
+    if(image_data):
+        # Decode image data
+
+        # image_data = image_data.split(',')[1]  # Remove the data URL prefix
+        # with open('temp.png', 'wb') as f:
+        #     f.write(base64.b64decode(image_data))
+        # f.close()
+        # with open('temp.png', 'rb') as f:
+        #     image_data = base64.b64encode(f.read()).decode('utf-8')
+        #     image_data= f"data:image/png;base64,{image_data}"
+        # f.close()
+        # os.remove('temp.png')
+        pass
+        # Save it
+
+        # temp_history = message_history.copy()
+        # image_response = query("Please describe what is in the image.", model_name="gpt-4o", temp=0.0, max_output_tokens=128, message_history=temp_history, image=image_data)
+        pass
+    
     instruction = f"""
     Please provide a response to the following query.
-    Query: {message}
+    Query: {message}"""
 
-    You have the following transcript excerpts and document excerpts to refer to, with a higher priority given to the transcript excerpts.
+    visual_context=""
+    if(image_data):
+        visual_context = "\n\nFor visual context,  attached is an image for your visual reference. Please consider this also when answering the query."
+
+    contexts = f"""
+    Moreover, can use following transcript excerpts and document excerpts as references to your answer, although you do not need to use them if they are not relevant to the query.
     Here are the top related transcript excerpts: 
     {transcript_excerpts_string}
     If your answer is based on a specific transcript excerpt, please mention the speaker and the timestamp of the excerpt, or the timestamp if there is no speaker mentioned.
     
-    If the query is not related to any of the transcripts, then refer to the document excerpts.
     Here are the top related document excerpts:
     {document_excerpts_string}
     If your answer is based on a specific document excerpt, please mention the page number of the excerpt and the reference (e.g. book) name.
 
-    If the query is not related to any of the transcripts or documents, ignore this instruction, and answer the query as best as possible based on your own knowledge as an interior design expert.
+    If the query is not related to any of the transcripts or documents, answer the query as best as possible based on your own knowledge as an interior design expert.
+
+    Moreover, answer short and concisely. No need to write an essay.
     """
-    # response =  query(instruction, model_name="gpt-4o", temp=1.0, max_output_tokens=max_output_tokens, message_history=message_history)
-    response =  query(instruction, model_name="ft:gpt-3.5-turbo-0125:im-lab:int-des-full:9b2qf12W", temp=1.0, max_output_tokens=max_output_tokens, message_history=message_history)
+
+    
+    full_instruction = instruction + visual_context + contexts
+
+
+    response =  query(instruction, model_name="gpt-4o", temp=0.0, max_output_tokens=128, message_history=message_history, image=image_data)
+    # response =  query(instruction, model_name="ft:gpt-3.5-turbo-0125:im-lab:int-des-full:9b2qf12W", temp=1.0, max_output_tokens=200, message_history=message_history)
+    
+    
+    
+    
     end_query = time.time()
     print(f"Time taken to query chatbot: {end_query - start_query} seconds")
     return {"chatbot_response": response}

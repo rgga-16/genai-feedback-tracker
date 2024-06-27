@@ -11,16 +11,7 @@ encoding = tiktoken.get_encoding("cl100k_base")
 
 temperature=0.0
 
-system_prompt = """
-Act like an expert documentor with experience in retrieving discussion points from a conversation.
-You will be provided with one or more transcripts of conversations among people like between a client and a designer, a senior designer and a junior designer, a design teacher and a design student, among a group of designers, or even within a designer talking to himself.
-The transcripts may or may not contain the names of the people involved in the conversation. 
-So, it is up to you to know who is talking to whom and what is the context of the conversation.
-
-Your goal is to provide responses to the user's queries, comments, or questions by referring to the provided transcripts. 
-You can also ask questions to the user to get more information about the context or the user's needs. 
-You can also provide suggestions, feedback, or advice to the user based on the context of the conversation.
-"""
+system_prompt = "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics."
 
 message_history = [{"role":"system", "content":system_prompt}]
 
@@ -35,13 +26,13 @@ def num_tokens_from_messages(messages, model=model_name):
     if model == "gpt-3.5-turbo" or model=="gpt-3.5-turbo-16k":
         print("Warning: gpt-3.5-turbo may change over time. Returning num tokens assuming gpt-3.5-turbo-0301.")
         return num_tokens_from_messages(messages, model="gpt-3.5-turbo-0301")
-    elif model == "gpt-4" or model=="gpt-4o":
+    elif model == "gpt-4":
         print("Warning: gpt-4 may change over time. Returning num tokens assuming gpt-4-0314.")
         return num_tokens_from_messages(messages, model="gpt-4-0314")
     elif model == "gpt-3.5-turbo-0301":
         tokens_per_message = 4  # every message follows <|start|>{role/name}\n{content}<|end|>\n
         tokens_per_name = -1  # if there's a name, the role is omitted
-    elif model == "gpt-4-0314":
+    elif model == "gpt-4-0314" or model=="gpt-4o":
         tokens_per_message = 3
         tokens_per_name = 1
     elif model.startswith("ft:"):
@@ -53,8 +44,17 @@ def num_tokens_from_messages(messages, model=model_name):
     for message in messages:
         num_tokens += tokens_per_message
         for key, value in message.items():
-            num_tokens += len(encoding.encode(value))
-            if key == "name":
+            if type(value) == list:
+                for v in value:
+                    for k,v_ in v.items():
+                        if(k=="image_url"):
+                            num_tokens += 1
+                            print("image url found")
+                        else:
+                            num_tokens += len(encoding.encode(v_))
+            else:
+                num_tokens += len(encoding.encode(value))
+            if key == "name" or key == "role":
                 num_tokens += tokens_per_name
     num_tokens += 3  # every reply is primed with <|start|>assistant<|message|>
     return num_tokens
@@ -67,10 +67,33 @@ def check_and_trim_message_history(message_history, model_name=model_name, max_t
         while num_tokens_from_messages(message_history, model=model_name) > max_tokens - offset:
             del message_history[1] # Delete the 2nd message in the history. The first message is always the system prompt, which should not be deleted.
 
-def query(query,role="user", model_name=model_name, temp=temperature, max_output_tokens=max_output_tokens, message_history=message_history):
+def query(query,role="user", model_name=model_name, temp=temperature, max_output_tokens=max_output_tokens, message_history=message_history,image=None):
+    # If model_name contains "gpt-4"
+    if "gpt-4" in model_name: 
+        body = {
+            "role":role, 
+            "content": [
+                {"type": "text", "text": query},
+            ]
+        }
 
+        if image:
+            body["content"].append({
+                "type": "image_url", 
+                "image_url": {
+                    "url":  image
+                },
+            })
+    else:
+        body = {
+            "role":role, 
+            "content":query
+        }
+    
     # Retrieve n embeddings 
-    message_history.append({"role":role, "content":query})
+    message_history.append(
+        body
+    )
     check_and_trim_message_history(message_history, model_name)
 
     try:
@@ -236,11 +259,11 @@ def generate_task_from_feedback(feedback_quote, excerpt):
     return task
 
 if __name__ == "__main__":
-    message_history = [{"role":"system", "content":"You are a helpful assistant."}]
-    while(True):
-        message = input("User: ")
-        response = query(message,model_name="ft:gpt-3.5-turbo-0125:personal:int-des:9Zfe0znW",temp=1.0)
-        print(f"Assistant: {response}")
+    # message_history = [{"role":"system", "content":"You are a helpful assistant."}]
+    # while(True):
+    #     message = input("User: ")
+    #     response = query(message,model_name="ft:gpt-3.5-turbo-0125:personal:int-des:9Zfe0znW",temp=1.0)
+    #     print(f"Assistant: {response}")
 
     print()
 
