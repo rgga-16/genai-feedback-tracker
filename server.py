@@ -239,24 +239,7 @@ def message_chatbot():
     )
     document_excerpts_string = "\n".join(document_excerpts)
 
-    if(image_data):
-        # Decode image data
-
-        # image_data = image_data.split(',')[1]  # Remove the data URL prefix
-        # with open('temp.png', 'wb') as f:
-        #     f.write(base64.b64decode(image_data))
-        # f.close()
-        # with open('temp.png', 'rb') as f:
-        #     image_data = base64.b64encode(f.read()).decode('utf-8')
-        #     image_data= f"data:image/png;base64,{image_data}"
-        # f.close()
-        # os.remove('temp.png')
-        pass
-        # Save it
-
-        # temp_history = message_history.copy()
-        # image_response = query("Please describe what is in the image.", model_name="gpt-4o", temp=0.0, max_output_tokens=128, message_history=temp_history, image=image_data)
-        pass
+    #WIP: Add initial visual response from GPT-4o. Then, add that as response to the finetuned chatbot's response. 
     
     instruction = f"""
     Please provide a response to the following query.
