@@ -221,8 +221,19 @@ def message_chatbot():
     global DOCUMENT_DB
     start_query = time.time()
 
+    #WIP: Add initial visual response from GPT-4o. Then, add that as response to the finetuned chatbot's response. 
+    visual_response=None
+    if(image_data):
+        visual_history = [{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
+        visual_instruction = f"""
+            Make a description of the image attached in 1-2 sentences. Next, with the context of the image, answer the query in 1-2 sentences.
+            Query: {message}
+        """
+        visual_response = query(visual_instruction, model_name="gpt-4o", temp=0.0, max_output_tokens=256, message_history=visual_history, image=image_data)
+
+
     n_rows = TRANSCRIPT_DB.shape[0]
-    top_n = 3
+    top_n = 5
     transcript_excerpts, relatednesses = strings_ranked_by_relatedness(
         message, 
         TRANSCRIPT_DB,
@@ -231,7 +242,7 @@ def message_chatbot():
     transcript_excerpts_string = "\n".join(transcript_excerpts)
 
     n_rows = DOCUMENT_DB.shape[0]
-    top_n = 3
+    top_n = 5
     document_excerpts, relatednesses = strings_ranked_by_relatedness(
         message, 
         DOCUMENT_DB,
@@ -239,18 +250,13 @@ def message_chatbot():
     )
     document_excerpts_string = "\n".join(document_excerpts)
 
-    #WIP: Add initial visual response from GPT-4o. Then, add that as response to the finetuned chatbot's response. 
-    
     instruction = f"""
     Please provide a response to the following query.
     Query: {message}"""
 
-    visual_context=""
-    if(image_data):
-        visual_context = "\n\nFor visual context,  attached is an image for your visual reference. Please consider this also when answering the query."
 
     contexts = f"""
-    Moreover, can use following transcript excerpts and document excerpts as references to your answer, although you do not need to use them if they are not relevant to the query.
+    Moreover, you can use following transcript excerpts and document excerpts as references to your answer, although you do not need to use them if they are not relevant to the query.
     Here are the top related transcript excerpts: 
     {transcript_excerpts_string}
     If your answer is based on a specific transcript excerpt, please mention the speaker and the timestamp of the excerpt, or the timestamp if there is no speaker mentioned.
@@ -260,19 +266,21 @@ def message_chatbot():
     If your answer is based on a specific document excerpt, please mention the page number of the excerpt and the reference (e.g. book) name.
 
     If the query is not related to any of the transcripts or documents, answer the query as best as possible based on your own knowledge as an interior design expert.
-
-    Moreover, answer short and concisely. No need to write an essay.
     """
 
+    visual_context = ""
+    if visual_response:
+        visual_context = f"\nMoreover, the user attached an image for visual context. Here is the reponse to the image: \n{visual_response}. \nYou may use this response as context and to help with your answer."
+
+    last_instruction="\n\nTogether with the contexts retrieved, and the visual context (if any), please respond concisely the query. Please answer in 1-3 sentences at most."
     
-    full_instruction = instruction + visual_context + contexts
+    full_instruction = instruction + visual_context + contexts + last_instruction
 
 
-    response =  query(instruction, model_name="gpt-4o", temp=0.0, max_output_tokens=128, message_history=message_history, image=image_data)
-    # response =  query(instruction, model_name="ft:gpt-3.5-turbo-0125:im-lab:int-des-full:9b2qf12W", temp=1.0, max_output_tokens=200, message_history=message_history)
+    # response =  query(full_instruction, model_name="gpt-4o", temp=0.0, max_output_tokens=256, message_history=message_history)
+    response =  query(full_instruction, model_name="ft:gpt-3.5-turbo-0125:im-lab:int-des-full:9b2qf12W", temp=0.0, max_output_tokens=256, message_history=message_history)
     
-    
-    
+
     
     end_query = time.time()
     print(f"Time taken to query chatbot: {end_query - start_query} seconds")
