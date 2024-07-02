@@ -19,14 +19,16 @@ RECORD_I = 0
 TRANSCRIPT_DB = None
 DATA_DIR = os.path.join(CWD, "data"); makedir(DATA_DIR)
 TRANSCRIPT_DB_PATH = None 
+DOCUMENT_DB_PATH = None
+DOCUMENT_DB = None
 
-DOCUMENT_DB_PATH = os.path.join(CWD,"finetuning", f"document_db.csv")
-DOCUMENT_DB = pd.read_csv(DOCUMENT_DB_PATH)
-if(type(DOCUMENT_DB['embedding'][0]) == str):
-    DOCUMENT_DB['embedding'] = DOCUMENT_DB['embedding'].apply(ast.literal_eval)
-    print('parsing string to list')
-    DOCUMENT_DB.to_csv(DOCUMENT_DB_PATH)
-    print("Saving document db with parsed embeddings")
+# DOCUMENT_DB_PATH = os.path.join(CWD,"finetuning", f"document_db.csv")
+# DOCUMENT_DB = pd.read_csv(DOCUMENT_DB_PATH)
+# if(type(DOCUMENT_DB['embedding'][0]) == str):
+#     DOCUMENT_DB['embedding'] = DOCUMENT_DB['embedding'].apply(ast.literal_eval)
+#     print('parsing string to list')
+#     DOCUMENT_DB.to_csv(DOCUMENT_DB_PATH)
+#     print("Saving document db with parsed embeddings")
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -37,7 +39,19 @@ def base():
     if 'session_id' not in session:
         session['session_id'] = random.randint(100000, 999999)
         print(f"Session ID: {session['session_id']}")
-
+        global DOCUMENT_DB_PATH 
+        global DOCUMENT_DB
+    
+        session_dir = os.path.join(DATA_DIR, f"session_{session['session_id']}"); makedir(session_dir)
+        init_document_db_path = os.path.join(CWD,"finetuning", f"document_db.csv")
+        DOCUMENT_DB = pd.read_csv(init_document_db_path)
+        
+        DOCUMENT_DB_PATH = os.path.join(session_dir, "document_db.csv")
+        if(type(DOCUMENT_DB['embedding'][0]) == str):
+            DOCUMENT_DB['embedding'] = DOCUMENT_DB['embedding'].apply(ast.literal_eval)
+            print('parsing string to list')
+            DOCUMENT_DB.to_csv(DOCUMENT_DB_PATH)
+            print("Saving document db with parsed embeddings")
 
     return send_from_directory('client/public', 'index.html')
 
@@ -46,9 +60,14 @@ def base():
 def home(path):
     return send_from_directory('client/public', path)
 
+def session_id():
+    if 'session_id' not in session:
+        session['session_id'] = random.randint(100000, 999999)
+    return session['session_id']
+
 @app.route("/get_session_id", methods=["GET"])
 def get_session_id():
-    return {"session_id": session['session_id']}
+    return {"session_id": session_id()}
 
 @app.route("/increment_record_number", methods=["POST"])
 def increment_record_number():
@@ -77,9 +96,8 @@ def download_screen_recording():
     video = request.files["file"]
     if video:
         filename = "screen.webm"
-        recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}")
-        makedir(recording_dir)
-        filepath = os.path.join(recording_dir, filename); 
+        session_dir = os.path.join(DATA_DIR, f"session_{session_id()}"); makedir(session_dir); filepath = os.path.join(session_dir, filename); 
+        # recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}");makedir(recording_dir);filepath = os.path.join(recording_dir, filename); 
         video.save(filepath) 
         return {"message": "Screen recording saved", "filepath": filepath}
     return {"message": "Screen recording not saved"}
@@ -97,9 +115,9 @@ def save_file(file):
     global RECORD_I 
     if file:
         filename = file.filename
-        recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}") 
-        makedir(recording_dir)
-        filepath = os.path.join(recording_dir, filename); file.save(filepath)
+        # recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}") ;makedir(recording_dir);filepath = os.path.join(recording_dir, filename)
+        session_dir = os.path.join(DATA_DIR, f"session_{session_id()}"); makedir(session_dir); filepath = os.path.join(session_dir, filename); 
+        file.save(filepath)
         return filepath
     return None
 
@@ -158,10 +176,13 @@ def embed_transcript():
     if(type(TRANSCRIPT_DB['embedding'][0]) == str):
         TRANSCRIPT_DB['embedding'] = TRANSCRIPT_DB['embedding'].apply(ast.literal_eval)
         print("parsing string to list")
+
+    session_dir = os.path.join(DATA_DIR, f"session_{session_id()}"); makedir(session_dir)
+    TRANSCRIPT_DB_PATH = os.path.join(session_dir, "transcript.csv")
     
-    recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}") 
-    makedir(recording_dir)
-    TRANSCRIPT_DB_PATH = os.path.join(recording_dir, f"transcript.csv")
+    # recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}");makedir(recording_dir)
+    # TRANSCRIPT_DB_PATH = os.path.join(recording_dir, f"transcript.csv")
+
     TRANSCRIPT_DB.to_csv(TRANSCRIPT_DB_PATH)
     return {"message": "Transcripts embedded"}
 
@@ -195,11 +216,14 @@ def extract_frames_per_timestamp():
         midpoint = (start + end) / 2
         cap.set(cv2.CAP_PROP_POS_MSEC, midpoint)
         success, image = cap.read()
-        recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}") 
-        makedir(recording_dir)
+        
+        session_dir = os.path.join(DATA_DIR, f"session_{session_id()}"); makedir(session_dir)
+        # recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}");makedir(recording_dir)
 
+        
         if image is not None:
-            save_path = os.path.join(recording_dir,f"frame_{i+1}.png")
+            # save_path = os.path.join(recording_dir,f"frame_{i+1}.png")
+            save_path = os.path.join(session_dir,f"frame_{i+1}.png")
             timestamp_frames.append({midpoint:save_path})
             cv2.imwrite(save_path, image)
         else:
