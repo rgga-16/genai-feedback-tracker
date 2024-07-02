@@ -15,7 +15,7 @@ def cosine_similarity(a, b):
 
 EMBEDDING_MODEL = "text-embedding-3-small"
 
-def extract_lines_from_srt_string(content, diarized=True):
+def extract_lines_from_srt_string(content, diarized=False):
     result = []
     if diarized:
         pattern = re.compile(r'(\d+)\n(\d{2}:\d{2}:\d{2},\d{3}) --> (\d{2}:\d{2}:\d{2},\d{3})\n(.+?): (.+?)(?=\n\n\d+|\Z)', re.DOTALL)
@@ -60,9 +60,13 @@ def simplify_transcript_list(transcript_list):
             simplified.append(excerpt)
     return simplified
 
-def simplify_transript(transcript:str,diarized=True): 
+def simplify_transript(transcript:str,diarized=False): 
     transcript_list = extract_lines_from_srt_string(transcript,diarized)
-    simplifed_transcript_list = simplify_transcript_list(transcript_list)
+    simplifed_transcript_list=transcript_list
+
+    if transcript_list[0].get('speaker') is not None:
+        simplifed_transcript_list = simplify_transcript_list(transcript_list)
+
     simplified_transcript =  convert_to_srt_string(simplifed_transcript_list)
 
     return simplified_transcript

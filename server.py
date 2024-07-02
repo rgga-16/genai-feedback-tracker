@@ -1,7 +1,8 @@
-from flask import Flask, send_from_directory, request, send_file
+from flask import Flask, send_from_directory, request, send_file, session
 import os, shutil, subprocess, cv2, imagehash, ast
 from PIL import Image
-import time , base64
+import time , base64, os
+
 
 from datetime import datetime
 
@@ -11,6 +12,7 @@ from embedding import *
 from llms.chatgpt import *
 from frame_extractor import extract_frames_by_timestamp
 import time
+import random
 
 CWD = os.getcwd()
 RECORD_I = 0
@@ -27,16 +29,26 @@ if(type(DOCUMENT_DB['embedding'][0]) == str):
     print("Saving document db with parsed embeddings")
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 
 # Path for our main Svelte page
 @app.route("/")
 def base():
+    if 'session_id' not in session:
+        session['session_id'] = random.randint(100000, 999999)
+        print(f"Session ID: {session['session_id']}")
+
+
     return send_from_directory('client/public', 'index.html')
 
 # Path for all the static files (compiled JS/CSS, etc.)
 @app.route("/<path:path>")
 def home(path):
     return send_from_directory('client/public', path)
+
+@app.route("/get_session_id", methods=["GET"])
+def get_session_id():
+    return {"session_id": session['session_id']}
 
 @app.route("/increment_record_number", methods=["POST"])
 def increment_record_number():
@@ -111,8 +123,7 @@ def download_mic_recording():
 def simplify_transcript():
     form_data = request.get_json()
     transcript = form_data["transcript"]
-    simplified_transcript = simplify_transript(transcript)
-    pass
+    simplified_transcript = simplify_transript(transcript,diarized=False)
     return {"simplified_transcript": simplified_transcript}
 
 @app.route("/transcript_to_list", methods=["POST"])
@@ -340,16 +351,12 @@ if __name__ == "__main__":
     HISTORY_DIR = os.path.join(CWD, "data_history"); makedir(HISTORY_DIR)
     DATA_DIR = os.path.join(CWD, "data"); makedir(DATA_DIR)
     
-
     if os.path.exists(DATA_DIR) and os.listdir(DATA_DIR):
         src_dir = DATA_DIR
         current_date = datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
         dest_dir = os.path.join(HISTORY_DIR, f"[{current_date}]_data")
         shutil.copytree(src_dir, dest_dir) 
         emptydir(src_dir, delete_dirs=True)
-    
-
-    
     
     app.run(debug=True)
 
