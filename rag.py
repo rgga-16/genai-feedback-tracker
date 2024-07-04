@@ -15,9 +15,7 @@ from embedding import convert_to_embedding, strings_ranked_by_relatedness
 from utils import makedir
 
 CWD = os.getcwd()
-DATA_DIR = os.path.join(CWD, "data"); makedir(DATA_DIR)
-DOCUMENT_DB = None
-DOCUMENT_DB_PATH=None
+
 FILES = [
     {
         "title": "Time-Saver Standards for Interior Design and Space Planning",
@@ -61,10 +59,12 @@ def embed_document(texts):
 
 
 def create_document_db():
-    DOCUMENT_DB_PATH = os.path.join(DATA_DIR, f"document_db.csv")
+    save_dir = os.path.join(CWD,"finetuning"); makedir(save_dir)
+    document_pickle_path = os.path.join(save_dir, f"document_db.pickle")
+    document_hdf5_path = os.path.join(save_dir, f"document_db.hdf5")
+
     document_db = None
-    if os.path.exists(DOCUMENT_DB_PATH):
-        return print("Document database already exists")
+
     print("Creating document database")
     
     
@@ -84,21 +84,28 @@ def create_document_db():
         document_db['embedding'] = document_db['embedding'].apply(lambda x: x[0])
 
     
-    document_db.to_csv(DOCUMENT_DB_PATH)
+    document_db.to_hdf(document_hdf5_path, key='document_db', mode='w')
+    document_db.to_pickle(document_pickle_path)
 
     return print("Document database created")
 
 
 if __name__ == "__main__":
-    create_document_db()
-    # DOCUMENT_DB_PATH = os.path.join(CWD,"finetuning", f"document_db.csv")
-    
-    # document_db = pd.read_csv(DOCUMENT_DB_PATH)
-    # embedding_col = document_db['embedding']
-    # embedding_col_type = type(embedding_col[0])
+    # create_document_db()
+    document_db = pd.read_csv(os.path.join(CWD,"finetuning/document_db.csv"))
 
-    # document_db['embedding'] = document_db['embedding'].apply(lambda x: x[0])
-    # document_db.to_csv(DOCUMENT_DB_PATH)
+    if(type(document_db['embedding'][0]) == str):
+        document_db['embedding'] =document_db['embedding'].apply(ast.literal_eval)
+    if(type(document_db['embedding'][0]) == list and len(document_db['embedding'][0])==1):
+        document_db['embedding'] = document_db['embedding'].apply(lambda x: x[0])
+
+    save_dir = os.path.join(CWD,"finetuning"); makedir(save_dir)
+    document_pickle_path = os.path.join(save_dir, f"document_db.pickle")
+    document_hdf5_path = os.path.join(save_dir, f"document_db.hdf5")
+
+    document_db.to_hdf(document_hdf5_path, key='document_db', mode='w')
+    document_db.to_pickle(document_pickle_path)
+
     pass
         
     
