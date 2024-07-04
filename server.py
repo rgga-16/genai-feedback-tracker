@@ -15,20 +15,7 @@ import time
 import random
 
 CWD = os.getcwd()
-RECORD_I = 0
-TRANSCRIPT_DB = None
-DATA_DIR = os.path.join(CWD, "data"); makedir(DATA_DIR)
-TRANSCRIPT_DB_PATH = None 
-DOCUMENT_DB_PATH = None
-DOCUMENT_DB = None
 
-# DOCUMENT_DB_PATH = os.path.join(CWD,"finetuning", f"document_db.csv")
-# DOCUMENT_DB = pd.read_csv(DOCUMENT_DB_PATH)
-# if(type(DOCUMENT_DB['embedding'][0]) == str):
-#     DOCUMENT_DB['embedding'] = DOCUMENT_DB['embedding'].apply(ast.literal_eval)
-#     print('parsing string to list')
-#     DOCUMENT_DB.to_csv(DOCUMENT_DB_PATH)
-#     print("Saving document db with parsed embeddings")
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -39,18 +26,18 @@ def base():
     if 'session_id' not in session:
         session['session_id'] = random.randint(100000, 999999)
         print(f"Session ID: {session['session_id']}")
-        global DOCUMENT_DB_PATH 
-        global DOCUMENT_DB
     
-        session_dir = os.path.join(DATA_DIR, f"session_{session['session_id']}"); makedir(session_dir)
+        session['session_dir'] = os.path.join(DATA_DIR, f"session_{session['session_id']}"); makedir(session['session_dir'])
         init_document_db_path = os.path.join(CWD,"finetuning", f"document_db.csv")
-        DOCUMENT_DB = pd.read_csv(init_document_db_path)
-        
-        DOCUMENT_DB_PATH = os.path.join(session_dir, "document_db.csv")
-        if(type(DOCUMENT_DB['embedding'][0]) == str):
-            DOCUMENT_DB['embedding'] = DOCUMENT_DB['embedding'].apply(ast.literal_eval)
-            print('parsing string to list')
-            DOCUMENT_DB.to_csv(DOCUMENT_DB_PATH)
+        session['document_db'] = pd.read_csv(init_document_db_path)
+        session['document_db_path'] = os.path.join(session['session_dir'], "document_db.csv")
+
+        document_db = session['document_db']
+        document_db_path = session['document_db_path']
+
+        if(type(document_db['embedding'][0]) == str):
+            document_db['embedding'] = document_db['embedding'].apply(ast.literal_eval)
+            document_db.to_csv(document_db_path)
             print("Saving document db with parsed embeddings")
 
     return send_from_directory('client/public', 'index.html')
@@ -155,8 +142,6 @@ def transcript_to_list():
 @app.route("/embed_transcript", methods=["POST"])
 def embed_transcript():
 
-    global TRANSCRIPT_DB_PATH
-    global TRANSCRIPT_DB
     form_data = request.get_json()
     transcript = form_data["transcript"]
 
@@ -168,22 +153,21 @@ def embed_transcript():
     for chunk in text_chunks:
         embeddings.extend(convert_to_embedding(chunk))
     
-    TRANSCRIPT_DB = pd.DataFrame({
+    session['transcript_db'] = pd.DataFrame({
         'text': text_chunks,
         'embedding': embeddings
     })
+    TRANSCRIPT_DB = session['transcript_db']
 
     if(type(TRANSCRIPT_DB['embedding'][0]) == str):
         TRANSCRIPT_DB['embedding'] = TRANSCRIPT_DB['embedding'].apply(ast.literal_eval)
         print("parsing string to list")
 
     session_dir = os.path.join(DATA_DIR, f"session_{session_id()}"); makedir(session_dir)
-    TRANSCRIPT_DB_PATH = os.path.join(session_dir, "transcript.csv")
-    
-    # recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}");makedir(recording_dir)
-    # TRANSCRIPT_DB_PATH = os.path.join(recording_dir, f"transcript.csv")
+    session['transcript_db_path'] = os.path.join(session_dir, "transcript.csv")
 
-    TRANSCRIPT_DB.to_csv(TRANSCRIPT_DB_PATH)
+
+    TRANSCRIPT_DB.to_csv(session['transcript_db_path'])
     return {"message": "Transcripts embedded"}
 
 
@@ -252,8 +236,9 @@ def message_chatbot():
     message = form_data["message"]
 
     image_data = form_data.get("image_data", None)
-    global TRANSCRIPT_DB
-    global DOCUMENT_DB
+    TRANSCRIPT_DB = session['transcript_db']
+    DOCUMENT_DB = session['document_db']
+
     start_query = time.time()
 
     #WIP: Add initial visual response from GPT-4o. Then, add that as response to the finetuned chatbot's response. 
@@ -385,34 +370,3 @@ if __name__ == "__main__":
     app.run(debug=True)
 
 
-
-# Code dump
-
-    # for i in range(len(transcripts)):
-    #     transcript = transcripts[i]
-    #     dialogues = extract_lines_from_srt_string(transcript)
-    #     simplified_dialogues = dialogues
-    #     if "speaker" in dialogues[0]:
-    #         simplified_dialogues = simplify_transcript_list(dialogues)
-    #     srt = convert_to_srt_string(simplified_dialogues)
-    #     text_chunks = divide_into_chunks(f"Transcript {i+1}",simplified_dialogues)
-    #     embeddings = []
-
-    #     for chunk in text_chunks:
-    #         embeddings.extend(convert_to_embedding(chunk))
-    #     if TRANSCRIPT_DB is None:
-    #         TRANSCRIPT_DB = pd.DataFrame({
-    #             'text': text_chunks,
-    #             'embedding': embeddings
-    #         })
-    #     else:
-    #         TRANSCRIPT_DB = TRANSCRIPT_DB.concat(pd.DataFrame({
-    #             'text': text_chunks,
-    #             'embedding': embeddings
-    #         }), ignore_index=True)
-        
-    #     recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}") 
-    #     makedir(recording_dir)
-    #     transcript_db_path = os.path.join(recording_dir, f"transcript.csv")
-    #     TRANSCRIPT_DB.to_csv(transcript_db_path)
-    # return {"message": "Transcripts embedded"}
