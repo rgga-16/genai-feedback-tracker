@@ -1,5 +1,4 @@
 import os, shutil
-from skimage.metrics import structural_similarity as ssim
 
 def makedir(dir_path):
     try:

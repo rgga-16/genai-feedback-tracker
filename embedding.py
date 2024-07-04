@@ -1,7 +1,7 @@
 import openai
 import re, codecs
 import pandas as pd
-from scipy import spatial 
+
 import ast, time
 import numpy as np
 
