@@ -1,7 +1,8 @@
 from flask import Flask, send_from_directory, request, send_file, session
 import os, shutil, subprocess, cv2, imagehash, ast
 from PIL import Image
-import time , base64, os
+import time , base64, os, threading, json
+from queue import Queue
 
 
 from datetime import datetime
@@ -16,9 +17,36 @@ import random
 
 CWD = os.getcwd()
 
-
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
+
+# log_queue = Queue()
+# stop_log_thread = False
+
+def log_writer():
+    global log_queue, stop_log_thread
+    while not stop_log_thread or not log_queue.empty():
+        session_dir = os.path.join(CWD, "data", f"session_{session['session_id']}")
+        if not os.path.exists(session_dir):
+            os.makedirs(session_dir)
+        log_file_path = os.path.join(session_dir, "action_logs.jsonl")
+        with open(log_file_path, "a") as log_file:
+            while not log_queue.empty():
+                log_entry = log_queue.get()
+                json.dump(log_entry, log_file)
+                log_file.write('\n')
+        time.sleep(1)  # Adjust based on the expected frequency of log entries
+
+def start_log_thread():
+    global log_thread
+    log_thread = threading.Thread(target=log_writer, daemon=True)
+    log_thread.start()
+
+# Ensure to properly stop the log thread on application shutdown
+def stop_log_writer():
+    global stop_log_thread
+    stop_log_thread = True
+    log_thread.join()
 
 # Path for our main Svelte page
 @app.route("/")
@@ -26,19 +54,22 @@ def base():
     if 'session_id' not in session:
         session['session_id'] = random.randint(100000, 999999)
         print(f"Session ID: {session['session_id']}")
-    
+        start_time= time.time()
         session['session_dir'] = os.path.join(DATA_DIR, f"session_{session['session_id']}"); makedir(session['session_dir'])
-        init_document_db_path = os.path.join(CWD,"finetuning", f"document_db.csv")
-        session['document_db'] = pd.read_csv(init_document_db_path)
-        session['document_db_path'] = os.path.join(session['session_dir'], "document_db.csv")
+        init_document_db_pickle_path = os.path.join(CWD,"finetuning", f"document_db.pickle")
 
-        document_db = session['document_db']
-        document_db_path = session['document_db_path']
+        document_db = pd.read_pickle(init_document_db_pickle_path)
 
         if(type(document_db['embedding'][0]) == str):
             document_db['embedding'] = document_db['embedding'].apply(ast.literal_eval)
-            document_db.to_csv(document_db_path)
-            print("Saving document db with parsed embeddings")
+            print("parsing string to list")
+        else:
+            print("No need to parse string to list")
+        
+        session['document_db_path'] = os.path.join(session['session_dir'], "document_db.pickle")
+
+        document_db.to_pickle(session['document_db_path'])
+        print("Initial startup time: ", time.time()-start_time)
 
     return send_from_directory('client/public', 'index.html')
 
@@ -47,19 +78,31 @@ def base():
 def home(path):
     return send_from_directory('client/public', path)
 
-def session_id():
-    if 'session_id' not in session:
-        session['session_id'] = random.randint(100000, 999999)
-    return session['session_id']
-
 @app.route("/get_session_id", methods=["GET"])
 def get_session_id():
-    return {"session_id": session_id()}
+    return {"session_id": session['session_id']}
+
+
+@app.route("/log_action", methods=["POST"])
+def log_action(): 
+    form_data = request.get_json()
+    action= form_data["action"]
+    data = form_data["data"]
+    session_dir = os.path.join(DATA_DIR, f"session_{session['session_id']}"); makedir(session_dir)
+    # log_queue.put({"action": action, "data": data})
+
+    log_file_path = os.path.join(session_dir, "action_logs.jsonl")
+    with open(log_file_path, "a") as log_file:
+        log_entry = {action: data}
+        json.dump(log_entry, log_file)
+        log_file.write('\n')
+
+    return {"message": f"Action {action} logged"}
 
 @app.route("/increment_record_number", methods=["POST"])
 def increment_record_number():
-    global RECORD_I
-    RECORD_I += 1
+    # global RECORD_I
+    # RECORD_I += 1
     return {"message": "Record number incremented"}
 
 @app.route("/fetch_audio", methods=["POST"])
@@ -79,11 +122,11 @@ def fetch_video():
 
 @app.route("/download_screen",methods=["POST"])
 def download_screen_recording():
-    global RECORD_I
+    # global RECORD_I
     video = request.files["file"]
     if video:
         filename = "screen.webm"
-        session_dir = os.path.join(DATA_DIR, f"session_{session_id()}"); makedir(session_dir); filepath = os.path.join(session_dir, filename); 
+        session_dir = os.path.join(DATA_DIR, f"session_{session['session_id']}"); makedir(session_dir); filepath = os.path.join(session_dir, filename); 
         # recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}");makedir(recording_dir);filepath = os.path.join(recording_dir, filename); 
         video.save(filepath) 
         return {"message": "Screen recording saved", "filepath": filepath}
@@ -99,18 +142,18 @@ def transcribe_mic_recording():
             "transcript": transcript}
 
 def save_file(file):
-    global RECORD_I 
+    # global RECORD_I 
     if file:
         filename = file.filename
         # recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}") ;makedir(recording_dir);filepath = os.path.join(recording_dir, filename)
-        session_dir = os.path.join(DATA_DIR, f"session_{session_id()}"); makedir(session_dir); filepath = os.path.join(session_dir, filename); 
+        session_dir = os.path.join(DATA_DIR, f"session_{session['session_id']}"); makedir(session_dir); filepath = os.path.join(session_dir, filename); 
         file.save(filepath)
         return filepath
     return None
 
 @app.route("/download_mic", methods=["POST"])
 def download_mic_recording():
-    global RECORD_I 
+    # global RECORD_I 
     files = request.files
     if "audio" not in files:
         return "No audio part", 400
@@ -153,21 +196,21 @@ def embed_transcript():
     for chunk in text_chunks:
         embeddings.extend(convert_to_embedding(chunk))
     
-    session['transcript_db'] = pd.DataFrame({
+    transcript_db = pd.DataFrame({
         'text': text_chunks,
         'embedding': embeddings
     })
-    TRANSCRIPT_DB = session['transcript_db']
+    
 
-    if(type(TRANSCRIPT_DB['embedding'][0]) == str):
-        TRANSCRIPT_DB['embedding'] = TRANSCRIPT_DB['embedding'].apply(ast.literal_eval)
+    if(type(transcript_db['embedding'][0]) == str):
+        transcript_db['embedding'] = transcript_db['embedding'].apply(ast.literal_eval)
         print("parsing string to list")
 
-    session_dir = os.path.join(DATA_DIR, f"session_{session_id()}"); makedir(session_dir)
-    session['transcript_db_path'] = os.path.join(session_dir, "transcript.csv")
+    session_dir = os.path.join(DATA_DIR, f"session_{session['session_id']}"); makedir(session_dir)
+    session['transcript_db_path'] = os.path.join(session_dir, "transcript.pickle")
 
 
-    TRANSCRIPT_DB.to_csv(session['transcript_db_path'])
+    transcript_db.to_pickle(session['transcript_db_path'])
     return {"message": "Transcripts embedded"}
 
 
@@ -201,7 +244,7 @@ def extract_frames_per_timestamp():
         cap.set(cv2.CAP_PROP_POS_MSEC, midpoint)
         success, image = cap.read()
         
-        session_dir = os.path.join(DATA_DIR, f"session_{session_id()}"); makedir(session_dir)
+        session_dir = os.path.join(DATA_DIR, f"session_{session['session_id']}"); makedir(session_dir)
         # recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}");makedir(recording_dir)
 
         
@@ -232,16 +275,15 @@ def get_initial_message():
 
 @app.route("/message_chatbot", methods=["POST"])
 def message_chatbot():
+    start_query = time.time()
     form_data = request.get_json()
     message = form_data["message"]
 
     image_data = form_data.get("image_data", None)
-    TRANSCRIPT_DB = session['transcript_db']
-    DOCUMENT_DB = session['document_db']
 
-    start_query = time.time()
+    document_db = pd.read_pickle(session['document_db_path'])
+    transcript_db = pd.read_pickle(session['transcript_db_path'])
 
-    #WIP: Add initial visual response from GPT-4o. Then, add that as response to the finetuned chatbot's response. 
     visual_response=None
     if(image_data):
         visual_history = [{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
@@ -252,20 +294,20 @@ def message_chatbot():
         visual_response = query(visual_instruction, model_name="gpt-4o", temp=0.0, max_output_tokens=256, message_history=visual_history, image=image_data)
 
 
-    n_rows = TRANSCRIPT_DB.shape[0]
+    n_rows = transcript_db.shape[0]
     top_n = 5
     transcript_excerpts, relatednesses = strings_ranked_by_relatedness(
         message, 
-        TRANSCRIPT_DB,
+        transcript_db,
         top_n=top_n
     )
     transcript_excerpts_string = "\n".join(transcript_excerpts)
 
-    n_rows = DOCUMENT_DB.shape[0]
+    n_rows = document_db.shape[0]
     top_n = 5
     document_excerpts, relatednesses = strings_ranked_by_relatedness(
         message, 
-        DOCUMENT_DB,
+        document_db,
         top_n=top_n
     )
     document_excerpts_string = "\n".join(document_excerpts)
@@ -326,7 +368,7 @@ def positively_paraphrase_feedback():
 
 @app.route("/extract_audio_from_video", methods=["POST"])
 def extract_audio_from_video():
-    global RECORD_I 
+    # global RECORD_I 
     if 'file' not in request.files:
         return 'No file sent', 400
     file = request.files['file']
@@ -354,8 +396,6 @@ def generate_task():
     task = generate_task_from_feedback(feedback, excerpt)
     return {"task": task}
 
-
-
 if __name__ == "__main__":
     HISTORY_DIR = os.path.join(CWD, "data_history"); makedir(HISTORY_DIR)
     DATA_DIR = os.path.join(CWD, "data"); makedir(DATA_DIR)
@@ -366,6 +406,9 @@ if __name__ == "__main__":
         dest_dir = os.path.join(HISTORY_DIR, f"[{current_date}]_data")
         shutil.copytree(src_dir, dest_dir) 
         emptydir(src_dir, delete_dirs=True)
+
+    
+    # start_log_thread(session['session_id'])
     
     app.run(debug=True)
 
