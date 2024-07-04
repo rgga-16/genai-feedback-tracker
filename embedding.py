@@ -146,7 +146,11 @@ def strings_ranked_by_relatedness(
     # Test speed
     start_time=time.time()
     df_clone['similarities'] = df_clone['embedding'].apply(lambda x: relatedness_fn(x,query_embedding))
+
+    if 'title' in df_clone.columns:
+        df_clone['text'] = df_clone['title'] + ': ' + df_clone['text']
     strings_and_relatedness = list(zip(df_clone['text'],df_clone['similarities']))
+
     strings_and_relatedness.sort(key=lambda x: x[1], reverse=True)
     print(f"Time taken to calculate similarities using vectorization: {time.time()-start_time}")
 
