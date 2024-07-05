@@ -59,7 +59,13 @@ def num_tokens_from_messages(messages, model=model_name):
     num_tokens += 3  # every reply is primed with <|start|>assistant<|message|>
     return num_tokens
 
-def check_and_trim_message_history(message_history, model_name=model_name, max_tokens=max_tokens):
+def check_and_trim_message_history(message_history, model_name=model_name):
+
+    if "gpt-4" in model_name:
+        max_tokens = 128000
+    else:
+        max_tokens = 16385
+
     offset=300
 
     if num_tokens_from_messages(message_history, model=model_name) > max_tokens:
@@ -196,25 +202,15 @@ def detect_feedback(transcript):
     """
     
     response = query(prompt, message_history=message_history, max_output_tokens= max_output_tokens, temp=0.0)
-    # Remove any unneeded characters before the [ and after the ] in response
-    response =  re.sub(r'^.*?(\[.*\]).*$', r'\1', response, flags=re.DOTALL)
-    # print(f"Response: {response}")
+    
+    response =  re.sub(r'^.*?(\[.*\]).*$', r'\1', response, flags=re.DOTALL) # Remove any unneeded characters before the [ and after the ] in response
     try:
         feedback_list = ast.literal_eval(response)
-        # print(f"Feedback detected: {feedback_list}")
         
-        
-        # feedback_list = [{**feedback, 'id': i+1} for i, feedback in enumerate(feedback_list)] # Add a 'id' key to each feedback item to track the index of the feedback item.
         feedback_list = [{**feedback, 'done': False} for feedback in feedback_list] # Add a 'done' key to each feedback item to track if it has been addressed
         feedback_list = [{'type': feedback['type'], 'quote': feedback['quote'], 'dialogue_id': int(feedback['dialogue_id']), 'speaker': feedback['speaker'], 'done': feedback['done']} for feedback in feedback_list] # Convert dialogue_id to int
         feedback_list = [{**feedback,'task':None} for feedback in feedback_list] # Add a 'task' key to each feedback item to store the task associated with it
         feedback_list = [{**feedback,'show_paraphrased':False} for feedback in feedback_list] # Add a 'show_paraphrased' key to each feedback item to track if the paraphrased feedback is shown or not.
-        
-        # for i in range(len(feedback_list)):
-        #     feedback_list[i]['id'] = i+1
-        
-        # for feedback in feedback_list: 
-        #     feedback['chatbot_messages'] = [{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
         
         pass
     except Exception as e:

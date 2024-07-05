@@ -278,6 +278,9 @@ def message_chatbot():
     start_query = time.time()
     form_data = request.get_json()
     message = form_data["message"]
+    max_output_tokens = form_data.get("max_output_tokens", 256)
+    temperature = form_data.get("temperature", 0.0)
+    model = form_data.get("model", "gpt-4o")
 
     image_data = form_data.get("image_data", None)
 
@@ -340,7 +343,7 @@ def message_chatbot():
 
 
     # response =  query(full_instruction, model_name="gpt-4o", temp=0.0, max_output_tokens=256, message_history=message_history)
-    response =  query(full_instruction, model_name="ft:gpt-3.5-turbo-0125:im-lab:int-des-full:9b2qf12W", temp=0.0, max_output_tokens=256, message_history=message_history)
+    response =  query(full_instruction, model_name=model, temp=temperature, max_output_tokens=max_output_tokens, message_history=message_history)
     
 
     
