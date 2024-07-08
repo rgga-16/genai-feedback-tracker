@@ -1,12 +1,7 @@
 from langchain_community.document_loaders import PyPDFLoader
-from langchain_community.vectorstores import FAISS
-from langchain_openai import OpenAIEmbeddings
-from langchain_chroma import Chroma
-from langchain_openai import OpenAIEmbeddings, ChatOpenAI
-from langchain import hub
+
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import RunnablePassthrough
+
 import pandas as pd
 import ast, os
 from tqdm import tqdm
@@ -42,7 +37,7 @@ def remove_pages_from_pdf(pages, remove_pages):
     return [page for i, page in enumerate(pages) if i not in remove_pages]
 
 
-def load_document(path, remove_pages, extract_images):
+def load_document(path, remove_pages=[], extract_images=False):
     loader = PyPDFLoader(path,extract_images=extract_images)
     pages = loader.load()
     pages = remove_pages_from_pdf(pages, remove_pages)
@@ -67,7 +62,6 @@ def create_document_db():
 
     print("Creating document database")
     
-    
     for file in tqdm(FILES):
         texts = load_document(file["path"], file["remove_pages"], file["extract_images"])
         embeddings = embed_document(texts)
@@ -91,20 +85,20 @@ def create_document_db():
 
 
 if __name__ == "__main__":
-    # create_document_db()
-    document_db = pd.read_csv(os.path.join(CWD,"finetuning/document_db.csv"))
+    create_document_db()
+    # document_db = pd.read_csv(os.path.join(CWD,"finetuning/document_db.csv"))
 
-    if(type(document_db['embedding'][0]) == str):
-        document_db['embedding'] =document_db['embedding'].apply(ast.literal_eval)
-    if(type(document_db['embedding'][0]) == list and len(document_db['embedding'][0])==1):
-        document_db['embedding'] = document_db['embedding'].apply(lambda x: x[0])
+    # if(type(document_db['embedding'][0]) == str):
+    #     document_db['embedding'] =document_db['embedding'].apply(ast.literal_eval)
+    # if(type(document_db['embedding'][0]) == list and len(document_db['embedding'][0])==1):
+    #     document_db['embedding'] = document_db['embedding'].apply(lambda x: x[0])
 
-    save_dir = os.path.join(CWD,"finetuning"); makedir(save_dir)
-    document_pickle_path = os.path.join(save_dir, f"document_db.pickle")
-    document_hdf5_path = os.path.join(save_dir, f"document_db.hdf5")
+    # save_dir = os.path.join(CWD,"finetuning"); makedir(save_dir)
+    # document_pickle_path = os.path.join(save_dir, f"document_db.pickle")
+    # document_hdf5_path = os.path.join(save_dir, f"document_db.hdf5")
 
-    document_db.to_hdf(document_hdf5_path, key='document_db', mode='w')
-    document_db.to_pickle(document_pickle_path)
+    # document_db.to_hdf(document_hdf5_path, key='document_db', mode='w')
+    # document_db.to_pickle(document_pickle_path)
 
     pass
         

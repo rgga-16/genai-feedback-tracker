@@ -3,6 +3,7 @@ import os, shutil, subprocess, cv2, imagehash, ast
 from PIL import Image
 import time , base64, os, threading, json
 from queue import Queue
+import rag 
 
 
 from datetime import datetime
@@ -60,6 +61,12 @@ def base():
 
         document_db = pd.read_pickle(init_document_db_pickle_path)
 
+        titles = document_db['title'].unique().tolist()
+        for title in titles:
+            title_load_path = os.path.join(CWD, "finetuning", "documents", f"{title}.pdf")
+            title_save_path = os.path.join(session['session_dir'], f"{title}.pdf")
+            shutil.copy(title_load_path, title_save_path)
+            
         if(type(document_db['embedding'][0]) == str):
             document_db['embedding'] = document_db['embedding'].apply(ast.literal_eval)
             print("parsing string to list")
@@ -81,6 +88,19 @@ def home(path):
 @app.route("/get_session_id", methods=["GET"])
 def get_session_id():
     return {"session_id": session['session_id']}
+
+@app.route("/get_documents", methods=["GET"])
+def get_documents():
+    document_db = pd.read_pickle(session['document_db_path'])
+
+    titles = []
+    if 'title' in document_db.columns:
+        # Get unique titles
+        titles = document_db['title'].unique()
+        # Convert to list
+        titles = titles.tolist()
+    
+    return {"documents": titles}
 
 
 @app.route("/log_action", methods=["POST"])
@@ -399,6 +419,60 @@ def generate_task():
     task = generate_task_from_feedback(feedback, excerpt)
     return {"task": task}
 
+@app.route("/delete_document", methods=["POST"])
+def delete_document(): 
+    form_data = request.get_json()
+    title = form_data["title"]
+
+    document_db = pd.read_pickle(session['document_db_path'])
+    document_db = document_db[document_db['title'] != title]
+    document_db.to_pickle(session['document_db_path'])
+    document_db.to_csv(session['document_db_path'].replace(".pickle", ".csv"))
+
+    document_deleted = False
+    for filename in os.listdir(session['session_dir']):
+        if title in filename:
+            file_path = os.path.join(session['session_dir'], filename)
+            os.remove(file_path)  # Delete the file
+            document_deleted = True
+            break  # Assuming you want to delete only one document matching the title
+
+    return {"document_name":title, "message": "Document removed successfully"}
+
+@app.route("/add_document", methods=["POST"])
+def add_document():
+    files = request.files
+    if 'file' not in request.files:
+        return {"message": "No file sent"}, 400
+    file = request.files['file']
+    if file.filename == '':
+        return {"message": "No selected file"}, 400
+    
+    if not file:
+        return {"message": "No file sent"}, 400
+    
+    filepath = save_file(file); 
+    title=file.filename.split('.')[0]
+
+    texts = rag.load_document(filepath, remove_pages=[], extract_images=False)
+    embeddings = rag.embed_document(texts)
+    titles=[title]*len(texts)
+
+    document_db = pd.read_pickle(session['document_db_path'])
+    if document_db is None:
+        document_db = pd.DataFrame({"text":texts, "embedding":embeddings, "title":titles})
+    else:
+        document_db = pd.concat([document_db, pd.DataFrame({"text":texts, "embedding":embeddings, "title":titles})])
+    
+    if(type(document_db['embedding'][0]) == str):
+        document_db['embedding'] =document_db['embedding'].apply(ast.literal_eval)
+    if(type(document_db['embedding'][0]) == list and len(document_db['embedding'][0])==1):
+        document_db['embedding'] = document_db['embedding'].apply(lambda x: x[0])
+    
+    document_db.to_pickle(session['document_db_path'])
+
+    return {"document_name":title, "message": "Document added successfully"}
+
 if __name__ == "__main__":
     HISTORY_DIR = os.path.join(CWD, "data_history"); makedir(HISTORY_DIR)
     DATA_DIR = os.path.join(CWD, "data"); makedir(DATA_DIR)
@@ -409,6 +483,8 @@ if __name__ == "__main__":
         dest_dir = os.path.join(HISTORY_DIR, f"[{current_date}]_data")
         shutil.copytree(src_dir, dest_dir) 
         emptydir(src_dir, delete_dirs=True)
+
+        
 
     
     # start_log_thread(session['session_id'])
