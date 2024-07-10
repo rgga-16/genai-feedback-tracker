@@ -69,11 +69,15 @@ def check_and_trim_message_history(message_history, model_name=model_name):
     offset=300
 
     if num_tokens_from_messages(message_history, model=model_name) > max_tokens:
-        print("Current number of tokens in message history exceeds the maximum number of tokens allowed. Trimming message history.")
+        print(f"Current number of tokens in message history exceeds the maximum number of tokens allowed of {max_tokens}. Trimming message history.")
         while num_tokens_from_messages(message_history, model=model_name) > max_tokens - offset:
             del message_history[1] # Delete the 2nd message in the history. The first message is always the system prompt, which should not be deleted.
 
 def query(query,role="user", model_name=model_name, temp=temperature, max_output_tokens=max_output_tokens, message_history=message_history,image=None):
+    
+    # Remove all \n's in the query for efficiency
+    query = query.replace("\n", " ")
+    
     # If model_name contains "gpt-4"
     if "gpt-4" in model_name: 
         body = {
@@ -113,7 +117,7 @@ def query(query,role="user", model_name=model_name, temp=temperature, max_output
         message_history.append({"role":response.choices[0].message.role, "content":response_msg})
     except Exception as e:
         response_msg = f"Error: {e}"
-    return response_msg
+    return response_msg, message_history
 
 def initial_query(transcripts):
     transcripts_str = '\n'.join(transcripts) + '\n====================================================================================================\n'

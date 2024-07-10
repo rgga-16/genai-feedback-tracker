@@ -58,10 +58,13 @@ def base():
         start_time= time.time()
         session['session_dir'] = os.path.join(DATA_DIR, f"session_{session['session_id']}"); makedir(session['session_dir'])
         
-        if "message_history_path" not in session:
-            session['message_history_path'] = os.path.join(session['session_dir'], "message_history.jsonl")
+        if "message_history_path" not in session or "message_history" not in session:
+            session['message_history'] = message_history
+            session['message_history_path'] = os.path.join(session['session_dir'], "message_history.txt")
             with open(session['message_history_path'], "w") as message_history_file:
-                message_history_file.write(json.dumps(message_history))
+                for message in session['message_history']:
+                    message_history_file.write(json.dumps(message))
+                    message_history_file.write('\n')
         
         init_document_db_pickle_path = os.path.join(CWD,"finetuning", f"document_db.pickle")
 
@@ -369,7 +372,8 @@ def message_chatbot():
 
     # Read as a list of dictionaries from the session history path
     if("message_history_path" in session):
-        session_message_history = json.load(open(session['message_history_path'], "r"))
+        with open(session['message_history_path'], "r") as message_history_file:
+            session_message_history = [json.loads(line) for line in message_history_file]
     else:
         session_message_history = message_history 
 
@@ -377,10 +381,13 @@ def message_chatbot():
                     model_name=model, temp=temperature, 
                     max_output_tokens=max_output_tokens, 
                     message_history=session_message_history)
+    
 
     # Save the updated message history
     with open(session['message_history_path'], "w") as message_history_file:
-        message_history_file.write(json.dumps(session_message_history))
+        for message in session_message_history:
+            message_history_file.write(json.dumps(message))
+            message_history_file.write('\n')
 
     end_query = time.time()
     print(f"Time taken to query chatbot: {end_query - start_query} seconds")
