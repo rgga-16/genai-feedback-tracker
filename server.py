@@ -57,6 +57,12 @@ def base():
         print(f"Session ID: {session['session_id']}")
         start_time= time.time()
         session['session_dir'] = os.path.join(DATA_DIR, f"session_{session['session_id']}"); makedir(session['session_dir'])
+        
+        if "message_history_path" not in session:
+            session['message_history_path'] = os.path.join(session['session_dir'], "message_history.jsonl")
+            with open(session['message_history_path'], "w") as message_history_file:
+                message_history_file.write(json.dumps(message_history))
+        
         init_document_db_pickle_path = os.path.join(CWD,"finetuning", f"document_db.pickle")
 
         document_db = pd.read_pickle(init_document_db_pickle_path)
@@ -309,7 +315,7 @@ def message_chatbot():
 
     visual_response=None
     if(image_data):
-        visual_history = [{"role":"system", "content":"You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics. "}]
+        visual_history = message_history.copy()
         visual_instruction = f"""
             Make a description of the image attached in 1-2 sentences. Next, with the context of the image, answer the query in 1-2 sentences.
             Query: {message}
@@ -361,12 +367,21 @@ def message_chatbot():
     
     full_instruction = instruction + visual_context + contexts + last_instruction
 
+    # Read as a list of dictionaries from the session history path
+    if("message_history_path" in session):
+        session_message_history = json.load(open(session['message_history_path'], "r"))
+    else:
+        session_message_history = message_history 
 
-    # response =  query(full_instruction, model_name="gpt-4o", temp=0.0, max_output_tokens=256, message_history=message_history)
-    response =  query(full_instruction, model_name=model, temp=temperature, max_output_tokens=max_output_tokens, message_history=message_history)
-    
+    response,session_message_history =  query(full_instruction, 
+                    model_name=model, temp=temperature, 
+                    max_output_tokens=max_output_tokens, 
+                    message_history=session_message_history)
 
-    
+    # Save the updated message history
+    with open(session['message_history_path'], "w") as message_history_file:
+        message_history_file.write(json.dumps(session_message_history))
+
     end_query = time.time()
     print(f"Time taken to query chatbot: {end_query - start_query} seconds")
     return {"chatbot_response": response}
