@@ -65,10 +65,12 @@ def check_and_trim_message_history(message_history, model_name=model_name):
         max_tokens = 128000
     else:
         max_tokens = 16385
+    print(f"Max tokens: {max_tokens}")
 
     offset=300
-
-    if num_tokens_from_messages(message_history, model=model_name) > max_tokens:
+    n_tokens = num_tokens_from_messages(message_history, model=model_name)
+    print("Current number of tokens in message history: ", n_tokens)
+    if n_tokens > max_tokens:
         print(f"Current number of tokens in message history exceeds the maximum number of tokens allowed of {max_tokens}. Trimming message history.")
         while num_tokens_from_messages(message_history, model=model_name) > max_tokens - offset:
             del message_history[1] # Delete the 2nd message in the history. The first message is always the system prompt, which should not be deleted.

@@ -323,8 +323,8 @@ def message_chatbot():
             Make a description of the image attached in 1-2 sentences. Next, with the context of the image, answer the query in 1-2 sentences.
             Query: {message}
         """
-        visual_response = query(visual_instruction, model_name="gpt-4o", temp=0.0, max_output_tokens=256, message_history=visual_history, image=image_data)
-
+        visual_response,_ = query(visual_instruction, model_name="gpt-4o", temp=0.0, max_output_tokens=128, message_history=visual_history, image=image_data)
+        pass
 
     n_rows = transcript_db.shape[0]
     top_n = 5
