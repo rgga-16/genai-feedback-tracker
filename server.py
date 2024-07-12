@@ -5,49 +5,30 @@ import time , base64, os, threading, json
 from queue import Queue
 import rag 
 
-
 from datetime import datetime
 
 from utils import makedir, emptydir
 from transcribe import transcription_procedure, read_transcript
 from embedding import *
 from llms.chatgpt import *
-from frame_extractor import extract_frames_by_timestamp
 import time
 import random
 
 CWD = os.getcwd()
 
+HISTORY_DIR = os.path.join(CWD, "data_history"); makedir(HISTORY_DIR)
+DATA_DIR = os.path.join(CWD, "data"); makedir(DATA_DIR)
+
+if os.path.exists(DATA_DIR) and os.listdir(DATA_DIR):
+    src_dir = DATA_DIR
+    current_date = datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
+    dest_dir = os.path.join(HISTORY_DIR, f"[{current_date}]_data")
+    shutil.copytree(src_dir, dest_dir,dirs_exist_ok=True) 
+    emptydir(src_dir, delete_dirs=True)
+
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
-# log_queue = Queue()
-# stop_log_thread = False
-
-def log_writer():
-    global log_queue, stop_log_thread
-    while not stop_log_thread or not log_queue.empty():
-        session_dir = os.path.join(CWD, "data", f"session_{session['session_id']}")
-        if not os.path.exists(session_dir):
-            os.makedirs(session_dir)
-        log_file_path = os.path.join(session_dir, "action_logs.jsonl")
-        with open(log_file_path, "a") as log_file:
-            while not log_queue.empty():
-                log_entry = log_queue.get()
-                json.dump(log_entry, log_file)
-                log_file.write('\n')
-        time.sleep(1)  # Adjust based on the expected frequency of log entries
-
-def start_log_thread():
-    global log_thread
-    log_thread = threading.Thread(target=log_writer, daemon=True)
-    log_thread.start()
-
-# Ensure to properly stop the log thread on application shutdown
-def stop_log_writer():
-    global stop_log_thread
-    stop_log_thread = True
-    log_thread.join()
 
 # Path for our main Svelte page
 @app.route("/")
@@ -275,7 +256,6 @@ def extract_frames_per_timestamp():
         
         session_dir = os.path.join(DATA_DIR, f"session_{session['session_id']}"); makedir(session_dir)
         # recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}");makedir(recording_dir)
-
         
         if image is not None:
             # save_path = os.path.join(recording_dir,f"frame_{i+1}.png")
@@ -496,21 +476,7 @@ def add_document():
     return {"document_name":title, "message": "Document added successfully"}
 
 if __name__ == "__main__":
-    HISTORY_DIR = os.path.join(CWD, "data_history"); makedir(HISTORY_DIR)
-    DATA_DIR = os.path.join(CWD, "data"); makedir(DATA_DIR)
-    
-    if os.path.exists(DATA_DIR) and os.listdir(DATA_DIR):
-        src_dir = DATA_DIR
-        current_date = datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
-        dest_dir = os.path.join(HISTORY_DIR, f"[{current_date}]_data")
-        shutil.copytree(src_dir, dest_dir) 
-        emptydir(src_dir, delete_dirs=True)
 
-        
-
-    
-    # start_log_thread(session['session_id'])
-    
     app.run(debug=True)
 
 
