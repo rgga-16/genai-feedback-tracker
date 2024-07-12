@@ -1,3 +1,5 @@
+# Gunicorn and nginx tutorial: www.youtube.com/watch?v=KWIIPKbdxD0
+
 from flask import Flask, send_from_directory, request, send_file, session
 import os, shutil, subprocess, cv2, imagehash, ast
 from PIL import Image
