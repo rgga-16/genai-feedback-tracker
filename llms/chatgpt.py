@@ -208,6 +208,8 @@ def detect_feedback(transcript):
     """
     
     response = query(prompt, message_history=message_history, max_output_tokens= max_output_tokens, temp=0.0)
+
+    response = response.replace("`", "") #Remove any ``` characters in response
     
     response =  re.sub(r'^.*?(\[.*\]).*$', r'\1', response, flags=re.DOTALL) # Remove any unneeded characters before the [ and after the ] in response
     try:
