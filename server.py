@@ -1,7 +1,9 @@
 # Gunicorn and nginx tutorial: www.youtube.com/watch?v=KWIIPKbdxD0
 
 from flask import Flask, send_from_directory, request, send_file, session
-import os, shutil, subprocess, cv2, imagehash, ast
+from flask_session import Session
+import redis
+import os, shutil, subprocess, cv2, imagehash, ast, uuid
 from PIL import Image
 import time , base64, os, threading, json
 from queue import Queue
@@ -18,8 +20,8 @@ import random
 
 CWD = os.getcwd()
 
-HISTORY_DIR = os.path.join(CWD, "data_history"); makedir(HISTORY_DIR)
-DATA_DIR = os.path.join(CWD, "data"); makedir(DATA_DIR)
+HISTORY_DIR = os.path.join(CWD, "data_history")
+DATA_DIR = os.path.join(CWD, "data")
 
 if os.path.exists(DATA_DIR) and os.listdir(DATA_DIR):
     src_dir = DATA_DIR
@@ -28,48 +30,91 @@ if os.path.exists(DATA_DIR) and os.listdir(DATA_DIR):
     shutil.copytree(src_dir, dest_dir,dirs_exist_ok=True) 
     emptydir(src_dir, delete_dirs=True)
 
+makedir(HISTORY_DIR)
+makedir(DATA_DIR)
+
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
+# Configure server-side session storage
+app.config['SESSION_TYPE'] = 'redis'
+app.config['SESSION_PERMANENT'] = False
+app.config['SESSION_USE_SIGNER'] = True
+app.config['SESSION_KEY_PREFIX'] = 'flask_session:'
+app.config['SESSION_REDIS'] = redis.from_url('redis://localhost:6379')
+
+users = {}
+
+Session(app)
+
+
+@app.before_request 
+def before_request():
+    if 'username' in session:
+        print(f"User {session['username']} with Session ID: {session['session_id']}")
+    else:
+        print("No user logged in.")
+
+
+@app.route("/check_username", methods=["POST"])
+def check_username():
+    print(f"List of existing users: {users}")
+    data = request.get_json()
+    username = data["username"]
+    username_exists= False
+
+    if username in users.keys():
+        user_id = users[username]
+        session['username'] = username
+        session['session_id'] = user_id
+        session['session_dir'] = os.path.join(DATA_DIR, user_id)
+        username_exists = True
+    else:
+        user_id = str(uuid.uuid4())
+        users[username] = f"{username}_{user_id}"
+        setup_user_dir(username,users[username])
+    return {"username": username, "user_id": user_id, "username_exists": username_exists}
+
+def setup_user_dir(username,user_id):
+    session['username'] = username
+    session['session_id'] = user_id 
+    
+    start_time= time.time()
+    session_dir = os.path.join(DATA_DIR, f"session_{session['session_id']}")
+    makedir(session_dir)
+    
+    if "message_history_path" not in session or "message_history" not in session:
+        session['message_history'] = message_history
+        session['message_history_path'] = os.path.join(session_dir, "message_history.txt")
+        with open(session['message_history_path'], "w") as message_history_file:
+            for message in session['message_history']:
+                message_history_file.write(json.dumps(message))
+                message_history_file.write('\n')
+    
+    init_document_db_pickle_path = os.path.join(CWD,"finetuning", f"document_db.pickle")
+
+    document_db = pd.read_pickle(init_document_db_pickle_path)
+
+    titles = document_db['title'].unique().tolist()
+    for title in titles:
+        title_load_path = os.path.join(CWD, "finetuning", "documents", f"{title}.pdf")
+        title_save_path = os.path.join(session_dir, f"{title}.pdf")
+        shutil.copy(title_load_path, title_save_path)
+        
+    if(type(document_db['embedding'][0]) == str):
+        document_db['embedding'] = document_db['embedding'].apply(ast.literal_eval)
+        print("parsing string to list")
+    else:
+        print("No need to parse string to list")
+    
+    session['document_db_path'] = os.path.join(session_dir, "document_db.pickle")
+
+    document_db.to_pickle(session['document_db_path'])
+    print("Initial startup time: ", time.time()-start_time)
 
 # Path for our main Svelte page
 @app.route("/")
 def base():
-    if 'session_id' not in session:
-        session['session_id'] = random.randint(100000, 999999)
-        print(f"Session ID: {session['session_id']}")
-        start_time= time.time()
-        session['session_dir'] = os.path.join(DATA_DIR, f"session_{session['session_id']}"); makedir(session['session_dir'])
-        
-        if "message_history_path" not in session or "message_history" not in session:
-            session['message_history'] = message_history
-            session['message_history_path'] = os.path.join(session['session_dir'], "message_history.txt")
-            with open(session['message_history_path'], "w") as message_history_file:
-                for message in session['message_history']:
-                    message_history_file.write(json.dumps(message))
-                    message_history_file.write('\n')
-        
-        init_document_db_pickle_path = os.path.join(CWD,"finetuning", f"document_db.pickle")
-
-        document_db = pd.read_pickle(init_document_db_pickle_path)
-
-        titles = document_db['title'].unique().tolist()
-        for title in titles:
-            title_load_path = os.path.join(CWD, "finetuning", "documents", f"{title}.pdf")
-            title_save_path = os.path.join(session['session_dir'], f"{title}.pdf")
-            shutil.copy(title_load_path, title_save_path)
-            
-        if(type(document_db['embedding'][0]) == str):
-            document_db['embedding'] = document_db['embedding'].apply(ast.literal_eval)
-            print("parsing string to list")
-        else:
-            print("No need to parse string to list")
-        
-        session['document_db_path'] = os.path.join(session['session_dir'], "document_db.pickle")
-
-        document_db.to_pickle(session['document_db_path'])
-        print("Initial startup time: ", time.time()-start_time)
-
     return send_from_directory('client/public', 'index.html')
 
 # Path for all the static files (compiled JS/CSS, etc.)
@@ -100,7 +145,8 @@ def log_action():
     form_data = request.get_json()
     action= form_data["action"]
     data = form_data["data"]
-    session_dir = os.path.join(DATA_DIR, f"session_{session['session_id']}"); makedir(session_dir)
+    session_dir = os.path.join(DATA_DIR, f"session_{session['session_id']}")
+    makedir(session_dir)
     # log_queue.put({"action": action, "data": data})
 
     log_file_path = os.path.join(session_dir, "action_logs.jsonl")
@@ -478,7 +524,6 @@ def add_document():
     return {"document_name":title, "message": "Document added successfully"}
 
 if __name__ == "__main__":
-
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=8000, debug=True)
 
 
