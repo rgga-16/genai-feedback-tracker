@@ -1,6 +1,6 @@
 # Gunicorn and nginx tutorial: www.youtube.com/watch?v=KWIIPKbdxD0
 
-from flask import Flask, send_from_directory, request, send_file, session
+from flask import Flask, send_from_directory, request, send_file, session, jsonify
 from flask_session import Session
 import redis
 import os, shutil, subprocess, cv2, imagehash, ast, uuid
@@ -35,6 +35,9 @@ makedir(DATA_DIR)
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
+redis_client = redis.StrictRedis(host='localhost', port=6379, db=0,decode_responses=True)
+
+redis_client.flushdb() # ensure that redis_client is completely empty. For debugging purposes
 
 # Configure server-side session storage
 app.config['SESSION_TYPE'] = 'redis'
@@ -55,6 +58,32 @@ def before_request():
     else:
         print("No user logged in.")
 
+@app.route("/register",methods=["POST"])
+def register():
+    data = request.get_json()
+    username = data.get('username')
+    if redis_client.hexists("usernames", username):
+        return jsonify({"message": "Username already taken"}), 400
+    user_id = str(uuid.uuid4())
+    redis_client.hset("usernames", username, user_id)
+    return jsonify({"message": "User registered successfully", "user_id": user_id})
+
+@app.route("/login",methods=["POST"])
+def login():
+    data = request.get_json()
+    username = data.get('username')
+    if not redis_client.hexists("usernames", username):
+        return jsonify({"message": "Username not found"}), 400
+    user_id = redis_client.hget("usernames", username)
+    return jsonify({"message": "User logged in successfully", "user_id": user_id})
+
+@app.route("/logout", methods=["POST"])
+def logout():
+    session_id = request.cookies.get('session_id')
+    redis_client.delete(f'session:{session_id}')
+    response = jsonify({"message": "User logged out successfully"})
+    response.delete_cookie('session_id')
+    return response
 
 @app.route("/check_username", methods=["POST"])
 def check_username():
@@ -62,54 +91,48 @@ def check_username():
     data = request.get_json()
     username = data["username"]
     username_exists= False
-
-    if username in users.keys():
-        user_id = users[username]
-        session['username'] = username
-        session['session_id'] = user_id
-        session['session_dir'] = os.path.join(DATA_DIR, user_id)
+    if redis_client.hexists("usernames", username):
+        user_id = redis_client.hget("usernames", username)
         username_exists = True
     else:
         user_id = str(uuid.uuid4())
-        users[username] = f"{username}_{user_id}"
-        setup_user_dir(username,users[username])
+        redis_client.hset("usernames", username, user_id)
+        setup_user_dir(username, user_id)
     return {"username": username, "user_id": user_id, "username_exists": username_exists}
 
 def setup_user_dir(username,user_id):
-    session['username'] = username
-    session['session_id'] = user_id 
-    
     start_time= time.time()
-    session_dir = os.path.join(DATA_DIR, f"session_{session['session_id']}")
-    makedir(session_dir)
+    user_dir = os.path.join(DATA_DIR, f"{username}_{user_id}")
+    makedir(user_dir)
+    if not redis_client.hexists(f'user:{user_id}', 'user_dir'):
+        redis_client.hset(f'user:{user_id}', 'user_dir', user_dir)
     
-    if "message_history_path" not in session or "message_history" not in session:
-        session['message_history'] = message_history
-        session['message_history_path'] = os.path.join(session_dir, "message_history.txt")
-        with open(session['message_history_path'], "w") as message_history_file:
-            for message in session['message_history']:
+    if not redis_client.hexists(f'user:{user_id}', 'message_history_path'):
+        message_history = []
+        message_history_path = os.path.join(user_dir, "message_history.txt")
+        redis_client.hset(f'user:{user_id}', 'message_history_path', message_history_path)
+        with open(message_history_path, "w") as message_history_file:
+            for message in message_history:
                 message_history_file.write(json.dumps(message))
                 message_history_file.write('\n')
     
     init_document_db_pickle_path = os.path.join(CWD,"finetuning", f"document_db.pickle")
-
     document_db = pd.read_pickle(init_document_db_pickle_path)
 
     titles = document_db['title'].unique().tolist()
     for title in titles:
         title_load_path = os.path.join(CWD, "finetuning", "documents", f"{title}.pdf")
-        title_save_path = os.path.join(session_dir, f"{title}.pdf")
+        title_save_path = os.path.join(user_dir, f"{title}.pdf")
         shutil.copy(title_load_path, title_save_path)
-        
+    
     if(type(document_db['embedding'][0]) == str):
         document_db['embedding'] = document_db['embedding'].apply(ast.literal_eval)
         print("parsing string to list")
     else:
         print("No need to parse string to list")
     
-    session['document_db_path'] = os.path.join(session_dir, "document_db.pickle")
-
-    document_db.to_pickle(session['document_db_path'])
+    redis_client.hset(f'user:{user_id}', 'document_db_path', os.path.join(user_dir, "document_db.pickle"))
+    document_db.to_pickle(os.path.join(user_dir, "document_db.pickle"))
     print("Initial startup time: ", time.time()-start_time)
 
 # Path for our main Svelte page
@@ -122,21 +145,20 @@ def base():
 def home(path):
     return send_from_directory('client/public', path)
 
-@app.route("/get_session_id", methods=["GET"])
-def get_session_id():
-    return {"session_id": session['session_id']}
+@app.route("/get_user_id", methods=["POST"])
+def get_user_id():
+    username = request.cookies.get('username')
+    user_id = redis_client.hget("usernames", username)
+    return {"user_id": user_id}
 
-@app.route("/get_documents", methods=["GET"])
+@app.route("/get_documents", methods=["POST"])
 def get_documents():
-    document_db = pd.read_pickle(session['document_db_path'])
-
-    titles = []
-    if 'title' in document_db.columns:
-        # Get unique titles
-        titles = document_db['title'].unique()
-        # Convert to list
-        titles = titles.tolist()
-    
+    user_id = request.cookies.get('user_id', None)
+    if not user_id or not redis_client.hexists(f'user:{user_id}', 'document_db_path'):
+        return jsonify({"error": "No user ID found"}), 400
+    document_db_path = redis_client.hget(f'user:{user_id}', 'document_db_path')
+    document_db = pd.read_pickle(document_db_path)
+    titles = document_db['title'].unique().tolist()
     return {"documents": titles}
 
 
@@ -145,11 +167,16 @@ def log_action():
     form_data = request.get_json()
     action= form_data["action"]
     data = form_data["data"]
-    session_dir = os.path.join(DATA_DIR, f"session_{session['session_id']}")
-    makedir(session_dir)
-    # log_queue.put({"action": action, "data": data})
+    print(f"Action: {action}")
 
-    log_file_path = os.path.join(session_dir, "action_logs.jsonl")
+    user_id = request.cookies.get('user_id', None)
+    if not user_id or not redis_client.hexists(f'user:{user_id}', 'user_dir'):
+        return jsonify({"error": "No user ID found"}), 400
+    
+    user_dir = redis_client.hget(f'user:{user_id}', 'user_dir')
+    makedir(user_dir)
+
+    log_file_path = os.path.join(user_dir, "action_logs.jsonl")
     with open(log_file_path, "a") as log_file:
         log_entry = {action: data}
         json.dump(log_entry, log_file)
@@ -157,11 +184,6 @@ def log_action():
 
     return {"message": f"Action {action} logged"}
 
-@app.route("/increment_record_number", methods=["POST"])
-def increment_record_number():
-    # global RECORD_I
-    # RECORD_I += 1
-    return {"message": "Record number incremented"}
 
 @app.route("/fetch_audio", methods=["POST"])
 def fetch_audio(): 
@@ -180,11 +202,15 @@ def fetch_video():
 
 @app.route("/download_screen",methods=["POST"])
 def download_screen_recording():
-    # global RECORD_I
+    user_id = request.cookies.get('user_id', None)
     video = request.files["file"]
     if video:
         filename = "screen.webm"
-        session_dir = os.path.join(DATA_DIR, f"session_{session['session_id']}"); makedir(session_dir); filepath = os.path.join(session_dir, filename); 
+        if not user_id or not redis_client.hexists(f'user:{user_id}', 'user_dir'):
+            return jsonify({"error": "No user ID found"}), 400
+        user_dir = redis_client.hget(f'user:{user_id}', 'user_dir')
+        makedir(user_dir); 
+        filepath = os.path.join(user_dir, filename); 
         # recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}");makedir(recording_dir);filepath = os.path.join(recording_dir, filename); 
         video.save(filepath) 
         return {"message": "Screen recording saved", "filepath": filepath}
@@ -199,12 +225,14 @@ def transcribe_mic_recording():
     return {"message": "Transcription complete", 
             "transcript": transcript}
 
-def save_file(file):
-    # global RECORD_I 
+def save_file(file, user_id):
     if file:
         filename = file.filename
-        # recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}") ;makedir(recording_dir);filepath = os.path.join(recording_dir, filename)
-        session_dir = os.path.join(DATA_DIR, f"session_{session['session_id']}"); makedir(session_dir); filepath = os.path.join(session_dir, filename); 
+        if not user_id or not redis_client.hexists(f'user:{user_id}', 'user_dir'):
+            return jsonify({"error": "No user ID found"}), 400  
+        user_dir = redis_client.hget(f'user:{user_id}', 'user_dir')
+        makedir(user_dir)
+        filepath = os.path.join(user_dir, filename); 
         file.save(filepath)
         return filepath
     return None
@@ -213,15 +241,12 @@ def save_file(file):
 def download_mic_recording():
     # global RECORD_I 
     files = request.files
+    user_id = request.cookies.get('user_id', None)
     if "audio" not in files:
         return "No audio part", 400
     audio = request.files["audio"]  
     if audio:
-        filepath = save_file(audio)
-        # filename = "mic.webm"
-        # recording_dir = os.path.join(DATA_DIR, f"recording_{RECORD_I+1}") 
-        # makedir(recording_dir)
-        # filepath = os.path.join(recording_dir, filename); audio.save(filepath)
+        filepath = save_file(audio, user_id)
         return {"message": "Mic recording saved", "filepath": filepath}
     return {"message": "Mic recording not saved"}
 
@@ -242,7 +267,7 @@ def transcript_to_list():
 
 @app.route("/embed_transcript", methods=["POST"])
 def embed_transcript():
-
+    user_id = request.cookies.get('user_id', None)
     form_data = request.get_json()
     transcript = form_data["transcript"]
 
@@ -263,15 +288,15 @@ def embed_transcript():
     if(type(transcript_db['embedding'][0]) == str):
         transcript_db['embedding'] = transcript_db['embedding'].apply(ast.literal_eval)
         print("parsing string to list")
-
-    session_dir = os.path.join(DATA_DIR, f"session_{session['session_id']}"); makedir(session_dir)
-    session['transcript_db_path'] = os.path.join(session_dir, "transcript.pickle")
-
-
-    transcript_db.to_pickle(session['transcript_db_path'])
+    
+    if(user_id is None or not redis_client.hexists(f'user:{user_id}', 'user_dir')):
+        return jsonify({"error": "No user ID found"}), 400
+    
+    user_dir = redis_client.hget(f'user:{user_id}', 'user_dir')
+    transcript_db_path = os.path.join(user_dir, "transcript.pickle")
+    redis_client.hset(f'user:{user_id}', 'transcript_db_path', transcript_db_path)
+    transcript_db.to_pickle(transcript_db_path)
     return {"message": "Transcripts embedded"}
-
-
 
 def convert_to_ms(timestamp):
     h, m, s = map(str, timestamp.split(':'))
@@ -340,9 +365,17 @@ def message_chatbot():
     model = form_data.get("model", "gpt-4o")
 
     image_data = form_data.get("image_data", None)
+    user_id = request.cookies.get('user_id', None)
 
-    document_db = pd.read_pickle(session['document_db_path'])
-    transcript_db = pd.read_pickle(session['transcript_db_path'])
+    if not user_id or not redis_client.hexists(f'user:{user_id}', 'message_history_path') or not redis_client.hexists(f'user:{user_id}', 'document_db_path') or not redis_client.hexists(f'user:{user_id}', 'transcript_db_path'):
+        return jsonify({"error": "No user ID found"}), 400
+    
+    message_history_path = redis_client.hget(f'user:{user_id}', 'message_history_path')
+    document_db_path = redis_client.hget(f'user:{user_id}', 'document_db_path')
+    transcript_db_path = redis_client.hget(f'user:{user_id}', 'transcript_db_path')
+
+    document_db = pd.read_pickle(document_db_path)
+    transcript_db = pd.read_pickle(transcript_db_path)
 
     visual_response=None
     if(image_data):
@@ -399,8 +432,8 @@ def message_chatbot():
     full_instruction = instruction + visual_context + contexts + last_instruction
 
     # Read as a list of dictionaries from the session history path
-    if("message_history_path" in session):
-        with open(session['message_history_path'], "r") as message_history_file:
+    if(message_history_path):
+        with open(message_history_path, "r") as message_history_file:
             session_message_history = [json.loads(line) for line in message_history_file]
     else:
         session_message_history = message_history 
@@ -412,7 +445,7 @@ def message_chatbot():
     
 
     # Save the updated message history
-    with open(session['message_history_path'], "w") as message_history_file:
+    with open(message_history_path, "w") as message_history_file:
         for message in session_message_history:
             message_history_file.write(json.dumps(message))
             message_history_file.write('\n')
@@ -441,6 +474,7 @@ def positively_paraphrase_feedback():
 
 @app.route("/extract_audio_from_video", methods=["POST"])
 def extract_audio_from_video():
+    user_id = request.cookies.get('user_id', None)
     # global RECORD_I 
     if 'file' not in request.files:
         return 'No file sent', 400
@@ -449,7 +483,7 @@ def extract_audio_from_video():
         return 'No selected file', 400
     video_extensions = ('.mp4', '.avi', '.mov', '.mkv', '.webm', '.wav', '.flv', '.wmv', '.mpeg', '.mpg', '.3gp', '.m4v','.aac')  # Add more video extensions if needed
     if file and file.filename.lower().endswith(video_extensions):
-        videopath = save_file(file)
+        videopath = save_file(file, user_id)
         videoext = videopath.split('.')[-1]
         audioext = 'mp3'
         audiopath = videopath.replace(videoext, audioext)
@@ -471,18 +505,25 @@ def generate_task():
 
 @app.route("/delete_document", methods=["POST"])
 def delete_document(): 
+    user_id = request.cookies.get('user_id', None)
     form_data = request.get_json()
     title = form_data["title"]
 
-    document_db = pd.read_pickle(session['document_db_path'])
+    if not user_id or not redis_client.hexists(f'user:{user_id}', 'user_dir') or not redis_client.hexists(f'user:{user_id}', 'document_db_path'):
+        return jsonify({"error": "No user ID found"}), 400
+    
+    document_db_path = redis_client.hget(f'user:{user_id}', 'document_db_path')
+    document_db = pd.read_pickle(document_db_path)
     document_db = document_db[document_db['title'] != title]
-    document_db.to_pickle(session['document_db_path'])
-    document_db.to_csv(session['document_db_path'].replace(".pickle", ".csv"))
 
+    document_db.to_pickle(document_db_path)
+    document_db.to_csv(document_db_path.replace(".pickle", ".csv"))
+
+    user_dir = redis_client.hget(f'user:{user_id}', 'user_dir')
     document_deleted = False
-    for filename in os.listdir(session['session_dir']):
+    for filename in os.listdir(user_dir):
         if title in filename:
-            file_path = os.path.join(session['session_dir'], filename)
+            file_path = os.path.join(user_dir, filename)
             os.remove(file_path)  # Delete the file
             document_deleted = True
             break  # Assuming you want to delete only one document matching the title
@@ -491,6 +532,7 @@ def delete_document():
 
 @app.route("/add_document", methods=["POST"])
 def add_document():
+    user_id = request.cookies.get('user_id', None)
     files = request.files
     if 'file' not in request.files:
         return {"message": "No file sent"}, 400
@@ -508,7 +550,12 @@ def add_document():
     embeddings = rag.embed_document(texts)
     titles=[title]*len(texts)
 
-    document_db = pd.read_pickle(session['document_db_path'])
+    if not user_id or not redis_client.hexists(f'user:{user_id}', 'user_dir') or not redis_client.hexists(f'user:{user_id}', 'document_db_path'):
+        return jsonify({"error": "No user ID found"}), 400
+    
+    document_db_path = redis_client.hget(f'user:{user_id}', 'document_db_path')
+
+    document_db = pd.read_pickle(document_db_path)
     if document_db is None:
         document_db = pd.DataFrame({"text":texts, "embedding":embeddings, "title":titles})
     else:
@@ -519,7 +566,7 @@ def add_document():
     if(type(document_db['embedding'][0]) == list and len(document_db['embedding'][0])==1):
         document_db['embedding'] = document_db['embedding'].apply(lambda x: x[0])
     
-    document_db.to_pickle(session['document_db_path'])
+    document_db.to_pickle(document_db_path)
 
     return {"document_name":title, "message": "Document added successfully"}
 
