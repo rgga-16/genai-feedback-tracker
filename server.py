@@ -51,12 +51,12 @@ users = {}
 Session(app)
 
 
-@app.before_request 
-def before_request():
-    if 'username' in session:
-        print(f"User {session['username']} with Session ID: {session['session_id']}")
-    else:
-        print("No user logged in.")
+# @app.before_request 
+# def before_request():
+#     if 'username' in session:
+#         print(f"User {session['username']} with Session ID: {session['session_id']}")
+#     else:
+#         print("No user logged in.")
 
 @app.route("/register",methods=["POST"])
 def register():
