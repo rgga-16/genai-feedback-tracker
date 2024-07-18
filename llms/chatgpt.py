@@ -2,6 +2,29 @@
 from openai import OpenAI  #If first time using this repo, set the environment variable "OPENAI_API_KEY", to your API key from OPENAI
 import tiktoken, ast, re
 
+contractions = [
+    "ain't", "aren't", "can't", "could've", "couldn't", "didn't", "doesn't", "don't",
+    "gonna", "gotta", "hadn't", "hasn't", "haven't", "he'd", "he'll", "he's", "how'd",
+    "how'll", "how's", "I'd", "I'll", "I'm", "I've", "isn't", "it'd", "it'll", "it's",
+    "let's", "ma'am", "might've", "mightn't", "must've", "mustn't", "needn't", "o'clock",
+    "ol'", "oughtn't", "shan't", "she'd", "she'll", "she's", "should've", "shouldn't",
+    "somebody's", "someone's", "something's", "that'll", "that's", "there'd", "there'll",
+    "there's", "they'd", "they'll", "they're", "they've", "wasn't", "we'd", "we'll", "we're",
+    "we've", "weren't", "what'd", "what'll", "what're", "what's", "what've", "when's",
+    "where'd", "where'll", "where's", "who'd", "who'll", "who's", "who've", "why'd",
+    "why'll", "why's", "won't", "would've", "wouldn't", "y'all", "you'd", "you'll",
+    "you're", "you've", "daren't", "d'you", "e'er", "everyone's", "g'day", "gimme", "giv'n",
+    "gonna", "gotta", "had've", "how're", "i'd've", "is'n't", "let's", "ma'am", "mayn't",
+    "may've", "mightn't've", "might've", "mustn't've", "must've", "needn't've", "o'er",
+    "o'war", "oughtn't've", "shan't've", "she'd've", "she'll've", "shouldn't've", "should've",
+    "somebody'd", "somebody'll", "somebody's", "someone'd", "someone'll", "someone's",
+    "something'd", "something'll", "something's", "that'd", "that'll", "that're", "there'd've",
+    "there're", "they'd've", "they'll've", "this'll", "those're", "us'n't", "wasn't", "we'd've",
+    "we'll've", "weren't", "what'd've", "what'll've", "what're", "when'll", "where'd've",
+    "where're", "where've", "which'd", "which'll", "who'd've", "who're", "why're", "will've",
+    "won't've", "would've", "y'all'd've", "you'd've", "you'll've"
+]
+
 
 client = OpenAI()
 model_name = "gpt-4o"
@@ -14,6 +37,19 @@ temperature=0.0
 system_prompt = "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics."
 
 message_history = [{"role":"system", "content":system_prompt}]
+
+def escape_contractions(text):
+    # Define a function to escape the apostrophes in contractions
+    def escape(match):
+        return match.group(0).replace("'", "\\'")
+    
+    # Create a regex pattern that matches any of the contractions
+    pattern = re.compile(r'\b(?:' + '|'.join(re.escape(word) for word in contractions) + r')\b', re.IGNORECASE)
+    
+    # Substitute the matched contractions with the escaped version
+    return pattern.sub(escape, text)
+
+
 
 # Code borrowed from https://github.com/openai/openai-cookbook/blob/main/examples/How_to_count_tokens_with_tiktoken.ipynb
 def num_tokens_from_messages(messages, model=model_name):
@@ -208,16 +244,25 @@ def detect_feedback(transcript):
     """
     
     response,_ = query(prompt, message_history=message_history, max_output_tokens= max_output_tokens, temp=0.0)
-    response_type = type(response)
     # response = response.replace("`", "") #Remove any ``` characters in response
+    response = response.replace("\n", "")
+    # Remove the triple backticks and the language identifier
+    response = response.replace("```python", "").replace("```", "").strip()
 
-    # response = response.replace("\n", "")
     # Find the start and end indices of the desired content
-    # start_index = response.find('[')
-    # end_index = response.rfind(']') + 1
-    # response=response[start_index:end_index]
+    start_index = response.find('[')
+    end_index = response.rfind(']') + 1
+    response=response[start_index:end_index]
+
+    response = escape_contractions(response)
+
     
-    response =  re.sub(r'^.*?(\[.*\]).*$', r'\1', response, flags=re.DOTALL) # Remove any unneeded characters before the [ and after the ] in response
+    # apostrophe_pattern = r"(\w+'\w+|n't)"
+    # replacement = lambda match: '\\' + match.group(0)
+    # response = re.sub(apostrophe_pattern, replacement, response)
+
+
+    # response =  re.sub(r'^.*?(\[.*\]).*$', r'\1', response, flags=re.DOTALL) # Remove any unneeded characters before the [ and after the ] in response
     try:
         feedback_list = ast.literal_eval(response)
         
@@ -231,6 +276,7 @@ def detect_feedback(transcript):
         print(f"Error: {e}")
         feedback_list = []
     return feedback_list
+
 
 def positivise_feedback(quote, excerpt): 
     system_prompt="""
