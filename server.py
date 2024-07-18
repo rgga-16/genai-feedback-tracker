@@ -66,6 +66,7 @@ def register():
         return jsonify({"message": "Username already taken"}), 400
     user_id = str(uuid.uuid4())
     redis_client.hset("usernames", username, user_id)
+    setup_user_dir(username, user_id)
     return jsonify({"message": "User registered successfully", "user_id": user_id})
 
 @app.route("/login",methods=["POST"])
@@ -543,7 +544,7 @@ def add_document():
     if not file:
         return {"message": "No file sent"}, 400
     
-    filepath = save_file(file); 
+    filepath = save_file(file,user_id); 
     title=file.filename.split('.')[0]
 
     texts = rag.load_document(filepath, remove_pages=[], extract_images=False)
