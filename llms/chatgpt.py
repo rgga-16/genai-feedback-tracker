@@ -68,7 +68,7 @@ def num_tokens_from_messages(messages, model=model_name):
     elif model == "gpt-3.5-turbo-0301":
         tokens_per_message = 4  # every message follows <|start|>{role/name}\n{content}<|end|>\n
         tokens_per_name = -1  # if there's a name, the role is omitted
-    elif model == "gpt-4-0314" or model=="gpt-4o":
+    elif model == "gpt-4-0314" or model=="gpt-4o" or model=="gpt-4o-mini":
         tokens_per_message = 3
         tokens_per_name = 1
     elif model.startswith("ft:"):

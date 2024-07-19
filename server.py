@@ -80,11 +80,8 @@ def login():
 
 @app.route("/logout", methods=["POST"])
 def logout():
-    session_id = request.cookies.get('session_id')
-    redis_client.delete(f'session:{session_id}')
-    response = jsonify({"message": "User logged out successfully"})
-    response.delete_cookie('session_id')
-    return response
+
+    return jsonify({"message": "User logged out successfully"})
 
 @app.route("/check_username", methods=["POST"])
 def check_username():
@@ -535,9 +532,9 @@ def delete_document():
 def add_document():
     user_id = request.cookies.get('user_id', None)
     files = request.files
-    if 'file' not in request.files:
+    if 'file' not in files:
         return {"message": "No file sent"}, 400
-    file = request.files['file']
+    file = files['file']
     if file.filename == '':
         return {"message": "No selected file"}, 400
     
