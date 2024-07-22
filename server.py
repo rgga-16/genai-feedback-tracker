@@ -607,38 +607,6 @@ def save_feedback_list():
 
     return 
 
-@app.route("/save_transcript_list", methods=["POST"])
-def save_transcript_list():
-    user_id = request.cookies.get('user_id', None)
-    form_data = request.get_json()
-    transcript_list = form_data["transcript_list"]
-    if not user_id or not redis_client.hexists(f'user:{user_id}', 'user_dir'):
-        return jsonify({"error": "No user ID found"}), 400
-    user_dir = redis_client.hget(f'user:{user_id}', 'user_dir')
-    transcript_list_path = os.path.join(user_dir, "transcript_list.jsonl")
-    redis_client.hset(f'user:{user_id}', 'transcript_list_path', transcript_list_path)
-
-    # Save transcript_list (it's a list of dicts) as a .json file
-    with open(transcript_list_path, "w") as transcript_list_file:
-        for transcript in transcript_list:
-            json.dump(transcript, transcript_list_file)
-            transcript_list_file.write('\n')
-    
-    return {"message": "Transcript list saved"}
-
-@app.route("/get_transcript_list",methods=["GET"])
-def get_transcript_list():
-    user_id = request.cookies.get('user_id', None)
-    if not user_id or not redis_client.hexists(f'user:{user_id}', 'transcript_list_path'):
-        return jsonify({"error": "No user ID found"}), 400
-    transcript_list_path = redis_client.hget(f'user:{user_id}', 'transcript_list_path')
-    transcript_list = []
-
-    with open(transcript_list_path, "r") as transcript_list_file:
-        for line in transcript_list_file:
-            transcript_list.append(json.loads(line))
-
-    return {"transcript_list": transcript_list}
 
 
 if __name__ == "__main__":
