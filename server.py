@@ -149,7 +149,7 @@ def get_user_id():
     user_id = redis_client.hget("usernames", username)
     return {"user_id": user_id}
 
-@app.route("/get_documents", methods=["POST"])
+@app.route("/get_documents", methods=["GET"])
 def get_documents():
     user_id = request.cookies.get('user_id', None)
     if not user_id or not redis_client.hexists(f'user:{user_id}', 'document_db_path'):
@@ -477,11 +477,14 @@ def extract_audio_from_video():
     if 'file' not in request.files:
         return 'No file sent', 400
     file = request.files['file']
+    if(type(file) is tuple):
+        return 'No file sent', 400
     if file.filename == '':
         return 'No selected file', 400
     video_extensions = ('.mp4', '.avi', '.mov', '.mkv', '.webm', '.wav', '.flv', '.wmv', '.mpeg', '.mpg', '.3gp', '.m4v','.aac')  # Add more video extensions if needed
     if file and file.filename.lower().endswith(video_extensions):
         videopath = save_file(file, user_id)
+        print(f"VIDEOPATH: {videopath}")
         videoext = videopath.split('.')[-1]
         audioext = 'mp3'
         audiopath = videopath.replace(videoext, audioext)
@@ -567,6 +570,76 @@ def add_document():
     document_db.to_pickle(document_db_path)
 
     return {"document_name":title, "message": "Document added successfully"}
+
+@app.route("/save_recording", methods=["POST"])
+def save_recording():
+    user_id = request.cookies.get('user_id', None)
+    form_data = request.get_json()
+    recording = form_data["recording"]
+    if not user_id or not redis_client.hexists(f'user:{user_id}', 'user_dir'):
+        return jsonify({"error": "No user ID found"}), 400
+    user_dir = redis_client.hget(f'user:{user_id}', 'user_dir')
+    recording_path = os.path.join(user_dir, "recording.jsonl")
+    redis_client.hset(f'user:{user_id}', 'recording_path', recording_path)
+
+    # Recording is a dict. save recording as a .txt file? 
+    with open(recording_path, "w") as recording_file:
+        json.dump(recording, recording_file)
+        recording_file.write('\n')
+
+    return {"message": "Recording saved"}
+
+@app.route("/get_recording",methods=["GET"])
+def get_recording():
+    user_id = request.cookies.get('user_id', None)
+    if not user_id or not redis_client.hexists(f'user:{user_id}', 'recording_path'):
+        return jsonify({"error": "No user ID found"}), 400
+    recording_path = redis_client.hget(f'user:{user_id}', 'recording_path')
+    recording = {}
+
+    with open(recording_path, "r") as recording_file:
+        for line in recording_file:
+            recording = json.loads(line)
+    return {"recording": recording}
+
+@app.route("/save_feedback_list", methods=["POST"])
+def save_feedback_list():
+
+    return 
+
+@app.route("/save_transcript_list", methods=["POST"])
+def save_transcript_list():
+    user_id = request.cookies.get('user_id', None)
+    form_data = request.get_json()
+    transcript_list = form_data["transcript_list"]
+    if not user_id or not redis_client.hexists(f'user:{user_id}', 'user_dir'):
+        return jsonify({"error": "No user ID found"}), 400
+    user_dir = redis_client.hget(f'user:{user_id}', 'user_dir')
+    transcript_list_path = os.path.join(user_dir, "transcript_list.jsonl")
+    redis_client.hset(f'user:{user_id}', 'transcript_list_path', transcript_list_path)
+
+    # Save transcript_list (it's a list of dicts) as a .json file
+    with open(transcript_list_path, "w") as transcript_list_file:
+        for transcript in transcript_list:
+            json.dump(transcript, transcript_list_file)
+            transcript_list_file.write('\n')
+    
+    return {"message": "Transcript list saved"}
+
+@app.route("/get_transcript_list",methods=["GET"])
+def get_transcript_list():
+    user_id = request.cookies.get('user_id', None)
+    if not user_id or not redis_client.hexists(f'user:{user_id}', 'transcript_list_path'):
+        return jsonify({"error": "No user ID found"}), 400
+    transcript_list_path = redis_client.hget(f'user:{user_id}', 'transcript_list_path')
+    transcript_list = []
+
+    with open(transcript_list_path, "r") as transcript_list_file:
+        for line in transcript_list_file:
+            transcript_list.append(json.loads(line))
+
+    return {"transcript_list": transcript_list}
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8000, debug=True)
