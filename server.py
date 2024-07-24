@@ -23,12 +23,12 @@ CWD = os.getcwd()
 HISTORY_DIR = os.path.join(CWD, "data_history")
 DATA_DIR = os.path.join(CWD, "data")
 
-if os.path.exists(DATA_DIR) and os.listdir(DATA_DIR):
-    src_dir = DATA_DIR
-    current_date = datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
-    dest_dir = os.path.join(HISTORY_DIR, f"[{current_date}]_data")
-    shutil.copytree(src_dir, dest_dir,dirs_exist_ok=True) 
-    emptydir(src_dir, delete_dirs=True)
+# if os.path.exists(DATA_DIR) and os.listdir(DATA_DIR): #Comment this code block if you want to keep the data
+#     src_dir = DATA_DIR
+#     current_date = datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
+#     dest_dir = os.path.join(HISTORY_DIR, f"[{current_date}]_data")
+#     shutil.copytree(src_dir, dest_dir,dirs_exist_ok=True) 
+#     emptydir(src_dir, delete_dirs=True)
 
 makedir(HISTORY_DIR)
 makedir(DATA_DIR)
@@ -37,7 +37,7 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 redis_client = redis.StrictRedis(host='localhost', port=6379, db=0,decode_responses=True)
 
-redis_client.flushdb() # ensure that redis_client is completely empty. For debugging purposes
+# redis_client.flushdb() # ensure that redis_client is completely empty. Comment this line if you want to keep the user data
 
 # Configure server-side session storage
 app.config['SESSION_TYPE'] = 'redis'
@@ -106,8 +106,8 @@ def setup_user_dir(username,user_id):
         redis_client.hset(f'user:{user_id}', 'user_dir', user_dir)
     
     if not redis_client.hexists(f'user:{user_id}', 'message_history_path'):
-        message_history = []
-        message_history_path = os.path.join(user_dir, "message_history.txt")
+        message_history = init_message_history
+        message_history_path = os.path.join(user_dir, "backend_chatbot_messages.txt")
         redis_client.hset(f'user:{user_id}', 'message_history_path', message_history_path)
         with open(message_history_path, "w") as message_history_file:
             for message in message_history:
@@ -152,8 +152,10 @@ def get_user_id():
 @app.route("/get_documents", methods=["GET"])
 def get_documents():
     user_id = request.cookies.get('user_id', None)
-    if not user_id or not redis_client.hexists(f'user:{user_id}', 'document_db_path'):
+    if not user_id:
         return jsonify({"error": "No user ID found"}), 400
+    if not redis_client.hexists(f'user:{user_id}', 'document_db_path'):
+        return jsonify({"documents": []})
     document_db_path = redis_client.hget(f'user:{user_id}', 'document_db_path')
     document_db = pd.read_pickle(document_db_path)
     titles = document_db['title'].unique().tolist()
@@ -377,7 +379,7 @@ def message_chatbot():
 
     visual_response=None
     if(image_data):
-        visual_history = message_history.copy()
+        visual_history = init_message_history.copy()
         visual_instruction = f"""
             Make a description of the image attached in 1-2 sentences. Next, with the context of the image, answer the query in 1-2 sentences.
             Query: {message}
@@ -434,7 +436,7 @@ def message_chatbot():
         with open(message_history_path, "r") as message_history_file:
             session_message_history = [json.loads(line) for line in message_history_file]
     else:
-        session_message_history = message_history 
+        session_message_history = init_message_history 
 
     response,session_message_history =  query(full_instruction, 
                     model_name=model, temp=temperature, 
@@ -592,8 +594,10 @@ def save_recording():
 @app.route("/get_recording",methods=["GET"])
 def get_recording():
     user_id = request.cookies.get('user_id', None)
-    if not user_id or not redis_client.hexists(f'user:{user_id}', 'recording_path'):
+    if not user_id:
         return jsonify({"error": "No user ID found"}), 400
+    if not redis_client.hexists(f'user:{user_id}', 'recording_path'):
+        return {"recording": {}}
     recording_path = redis_client.hget(f'user:{user_id}', 'recording_path')
     recording = {}
 
@@ -604,8 +608,150 @@ def get_recording():
 
 @app.route("/save_feedback_list", methods=["POST"])
 def save_feedback_list():
+    user_id = request.cookies.get('user_id', None)
+    form_data = request.get_json()
+    feedback_list = form_data["feedback_list"]
+    if not user_id or not redis_client.hexists(f'user:{user_id}', 'user_dir'):
+        return jsonify({"error": "No user ID found"}), 400
+    
+    user_dir = redis_client.hget(f'user:{user_id}', 'user_dir')
+    feedback_list_path = os.path.join(user_dir, "feedback_list.jsonl")
+    redis_client.hset(f'user:{user_id}', 'feedback_list_path', feedback_list_path)
 
-    return 
+    with open(feedback_list_path, "w") as feedback_list_file:
+        for feedback in feedback_list:
+            json.dump(feedback, feedback_list_file)
+            feedback_list_file.write('\n')
+    return  {"message": "Feedback list saved"}
+
+@app.route("/get_feedback_list",methods=["GET"])
+def get_feedback_list():
+    user_id = request.cookies.get('user_id', None)
+    if not user_id:
+        return jsonify({"error": "No user ID found"}), 400
+    
+    if not redis_client.hexists(f'user:{user_id}', 'feedback_list_path'):
+        return {"feedback_list": []}
+    feedback_list_path = redis_client.hget(f'user:{user_id}', 'feedback_list_path')
+
+    if not os.path.exists(feedback_list_path):
+        return {"feedback_list": []}
+    feedback_list = []
+
+    with open(feedback_list_path, "r") as feedback_list_file:
+        for line in feedback_list_file:
+            feedback_list.append(json.loads(line))
+    return {"feedback_list": feedback_list}
+
+@app.route("/save_display_chatbot_messages", methods=["POST"])
+def save_display_chatbot_messages():
+    user_id = request.cookies.get('user_id', None)
+    form_data = request.get_json()
+    display_chatbot_messages = form_data["display_chatbot_messages"]
+    if not user_id or not redis_client.hexists(f'user:{user_id}', 'user_dir'):
+        return jsonify({"error": "No user ID found"}), 400
+    
+    user_dir = redis_client.hget(f'user:{user_id}', 'user_dir')
+    display_chatbot_messages_path = os.path.join(user_dir, "display_chatbot_messages.jsonl")
+    redis_client.hset(f'user:{user_id}', 'display_chatbot_messages_path', display_chatbot_messages_path)
+
+    with open(display_chatbot_messages_path, "w") as display_chatbot_messages_file:
+        for message in display_chatbot_messages:
+            json.dump(message, display_chatbot_messages_file)
+            display_chatbot_messages_file.write('\n')
+    return  {"message": "Display chatbot messages saved"}
+
+@app.route("/get_display_chatbot_messages",methods=["GET"])
+def get_display_chatbot_messages():
+    user_id = request.cookies.get('user_id', None)
+    display_chatbot_messages = init_message_history
+    if not user_id:
+        return jsonify({"error": "No user ID found"}), 400
+    if not redis_client.hexists(f'user:{user_id}', 'display_chatbot_messages_path'):
+        return {"display_chatbot_messages": init_message_history}
+    display_chatbot_messages_path = redis_client.hget(f'user:{user_id}', 'display_chatbot_messages_path')
+
+    
+    if not os.path.exists(display_chatbot_messages_path):
+        return {"display_chatbot_messages": init_message_history}
+
+    with open(display_chatbot_messages_path, "r") as display_chatbot_messages_file:
+        for line in display_chatbot_messages_file:
+            display_chatbot_messages.append(json.loads(line))
+    return {"display_chatbot_messages": display_chatbot_messages}
+
+@app.route("/save_my_notes", methods=["POST"])
+def save_my_notes():
+    user_id = request.cookies.get('user_id', None)
+    form_data = request.get_json()
+    my_notes = form_data["my_notes"]
+    if not user_id or not redis_client.hexists(f'user:{user_id}', 'user_dir'):
+        return jsonify({"error": "No user ID found"}), 400
+    
+    user_dir = redis_client.hget(f'user:{user_id}', 'user_dir')
+    my_notes_path = os.path.join(user_dir, "my_notes.jsonl")
+    redis_client.hset(f'user:{user_id}', 'my_notes_path', my_notes_path)
+
+    with open(my_notes_path, "w") as my_notes_file:
+        for note in my_notes:
+            json.dump(note, my_notes_file)
+            my_notes_file.write('\n')
+    return  {"message": "My notes saved"}
+
+@app.route("/get_my_notes",methods=["GET"])
+def get_my_notes():
+    user_id = request.cookies.get('user_id', None)
+    my_notes = []
+    if not user_id:
+        return jsonify({"error": "No user ID found"}), 400
+    if not redis_client.hexists(f'user:{user_id}', 'my_notes_path'):
+        return {"my_notes": []}
+    my_notes_path = redis_client.hget(f'user:{user_id}', 'my_notes_path')
+
+    if not os.path.exists(my_notes_path):
+        return {"my_notes": []}
+
+    with open(my_notes_path, "r") as my_notes_file:
+        for line in my_notes_file:
+            my_notes.append(json.loads(line))
+    return {"my_notes": my_notes}
+
+@app.route("/save_feedback_notes",methods=["POST"])
+def save_feedback_notes():
+    user_id = request.cookies.get('user_id', None)
+    form_data = request.get_json()
+    feedback_notes = form_data["feedback_notes"]
+    if not user_id or not redis_client.hexists(f'user:{user_id}', 'user_dir'):
+        return jsonify({"error": "No user ID found"}), 400
+    
+    user_dir = redis_client.hget(f'user:{user_id}', 'user_dir')
+    feedback_notes_path = os.path.join(user_dir, "feedback_notes.jsonl")
+    redis_client.hset(f'user:{user_id}', 'feedback_notes_path', feedback_notes_path)
+
+    with open(feedback_notes_path, "w") as feedback_notes_file:
+        for key, value in feedback_notes.items():
+            feedback_notes_file.write(json.dumps({key: value}))
+            feedback_notes_file.write('\n')
+
+    return  {"message": "Feedback notes saved"}
+
+@app.route("/get_feedback_notes",methods=["GET"])
+def get_feedback_notes():
+    user_id = request.cookies.get('user_id', None)
+    feedback_notes = {}
+    if not user_id:
+        return jsonify({"error": "No user ID found"}), 400
+    if not redis_client.hexists(f'user:{user_id}', 'feedback_notes_path'):
+        return {"feedback_notes": {}}
+    feedback_notes_path = redis_client.hget(f'user:{user_id}', 'feedback_notes_path')
+
+    if not os.path.exists(feedback_notes_path):
+        return {"feedback_notes": {}}
+
+    with open(feedback_notes_path, "r") as feedback_notes_file:
+        for line in feedback_notes_file:
+            feedback_notes.update(json.loads(line))
+    return {"feedback_notes": feedback_notes}
 
 
 
