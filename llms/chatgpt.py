@@ -36,7 +36,7 @@ temperature=0.0
 
 system_prompt = "You are an expert senior interior designer who is tasked to assist less experienced interior designers like students and junior interior designers with their work by answering their questions on a wide range of interior design topics."
 
-message_history = [{"role":"system", "content":system_prompt}]
+init_message_history = [{"role":"system", "content":system_prompt}]
 
 def escape_contractions(text):
     # Define a function to escape the apostrophes in contractions
@@ -111,7 +111,7 @@ def check_and_trim_message_history(message_history, model_name=model_name):
         while num_tokens_from_messages(message_history, model=model_name) > max_tokens - offset:
             del message_history[1] # Delete the 2nd message in the history. The first message is always the system prompt, which should not be deleted.
 
-def query(query,role="user", model_name=model_name, temp=temperature, max_output_tokens=max_output_tokens, message_history=message_history,image=None):
+def query(query,role="user", model_name=model_name, temp=temperature, max_output_tokens=max_output_tokens, message_history=init_message_history,image=None):
     
     # Remove all \n's in the query for efficiency
     query = query.replace("\n", " ")
