@@ -1,4 +1,9 @@
-import os, shutil
+import os, shutil, base64, re
+
+def is_base64_image(data):
+    base64_pattern = re.compile(r'^data:image/(png|jpeg|jpg);base64,([A-Za-z0-9+/=]+)$')
+    return base64_pattern.match(data)
+
 
 def makedir(dir_path):
     try:

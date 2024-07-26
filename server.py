@@ -11,7 +11,7 @@ import rag
 
 from datetime import datetime
 
-from utils import makedir, emptydir
+from utils import makedir, emptydir, is_base64_image
 from transcribe import transcription_procedure, read_transcript
 from embedding import *
 from llms.chatgpt import *
@@ -19,6 +19,10 @@ import time
 import random
 
 CWD = os.getcwd()
+
+app = Flask(__name__)
+app.secret_key = os.urandom(24)
+redis_client = redis.StrictRedis(host='localhost', port=6379, db=0,decode_responses=True)
 
 HISTORY_DIR = os.path.join(CWD, "data_history")
 DATA_DIR = os.path.join(CWD, "data")
@@ -29,15 +33,11 @@ DATA_DIR = os.path.join(CWD, "data")
 #     dest_dir = os.path.join(HISTORY_DIR, f"[{current_date}]_data")
 #     shutil.copytree(src_dir, dest_dir,dirs_exist_ok=True) 
 #     emptydir(src_dir, delete_dirs=True)
+# redis_client.flushdb() # ensure that redis_client is completely empty. Comment this line if you want to keep the user data
 
 makedir(HISTORY_DIR)
 makedir(DATA_DIR)
 
-app = Flask(__name__)
-app.secret_key = os.urandom(24)
-redis_client = redis.StrictRedis(host='localhost', port=6379, db=0,decode_responses=True)
-
-# redis_client.flushdb() # ensure that redis_client is completely empty. Comment this line if you want to keep the user data
 
 # Configure server-side session storage
 app.config['SESSION_TYPE'] = 'redis'
@@ -199,6 +199,12 @@ def fetch_video():
     _, file_ext = os.path.splitext(video_path)
     # return send_file(video_path, mimetype=f"{type}/{file_ext[1:]}")
     return send_file(video_path, as_attachment=True)
+
+@app.route("/fetch_image", methods=["POST"])
+def fetch_image():
+    form_data = request.get_json()
+    image_path = form_data["image_path"]
+    return send_file(image_path, mimetype="image/png")
 
 @app.route("/download_screen",methods=["POST"])
 def download_screen_recording():
@@ -385,7 +391,7 @@ def message_chatbot():
             Query: {message}
         """
         visual_response,_ = query(visual_instruction, model_name="gpt-4o", temp=0.0, max_output_tokens=128, message_history=visual_history, image=image_data)
-        pass
+
 
     n_rows = transcript_db.shape[0]
     top_n = 5
@@ -453,6 +459,34 @@ def message_chatbot():
     end_query = time.time()
     print(f"Time taken to query chatbot: {end_query - start_query} seconds")
     return {"chatbot_response": response}
+
+@app.route("/remove_from_backend_chatbot_messages", methods=["POST"])
+def remove_from_backend_chatbot_messages():
+    form_data = request.get_json()
+    user_message_idx = form_data["user_message_idx"]
+    assistant_message_idx = form_data["assistant_message_idx"]
+
+    user_id = request.cookies.get('user_id', None)
+    if not user_id or not redis_client.hexists(f'user:{user_id}', 'message_history_path'):
+        return jsonify({"error": "No user ID found"}), 400
+    
+    message_history_path = redis_client.hget(f'user:{user_id}', 'message_history_path')
+
+    with open(message_history_path, "r") as message_history_file:
+        session_message_history = [json.loads(line) for line in message_history_file]
+
+    if user_message_idx < len(session_message_history) and assistant_message_idx < len(session_message_history) and user_message_idx > 0 and assistant_message_idx > 0:
+        session_message_history.pop(assistant_message_idx) 
+        session_message_history.pop(user_message_idx)
+        
+        with open(message_history_path, "w") as message_history_file:
+            for message in session_message_history:
+                message_history_file.write(json.dumps(message))
+                message_history_file.write('\n')
+    else:
+        return {"message": "Messages not removed"}
+    
+    return {"message": "Messages removed"}
 
 @app.route("/autodetect_feedback", methods=["POST"])
 def autodetect_feedback():
@@ -584,7 +618,6 @@ def save_recording():
     recording_path = os.path.join(user_dir, "recording.jsonl")
     redis_client.hset(f'user:{user_id}', 'recording_path', recording_path)
 
-    # Recording is a dict. save recording as a .txt file? 
     with open(recording_path, "w") as recording_file:
         json.dump(recording, recording_file)
         recording_file.write('\n')
@@ -753,6 +786,59 @@ def get_feedback_notes():
             feedback_notes.update(json.loads(line))
     return {"feedback_notes": feedback_notes}
 
+@app.route("/delete_recording", methods=["POST"])
+def delete_recording():
+    user_id = request.cookies.get('user_id', None)
+    if not user_id or not redis_client.hexists(f'user:{user_id}', 'user_dir'):
+        return jsonify({"error": "No user ID found"}), 400
+    user_dir = redis_client.hget(f'user:{user_id}', 'user_dir')
+
+    recording = request.get_json()['recording']
+    if("video_path" in recording):
+        video_path = recording["video_path"]
+        if os.path.exists(video_path):
+            os.remove(video_path)
+    if("audio_path" in recording):
+        audio_path = recording["audio_path"]
+        if os.path.exists(audio_path):
+            os.remove(audio_path)
+
+    recording_path = os.path.join(user_dir, "recording.jsonl")
+    os.remove(recording_path)
+
+    redis_client.hdel(f'user:{user_id}', 'recording_path')
+    return {"message": "Recording deleted"}
+
+@app.route("/save_image", methods=["POST"])
+def save_image():
+    user_id = request.cookies.get('user_id', None)
+    if not user_id or not redis_client.hexists(f'user:{user_id}', 'user_dir'):
+        return jsonify({"error": "No user ID found"}), 400
+    user_dir = redis_client.hget(f'user:{user_id}', 'user_dir')
+    uploaded_images_dir = os.path.join(user_dir, "uploaded_images")
+    os.makedirs(uploaded_images_dir, exist_ok=True)
+
+    image_data = request.get_json().get("image_data", None)
+
+    if not image_data or not is_base64_image(image_data):
+        return jsonify({"error": "No image sent"}), 400
+    
+    # Extract base64 string without the prefix
+    base64_str = image_data.split(",")[1]
+
+    # Decode the base64 string
+    image_bytes = base64.b64decode(base64_str)
+
+    
+    # Generate a randomized filename
+    filename = f"{uuid.uuid4()}.png"
+    image_path = os.path.join(uploaded_images_dir, filename)
+
+    # Save the image
+    with open(image_path, "wb") as image_file:
+        image_file.write(image_bytes)
+
+    return {"message": "Image saved", "image_path": image_path}
 
 
 if __name__ == "__main__":
