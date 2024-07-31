@@ -165,8 +165,8 @@ def get_documents():
 @app.route("/log_action", methods=["POST"])
 def log_action(): 
     form_data = request.get_json()
-    action= form_data["action"]
-    data = form_data["data"]
+    action= form_data.get("action", None)
+    data = form_data.get("data", None)
     print(f"Action: {action}")
 
     user_id = request.cookies.get('user_id', None)
@@ -178,7 +178,10 @@ def log_action():
 
     log_file_path = os.path.join(user_dir, "action_logs.jsonl")
     with open(log_file_path, "a") as log_file:
-        log_entry = {action: data}
+        if data:
+            log_entry = {action: data}
+        else: 
+            log_entry = {action: None}
         json.dump(log_entry, log_file)
         log_file.write('\n')
 
