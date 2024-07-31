@@ -383,14 +383,14 @@ def message_chatbot():
     document_db = pd.read_pickle(document_db_path)
     transcript_db = pd.read_pickle(transcript_db_path)
 
-    visual_response=None
-    if(image_data):
-        visual_history = init_message_history.copy()
-        visual_instruction = f"""
-            Make a description of the image attached in 1-2 sentences. Next, with the context of the image, answer the query in 1-2 sentences.
-            Query: {message}
-        """
-        visual_response,_ = query(visual_instruction, model_name="gpt-4o", temp=0.0, max_output_tokens=128, message_history=visual_history, image=image_data)
+    # visual_response=None
+    # if(image_data):
+    #     visual_history = init_message_history.copy()
+    #     visual_instruction = f"""
+    #         Make a description of the image attached in 1-2 sentences. Next, with the context of the image, answer the query in 1-2 sentences.
+    #         Query: {message}
+    #     """
+    #     visual_response,_ = query(visual_instruction, model_name="gpt-4o", temp=0.0, max_output_tokens=128, message_history=visual_history, image=image_data)
 
 
     n_rows = transcript_db.shape[0]
@@ -415,7 +415,6 @@ def message_chatbot():
     Please provide a response to the following query.
     Query: {message}"""
 
-
     contexts = f"""
     Moreover, you can use following transcript excerpts and document excerpts as references to your answer, although you do not need to use them if they are not relevant to the query.
     Here are the top related transcript excerpts: 
@@ -430,8 +429,8 @@ def message_chatbot():
     """
 
     visual_context = ""
-    if visual_response:
-        visual_context = f"\nMoreover, the user attached an image for visual context. Here is the reponse to the image: \n{visual_response}. \nYou may use this response as context and to help with your answer."
+    if image_data:
+        visual_context = f"\nMoreover, the user attached an image for visual context. Please use the image as context and to help with your answer."
 
     last_instruction="\n\nTogether with the contexts retrieved, and the visual context (if any), please respond concisely the query. Please answer in 1-3 sentences at most."
     
@@ -447,7 +446,8 @@ def message_chatbot():
     response,session_message_history =  query(full_instruction, 
                     model_name=model, temp=temperature, 
                     max_output_tokens=max_output_tokens, 
-                    message_history=session_message_history)
+                    message_history=session_message_history,
+                    image=image_data)
     
 
     # Save the updated message history
@@ -474,6 +474,15 @@ def remove_from_backend_chatbot_messages():
 
     with open(message_history_path, "r") as message_history_file:
         session_message_history = [json.loads(line) for line in message_history_file]
+    
+    user_message = session_message_history[user_message_idx]
+    assistant_message = session_message_history[assistant_message_idx]
+
+    if("image_path" in user_message):
+        image_path = user_message["image_path"]
+        if os.path.exists(image_path):
+            os.remove(image_path)
+
 
     if user_message_idx < len(session_message_history) and assistant_message_idx < len(session_message_history) and user_message_idx > 0 and assistant_message_idx > 0:
         session_message_history.pop(assistant_message_idx) 
@@ -514,7 +523,7 @@ def extract_audio_from_video():
         return 'No file sent', 400
     file = request.files['file']
     if(type(file) is tuple):
-        return 'No file sent', 400
+        return {"message":'Audio extraction failed due to wrong filename?'}
     if file.filename == '':
         return 'No selected file', 400
     video_extensions = ('.mp4', '.avi', '.mov', '.mkv', '.webm', '.wav', '.flv', '.wmv', '.mpeg', '.mpg', '.3gp', '.m4v','.aac')  # Add more video extensions if needed
