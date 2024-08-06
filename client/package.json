@@ -14,6 +14,7 @@
     "@rollup/plugin-commonjs": "^24.0.0",
     "@rollup/plugin-node-resolve": "^15.0.0",
     "@rollup/plugin-terser": "^0.4.0",
+    "@svelte-put/copy": "^3.0.2",
     "autoprefixer": "^10.4.16",
     "gh-pages": "^6.1.1",
     "postcss": "^8.4.32",
@@ -25,6 +26,8 @@
     "svelte": "^3.55.0"
   },
   "dependencies": {
+    "html2canvas": "^1.4.1",
+    "md-block": "^0.0.1",
     "sirv-cli": "^2.0.0",
     "svelte-markdown": "^0.2.3"
   }
