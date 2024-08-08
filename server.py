@@ -807,19 +807,51 @@ def delete_recording():
 
     recording = request.get_json()['recording']
     if("video_path" in recording):
-        video_path = recording["video_path"]
-        if os.path.exists(video_path):
-            os.remove(video_path)
+        if(recording["video_path"] is not None):
+            video_path = recording["video_path"]
+            if os.path.exists(video_path):
+                os.remove(video_path)
+
     if("audio_path" in recording):
-        audio_path = recording["audio_path"]
-        if os.path.exists(audio_path):
-            os.remove(audio_path)
+        if(recording["audio_path"] is not None):
+            audio_path = recording["audio_path"]
+            if os.path.exists(audio_path):
+                os.remove(audio_path)
 
     recording_path = os.path.join(user_dir, "recording.jsonl")
     os.remove(recording_path)
-
     redis_client.hdel(f'user:{user_id}', 'recording_path')
+
     return {"message": "Recording deleted"}
+
+@app.route("/delete_recording_media", methods=["POST"])
+def delete_recording_media():
+    user_id = request.cookies.get('user_id', None)
+    if not user_id or not redis_client.hexists(f'user:{user_id}', 'user_dir'):
+        return jsonify({"error": "No user ID found"}), 400
+    user_dir = redis_client.hget(f'user:{user_id}', 'user_dir')
+
+    recording_path = redis_client.hget(f'user:{user_id}', 'recording_path')
+    if not recording_path:
+        return {"message": "No recording found"}
+
+    recording = request.get_json()['recording']
+    if("video_path" in recording):
+        if(recording["video_path"] is not None):
+            video_path = recording["video_path"]
+            if os.path.exists(video_path):
+                os.remove(video_path)
+
+    if("audio_path" in recording):
+        if(recording["audio_path"] is not None):
+            audio_path = recording["audio_path"]
+            if os.path.exists(audio_path):
+                os.remove(audio_path)
+
+
+    
+    return {"message": "Recording media deleted"}
+
 
 @app.route("/save_image", methods=["POST"])
 def save_image():
