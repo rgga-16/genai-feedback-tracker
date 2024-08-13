@@ -397,7 +397,7 @@ def message_chatbot():
 
 
     n_rows = transcript_db.shape[0]
-    top_n = 5
+    top_n = 0.2*n_rows
     transcript_excerpts, relatednesses = strings_ranked_by_relatedness(
         message, 
         transcript_db,
@@ -406,7 +406,7 @@ def message_chatbot():
     transcript_excerpts_string = "\n".join(transcript_excerpts)
 
     n_rows = document_db.shape[0]
-    top_n = 5
+    top_n = 0.2*n_rows
     document_excerpts, relatednesses = strings_ranked_by_relatedness(
         message, 
         document_db,
@@ -426,7 +426,7 @@ def message_chatbot():
     
     Here are the top related document excerpts:
     {document_excerpts_string}
-    If your answer is based on a specific document excerpt, please mention the page number of the excerpt and the reference (e.g. book) name.
+    If your answer is based on a specific document excerpt, please mention the page number of the excerpt and the name of the document (e.g. book).
 
     If the query is not related to any of the transcripts or documents, answer the query as best as possible based on your own knowledge as an interior design expert.
     """
@@ -435,7 +435,7 @@ def message_chatbot():
     if image_data:
         visual_context = f"\nMoreover, the user attached an image for visual context. Please use the image as context and to help with your answer."
 
-    last_instruction="\n\nTogether with the contexts retrieved, and the visual context (if any), please respond concisely the query. Please answer in 1-3 sentences at most."
+    last_instruction="\n\nTogether with the contexts retrieved, and the visual context (if any), please respond to the query."
     
     full_instruction = instruction + visual_context + contexts + last_instruction
 
@@ -807,19 +807,51 @@ def delete_recording():
 
     recording = request.get_json()['recording']
     if("video_path" in recording):
-        video_path = recording["video_path"]
-        if os.path.exists(video_path):
-            os.remove(video_path)
+        if(recording["video_path"] is not None):
+            video_path = recording["video_path"]
+            if os.path.exists(video_path):
+                os.remove(video_path)
+
     if("audio_path" in recording):
-        audio_path = recording["audio_path"]
-        if os.path.exists(audio_path):
-            os.remove(audio_path)
+        if(recording["audio_path"] is not None):
+            audio_path = recording["audio_path"]
+            if os.path.exists(audio_path):
+                os.remove(audio_path)
 
     recording_path = os.path.join(user_dir, "recording.jsonl")
     os.remove(recording_path)
-
     redis_client.hdel(f'user:{user_id}', 'recording_path')
+
     return {"message": "Recording deleted"}
+
+@app.route("/delete_recording_media", methods=["POST"])
+def delete_recording_media():
+    user_id = request.cookies.get('user_id', None)
+    if not user_id or not redis_client.hexists(f'user:{user_id}', 'user_dir'):
+        return jsonify({"error": "No user ID found"}), 400
+    user_dir = redis_client.hget(f'user:{user_id}', 'user_dir')
+
+    recording_path = redis_client.hget(f'user:{user_id}', 'recording_path')
+    if not recording_path:
+        return {"message": "No recording found"}
+
+    recording = request.get_json()['recording']
+    if("video_path" in recording):
+        if(recording["video_path"] is not None):
+            video_path = recording["video_path"]
+            if os.path.exists(video_path):
+                os.remove(video_path)
+
+    if("audio_path" in recording):
+        if(recording["audio_path"] is not None):
+            audio_path = recording["audio_path"]
+            if os.path.exists(audio_path):
+                os.remove(audio_path)
+
+
+    
+    return {"message": "Recording media deleted"}
+
 
 @app.route("/save_image", methods=["POST"])
 def save_image():
