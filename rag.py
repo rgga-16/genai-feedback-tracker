@@ -1,6 +1,8 @@
 from langchain_community.document_loaders import PyPDFLoader
-
+from langchain_openai import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_core.documents import Document
+from langchain_chroma import Chroma
 
 import pandas as pd
 import ast, os
@@ -31,6 +33,19 @@ FILES = [
         "extract_images": True
     },
 ]
+
+
+def texts_to_documents(texts):
+    return [text_to_document(text,idx) for idx, text in enumerate(texts)]
+
+def text_to_document(text,idx):
+    return Document(
+        page_content=text, 
+        metadata={"line_number": idx},
+    )   
+
+def documents_to_chroma_db(documents):
+    return Chroma.from_documents(documents, OpenAIEmbeddings())
 
 
 def remove_pages_from_pdf(pages, remove_pages):

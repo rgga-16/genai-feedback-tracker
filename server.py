@@ -274,6 +274,34 @@ def transcript_to_list():
 
     return {"transcript_list": transcript_list}
 
+@app.route("/embed_transcript2", methods=["POST"])
+def embed_transcript2():
+    user_id = request.cookies.get('user_id', None)
+    form_data = request.get_json()
+    transcript = form_data["transcript"]
+
+    embeddings = []
+
+    transcript_text = convert_to_srt_string(transcript)
+    text_chunks = divide_into_chunks(transcript,max_chunk_size=256)
+
+    # Add each text chunk into a document
+    documents = rag.texts_to_documents(text_chunks)
+
+    # Embed the document
+    transcript_db = rag.documents_to_chroma_db(documents)
+
+    if(user_id is None or not redis_client.hexists(f'user:{user_id}', 'user_dir')):
+        return jsonify({"error": "No user ID found"}), 400
+    
+    user_dir = redis_client.hget(f'user:{user_id}', 'user_dir')
+    transcript_db_path = os.path.join(user_dir, "transcript.pickle")
+    redis_client.hset(f'user:{user_id}', 'transcript_db_path', transcript_db_path)
+    
+    transcript_db.to_pickle(transcript_db_path)
+    return {"message": "Transcripts embedded"}
+
+
 @app.route("/embed_transcript", methods=["POST"])
 def embed_transcript():
     user_id = request.cookies.get('user_id', None)
@@ -385,16 +413,6 @@ def message_chatbot():
 
     document_db = pd.read_pickle(document_db_path)
     transcript_db = pd.read_pickle(transcript_db_path)
-
-    # visual_response=None
-    # if(image_data):
-    #     visual_history = init_message_history.copy()
-    #     visual_instruction = f"""
-    #         Make a description of the image attached in 1-2 sentences. Next, with the context of the image, answer the query in 1-2 sentences.
-    #         Query: {message}
-    #     """
-    #     visual_response,_ = query(visual_instruction, model_name="gpt-4o", temp=0.0, max_output_tokens=128, message_history=visual_history, image=image_data)
-
 
     n_rows = transcript_db.shape[0]
     top_n = 0.2*n_rows
