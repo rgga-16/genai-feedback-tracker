@@ -41,7 +41,7 @@ makedir(DATA_DIR)
 
 # Configure server-side session storage
 app.config['SESSION_TYPE'] = 'redis'
-app.config['SESSION_PERMANENT'] = False
+app.config['SESSION_PERMANENT'] = True
 app.config['SESSION_USE_SIGNER'] = True
 app.config['SESSION_KEY_PREFIX'] = 'flask_session:'
 app.config['SESSION_REDIS'] = redis.from_url('redis://localhost:6379')
@@ -263,7 +263,18 @@ def download_mic_recording():
 def simplify_transcript():
     form_data = request.get_json()
     transcript = form_data["transcript"]
-    simplified_transcript = simplify_transript(transcript,diarized=False)
+    simplified_transcript = simplify_transript(transcript,diarized=True)
+
+    # Save the simplified_transcript string as a .srt file 
+    user_id = request.cookies.get('user_id', None)
+    if not user_id or not redis_client.hexists(f'user:{user_id}', 'user_dir'):
+        return jsonify({"error": "No user ID found"}), 400
+    user_dir = redis_client.hget(f'user:{user_id}', 'user_dir')
+    simplified_transcript_path = os.path.join(user_dir, "simplified_transcript.srt")
+    with open(simplified_transcript_path, "w") as simplified_transcript_file:
+        simplified_transcript_file.write(simplified_transcript)
+        
+
     return {"simplified_transcript": simplified_transcript}
 
 @app.route("/transcript_to_list", methods=["POST"])

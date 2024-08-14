@@ -1,6 +1,9 @@
 
 from openai import OpenAI  #If first time using this repo, set the environment variable "OPENAI_API_KEY", to your API key from OPENAI
 import tiktoken, ast, re
+from pydantic import BaseModel 
+from typing import List
+from enum import Enum
 
 contractions = [
     "ain't", "aren't", "can't", "could've", "couldn't", "didn't", "doesn't", "don't",
@@ -195,6 +198,25 @@ def initial_query(transcripts):
     initial_response,_ = query(initial_prompt)
     return initial_response
 
+
+class FeedbackType(str, Enum):
+    positive = "positive"
+    critical = "critical"
+    none = "none"
+
+class Feedback(BaseModel):
+    type: FeedbackType
+    quote: str
+    dialogue_id: int
+    speaker: str
+    # done: bool
+    # task: str
+    # show_paraphrased: bool
+
+class FeedbackList(BaseModel):
+    feedback_list: List[Feedback]
+
+
 def detect_feedback(transcript):
     feedback_list =[]
     system_prompt = """
@@ -239,42 +261,39 @@ def detect_feedback(transcript):
         print("Warning: Number of tokens in message history exceeds the maximum number of tokens allowed.")
         return [{"type": "error", "quote": f"Number of tokens in message history exceeds the maximum number of tokens allowed."}]
 
-    prompt=f"""
+    prompt=f"""Detect feedback in the following transcript:
     {transcript}
     """
+    message_history.append({"role":"user", "content":prompt})
+
+    completion = client.beta.chat.completions.parse(
+        model="gpt-4o-2024-08-06",
+        messages=message_history,
+        response_format=FeedbackList,
+    )
+
+    feedback_list=[]
+
+    if completion.refusal:
+        print(f"Refusal detected: {completion.refusal}")
+        feedback_list=[]
+        return feedback_list 
+    else:
+
+        feedback_list_init = completion.choices[0].message.parsed
+        feedback_list_init = feedback_list_init.feedback_list
     
-    response,_ = query(prompt, message_history=message_history, max_output_tokens= max_output_tokens, temp=0.0)
-    # response = response.replace("`", "") #Remove any ``` characters in response
-    response = response.replace("\n", "")
-    # Remove the triple backticks and the language identifier
-    response = response.replace("```python", "").replace("```", "").strip()
+        for feedback in feedback_list_init:
+            feedback_dict = {}
+            feedback_dict['type'] = feedback.type.value
+            feedback_dict['quote'] = feedback.quote
+            feedback_dict['dialogue_id'] = feedback.dialogue_id
+            feedback_dict['speaker'] = feedback.speaker
+            feedback_dict['done'] = False
+            feedback_dict['task'] = None
+            feedback_dict['show_paraphrased'] = False
+            feedback_list.append(feedback_dict)
 
-    # Find the start and end indices of the desired content
-    start_index = response.find('[')
-    end_index = response.rfind(']') + 1
-    response=response[start_index:end_index]
-
-    response = escape_contractions(response)
-
-    
-    # apostrophe_pattern = r"(\w+'\w+|n't)"
-    # replacement = lambda match: '\\' + match.group(0)
-    # response = re.sub(apostrophe_pattern, replacement, response)
-
-
-    # response =  re.sub(r'^.*?(\[.*\]).*$', r'\1', response, flags=re.DOTALL) # Remove any unneeded characters before the [ and after the ] in response
-    try:
-        feedback_list = ast.literal_eval(response)
-        
-        feedback_list = [{**feedback, 'done': False} for feedback in feedback_list] # Add a 'done' key to each feedback item to track if it has been addressed
-        feedback_list = [{'type': feedback['type'], 'quote': feedback['quote'], 'dialogue_id': int(feedback['dialogue_id']), 'speaker': feedback['speaker'], 'done': feedback['done']} for feedback in feedback_list] # Convert dialogue_id to int
-        feedback_list = [{**feedback,'task':None} for feedback in feedback_list] # Add a 'task' key to each feedback item to store the task associated with it
-        feedback_list = [{**feedback,'show_paraphrased':False} for feedback in feedback_list] # Add a 'show_paraphrased' key to each feedback item to track if the paraphrased feedback is shown or not.
-        
-        pass
-    except Exception as e:
-        print(f"Error: {e}")
-        feedback_list = []
     return feedback_list
 
 
