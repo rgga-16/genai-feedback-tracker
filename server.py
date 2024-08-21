@@ -263,7 +263,7 @@ def download_mic_recording():
 def simplify_transcript():
     form_data = request.get_json()
     transcript = form_data["transcript"]
-    simplified_transcript = simplify_transript(transcript,diarized=True)
+    simplified_transcript = simplify_transript(transcript,diarized=False)
 
     # Save the simplified_transcript string as a .srt file 
     user_id = request.cookies.get('user_id', None)
@@ -407,21 +407,22 @@ def message_chatbot():
     #     visual_response,_ = query(visual_instruction, model_name="gpt-4o", temp=0.0, max_output_tokens=128, message_history=visual_history, image=image_data)
 
 
-    n_rows = transcript_db.shape[0]
-    top_n = 0.2*n_rows
+    n_rows_transcript = transcript_db.shape[0]
+    top_n_transcript = int(0.20*n_rows_transcript)
     transcript_excerpts, relatednesses = strings_ranked_by_relatedness(
         message, 
         transcript_db,
-        top_n=top_n
+        top_n=top_n_transcript
     )
     transcript_excerpts_string = "\n".join(transcript_excerpts)
 
-    n_rows = document_db.shape[0]
-    top_n = 0.2*n_rows
+    n_rows_documents = document_db.shape[0]
+    # top_n_documents = int(0.0125*n_rows_documents)
+    top_n_documents = int(10)
     document_excerpts, relatednesses = strings_ranked_by_relatedness(
         message, 
         document_db,
-        top_n=top_n
+        top_n=top_n_documents
     )
     document_excerpts_string = "\n".join(document_excerpts)
 
@@ -488,17 +489,17 @@ def remove_from_backend_chatbot_messages():
 
     with open(message_history_path, "r") as message_history_file:
         session_message_history = [json.loads(line) for line in message_history_file]
-    
-    user_message = session_message_history[user_message_idx]
-    assistant_message = session_message_history[assistant_message_idx]
 
-    if("image_path" in user_message):
-        image_path = user_message["image_path"]
-        if os.path.exists(image_path):
-            os.remove(image_path)
+    # Assuming session_message_history is a list
+    if 0 <= user_message_idx < len(session_message_history) and 0 <= assistant_message_idx < len(session_message_history):
+        user_message = session_message_history[user_message_idx]
+        assistant_message = session_message_history[assistant_message_idx]
 
+        if("image_path" in user_message):
+            image_path = user_message["image_path"]
+            if os.path.exists(image_path):
+                os.remove(image_path)
 
-    if user_message_idx < len(session_message_history) and assistant_message_idx < len(session_message_history) and user_message_idx > 0 and assistant_message_idx > 0:
         session_message_history.pop(assistant_message_idx) 
         session_message_history.pop(user_message_idx)
         
@@ -507,7 +508,9 @@ def remove_from_backend_chatbot_messages():
                 message_history_file.write(json.dumps(message))
                 message_history_file.write('\n')
     else:
-        return {"message": "Messages not removed"}
+        # Handle the case where the indices are out of bounds
+        print("Error: One or both indices are out of bounds.")
+        {"message": "Messages not removed"}
     
     return {"message": "Messages removed"}
 
@@ -711,6 +714,7 @@ def save_display_chatbot_messages():
     display_chatbot_messages_path = os.path.join(user_dir, "display_chatbot_messages.jsonl")
     redis_client.hset(f'user:{user_id}', 'display_chatbot_messages_path', display_chatbot_messages_path)
 
+    # Open the file in write mode to clear its contents before writing new data
     with open(display_chatbot_messages_path, "w") as display_chatbot_messages_file:
         for message in display_chatbot_messages:
             json.dump(message, display_chatbot_messages_file)
@@ -720,7 +724,7 @@ def save_display_chatbot_messages():
 @app.route("/get_display_chatbot_messages",methods=["GET"])
 def get_display_chatbot_messages():
     user_id = request.cookies.get('user_id', None)
-    display_chatbot_messages = init_message_history
+    display_chatbot_messages = []
     if not user_id:
         return jsonify({"error": "No user ID found"}), 400
     if not redis_client.hexists(f'user:{user_id}', 'display_chatbot_messages_path'):

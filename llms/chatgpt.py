@@ -1,4 +1,4 @@
-
+import openai
 from openai import OpenAI  #If first time using this repo, set the environment variable "OPENAI_API_KEY", to your API key from OPENAI
 import tiktoken, ast, re
 from pydantic import BaseModel 
@@ -265,34 +265,49 @@ def detect_feedback(transcript):
     {transcript}
     """
     message_history.append({"role":"user", "content":prompt})
-
-    completion = client.beta.chat.completions.parse(
-        model="gpt-4o-2024-08-06",
-        messages=message_history,
-        response_format=FeedbackList,
-    )
-
     feedback_list=[]
+    try:
 
-    if completion.refusal:
-        print(f"Refusal detected: {completion.refusal}")
+        completion = client.beta.chat.completions.parse(
+            model="gpt-4o-2024-08-06",
+            messages=message_history,
+            response_format=FeedbackList,
+        )
+
+
+        feedback_response = completion.choices[0].message 
+
+        if feedback_response.parsed:
+            feedback_list_init = completion.choices[0].message.parsed
+            feedback_list_init = feedback_list_init.feedback_list
+        
+            for feedback in feedback_list_init:
+                feedback_dict = {}
+                feedback_dict['type'] = feedback.type.value
+                feedback_dict['quote'] = feedback.quote
+                feedback_dict['dialogue_id'] = feedback.dialogue_id
+                feedback_dict['speaker'] = feedback.speaker
+                feedback_dict['done'] = False
+                feedback_dict['task'] = None
+                feedback_dict['show_paraphrased'] = False
+                feedback_list.append(feedback_dict)
+        elif feedback_response.refusal:
+            # handle refusal
+            print(f"Refusal detected: {feedback_response.refusal}")
+            feedback_list=[]
+
+    except Exception as e:
+        # Handle edge cases
+        if type(e) == openai.LengthFinishReasonError:
+            # Retry with a higher max tokens
+            print("Too many tokens: ", e)
+            pass
+        else:
+            # Handle other exceptions
+            print(e)
+            pass
         feedback_list=[]
-        return feedback_list 
-    else:
 
-        feedback_list_init = completion.choices[0].message.parsed
-        feedback_list_init = feedback_list_init.feedback_list
-    
-        for feedback in feedback_list_init:
-            feedback_dict = {}
-            feedback_dict['type'] = feedback.type.value
-            feedback_dict['quote'] = feedback.quote
-            feedback_dict['dialogue_id'] = feedback.dialogue_id
-            feedback_dict['speaker'] = feedback.speaker
-            feedback_dict['done'] = False
-            feedback_dict['task'] = None
-            feedback_dict['show_paraphrased'] = False
-            feedback_list.append(feedback_dict)
 
     return feedback_list
 
