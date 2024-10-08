@@ -2,6 +2,7 @@
 data_history
 data
 sample_recording
+archive
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
