@@ -1,5 +1,5 @@
 # Gunicorn and nginx tutorial: www.youtube.com/watch?v=KWIIPKbdxD0
-
+from datetime import datetime
 from flask import Flask, send_from_directory, request, send_file, session, jsonify
 from flask_session import Session
 import redis
@@ -177,15 +177,18 @@ def log_action():
     makedir(user_dir)
 
     log_file_path = os.path.join(user_dir, "action_logs.jsonl")
+
+    current_time = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+    log = f"[{current_time}] {action}"
     with open(log_file_path, "a") as log_file:
         if data:
-            log_entry = {action: data}
+            log_entry = {log: data}
         else: 
-            log_entry = {action: None}
+            log_entry = {log: None}
         json.dump(log_entry, log_file)
         log_file.write('\n')
 
-    return {"message": f"Action {action} logged"}
+    return {"message": f"Action {action} logged at {current_time}"}
 
 
 @app.route("/fetch_audio", methods=["POST"])
