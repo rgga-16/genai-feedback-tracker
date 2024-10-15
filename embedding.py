@@ -64,7 +64,7 @@ def simplify_transript(transcript:str,diarized=False):
     transcript_list = extract_lines_from_srt_string(transcript,diarized)
     simplifed_transcript_list=transcript_list
 
-    if transcript_list[0].get('speaker') is not None:
+    if len(transcript_list) > 0 and transcript_list[0].get('speaker') is not None:
         simplifed_transcript_list = simplify_transcript_list(transcript_list)
 
     simplified_transcript =  convert_to_srt_string(simplifed_transcript_list)
@@ -133,14 +133,14 @@ def strings_ranked_by_relatedness(
 
     strings_and_relatedness = []
     start_time = time.time()
-    if(type(df_clone['embedding'][0]) == str):
-        df_clone['embedding'] = df_clone['embedding'].apply(ast.literal_eval)
-        print('parsing string to list')
-        pass
-    if(type(df_clone['embedding'][0]) == list and len(df_clone['embedding'][0])==1):
-        df_clone['embedding'] = df_clone['embedding'].apply(lambda x: x[0])
-        print('converting list of list to list')
-        pass
+    # if(type(df_clone['embedding'][0]) == str):
+    #     df_clone['embedding'] = df_clone['embedding'].apply(ast.literal_eval)
+    #     print('parsing string to list')
+    #     pass
+    # if(type(df_clone['embedding'][0]) == list and len(df_clone['embedding'][0])==1):
+    #     df_clone['embedding'] = df_clone['embedding'].apply(lambda x: x[0])
+    #     print('converting list of list to list')
+    #     pass
     print(f"Time taken to convert embeddings to list: {time.time()-start_time}")
     
     # Test speed

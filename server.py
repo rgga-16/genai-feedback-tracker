@@ -1,5 +1,5 @@
 # Gunicorn and nginx tutorial: www.youtube.com/watch?v=KWIIPKbdxD0
-
+from datetime import datetime
 from flask import Flask, send_from_directory, request, send_file, session, jsonify
 from flask_session import Session
 import redis
@@ -41,7 +41,7 @@ makedir(DATA_DIR)
 
 # Configure server-side session storage
 app.config['SESSION_TYPE'] = 'redis'
-app.config['SESSION_PERMANENT'] = False
+app.config['SESSION_PERMANENT'] = True
 app.config['SESSION_USE_SIGNER'] = True
 app.config['SESSION_KEY_PREFIX'] = 'flask_session:'
 app.config['SESSION_REDIS'] = redis.from_url('redis://localhost:6379')
@@ -177,15 +177,18 @@ def log_action():
     makedir(user_dir)
 
     log_file_path = os.path.join(user_dir, "action_logs.jsonl")
+
+    current_time = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+    log = f"[{current_time}] {action}"
     with open(log_file_path, "a") as log_file:
         if data:
-            log_entry = {action: data}
+            log_entry = {log: data}
         else: 
-            log_entry = {action: None}
+            log_entry = {log: None}
         json.dump(log_entry, log_file)
         log_file.write('\n')
 
-    return {"message": f"Action {action} logged"}
+    return {"message": f"Action {action} logged at {current_time}"}
 
 
 @app.route("/fetch_audio", methods=["POST"])
@@ -264,6 +267,17 @@ def simplify_transcript():
     form_data = request.get_json()
     transcript = form_data["transcript"]
     simplified_transcript = simplify_transript(transcript,diarized=False)
+
+    # Save the simplified_transcript string as a .srt file 
+    user_id = request.cookies.get('user_id', None)
+    if not user_id or not redis_client.hexists(f'user:{user_id}', 'user_dir'):
+        return jsonify({"error": "No user ID found"}), 400
+    user_dir = redis_client.hget(f'user:{user_id}', 'user_dir')
+    simplified_transcript_path = os.path.join(user_dir, "simplified_transcript.srt")
+    with open(simplified_transcript_path, "w") as simplified_transcript_file:
+        simplified_transcript_file.write(simplified_transcript)
+        
+
     return {"simplified_transcript": simplified_transcript}
 
 @app.route("/transcript_to_list", methods=["POST"])
@@ -400,6 +414,9 @@ def message_chatbot():
     max_output_tokens = form_data.get("max_output_tokens", 256)
     temperature = form_data.get("temperature", 0.0)
     model = form_data.get("model", "gpt-4o")
+    refer_to_transcript = form_data.get("refer_to_transcript", True)
+    refer_to_documents = form_data.get("refer_to_documents", True)
+
 
     image_data = form_data.get("image_data", None)
     user_id = request.cookies.get('user_id', None)
@@ -414,21 +431,22 @@ def message_chatbot():
     document_db = pd.read_pickle(document_db_path)
     transcript_db = pd.read_pickle(transcript_db_path)
 
-    n_rows = transcript_db.shape[0]
-    top_n = 0.2*n_rows
+    n_rows_transcript = transcript_db.shape[0]
+    top_n_transcript = int(0.20*n_rows_transcript)
     transcript_excerpts, relatednesses = strings_ranked_by_relatedness(
         message, 
         transcript_db,
-        top_n=top_n
+        top_n=top_n_transcript
     )
     transcript_excerpts_string = "\n".join(transcript_excerpts)
 
-    n_rows = document_db.shape[0]
-    top_n = 0.2*n_rows
+    n_rows_documents = document_db.shape[0]
+    # top_n_documents = int(0.0125*n_rows_documents)
+    top_n_documents = int(10)
     document_excerpts, relatednesses = strings_ranked_by_relatedness(
         message, 
         document_db,
-        top_n=top_n
+        top_n=top_n_documents
     )
     document_excerpts_string = "\n".join(document_excerpts)
 
@@ -436,24 +454,40 @@ def message_chatbot():
     Please provide a response to the following query.
     Query: {message}"""
 
-    contexts = f"""
-    Moreover, you can use following transcript excerpts and document excerpts as references to your answer, although you do not need to use them if they are not relevant to the query.
-    Here are the top related transcript excerpts: 
-    {transcript_excerpts_string}
-    If your answer is based on a specific transcript excerpt, please mention the speaker and the timestamp of the excerpt, or the timestamp if there is no speaker mentioned.
-    
-    Here are the top related document excerpts:
-    {document_excerpts_string}
-    If your answer is based on a specific document excerpt, please mention the page number of the excerpt and the name of the document (e.g. book).
+    contexts =""
 
-    If the query is not related to any of the transcripts or documents, answer the query as best as possible based on your own knowledge as an interior design expert.
-    """
+    if refer_to_transcript:
+        transcript_context= f"""
+        You can use following transcript excerpts as references to your answer, although you do not need to use them if they are not relevant to the query.
+        Here are the top related transcript excerpts: 
+        {transcript_excerpts_string}
+        If your answer is based on a specific transcript excerpt, please mention the speaker and the timestamp of the excerpt, or the timestamp if there is no speaker mentioned.
+        """
+        contexts += transcript_context
+    
+    if refer_to_documents:
+        document_context = f"""
+        You can use following document excerpts as references to your answer, although you do not need to use them if they are not relevant to the query.
+        Here are the top related document excerpts:
+        {document_excerpts_string}
+        If your answer is based on a specific document excerpt, please mention the page number of the excerpt and the name of the document (e.g. book).
+        """
+        contexts += document_context
+
+    if refer_to_transcript and refer_to_documents:
+        contexts += "You can use the aformentioned transcript excerpts and document excerpts as references to your answer, although you do not need to use them if they are not relevant to the query."
+    elif refer_to_transcript:
+        contexts+=  "If the query is not related to any of the transcripts, answer the query as best as possible based on your own knowledge as an interior design expert."
+    elif refer_to_documents:
+        contexts+=  "If the query is not related to any of the documents, answer the query as best as possible based on your own knowledge as an interior design expert."
+    
+    
 
     visual_context = ""
     if image_data:
         visual_context = f"\nMoreover, the user attached an image for visual context. Please use the image as context and to help with your answer."
 
-    last_instruction="\n\nTogether with the contexts retrieved, and the visual context (if any), please respond to the query."
+    last_instruction="\n\nTogether with the contexts retrieved (if any), and the visual context (if any), please respond to the query."
     
     full_instruction = instruction + visual_context + contexts + last_instruction
 
@@ -495,17 +529,17 @@ def remove_from_backend_chatbot_messages():
 
     with open(message_history_path, "r") as message_history_file:
         session_message_history = [json.loads(line) for line in message_history_file]
-    
-    user_message = session_message_history[user_message_idx]
-    assistant_message = session_message_history[assistant_message_idx]
 
-    if("image_path" in user_message):
-        image_path = user_message["image_path"]
-        if os.path.exists(image_path):
-            os.remove(image_path)
+    # Assuming session_message_history is a list
+    if 0 <= user_message_idx < len(session_message_history) and 0 <= assistant_message_idx < len(session_message_history):
+        user_message = session_message_history[user_message_idx]
+        assistant_message = session_message_history[assistant_message_idx]
 
+        if("image_path" in user_message):
+            image_path = user_message["image_path"]
+            if os.path.exists(image_path):
+                os.remove(image_path)
 
-    if user_message_idx < len(session_message_history) and assistant_message_idx < len(session_message_history) and user_message_idx > 0 and assistant_message_idx > 0:
         session_message_history.pop(assistant_message_idx) 
         session_message_history.pop(user_message_idx)
         
@@ -514,7 +548,9 @@ def remove_from_backend_chatbot_messages():
                 message_history_file.write(json.dumps(message))
                 message_history_file.write('\n')
     else:
-        return {"message": "Messages not removed"}
+        # Handle the case where the indices are out of bounds
+        print("Error: One or both indices are out of bounds.")
+        {"message": "Messages not removed"}
     
     return {"message": "Messages removed"}
 
@@ -718,6 +754,7 @@ def save_display_chatbot_messages():
     display_chatbot_messages_path = os.path.join(user_dir, "display_chatbot_messages.jsonl")
     redis_client.hset(f'user:{user_id}', 'display_chatbot_messages_path', display_chatbot_messages_path)
 
+    # Open the file in write mode to clear its contents before writing new data
     with open(display_chatbot_messages_path, "w") as display_chatbot_messages_file:
         for message in display_chatbot_messages:
             json.dump(message, display_chatbot_messages_file)
@@ -727,7 +764,7 @@ def save_display_chatbot_messages():
 @app.route("/get_display_chatbot_messages",methods=["GET"])
 def get_display_chatbot_messages():
     user_id = request.cookies.get('user_id', None)
-    display_chatbot_messages = init_message_history
+    display_chatbot_messages = []
     if not user_id:
         return jsonify({"error": "No user ID found"}), 400
     if not redis_client.hexists(f'user:{user_id}', 'display_chatbot_messages_path'):
