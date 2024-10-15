@@ -386,6 +386,9 @@ def message_chatbot():
     max_output_tokens = form_data.get("max_output_tokens", 256)
     temperature = form_data.get("temperature", 0.0)
     model = form_data.get("model", "gpt-4o")
+    refer_to_transcript = form_data.get("refer_to_transcript", True)
+    refer_to_documents = form_data.get("refer_to_documents", True)
+
 
     image_data = form_data.get("image_data", None)
     user_id = request.cookies.get('user_id', None)
@@ -399,16 +402,6 @@ def message_chatbot():
 
     document_db = pd.read_pickle(document_db_path)
     transcript_db = pd.read_pickle(transcript_db_path)
-
-    # visual_response=None
-    # if(image_data):
-    #     visual_history = init_message_history.copy()
-    #     visual_instruction = f"""
-    #         Make a description of the image attached in 1-2 sentences. Next, with the context of the image, answer the query in 1-2 sentences.
-    #         Query: {message}
-    #     """
-    #     visual_response,_ = query(visual_instruction, model_name="gpt-4o", temp=0.0, max_output_tokens=128, message_history=visual_history, image=image_data)
-
 
     n_rows_transcript = transcript_db.shape[0]
     top_n_transcript = int(0.20*n_rows_transcript)
@@ -433,24 +426,40 @@ def message_chatbot():
     Please provide a response to the following query.
     Query: {message}"""
 
-    contexts = f"""
-    Moreover, you can use following transcript excerpts and document excerpts as references to your answer, although you do not need to use them if they are not relevant to the query.
-    Here are the top related transcript excerpts: 
-    {transcript_excerpts_string}
-    If your answer is based on a specific transcript excerpt, please mention the speaker and the timestamp of the excerpt, or the timestamp if there is no speaker mentioned.
-    
-    Here are the top related document excerpts:
-    {document_excerpts_string}
-    If your answer is based on a specific document excerpt, please mention the page number of the excerpt and the name of the document (e.g. book).
+    contexts =""
 
-    If the query is not related to any of the transcripts or documents, answer the query as best as possible based on your own knowledge as an interior design expert.
-    """
+    if refer_to_transcript:
+        transcript_context= f"""
+        You can use following transcript excerpts as references to your answer, although you do not need to use them if they are not relevant to the query.
+        Here are the top related transcript excerpts: 
+        {transcript_excerpts_string}
+        If your answer is based on a specific transcript excerpt, please mention the speaker and the timestamp of the excerpt, or the timestamp if there is no speaker mentioned.
+        """
+        contexts += transcript_context
+    
+    if refer_to_documents:
+        document_context = f"""
+        You can use following document excerpts as references to your answer, although you do not need to use them if they are not relevant to the query.
+        Here are the top related document excerpts:
+        {document_excerpts_string}
+        If your answer is based on a specific document excerpt, please mention the page number of the excerpt and the name of the document (e.g. book).
+        """
+        contexts += document_context
+
+    if refer_to_transcript and refer_to_documents:
+        contexts += "You can use the aformentioned transcript excerpts and document excerpts as references to your answer, although you do not need to use them if they are not relevant to the query."
+    elif refer_to_transcript:
+        contexts+=  "If the query is not related to any of the transcripts, answer the query as best as possible based on your own knowledge as an interior design expert."
+    elif refer_to_documents:
+        contexts+=  "If the query is not related to any of the documents, answer the query as best as possible based on your own knowledge as an interior design expert."
+    
+    
 
     visual_context = ""
     if image_data:
         visual_context = f"\nMoreover, the user attached an image for visual context. Please use the image as context and to help with your answer."
 
-    last_instruction="\n\nTogether with the contexts retrieved, and the visual context (if any), please respond to the query."
+    last_instruction="\n\nTogether with the contexts retrieved (if any), and the visual context (if any), please respond to the query."
     
     full_instruction = instruction + visual_context + contexts + last_instruction
 
