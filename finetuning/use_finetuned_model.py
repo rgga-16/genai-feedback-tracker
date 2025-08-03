@@ -22,8 +22,12 @@ def num_tokens_from_messages(messages, model):
         tokens_per_message = 3
         tokens_per_name = 1
     elif model.startswith("ft:"):
-        print("Warning: gpt-3.5-turbo may change over time. Returning num tokens assuming gpt-3.5-turbo-0301.")
-        return num_tokens_from_messages(messages, model="gpt-3.5-turbo-0301")
+        if ("gpt-4o-mini" in model) or ("gpt-4o" in model) or ("gpt-4" in model):
+            tokens_per_message = 3
+            tokens_per_name = 1
+        else:
+            print("Warning: gpt-3.5-turbo may change over time. Returning num tokens assuming gpt-3.5-turbo-0301.")
+            return num_tokens_from_messages(messages, model="gpt-3.5-turbo-0301")
     else:
         raise NotImplementedError(f"""num_tokens_from_messages() is not implemented for model {model}. See https://github.com/openai/openai-python/blob/main/chatml.md for information on how messages are converted to tokens.""")
     num_tokens = 0
@@ -63,8 +67,8 @@ def query(query, model_name, temp, max_output_tokens, message_history,role="user
         response_msg = f"Error: {e}"
     return response_msg
 
-
-finetuned_model = "ft:gpt-3.5-turbo-0125:im-lab:int-des-full:9b2qf12W"
+finetuned_model = "ft:gpt-4o-mini-2024-07-18:im-lab:the-interior-des:9p9NTD1W" #Model fine-tuned on The Interior Design Reference and Specification Book
+# finetuned_model = "ft:gpt-4o-mini-2024-07-18:im-lab:planning-and-des:9p9vtdRF" #Model fine-tuned on Planning and Designers Handbook dataset
 max_tokens=16000
 
 if __name__ == "__main__":
