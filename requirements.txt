@@ -35,6 +35,5 @@ youtokentome==1.0.6
 editdistance==0.8.1
 jiwer==3.0.4
 Flask-Session==0.8.0
-pip==25.1
 pypdf==4.3.0
 cryptography==42.0.8
